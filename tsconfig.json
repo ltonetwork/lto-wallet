@@ -16,7 +16,9 @@
       "@legalthings-one/waves": ["libs/waves/src"],
       "component-kit": ["dist/component-kit"],
       "component-kit/*": ["dist/component-kit/*"],
-      "@legalthings-one/platform": ["libs/platform/src"]
+      "@legalthings-one/platform": ["libs/platform/src"],
+      "@explorer": ["apps/explorer/src/app"],
+      "@explorer/*": ["apps/explorer/src/app/*"]
     }
   }
 }

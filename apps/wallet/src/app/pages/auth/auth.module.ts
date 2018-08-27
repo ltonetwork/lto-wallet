@@ -5,6 +5,7 @@ import { MatInputModule, MatFormFieldModule, MatSelectModule } from '@angular/ma
 import { SharedModule } from '@wallet/shared';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth.component';
+import { CreateComponent } from './create/create.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,10 @@ import { AuthComponent } from './auth.component';
             component: LoginComponent
           },
           {
+            path: 'create',
+            component: CreateComponent
+          },
+          {
             path: '',
             pathMatch: 'full',
             redirectTo: 'login'
@@ -31,6 +36,6 @@ import { AuthComponent } from './auth.component';
       }
     ])
   ],
-  declarations: [LoginComponent, AuthComponent]
+  declarations: [LoginComponent, AuthComponent, CreateComponent]
 })
 export class AuthModule {}

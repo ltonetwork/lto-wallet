@@ -1,3 +1,27 @@
-<p>
-  login works!
-</p>
+<div class="content" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card fxFlex="0 0 auto" fxFlex.xs="1 1 100%">
+    <form #form="ngForm" (submit)="logIn(form)">
+      <mat-card-title>Sign in</mat-card-title>
+      <mat-card-content>
+        <div fxLayout="column">
+          <mat-form-field appearance="standard">
+            <mat-label>Account</mat-label>
+            <mat-select name="account" required ngModel>
+              <mat-option value="1">Foo</mat-option>
+              <mat-option value="1">Bar</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="standard">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="Password" name="password" required ngModel>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions fxLayout="row">
+        <a mat-button routerLink="../register">Create account</a>
+        <span fxFlex="1 1 auto"></span>
+        <button mat-raised-button color="primary">Log in</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

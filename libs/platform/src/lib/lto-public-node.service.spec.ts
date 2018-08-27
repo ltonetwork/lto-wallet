@@ -1,11 +1,17 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LTO_PUBLIC_API } from './tokens';
 
 import { LtoPublicNodeService } from './lto-public-node.service';
 
 describe('LtoPublicNodeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [LtoPublicNodeService]
+      imports: [HttpClientTestingModule],
+      providers: [
+        LtoPublicNodeService,
+        { provide: LTO_PUBLIC_API, useValue: 'http://testltonode.test/' }
+      ]
     });
   });
 

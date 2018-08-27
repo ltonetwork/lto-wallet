@@ -1,0 +1,40 @@
+<poe-page-content [separateHeader]="true">
+  <poe-page-content-header>
+    <div class="search-container">
+      <h2 class="promo">Explore next big thing in Blockchain world</h2>
+      <div class="search-box" fxLayout="row" fxLayoutAlign="center">
+        <poe-search-box (search)="search($event)" placeholder="Transaction id, address or block"></poe-search-box>
+      </div>
+    </div>
+  </poe-page-content-header>
+  <poe-page-content-body>
+    <!-- <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="16px">
+      <mat-card fxFlex="1 1 100">
+        <mat-card-title>Graph 1</mat-card-title>
+        <mat-card-content>Something goes here</mat-card-content>
+      </mat-card>
+      <mat-card fxFlex="1 1 100">
+        <mat-card-title>Graph 2</mat-card-title>
+        <mat-card-content>Something goes here</mat-card-content>
+      </mat-card>
+    </div> -->
+    <div class="last-blocks">
+      <h3 class="mat-h3">Last blocks</h3>
+      <ng-container *ngIf="lastBlocks$ | async as blocks; else loadingTpl">
+        <div class="mat-elevation-z2 last-blocks-container">
+          <poe-blocks-list [blocks]="blocks"></poe-blocks-list>
+          <a routerLink="/blocks" class="all-blocks" fxLayout="row" fxLayoutAlign="start center">
+            <span>All blocks</span>
+            <mat-icon>arrow_forward</mat-icon>
+          </a>
+        </div>
+      </ng-container>
+    </div>
+  </poe-page-content-body>
+</poe-page-content>
+
+<ng-template #loadingTpl>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

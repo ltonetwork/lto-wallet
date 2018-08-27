@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@mixin home-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  poe-home {
+    .background {
+      background-color: mat-color($primary, 'A200');
+    }
+  }
+}

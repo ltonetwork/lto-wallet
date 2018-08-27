@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.block {
+  background: white;
+  padding: 16px;
+  border-bottom: 1px solid #ebebeb;
+  &:hover {
+    background: rgba(0, 0, 0, 0.01);
+  }
+  .general-info {
+    .block-height {
+      font-size: 28px;
+    }
+
+    .generator {
+      padding: 6px;
+      font-size: 16px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
+  .small-section {
+    text-align: center;
+    .value {
+      font-size: 28px;
+      color: rgba(0, 0, 0, 0.72);
+    }
+    .label {
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.52);
+    }
+  }
+}

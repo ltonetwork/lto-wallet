@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@mixin page-content($theme) {
+  $primary: map-get($theme, primary);
+
+  poe-page-content {
+    .page-content-header {
+      background-color: mat-color($primary, 'A200');
+    }
+  }
+}

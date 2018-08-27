@@ -1,0 +1,57 @@
+<poe-page-content>
+  <poe-page-content-header>
+    <h2 fxLayout="column">
+      <span>Transaction</span>
+      <span>{{id$ | async}}</span>
+    </h2>
+  </poe-page-content-header>
+  <poe-page-content-body>
+    <ng-container *ngIf="transaction$ | async as transaction; else loadingTpl">
+      <div fxLayout="column" fxLayoutGap="16px">
+        <mat-card>
+          <mat-card-title>Transaction info</mat-card-title>
+          <mat-card-content>
+            <ng-container>
+              <poe-keyvalue-list>
+                <poe-keyvalue-list-item label="Type">{{transaction.type}}</poe-keyvalue-list-item>
+                <poe-keyvalue-list-item label="Timestamp">{{transaction.timestamp | date: 'medium'}}</poe-keyvalue-list-item>
+                <poe-keyvalue-list-item label="Block"><a [routerLink]="['/', 'block', transaction.height]">{{transaction.height}}</a></poe-keyvalue-list-item>
+                <poe-keyvalue-list-item label="Amount" *ngIf="transaction.type == 4 || transaction.type == 8">{{transaction.amount
+                  | poe_amount}}</poe-keyvalue-list-item>
+                <poe-keyvalue-list-item label="Fee">{{transaction.fee | poe_amount}}</poe-keyvalue-list-item>
+                <poe-keyvalue-list-item label="Sender"><a [routerLink]="['/', 'address', transaction.sender]">{{transaction.sender}}</a></poe-keyvalue-list-item>
+                <poe-keyvalue-list-item label="Recipient"><a [routerLink]="['/', 'address', transaction.recipient]">{{transaction.recipient}}</a></poe-keyvalue-list-item>
+                <poe-keyvalue-list-item label="Signature">{{transaction.signature}}</poe-keyvalue-list-item>
+              </poe-keyvalue-list>
+            </ng-container>
+          </mat-card-content>
+        </mat-card>
+
+        <ng-container *ngIf="transaction.type == 4">
+          <mat-card>
+            <mat-card-title>Attachment</mat-card-title>
+            <mat-card-content>
+              <pre>{{transaction.attachment}}</pre>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+
+        <ng-container *ngIf="transaction.type == 12">
+          <mat-card>
+            <mat-card-title>Transaction data</mat-card-title>
+            <mat-card-content>
+              <pre>{{transaction.data | json}}</pre>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+      </div>
+    </ng-container>
+  </poe-page-content-body>
+</poe-page-content>
+
+
+<ng-template #loadingTpl>
+  <div class="loading" fxLayout="row" fxLayoutAlign="center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

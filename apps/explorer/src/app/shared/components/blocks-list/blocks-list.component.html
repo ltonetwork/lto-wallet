@@ -1,0 +1,27 @@
+<div class="blocks">
+  <div class="block" *ngFor="let block of blocks" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="16px" fxLayoutGap.gt-sm="0">
+    <div class="general-info" fxLayout="column" fxFlex="1 1 auto">
+      <div>
+        <a class="block-height" [routerLink]="['/', 'block', block.height]">{{block.height}}</a>
+      </div>
+      <div class="generator">
+        Generator <a [routerLink]="['/', 'address', block.generator]">{{block.generator}}</a>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutGap.gt-sm="48px" fxFlex.gt-sm="1 1 40" fxFlex="1 1 auto" fxLayoutAlign.gt-sm="end">
+      <div class="timestamp small-section" fxLayout="column" fxLayoutAlign="center" fxFlex="1 1 33" fxHide fxShow.gt-sm>
+        <div class="value" fxFlex.gr-sm="1 1 auto">{{block.timestamp | date: 'h:mm:ss'}}</div>
+        <div class="label">{{block.timestamp | date: 'shortDate'}}</div>
+      </div>
+      <div class="timestamp small-section" fxLayout="column" fxLayoutAlign="center" fxFlex="1 1 auto">
+        <div class="value">{{block.blocksize}}</div>
+        <div class="label">size</div>
+      </div>
+
+      <div class="timestamp small-section" fxLayout="column" fxLayoutAlign="center" fxFlex="1 1 auto">
+        <div class="value">{{block.transactionCount}}</div>
+        <div class="label">transactions</div>
+      </div>
+    </div>
+  </div>
+</div>

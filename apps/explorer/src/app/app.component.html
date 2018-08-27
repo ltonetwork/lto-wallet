@@ -1,0 +1,33 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <div class="sidenav-navigation">
+      <div class="brand">LTO Explorer</div>
+      <div class="links" (click)="sidenav.close()">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </a>
+        <a routerLink="/blocks" routerLinkActive="active"><mat-icon>dns</mat-icon><span>Blocks</span></a>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content fxLayout="column">
+    <mat-toolbar color="primary" class="mat-elevation-z2 appbar">
+      <mat-toolbar-row fxLayout="row">
+        <button mat-icon-button (click)="sidenav.open()"><mat-icon>menu</mat-icon></button>
+        <a routerLink="/" class="brand" fxHide fxShow.gt-xs fxLayout="row" fxLayoutAlign="start center"><img src="/assets/icon-white.png">Explorer</a>
+        <div class="section-name" *ngIf="sectionName$ | async as sectionName">
+          <span>{{sectionName}}</span>
+        </div>
+
+        <span fxFlex="1 1 auto"></span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="application-content" fxFlex="1 1 auto">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="application-footer">
+      <span><a href="https://legalthings.one/" target="_blank">Legalthings One</a></span>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

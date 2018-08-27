@@ -1,0 +1,7 @@
+@import './search-box/search-box.theme';
+@import './page-content/page-content.theme';
+
+@mixin shared-components($theme) {
+  @include search-box($theme);
+  @include page-content($theme);
+}

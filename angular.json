@@ -1,38 +1,33 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
+  "newProjectRoot": "apps",
   "projects": {
-    "legalthings-one": {
-      "root": "",
-      "sourceRoot": "src",
+    "explorer": {
+      "root": "apps/explorer/",
+      "sourceRoot": "apps/explorer/src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "lto",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/legalthings-one",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "outputPath": "dist/explorer",
+            "index": "apps/explorer/src/index.html",
+            "main": "apps/explorer/src/main.ts",
+            "polyfills": "apps/explorer/src/polyfills.ts",
+            "tsConfig": "apps/explorer/tsconfig.app.json",
+            "assets": ["apps/explorer/src/favicon.ico", "apps/explorer/src/assets"],
+            "styles": ["apps/explorer/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "apps/explorer/src/environments/environment.ts",
+                  "with": "apps/explorer/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -50,78 +45,207 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "legalthings-one:build"
+            "browserTarget": "explorer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "legalthings-one:build:production"
+              "browserTarget": "explorer:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "legalthings-one:build"
+            "browserTarget": "explorer:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.css"
-            ],
+            "main": "apps/explorer/src/test.ts",
+            "polyfills": "apps/explorer/src/polyfills.ts",
+            "tsConfig": "apps/explorer/tsconfig.spec.json",
+            "karmaConfig": "apps/explorer/karma.conf.js",
+            "styles": ["apps/explorer/src/styles.scss"],
             "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ]
+            "assets": ["apps/explorer/src/favicon.ico", "apps/explorer/src/assets"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["apps/explorer/tsconfig.app.json", "apps/explorer/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
     },
-    "legalthings-one-e2e": {
-      "root": "e2e/",
+    "explorer-e2e": {
+      "root": "apps/explorer-e2e/",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "legalthings-one:serve"
+            "protractorConfig": "apps/explorer-e2e/protractor.conf.js",
+            "devServerTarget": "explorer:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "legalthings-one:serve:production"
+              "devServerTarget": "explorer:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": "apps/explorer-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "waves": {
+      "root": "libs/waves",
+      "sourceRoot": "libs/waves/src",
+      "projectType": "library",
+      "prefix": "lto",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/waves/tsconfig.lib.json",
+            "project": "libs/waves/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "libs/waves/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/waves/src/test.ts",
+            "tsConfig": "libs/waves/tsconfig.spec.json",
+            "karmaConfig": "libs/waves/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/waves/tsconfig.lib.json", "libs/waves/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "wallet": {
+      "root": "apps/wallet/",
+      "sourceRoot": "apps/wallet/src",
+      "projectType": "application",
+      "prefix": "lto",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/wallet",
+            "index": "apps/wallet/src/index.html",
+            "main": "apps/wallet/src/main.ts",
+            "polyfills": "apps/wallet/src/polyfills.ts",
+            "tsConfig": "apps/wallet/tsconfig.app.json",
+            "assets": ["apps/wallet/src/favicon.ico", "apps/wallet/src/assets"],
+            "styles": ["apps/wallet/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/wallet/src/environments/environment.ts",
+                  "with": "apps/wallet/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "wallet:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "wallet:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "wallet:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/wallet/src/test.ts",
+            "polyfills": "apps/wallet/src/polyfills.ts",
+            "tsConfig": "apps/wallet/tsconfig.spec.json",
+            "karmaConfig": "apps/wallet/karma.conf.js",
+            "styles": ["apps/wallet/src/styles.scss"],
+            "scripts": [],
+            "assets": ["apps/wallet/src/favicon.ico", "apps/wallet/src/assets"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/wallet/tsconfig.app.json", "apps/wallet/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "wallet-e2e": {
+      "root": "apps/wallet-e2e/",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/wallet-e2e/protractor.conf.js",
+            "devServerTarget": "wallet:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "wallet:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/wallet-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
     }
   },
-  "defaultProject": "legalthings-one"
+  "defaultProject": "explorer"
 }

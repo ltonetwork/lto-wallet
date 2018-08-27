@@ -1,0 +1,47 @@
+<poe-page-content>
+  <poe-page-content-header>
+    <h2 fxLayout="column">
+      <span>Block</span>
+      <span>{{height$ | async}}</span>
+    </h2>
+  </poe-page-content-header>
+  <poe-page-content-body>
+    <div fxLayout="column" *ngIf="block$ | async as block">
+      <mat-card>
+        <mat-card-title>Block {{block.height}}</mat-card-title>
+        <mat-card-content>
+          <poe-keyvalue-list>
+            <poe-keyvalue-list-item label="Version">{{block.version}}</poe-keyvalue-list-item>
+            <poe-keyvalue-list-item label="Timestamp">{{block.timestamp | date: 'medium'}}</poe-keyvalue-list-item>
+            <poe-keyvalue-list-item label="Transactions">{{block.transactionCount}}</poe-keyvalue-list-item>
+            <poe-keyvalue-list-item label="Parent block">{{block.reference}}</poe-keyvalue-list-item>
+            <poe-keyvalue-list-item label="Generator"><a [routerLink]="['/', 'address', block.generator]">{{block.generator}}</a></poe-keyvalue-list-item>
+            <poe-keyvalue-list-item label="Signature">{{block.signature}}</poe-keyvalue-list-item>
+            <poe-keyvalue-list-item label="Size">{{block.blocksize}} bytes</poe-keyvalue-list-item>
+            <poe-keyvalue-list-item label="Base target" *ngIf="block['nxt-consensus']">{{block['nxt-consensus']['base-target']}}</poe-keyvalue-list-item>
+          </poe-keyvalue-list>
+        </mat-card-content>
+      </mat-card>
+      <!-- Transactions -->
+      <h3 class="mat-h3">Transactions</h3>
+      <ng-container *ngIf="block$ | async as block">
+        <ng-container *ngIf="block.transactions.length; else noTransactionsTpl">
+          <poe-transactions-section [transactions]="block.transactions"></poe-transactions-section>
+        </ng-container>
+      </ng-container>
+    </div>
+  </poe-page-content-body>
+
+</poe-page-content>
+
+<ng-template #loadingTpl>
+  <div class="loading" fxLayout="row" fxLayoutAlign="center center">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+</ng-template>
+
+<ng-template #noTransactionsTpl>
+  <div class="no-transactions">
+    There is no transactions in this block
+  </div>
+</ng-template>

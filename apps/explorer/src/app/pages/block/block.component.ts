@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { WavesNodeService } from '@legalthings-one/waves';
+import { LtoPublicNodeService } from '@legalthings-one/platform';
 
 import { Observable } from 'rxjs';
 import { switchMap, shareReplay, map } from 'rxjs/operators';
@@ -14,10 +14,10 @@ export class BlockComponent implements OnInit {
   height$: Observable<number>;
   block$: Observable<any>;
 
-  constructor(_activatedRote: ActivatedRoute, _waves: WavesNodeService) {
+  constructor(_activatedRote: ActivatedRoute, _publicNode: LtoPublicNodeService) {
     this.height$ = _activatedRote.params.pipe(map(params => params['height']));
     this.block$ = this.height$.pipe(
-      switchMap(height => _waves.block$(height)),
+      switchMap(height => _publicNode.block(height)),
       shareReplay(1)
     );
   }

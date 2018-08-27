@@ -1,22 +1,3 @@
-// import { BrowserModule } from '@angular/platform-browser';
-// import { NgModule } from '@angular/core';
-
-// import { AppComponent } from './app.component';
-// import { NxModule } from '@nrwl/nx';
-
-// @NgModule({
-//   declarations: [
-//     AppComponent
-//   ],
-//   imports: [
-//     BrowserModule,
-//     NxModule.forRoot()
-//   ],
-//   providers: [],
-//   bootstrap: [AppComponent]
-// })
-// export class AppModule { }
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,14 +7,14 @@ import { AppComponent } from './app.component';
 
 import { SharedModule, AMOUNT_DIVIDER } from './shared';
 import { CoreModule } from './core';
-import { WAVES_API } from '@legalthings-one/waves';
+import { LTO_PUBLIC_API } from '@legalthings-one/platform';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, SharedModule, CoreModule],
   providers: [
     {
-      provide: WAVES_API,
+      provide: LTO_PUBLIC_API,
       useValue: 'https://nodes.wavesnodes.com/'
       // useValue: 'https://testnet.legalthings.one/'
     },

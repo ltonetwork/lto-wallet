@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../../core';
-import { WavesNodeService } from '@legalthings-one/waves';
+import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { Router } from '@angular/router';
 import { ISearchValue } from '../../shared/components';
 import { Observable } from 'rxjs';
@@ -12,12 +12,12 @@ import { take, delay } from 'rxjs/operators';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  lastBlocks$: Observable<any[]> = this._node.lastBlocks$(20, true).pipe(
+  lastBlocks$: Observable<any[]> = this._node.lastBlocks(20, true).pipe(
     delay(500) // Make delay to let animations ned smoothly
   );
 
   constructor(
-    private _node: WavesNodeService,
+    private _node: LtoPublicNodeService,
     private _notification: NotificationService,
     private _router: Router
   ) {}

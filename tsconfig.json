@@ -17,7 +17,8 @@
       "component-kit/*": ["dist/component-kit/*"],
       "@legalthings-one/platform": ["libs/platform/src"],
       "@explorer": ["apps/explorer/src/app"],
-      "@explorer/*": ["apps/explorer/src/app/*"]
+      "@explorer/*": ["apps/explorer/src/app/*"],
+      "@wallet/*": ["apps/wallet/src/app/*"]
     }
   }
 }

@@ -1,0 +1,28 @@
+<div class="content" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card fxFlex="0 0 auto" fxFlex.xs="1 1 100%">
+    <form #form="ngForm" (submit)="form.valid && createAccount(form.value)">
+      <mat-card-title>Sign up</mat-card-title>
+      <mat-card-content>
+        <div fxLayout="column">
+          <mat-form-field appearance="standard">
+            <mat-label>Address</mat-label>
+            <input matInput type="text" name="address" disabled [ngModel]="randomAddres">
+          </mat-form-field>
+          <mat-form-field appearance="standard">
+            <mat-label>Account name</mat-label>
+            <input matInput type="text" name="name" ngModel>
+          </mat-form-field>
+          <mat-form-field appearance="standard">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="Password" name="password" required ngModel>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions fxLayout="row">
+        <a mat-button routerLink="../login">Sign in</a>
+        <span fxFlex="1 1 auto"></span>
+        <button mat-raised-button color="primary">Create</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

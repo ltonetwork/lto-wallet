@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TransactionTableModule } from '../transactions-table';
+import { DataTableCardModule } from '../data-table-card';
 import { TransactionsSectionComponent } from './transactions-section.component';
 
 describe('TransactionsSectionComponent', () => {
@@ -8,14 +9,15 @@ describe('TransactionsSectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TransactionsSectionComponent ]
-    })
-    .compileComponents();
+      imports: [TransactionTableModule, DataTableCardModule],
+      declarations: [TransactionsSectionComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TransactionsSectionComponent);
     component = fixture.componentInstance;
+    component.transactions = [];
     fixture.detectChanges();
   });
 

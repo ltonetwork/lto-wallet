@@ -10,6 +10,7 @@ import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 
 import { BlockComponent } from './block.component';
+import { of } from 'rxjs';
 
 describe('BlockComponent', () => {
   let component: BlockComponent;
@@ -17,7 +18,9 @@ describe('BlockComponent', () => {
   let publicNodeMock: Partial<LtoPublicNodeService>;
 
   beforeEach(async(() => {
-    publicNodeMock = {};
+    publicNodeMock = {
+      block: () => of({})
+    };
 
     TestBed.configureTestingModule({
       imports: [

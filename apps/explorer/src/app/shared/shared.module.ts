@@ -12,7 +12,8 @@ import {
   MatTableModule,
   MatGridListModule,
   MatSidenavModule,
-  MatTabsModule
+  MatTabsModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import {
@@ -42,6 +43,7 @@ import { AmountPipeModule } from './pipes';
     MatGridListModule,
     MatSidenavModule,
     MatTabsModule,
+    MatSnackBarModule,
     // Custom components
     SearchBoxModule,
     BlocksListModule,

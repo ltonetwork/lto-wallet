@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Account } from 'lto-api';
+import { AccountManagementService } from '@wallet/core';
+import { Observable } from 'rxjs';
+import { LtoPublicNodeService } from '@legalthings-one/platform';
 
 @Component({
   selector: 'lto-wallet',
@@ -6,11 +10,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wallet.component.scss']
 })
 export class WalletComponent implements OnInit {
-  constructor() {}
+  wallet$: Observable<Account | null>;
+
+  constructor(
+    private _accountManager: AccountManagementService,
+    private _publicNode: LtoPublicNodeService
+  ) {
+    this.wallet$ = _accountManager.wallet$;
+  }
 
   ngOnInit() {}
 }
-
-/**
- *
- */

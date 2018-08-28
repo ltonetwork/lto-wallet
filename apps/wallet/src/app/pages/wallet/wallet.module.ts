@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from '@wallet/shared';
+import { PageContentModule } from '@legalthings-one/component-kit';
+import { MatToolbarModule } from '@angular/material';
 import { WalletComponent } from './wallet.component';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
+    PageContentModule,
+    MatToolbarModule,
     RouterModule.forChild([
       {
         path: '',

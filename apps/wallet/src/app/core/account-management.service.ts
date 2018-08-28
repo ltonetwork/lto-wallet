@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { LTO, Account } from 'lto-api';
 import { LTO_NETWORK_BYTE } from '@wallet/tokens';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { shareReplay, take, tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 
 export interface IUserAccount {
   name: string;

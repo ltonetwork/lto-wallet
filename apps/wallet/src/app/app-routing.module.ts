@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: './pages/wallet/wallet.module#WalletModule'
   }
   // {

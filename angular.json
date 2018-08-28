@@ -7,7 +7,7 @@
       "root": "apps/explorer/",
       "sourceRoot": "apps/explorer/src",
       "projectType": "application",
-      "prefix": "lto",
+      "prefix": "lto-explorer",
       "schematics": {},
       "architect": {
         "build": {
@@ -109,7 +109,7 @@
       "root": "apps/wallet/",
       "sourceRoot": "apps/wallet/src",
       "projectType": "application",
-      "prefix": "lto",
+      "prefix": "lto-wallet",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss"

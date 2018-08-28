@@ -6,6 +6,7 @@ import { SharedModule } from '@wallet/shared';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth.component';
 import { CreateComponent } from './create/create.component';
+import { RestoreComponent } from './restore/restore.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,10 @@ import { CreateComponent } from './create/create.component';
             component: CreateComponent
           },
           {
+            path: 'restore',
+            component: RestoreComponent
+          },
+          {
             path: '',
             pathMatch: 'full',
             redirectTo: 'login'
@@ -36,6 +41,6 @@ import { CreateComponent } from './create/create.component';
       }
     ])
   ],
-  declarations: [LoginComponent, AuthComponent, CreateComponent]
+  declarations: [LoginComponent, AuthComponent, CreateComponent, RestoreComponent]
 })
 export class AuthModule {}

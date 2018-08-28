@@ -1,5 +1,7 @@
-<mat-toolbar color="primary" class="mat-elevation-z2 appbar">
+<mat-toolbar color="primary" class="mat-elevation-z2 appbar" fxLayout="row">
   <div class="brand">LTO Wallet</div>
+  <span fxFlex="1 1 auto"></span>
+  <button mat-button>New transaction</button>
 </mat-toolbar>
 <lto-page-content>
   <lto-page-content-header>
@@ -9,25 +11,35 @@
     <mat-card>
       <mat-card-title>Balance</mat-card-title>
       <mat-card-content>
-        <div class="balance-box">
+        <div class="balance-box" *ngIf="balance$ | async as balance">
           <div class="balance">
             <div class="label">Regular</div>
-            <div class="value">123</div>
+            <div class="value">{{balance.regular | lto_amount}}</div>
           </div>
           <div class="balance">
             <div class="label">Generating</div>
-            <div class="value">123</div>
+            <div class="value">{{balance.generating | lto_amount}}</div>
           </div>
           <div class="balance">
             <div class="label">Available</div>
-            <div class="value">123</div>
+            <div class="value">{{balance.available | lto_amount}}</div>
           </div>
           <div class="balance">
             <div class="label">Effective</div>
-            <div class="value">123</div>
+            <div class="value">{{balance.effective | lto_amount}}</div>
           </div>
         </div>
       </mat-card-content>
     </mat-card>
+    <h3 class="mat-h3">Last 100 transactions</h3>
+    <ng-container *ngIf="transactions$ | async as transactions; else loadingTpl">
+      <lto-transactions-section [transactions]="transactions"></lto-transactions-section>
+    </ng-container>
   </lto-page-content-body>
 </lto-page-content>
+
+<ng-template #loadingTpl>
+  <div class="loading" fxLayout="row" fxLayoutAlign="center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

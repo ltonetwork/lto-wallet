@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@wallet/shared';
-import { PageContentModule } from '@legalthings-one/component-kit';
+import {
+  PageContentModule,
+  AmountPipeModule,
+  TransactionsSectionModule
+} from '@legalthings-one/component-kit';
+
 import { MatToolbarModule } from '@angular/material';
 import { WalletComponent } from './wallet.component';
 
@@ -9,7 +14,9 @@ import { WalletComponent } from './wallet.component';
   imports: [
     SharedModule,
     PageContentModule,
+    AmountPipeModule,
     MatToolbarModule,
+    TransactionsSectionModule,
     RouterModule.forChild([
       {
         path: '',

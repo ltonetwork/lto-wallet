@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { PageContentModule, BlocksListModule, SearchBoxModule } from '@explorer/shared';
 import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
-import { NotificationService } from '@explorer/core';
+import { NotificationService } from '@legalthings-one/component-kit';
 import { of } from 'rxjs';
 
 import { HomeComponent } from './home.component';

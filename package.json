@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test explorer --watch=false; ng test wallet --watch=false; ng test platform --watch=false",
+    "test": "./all-tests.bash",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

@@ -6,8 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { SharedModule, AMOUNT_DIVIDER } from './shared';
+import { SharedModule } from './shared';
 import { LTO_PUBLIC_API } from '@legalthings-one/platform';
+import { AMOUNT_DIVIDER } from '@legalthings-one/component-kit';
 
 @NgModule({
   declarations: [AppComponent],

@@ -1,38 +1,38 @@
-<poe-page-content>
-  <poe-page-content-header>
+<lto-page-content>
+  <lto-page-content-header>
     <h2 fxLayout="column"><span>Address</span><span>{{id$ | async}}</span></h2>
-  </poe-page-content-header>
-  <poe-page-content-body>
+  </lto-page-content-header>
+  <lto-page-content-body>
     <mat-card>
       <mat-card-title>Address balance</mat-card-title>
       <mat-card-content>
         <div class="balance-box" *ngIf="balance$ | async as balance">
           <div class="balance">
             <div class="label">Regular</div>
-            <div class="value">{{balance.regular | poe_amount}}</div>
+            <div class="value">{{balance.regular | lto_amount}}</div>
           </div>
           <div class="balance">
             <div class="label">Generating</div>
-            <div class="value">{{balance.generating | poe_amount}}</div>
+            <div class="value">{{balance.generating | lto_amount}}</div>
           </div>
           <div class="balance">
             <div class="label">Available</div>
-            <div class="value">{{balance.available | poe_amount}}</div>
+            <div class="value">{{balance.available | lto_amount}}</div>
           </div>
           <div class="balance">
             <div class="label">Effective</div>
-            <div class="value">{{balance.effective | poe_amount}}</div>
+            <div class="value">{{balance.effective | lto_amount}}</div>
           </div>
         </div>
       </mat-card-content>
     </mat-card>
     <h3 class="mat-h3">Last 100 transactions</h3>
     <ng-container *ngIf="transactions$ | async as transactions; else loadingTpl">
-      <poe-transactions-section [transactions]="transactions"></poe-transactions-section>
+      <lto-transactions-section [transactions]="transactions"></lto-transactions-section>
     </ng-container>
-  </poe-page-content-body>
+  </lto-page-content-body>
 
-</poe-page-content>
+</lto-page-content>
 
 <ng-template #loadingTpl>
   <div class="loading" fxLayout="row" fxLayoutAlign="center">

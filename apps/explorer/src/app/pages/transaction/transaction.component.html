@@ -1,11 +1,11 @@
-<poe-page-content>
-  <poe-page-content-header>
+<lto-page-content>
+  <lto-page-content-header>
     <h2 fxLayout="column">
       <span>Transaction</span>
       <span>{{id$ | async}}</span>
     </h2>
-  </poe-page-content-header>
-  <poe-page-content-body>
+  </lto-page-content-header>
+  <lto-page-content-body>
     <ng-container *ngIf="transaction$ | async as transaction; else loadingTpl">
       <div fxLayout="column" fxLayoutGap="16px">
         <mat-card>
@@ -17,8 +17,8 @@
                 <poe-keyvalue-list-item label="Timestamp">{{transaction.timestamp | date: 'medium'}}</poe-keyvalue-list-item>
                 <poe-keyvalue-list-item label="Block"><a [routerLink]="['/', 'block', transaction.height]">{{transaction.height}}</a></poe-keyvalue-list-item>
                 <poe-keyvalue-list-item label="Amount" *ngIf="transaction.type == 4 || transaction.type == 8">{{transaction.amount
-                  | poe_amount}}</poe-keyvalue-list-item>
-                <poe-keyvalue-list-item label="Fee">{{transaction.fee | poe_amount}}</poe-keyvalue-list-item>
+                  | lto_amount}}</poe-keyvalue-list-item>
+                <poe-keyvalue-list-item label="Fee">{{transaction.fee | lto_amount}}</poe-keyvalue-list-item>
                 <poe-keyvalue-list-item label="Sender"><a [routerLink]="['/', 'address', transaction.sender]">{{transaction.sender}}</a></poe-keyvalue-list-item>
                 <poe-keyvalue-list-item label="Recipient"><a [routerLink]="['/', 'address', transaction.recipient]">{{transaction.recipient}}</a></poe-keyvalue-list-item>
                 <poe-keyvalue-list-item label="Signature">{{transaction.signature}}</poe-keyvalue-list-item>
@@ -46,8 +46,8 @@
         </ng-container>
       </div>
     </ng-container>
-  </poe-page-content-body>
-</poe-page-content>
+  </lto-page-content-body>
+</lto-page-content>
 
 
 <ng-template #loadingTpl>

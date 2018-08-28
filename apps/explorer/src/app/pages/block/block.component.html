@@ -1,11 +1,11 @@
-<poe-page-content>
-  <poe-page-content-header>
+<lto-page-content>
+  <lto-page-content-header>
     <h2 fxLayout="column">
       <span>Block</span>
       <span>{{height$ | async}}</span>
     </h2>
-  </poe-page-content-header>
-  <poe-page-content-body>
+  </lto-page-content-header>
+  <lto-page-content-body>
     <div fxLayout="column" *ngIf="block$ | async as block">
       <mat-card>
         <mat-card-title>Block {{block.height}}</mat-card-title>
@@ -26,13 +26,13 @@
       <h3 class="mat-h3">Transactions</h3>
       <ng-container *ngIf="block$ | async as block">
         <ng-container *ngIf="block.transactions && block.transactions.length; else noTransactionsTpl">
-          <poe-transactions-section [transactions]="block.transactions"></poe-transactions-section>
+          <lto-transactions-section [transactions]="block.transactions"></lto-transactions-section>
         </ng-container>
       </ng-container>
     </div>
-  </poe-page-content-body>
+  </lto-page-content-body>
 
-</poe-page-content>
+</lto-page-content>
 
 <ng-template #loadingTpl>
   <div class="loading" fxLayout="row" fxLayoutAlign="center center">

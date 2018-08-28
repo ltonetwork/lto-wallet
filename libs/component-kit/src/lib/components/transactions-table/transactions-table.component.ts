@@ -45,7 +45,7 @@ export class TransactionsTableComponent implements OnInit {
       console.warn(
         'Unsoported transaction type (' +
           this.transactionsType +
-          ')! <poe-transactions-table> supports only ' +
+          ')! <lto-transactions-table> supports only ' +
           supportedTypes
       );
     }

@@ -1,17 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { AccountManagementService, IUserAccount } from '@wallet/core';
 
 @Component({
   selector: 'lto-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  constructor() {}
+export class LoginComponent {
+  accounts$: Observable<IUserAccount[]>;
 
-  ngOnInit() {}
+  loginForm: FormGroup;
 
-  logIn(formValue: { name: string; password: string }) {
-    console.log('Login ', formValue);
+  constructor(private _accountManagement: AccountManagementService, private _router: Router) {
+    this.accounts$ = _accountManagement.awailableAccounts$;
+
+    this.loginForm = new FormGroup({
+      account: new FormControl(null, [Validators.required]),
+      password: new FormControl('', [Validators.required])
+    });
+  }
+
+  async login() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    try {
+      const { account, password } = this.loginForm.value;
+      await this._accountManagement.login(account, password);
+      this._router.navigate(['/']);
+    } catch (error) {
+      this.loginForm.controls['password'].setErrors({
+        wrong: true
+      });
+    }
   }
 }

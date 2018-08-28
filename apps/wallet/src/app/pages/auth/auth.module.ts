@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { SharedModule } from '@wallet/shared';
 import { LoginComponent } from './login/login.component';
@@ -10,7 +10,7 @@ import { CreateComponent } from './create/create.component';
 @NgModule({
   imports: [
     SharedModule,
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,

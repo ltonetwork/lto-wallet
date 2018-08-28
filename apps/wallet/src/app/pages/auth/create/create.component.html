@@ -1,20 +1,20 @@
 <div class="content" fxLayout="column" fxLayoutAlign="center center">
   <mat-card fxFlex="0 0 auto" fxFlex.xs="1 1 100%">
-    <form #form="ngForm" (submit)="form.valid && createAccount(form.value)">
+    <form (submit)="createAccount()" [formGroup]="createForm">
       <mat-card-title>Sign up</mat-card-title>
       <mat-card-content>
         <div fxLayout="column">
           <mat-form-field appearance="standard">
             <mat-label>Address</mat-label>
-            <input matInput type="text" name="address" disabled [ngModel]="randomAddres">
+            <input matInput type="text" formControlName="address" name="address">
           </mat-form-field>
           <mat-form-field appearance="standard">
             <mat-label>Account name</mat-label>
-            <input matInput type="text" name="name" ngModel>
+            <input matInput type="text" formControlName="name" name="name">
           </mat-form-field>
           <mat-form-field appearance="standard">
             <mat-label>Password</mat-label>
-            <input matInput type="password" placeholder="Password" name="password" required ngModel>
+            <input matInput type="password" placeholder="Password" required formControlName="password" name="password">
           </mat-form-field>
         </div>
       </mat-card-content>

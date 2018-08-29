@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { PageContentModule, BlocksListModule } from '@explorer/shared';
+import { BlocksListModule } from '@explorer/shared';
+import { PageContentModule } from '@legalthings-one/component-kit';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { of } from 'rxjs';

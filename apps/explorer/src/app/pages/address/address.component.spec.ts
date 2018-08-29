@@ -5,7 +5,7 @@ import {
   AmountPipeModule,
   TransactionsSectionModule,
   AMOUNT_DIVIDER
-} from '@explorer/shared';
+} from '@legalthings-one/component-kit';
 import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { AddressComponent } from './address.component';

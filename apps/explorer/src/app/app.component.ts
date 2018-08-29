@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { filter, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'legalthings-one-explorer-root',
@@ -6,5 +9,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'explorer';
+  sectionName$: Observable<string>;
+
+  constructor(_router: Router, _route: ActivatedRoute) {
+    this.sectionName$ = _router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      distinctUntilChanged(),
+      switchMap(event => {
+        let route = _route;
+        while (route.firstChild) {
+          route = route.firstChild;
+        }
+        return route.data;
+      }),
+      map(routeData => {
+        return routeData['sectionName'] || '';
+      })
+    );
+  }
 }

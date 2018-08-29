@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './core';
 
 const routes: Routes = [
   {
@@ -9,6 +10,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
+    // canActivate: [AuthGuard],
     loadChildren: './pages/wallet/wallet.module#WalletModule'
   }
   // {

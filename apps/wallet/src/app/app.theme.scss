@@ -47,4 +47,18 @@ $main-color: A200;
   .mat-raised-button {
     border-radius: 4px !important;
   }
+
+  lto-page-content {
+    .page-content-header {
+      background-color: mat-color($app-primary, 'A200') !important;
+      color: mat-color($app-primary, 'A200-contrast') !important;
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 400;
+      }
+    }
+  }
 }

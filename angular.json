@@ -7,7 +7,7 @@
       "root": "apps/explorer/",
       "sourceRoot": "apps/explorer/src",
       "projectType": "application",
-      "prefix": "lto",
+      "prefix": "lto-explorer",
       "schematics": {},
       "architect": {
         "build": {
@@ -105,46 +105,11 @@
         }
       }
     },
-    "waves": {
-      "root": "libs/waves",
-      "sourceRoot": "libs/waves/src",
-      "projectType": "library",
-      "prefix": "lto",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "libs/waves/tsconfig.lib.json",
-            "project": "libs/waves/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "libs/waves/ng-package.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "libs/waves/src/test.ts",
-            "tsConfig": "libs/waves/tsconfig.spec.json",
-            "karmaConfig": "libs/waves/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/waves/tsconfig.lib.json", "libs/waves/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        }
-      }
-    },
     "wallet": {
       "root": "apps/wallet/",
       "sourceRoot": "apps/wallet/src",
       "projectType": "application",
-      "prefix": "lto",
+      "prefix": "lto-wallet",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss"
@@ -250,7 +215,7 @@
       "root": "libs/component-kit",
       "sourceRoot": "libs/component-kit/src",
       "projectType": "library",
-      "prefix": "lib",
+      "prefix": "lto",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

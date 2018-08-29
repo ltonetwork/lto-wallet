@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from '../../core';
+import { NotificationService } from '@legalthings-one/component-kit';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { Router } from '@angular/router';
 import { ISearchValue } from '../../shared/components';

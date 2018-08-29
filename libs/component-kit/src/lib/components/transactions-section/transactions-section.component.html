@@ -1,0 +1,7 @@
+<ng-container>
+  <div fxLayout="column" fxLayoutGap="16px">
+    <lto-data-table-card *ngFor="let item of groupedTransactions | keyvalue" [title]="transactionLabel(item.key)">
+      <lto-transactions-table data-table-card-content [transactionsType]="item.key" [transactions]="item.value"></lto-transactions-table>
+    </lto-data-table-card>
+  </div>
+</ng-container>

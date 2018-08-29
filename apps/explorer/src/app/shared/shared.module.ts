@@ -12,20 +12,19 @@ import {
   MatTableModule,
   MatGridListModule,
   MatSidenavModule,
-  MatTabsModule
+  MatTabsModule,
+  MatSnackBarModule
 } from '@angular/material';
 
+import { SearchBoxModule, BlocksListModule, KeyvalueListModule } from './components';
+
 import {
-  SearchBoxModule,
-  BlocksListModule,
   DataTableCardModule,
   PageContentModule,
-  KeyvalueListModule,
+  TransactionsSectionModule,
   TransactionTableModule,
-  TransactionsSectionModule
-} from './components';
-
-import { AmountPipeModule } from './pipes';
+  AmountPipeModule
+} from '@legalthings-one/component-kit';
 
 @NgModule({
   exports: [
@@ -42,6 +41,7 @@ import { AmountPipeModule } from './pipes';
     MatGridListModule,
     MatSidenavModule,
     MatTabsModule,
+    MatSnackBarModule,
     // Custom components
     SearchBoxModule,
     BlocksListModule,

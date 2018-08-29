@@ -1,0 +1,10 @@
+<div class="page-content">
+  <div class="page-content-header" [ngClass]="{'separated': separateHeader }">
+    <div class="page-content-header-content">
+      <ng-content select="lto-page-content-header"></ng-content>
+    </div>
+  </div>
+  <div class="page-content-body">
+    <ng-content select="lto-page-content-body"></ng-content>
+  </div>
+</div>

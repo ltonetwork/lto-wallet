@@ -1,3 +1,29 @@
-<p>
-  restore works!
-</p>
+<div class="content" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card fxFlex="0 0 auto" fxFlex.xs="1 1 100%">
+    <form (submit)="restoreAccount()" [formGroup]="restoreForm">
+      <mat-card-title>Restore wallet</mat-card-title>
+      <mat-card-content>
+        <div fxLayout="column">
+          <mat-form-field appearance="standard" class="seed-field">
+            <mat-label>Your wallet seed</mat-label>
+            <textarea matInput formControlName="seed" required></textarea>
+            <mat-hint>Your seed is the 15 words you saved when creating your account</mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="standard">
+            <mat-label>Account name</mat-label>
+            <input matInput type="text" formControlName="name" name="name" required>
+          </mat-form-field>
+          <mat-form-field appearance="standard">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="Password" required formControlName="password" name="password">
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions fxLayout="row">
+        <a mat-button routerLink="../login">Sign in</a>
+        <span fxFlex="1 1 auto"></span>
+        <button mat-raised-button color="primary">Restore</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

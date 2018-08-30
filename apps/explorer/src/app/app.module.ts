@@ -22,8 +22,8 @@ import { AMOUNT_DIVIDER } from '@legalthings-one/component-kit';
   providers: [
     {
       provide: LTO_PUBLIC_API,
-      useValue: 'https://nodes.wavesnodes.com/'
-      // useValue: 'https://testnet.legalthings.one/'
+      // useValue: 'https://nodes.wavesnodes.com/'
+      useValue: 'https://testnet.legalthings.one/'
     },
     {
       provide: AMOUNT_DIVIDER,

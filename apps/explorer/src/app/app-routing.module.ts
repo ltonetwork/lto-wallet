@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'address',
-    loadChildren: './pages/address/address.module#AddressModule'
+    loadChildren: './pages/address/address-routing.module#AddressRoutingModule'
   }
 ];
 

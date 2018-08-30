@@ -19,8 +19,8 @@ import { AppComponent } from './app.component';
     },
     {
       provide: LTO_PUBLIC_API,
-      useValue: 'https://nodes.wavesnodes.com/'
-      // useValue: 'https://testnet.legalthings.one/'
+      // useValue: 'https://nodes.wavesnodes.com/'
+      useValue: 'https://testnet.legalthings.one/'
     },
     {
       provide: AMOUNT_DIVIDER,

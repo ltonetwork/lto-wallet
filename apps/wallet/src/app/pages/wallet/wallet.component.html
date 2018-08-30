@@ -3,6 +3,12 @@
   <span fxFlex="1 1 auto"></span>
   <button mat-button>New transaction</button>
 </mat-toolbar>
+<router-outlet></router-outlet>
+<!-- <mat-toolbar color="primary" class="mat-elevation-z2 appbar" fxLayout="row">
+  <div class="brand">LTO Wallet</div>
+  <span fxFlex="1 1 auto"></span>
+  <button mat-button>New transaction</button>
+</mat-toolbar>
 <lto-page-content>
   <lto-page-content-header>
     <h2 fxLayout="column">Wallet</h2>
@@ -33,7 +39,9 @@
     </mat-card>
     <h3 class="mat-h3">Last 100 transactions</h3>
     <ng-container *ngIf="transactions$ | async as transactions; else loadingTpl">
-      <lto-transactions-section [transactions]="transactions"></lto-transactions-section>
+      <ng-container *ngIf="transactions.length; else noTransactions">
+        <lto-transactions-section [transactions]="transactions"></lto-transactions-section>
+      </ng-container>
     </ng-container>
   </lto-page-content-body>
 </lto-page-content>
@@ -43,3 +51,7 @@
     <mat-spinner></mat-spinner>
   </div>
 </ng-template>
+
+<ng-template #noTransactions>
+  <div>You have not transactions yet</div>
+</ng-template> -->

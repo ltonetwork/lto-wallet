@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { LTO, Account } from 'lto-api';
 import { LTO_NETWORK_BYTE } from '@wallet/tokens';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { take, tap, switchMap } from 'rxjs/operators';
 
 export interface IUserAccount {
   name: string;
@@ -42,20 +42,22 @@ export class AccountManagementService {
     this.awailableAccounts$.subscribe(accounts => this._saveAccounts(accounts));
   }
 
-  async login(userAccount: IUserAccount, password: string): Promise<any> {
+  async login(userAccount: IUserAccount, password: string): Promise<string> {
     const seed = this._ltoInstance.decryptSeedPhrase(userAccount.encryptedSeed, password);
     const wallet = this._ltoInstance.createAccountFromExistingPhrase(seed);
 
     this._account$.next(userAccount);
     this._wallet$.next(wallet);
+
+    return wallet.address;
   }
 
-  createAccount(name: string, password: string, wallet: Account): Promise<any> {
+  createAccount(name: string, password: string, wallet: Account): Promise<string> {
     // Add new created account into awailable accounts
     return this.awailableAccounts$
       .pipe(
         take(1),
-        tap(accounts => {
+        switchMap(accounts => {
           const encryptedSeed = wallet.encryptSeed(password);
           const newAccount = {
             name,
@@ -63,7 +65,7 @@ export class AccountManagementService {
           };
           this._awailableAccounts$.next([...accounts, newAccount]);
 
-          this.login(newAccount, password);
+          return this.login(newAccount, password);
         })
       )
       .toPromise();

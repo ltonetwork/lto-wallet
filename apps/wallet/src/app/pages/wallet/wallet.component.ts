@@ -3,7 +3,7 @@ import { Account } from 'lto-api';
 import { AccountManagementService } from '@wallet/core';
 import { Observable } from 'rxjs';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
-import { shareReplay, map } from 'rxjs/operators';
+import { shareReplay, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'lto-wallet',
@@ -20,16 +20,17 @@ export class WalletComponent implements OnInit {
     private _publicNode: LtoPublicNodeService
   ) {
     this.wallet$ = _accountManager.wallet$;
-    this.balance$ = _publicNode
-      .balanceOf('3PJe617nX3CuWWpWES6TBdSfZm1wkkBzwhX')
-      .pipe(shareReplay(1));
+    const address$ = this.wallet$.pipe<string>(map((wallet: Account) => wallet.address));
+    this.balance$ = address$.pipe(
+      switchMap(address => _publicNode.balanceOf(address)),
+      shareReplay(1)
+    );
 
-    this.transactions$ = _publicNode
-      .transactionsOf('3PJe617nX3CuWWpWES6TBdSfZm1wkkBzwhX', 100)
-      .pipe(
-        map(result => result[0]), // For a some reason result is array of one element
-        shareReplay(1)
-      );
+    this.transactions$ = address$.pipe(
+      switchMap(address => _publicNode.transactionsOf(address, 100)),
+      map(result => result[0]), // For a some reason result is array of one element
+      shareReplay(1)
+    );
   }
 
   ngOnInit() {}

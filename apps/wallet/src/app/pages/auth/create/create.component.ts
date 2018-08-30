@@ -11,9 +11,6 @@ import { Account } from 'lto-api';
 })
 export class CreateComponent {
   wallet: Account;
-  get address(): string {
-    return 'TODO: Take address from lto-api/Account.';
-  }
 
   createForm: FormGroup;
 
@@ -22,7 +19,7 @@ export class CreateComponent {
 
     this.createForm = new FormGroup({
       address: new FormControl({
-        value: 'TODO: Take address from lto-api/Account.',
+        value: this.wallet.address,
         disabled: true
       }),
       name: new FormControl('', [Validators.required]),

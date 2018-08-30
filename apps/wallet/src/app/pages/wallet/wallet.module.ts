@@ -10,6 +10,8 @@ import {
 import { MatToolbarModule } from '@angular/material';
 import { WalletComponent } from './wallet.component';
 
+import { AddressComponent, AddressModule } from '@explorer/pages/address';
+
 @NgModule({
   imports: [
     SharedModule,
@@ -17,10 +19,17 @@ import { WalletComponent } from './wallet.component';
     AmountPipeModule,
     MatToolbarModule,
     TransactionsSectionModule,
+    AddressModule,
     RouterModule.forChild([
       {
         path: '',
-        component: WalletComponent
+        component: WalletComponent,
+        children: [
+          {
+            path: ':id',
+            component: AddressComponent
+          }
+        ]
       }
     ])
   ],

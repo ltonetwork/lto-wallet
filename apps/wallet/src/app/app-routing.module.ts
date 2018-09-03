@@ -8,19 +8,9 @@ const routes: Routes = [
     loadChildren: './pages/auth/auth.module#AuthModule'
   },
   {
-    path: 'address',
-    outlet: 'public',
-    loadChildren: './pages/public-outlet/public-outlet.module#PublicOutletModule'
-  },
-  {
-    path: 'transaction',
-    outlet: 'public',
-    loadChildren: './pages/public-outlet/public-outlet.module#PublicOutletModule'
-  },
-  {
     path: '',
     canActivate: [AuthGuard],
-    loadChildren: './pages/wallet/wallet.module#WalletModule'
+    loadChildren: './pages/private/private.module#PrivateModule'
   }
   // {
   //   path: 'blocks',

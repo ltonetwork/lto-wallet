@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PublicOutletComponent } from './public-outlet.component';
+import { PrivateComponent } from './private.component';
 
-describe('PublicOutletComponent', () => {
-  let component: PublicOutletComponent;
-  let fixture: ComponentFixture<PublicOutletComponent>;
+describe('PrivateComponent', () => {
+  let component: PrivateComponent;
+  let fixture: ComponentFixture<PrivateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PublicOutletComponent ]
+      declarations: [ PrivateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PublicOutletComponent);
+    fixture = TestBed.createComponent(PrivateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

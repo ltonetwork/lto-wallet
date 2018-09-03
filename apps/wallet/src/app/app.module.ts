@@ -23,10 +23,6 @@ import { AppComponent } from './app.component';
       useValue: 'https://testnet.legalthings.one/'
     },
     {
-      provide: LINKS_OUTLET_NAME,
-      useValue: 'public'
-    },
-    {
       provide: AMOUNT_DIVIDER,
       useValue: 100000000
     }

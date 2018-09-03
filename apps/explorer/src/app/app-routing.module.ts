@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'transaction',
-    loadChildren: './pages/transaction/transaction.module#TransactionModule'
+    loadChildren: './pages/transaction/transaction-routing.module#TransactionRoutingModule'
   },
   {
     path: 'address',

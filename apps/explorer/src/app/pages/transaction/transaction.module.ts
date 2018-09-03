@@ -1,21 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared';
+import { RouterModule } from '@angular/router';
 import { TransactionComponent } from './transaction.component';
 
 @NgModule({
-  imports: [
-    SharedModule,
-    RouterModule.forChild([
-      {
-        path: ':id',
-        component: TransactionComponent,
-        data: {
-          sectionName: 'Transaction details'
-        }
-      }
-    ])
-  ],
+  imports: [SharedModule, RouterModule.forChild([])],
   declarations: [TransactionComponent]
 })
 export class TransactionModule {}

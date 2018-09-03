@@ -19,14 +19,6 @@ $main-color: A200;
   // @include shared-components($app-theme);
   // @include pages-theme($app-theme);
 
-  .appbar {
-    background-color: mat-color($app-primary, $main-color) !important;
-
-    .brand {
-      color: mat-color($app-primary, $main-color + '-contrast');
-    }
-  }
-
   a {
     text-decoration: none;
     color: mat-color($app-primary, 700);

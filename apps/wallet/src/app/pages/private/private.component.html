@@ -1,5 +1,10 @@
-<mat-toolbar color="primary" class="mat-elevation-z2 appbar" fxLayout="row">
+<mat-toolbar class="mat-elevation-z2 appbar" fxLayout="row">
   <div class="brand">LTO Wallet</div>
+  <div class="sections" fxLayout="row">
+    <a routerLink="/portfolio" routerLinkActive="active">Portfolio</a>
+    <a routerLink="/transactions" routerLinkActive="active">Transactions</a>
+    <a routerLink="/leasing" routerLinkActive="active">Leasing</a>
+  </div>
   <span fxFlex="1 1 auto"></span>
   <button mat-button>New transaction</button>
 </mat-toolbar>

@@ -15,16 +15,20 @@ import { PrivateComponent } from './private.component';
         component: PrivateComponent,
         children: [
           {
-            path: 'transaction',
-            loadChildren: './transaction/transaction.module#TransactionModule'
+            path: 'portfolio',
+            loadChildren: './portfolio-page/portfolio-page.module#PortfolioPageModule'
           },
           {
-            path: 'address',
-            loadChildren: './address/address.module#AddressModule'
+            path: 'transactions',
+            loadChildren: './transactions/transactions.module#TransactionsModule'
+          },
+          {
+            path: 'leasing',
+            loadChildren: './leasing/leasing.module#LeasingModule'
           },
           {
             path: '',
-            loadChildren: './address/address.module#AddressModule'
+            redirectTo: 'portfolio'
           }
         ]
       }

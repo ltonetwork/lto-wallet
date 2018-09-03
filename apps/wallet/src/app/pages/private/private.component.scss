@@ -15,6 +15,22 @@ $break-small: 640px;
   left: 0;
   right: 0;
   z-index: 10;
+  background: white !important;
+
+  .sections {
+    margin-left: 32px;
+    a {
+      font-weight: 400;
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.52);
+      display: block;
+      margin: 14px;
+
+      &.active {
+        color: rgba(0, 0, 0, 0.82);
+      }
+    }
+  }
 }
 
 h2 {

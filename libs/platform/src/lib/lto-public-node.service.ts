@@ -35,7 +35,8 @@ export class LtoPublicNodeService {
   }
 
   headerSequence(height: number, count: number): Observable<any[]> {
-    const from = height - count + 1; // Exclude last one
+    let from = height - count + 1; // Exclude last one
+    from = from < 0 ? 0 : from; // Prevent height less than zero
     return this._http
       .get<any[]>(this._publicApi + 'blocks/headers/seq/' + from + '/' + height)
       .pipe(map(blocks => blocks.reverse()));

@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: './pages/private/private.module#PrivateModule'
   }
   // {

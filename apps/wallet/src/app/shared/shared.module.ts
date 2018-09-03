@@ -7,6 +7,7 @@ import {
   MatToolbarModule,
   MatProgressSpinnerModule
 } from '@angular/material';
+import { AmountPipeModule } from '@legalthings-one/component-kit';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
+    AmountPipeModule,
     FlexLayoutModule
   ],
   declarations: []

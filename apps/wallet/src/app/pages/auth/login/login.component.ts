@@ -30,8 +30,8 @@ export class LoginComponent {
 
     try {
       const { account, password } = this.loginForm.value;
-      const address = await this._accountManagement.login(account, password);
-      this._router.navigate(['/', address]);
+      await this._accountManagement.login(account, password);
+      this._router.navigate(['/']);
     } catch (error) {
       this.loginForm.controls['password'].setErrors({
         wrong: true

@@ -1,3 +1,54 @@
-<p>
-  transactions works!
-</p>
+<!-- <mat-toolbar>
+  <ng-container *ngIf="filter$ | async as filter">
+    <button mat-button color="primary" [ngClass]="{active: filter === 'all'}" (click)="setFilter('all')">
+      All
+    </button>
+    <button mat-button color="primary" [ngClass]="{active: filter === 'sent'}" (click)="setFilter('sent')">
+      Sent
+    </button>
+    <button mat-button color="primary" [ngClass]="{active: filter === 'received'}" (click)="setFilter('received')">
+      Received
+    </button>
+  </ng-container>
+</mat-toolbar> -->
+<div class="content">
+  <ng-container *ngFor="let transactionsGroup of transactions$ | async">
+    <h3>{{transactionsGroup.date}}</h3>
+    <div class="transactions mat-elevation-z2">
+      <table mat-table [dataSource]="transactionsGroup.transactions">
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef><span>Date</span></th>
+          <td mat-cell *matCellDef="let transaction">{{transaction.timestamp | date: 'HH:MM'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef><span>Type</span></th>
+          <td mat-cell *matCellDef="let transaction">{{transaction.type}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="sender">
+          <th mat-header-cell *matHeaderCellDef><span>Sender</span></th>
+          <td mat-cell *matCellDef="let transaction">{{transaction.sender}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="recipient">
+          <th mat-header-cell *matHeaderCellDef><span>Recipient</span></th>
+          <td mat-cell *matCellDef="let transaction">{{transaction.recipient}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fee">
+          <th mat-header-cell *matHeaderCellDef><span>Fee</span></th>
+          <td mat-cell *matCellDef="let transaction">{{transaction.fee | lto_amount}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef><span>Amount</span></th>
+          <td mat-cell *matCellDef="let transaction">{{transaction.amount | lto_amount}}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['date', 'type', 'sender', 'recipient', 'fee', 'amount']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['date', 'type', 'sender', 'recipient', 'fee', 'amount'];"></tr>
+      </table>
+    </div>
+  </ng-container>
+
+</div>

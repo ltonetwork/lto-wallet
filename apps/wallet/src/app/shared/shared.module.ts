@@ -10,9 +10,13 @@ import {
 import { AmountPipeModule } from '@legalthings-one/component-kit';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { MakeTransactionModalModule, ReceiveModalModule } from './modals';
+
 @NgModule({
   exports: [
     CommonModule,
+    MakeTransactionModalModule,
+    ReceiveModalModule,
     MatCardModule,
     MatIconModule,
     MatButtonModule,

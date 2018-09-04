@@ -22,8 +22,8 @@
       </div>
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutAlign="end">
-      <button mat-button color="primary">Send</button>
-      <button mat-button color="primary">Receive</button>
+      <button mat-button color="primary" (click)="makeTransaction()">Send</button>
+      <button mat-button color="primary" (click)="receive()">Receive</button>
     </mat-card-actions>
   </mat-card>
 </div>

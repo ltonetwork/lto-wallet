@@ -34,7 +34,7 @@ export class TransactionsComponent implements OnInit {
     private _publicNode: LtoPublicNodeService,
     private _accountManager: AccountManagementService
   ) {
-    this.transactions$ = of({ address: '3N3CKa6NFVNd3qaBnnDyFmSyTxdkqNGrDYs' }) //_accountManager.wallet$
+    this.transactions$ = _accountManager.wallet$
       .pipe(
         filter((wallet): wallet is Account => !!wallet),
         switchMap(wallet => _publicNode.transactionsOf(wallet.address, 200))

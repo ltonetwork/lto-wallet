@@ -10,7 +10,7 @@ import {
 import { AmountPipeModule } from '@legalthings-one/component-kit';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { MakeTransactionModalModule, ReceiveModalModule } from './modals';
+import { MakeTransactionModalModule, ReceiveModalModule, TransactionInfoModule } from './modals';
 
 @NgModule({
   exports: [
@@ -23,7 +23,8 @@ import { MakeTransactionModalModule, ReceiveModalModule } from './modals';
     MatToolbarModule,
     MatProgressSpinnerModule,
     AmountPipeModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    TransactionInfoModule
   ],
   declarations: []
 })

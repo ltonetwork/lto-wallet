@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { shareReplay, map, combineLatest, filter, switchMap } from 'rxjs/operators';
+import { shareReplay, map, combineLatest } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Wallet } from '@wallet/core';
+import { TransactionInfoModal } from '../../../shared';
 import * as moment from 'moment';
 
 @Component({
@@ -13,7 +14,7 @@ export class TransactionsComponent implements OnInit {
   transactions$: Observable<any[]>;
   filter$: BehaviorSubject<string> = new BehaviorSubject('all');
 
-  constructor(private wallet: Wallet) {
+  constructor(private wallet: Wallet, private transactionInfoModal: TransactionInfoModal) {
     this.transactions$ = wallet.transactions$.pipe(
       combineLatest(wallet.address$),
       map(([transactions, address]) => {
@@ -77,5 +78,9 @@ export class TransactionsComponent implements OnInit {
     }
 
     return transaction.amount;
+  }
+
+  showDetails(transaction: any) {
+    this.transactionInfoModal.show(transaction);
   }
 }

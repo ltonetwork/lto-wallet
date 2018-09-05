@@ -1,3 +1,7 @@
-<p>
-  receive-modal works!
-</p>
+<div mat-dialog-title>Receive</div>
+<mat-dialog-content>
+  <div>{{wallet.address$ | async}}</div>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Wallet } from '../../../core';
 
 @Component({
   selector: 'lto-wallet-receive-modal',
@@ -6,10 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./receive-modal.component.scss']
 })
 export class ReceiveModalComponent implements OnInit {
+  constructor(public wallet: Wallet) {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

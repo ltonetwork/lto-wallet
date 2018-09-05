@@ -1,23 +1,26 @@
 <div mat-dialog-title>Send some stuff</div>
 <mat-dialog-content>
-  <form [formGroup]="sendForm" fxLayout="column">
-    <mat-form-field>
-      <mat-label>Recipient</mat-label>
-      <input matInput formControlName="recipient">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Amount</mat-label>
-      <input matInput formControlName="amount">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Attachment</mat-label>
-      <input matInput formControlName="attachment">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Fee</mat-label>
-      <input matInput formControlName="fee">
-    </mat-form-field>
-  </form>
+  <ng-container *ngIf="wallet.balance$ | async as balance">
+    <form [formGroup]="sendForm" fxLayout="column">
+      <mat-form-field>
+        <mat-label>Recipient</mat-label>
+        <input matInput formControlName="recipient">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Amount</mat-label>
+        <input matInput type="number" formControlName="amount" [max]="balance.available | lto_amount">
+        <mat-hint>Balance: {{balance.available | lto_amount}}</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Attachment</mat-label>
+        <input matInput formControlName="attachment">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Fee</mat-label>
+        <input matInput formControlName="fee">
+      </mat-form-field>
+    </form>
+  </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
   <button mat-button matDialogClose>Cancel</button>

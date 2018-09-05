@@ -8,6 +8,7 @@ import {
   MatInputModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AmountPipeModule } from '@legalthings-one/component-kit';
 import { MakeTransactionComponent } from './make-transaction.component';
 import { MakeTransactionModal } from './make-transaction-modal';
 
@@ -19,7 +20,8 @@ import { MakeTransactionModal } from './make-transaction-modal';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AmountPipeModule
   ],
   declarations: [MakeTransactionComponent],
   entryComponents: [MakeTransactionComponent],

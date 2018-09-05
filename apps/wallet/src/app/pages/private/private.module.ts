@@ -34,6 +34,7 @@ import { PrivateComponent } from './private.component';
       }
     ])
   ],
-  declarations: [PrivateComponent]
+  declarations: [PrivateComponent],
+  providers: []
 })
 export class PrivateModule {}

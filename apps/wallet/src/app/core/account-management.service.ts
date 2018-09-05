@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { LTO, Account } from 'lto-api';
 import { LTO_NETWORK_BYTE } from '@wallet/tokens';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { take, tap, switchMap } from 'rxjs/operators';
+import { take, tap, switchMap, filter } from 'rxjs/operators';
 
 export interface IUserAccount {
   name: string;
@@ -15,7 +15,7 @@ export interface IUserAccount {
 export class AccountManagementService {
   private readonly _STORAGE_KEY = '_USERS_ACCOUNTS_';
 
-  wallet$: Observable<Account | null>;
+  wallet$: Observable<Account>;
   account$: Observable<IUserAccount | null>;
 
   awailableAccounts$!: Observable<IUserAccount[]>;
@@ -24,13 +24,13 @@ export class AccountManagementService {
   private _account$ = new BehaviorSubject<IUserAccount | null>(null);
   private _awailableAccounts$: BehaviorSubject<IUserAccount[]>;
 
-  private _ltoInstance: LTO;
+  public ltoInstance: LTO;
 
   constructor(@Inject(LTO_NETWORK_BYTE) networkBye: string) {
-    this._ltoInstance = new LTO(networkBye);
+    this.ltoInstance = new LTO(networkBye);
 
     this.account$ = this._account$.asObservable();
-    this.wallet$ = this._wallet$.asObservable();
+    this.wallet$ = this._wallet$.asObservable().pipe(filter((w): w is Account => !!w));
 
     this._awailableAccounts$ = new BehaviorSubject(
       JSON.parse(localStorage.getItem(this._STORAGE_KEY) || '[]')
@@ -43,8 +43,8 @@ export class AccountManagementService {
   }
 
   async login(userAccount: IUserAccount, password: string): Promise<string> {
-    const seed = this._ltoInstance.decryptSeedPhrase(userAccount.encryptedSeed, password);
-    const wallet = this._ltoInstance.createAccountFromExistingPhrase(seed);
+    const seed = this.ltoInstance.decryptSeedPhrase(userAccount.encryptedSeed, password);
+    const wallet = this.ltoInstance.createAccountFromExistingPhrase(seed);
 
     this._account$.next(userAccount);
     this._wallet$.next(wallet);
@@ -73,8 +73,8 @@ export class AccountManagementService {
 
   generateWallet(phrase?: string) {
     return phrase
-      ? this._ltoInstance.createAccountFromExistingPhrase(phrase)
-      : this._ltoInstance.createAccount();
+      ? this.ltoInstance.createAccountFromExistingPhrase(phrase)
+      : this.ltoInstance.createAccount();
   }
 
   private _saveAccounts(accounts: IUserAccount[]) {

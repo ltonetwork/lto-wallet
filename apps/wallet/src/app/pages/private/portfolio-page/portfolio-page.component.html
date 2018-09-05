@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-title>LTO</mat-card-title>
     <mat-card-content>
-      <div class="balance-box" *ngIf="balance$ | async as balance">
+      <div class="balance-box" *ngIf="wallet.balance$ | async as balance">
         <div class="balance">
           <div class="label">Regular</div>
           <div class="value">{{balance.regular | lto_amount}}</div>

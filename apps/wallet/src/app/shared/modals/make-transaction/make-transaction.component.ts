@@ -23,7 +23,7 @@ export class MakeTransactionComponent implements OnInit {
   ngOnInit() {}
 
   async send(formValue: any) {
-    const { amount, fee, attachment, recipient } = formValue;
+    const { amount, fee, attachment, recipient } = this.sendForm.value;
     await this.wallet.transfer({ recipient, amount, fee, attachment });
   }
 }

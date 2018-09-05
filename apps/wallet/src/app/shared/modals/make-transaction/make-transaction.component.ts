@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material';
 import { Wallet } from '@wallet/core';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'lto-wallet-make-transaction',
@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
 export class MakeTransactionComponent implements OnInit {
   sendForm: FormGroup;
 
-  constructor(public wallet: Wallet) {
+  constructor(public wallet: Wallet, public dialog: MatDialogRef<any>) {
     this.sendForm = new FormGroup({
       recipient: new FormControl('', [Validators.required]),
       amount: new FormControl(0, [Validators.required]),
@@ -22,8 +22,9 @@ export class MakeTransactionComponent implements OnInit {
 
   ngOnInit() {}
 
-  async send(formValue: any) {
+  async send() {
     const { amount, fee, attachment, recipient } = this.sendForm.value;
     await this.wallet.transfer({ recipient, amount, fee, attachment });
+    this.dialog.close();
   }
 }

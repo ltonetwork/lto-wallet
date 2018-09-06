@@ -14,12 +14,14 @@ import {
   MakeTransactionModalModule,
   ReceiveModalModule,
   TransactionInfoModule,
-  MyWalletInfoModalModule
+  MyWalletInfoModalModule,
+  StartLeaseModalModule
 } from './modals';
 
 @NgModule({
   exports: [
     CommonModule,
+    StartLeaseModalModule,
     MakeTransactionModalModule,
     ReceiveModalModule,
     MatCardModule,

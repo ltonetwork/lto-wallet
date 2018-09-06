@@ -83,6 +83,27 @@ export class Wallet {
       .toPromise();
   }
 
+  lease(recipient: string, amount: number, fee: number) {
+    // Fee, amount, recipient
+    return this.ltoAccount$
+      .pipe(
+        switchMap(wallet => {
+          return this.accountManager.ltoInstance.API.PublicNode.transactions.broadcast(
+            'lease',
+            {
+              recipient,
+              fee: fee * this.amountDivider,
+              amount: amount * this.amountDivider
+            },
+            wallet.getSignKeys()
+          );
+        }),
+        tap(() => this._update$.next(null)),
+        take(1)
+      )
+      .toPromise();
+  }
+
   groupByDate(transactions: any[]): any[] {
     const grouped = transactions.reduce((group, transaction) => {
       const date = moment(transaction.timestamp).format('MMMM, D, YYYY');

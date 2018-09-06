@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Wallet } from '@wallet/core';
-import { TransactionInfoModal } from '../../../shared';
+import { TransactionInfoModal, StartLeaseModal } from '../../../shared';
 
 @Component({
   selector: 'lto-wallet-leasing',
@@ -12,7 +12,7 @@ import { TransactionInfoModal } from '../../../shared';
 export class LeasingComponent implements OnInit {
   transactions$: Observable<any[]>;
 
-  constructor(private wallet: Wallet, private transactionInfoModal: TransactionInfoModal) {
+  constructor(private wallet: Wallet, private startLeaseModal: StartLeaseModal) {
     this.transactions$ = wallet.leasingTransactions$.pipe(map(wallet.groupByDate));
   }
 
@@ -33,7 +33,7 @@ export class LeasingComponent implements OnInit {
     return transaction.amount;
   }
 
-  showDetails(transaction: any) {
-    this.transactionInfoModal.show(transaction);
+  startLease() {
+    this.startLeaseModal.show();
   }
 }

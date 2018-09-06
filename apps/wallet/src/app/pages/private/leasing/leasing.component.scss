@@ -1,0 +1,38 @@
+mat-toolbar {
+  background: white;
+  border-bottom: 1px solid #ccc;
+
+  button {
+    margin-left: 6px;
+  }
+
+  button.active /deep/ {
+    .mat-button-focus-overlay {
+      background: rgba(83, 109, 254, 0.12);
+      opacity: 1;
+    }
+  }
+}
+
+.content {
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  max-width: 1400px;
+  width: 100%;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.52);
+}
+
+.transactions {
+  background: #fff;
+  margin-bottom: 32px;
+
+  table {
+    width: 100%;
+  }
+}

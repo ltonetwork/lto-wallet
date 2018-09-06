@@ -1,16 +1,3 @@
-<!-- <mat-toolbar>
-  <ng-container *ngIf="filter$ | async as filter">
-    <button mat-button color="primary" [ngClass]="{active: filter === 'all'}" (click)="setFilter('all')">
-      All
-    </button>
-    <button mat-button color="primary" [ngClass]="{active: filter === 'sent'}" (click)="setFilter('sent')">
-      Sent
-    </button>
-    <button mat-button color="primary" [ngClass]="{active: filter === 'received'}" (click)="setFilter('received')">
-      Received
-    </button>
-  </ng-container>
-</mat-toolbar> -->
 <div class="content">
   <ng-container *ngFor="let transactionsGroup of transactions$ | async">
     <h3>{{transactionsGroup.date}}</h3>

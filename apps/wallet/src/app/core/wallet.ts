@@ -51,12 +51,10 @@ export class Wallet {
       map(transactions =>
         transactions.filter(transaction => transaction.type === 8 || transaction.type === 9)
       ),
-      map(this.groupByDate),
       shareReplay(1)
     );
     this.dataTransactions$ = this.transactions$.pipe(
       map(transactions => transactions.filter(transaction => transaction.type === 12)),
-      map(this.groupByDate),
       shareReplay(1)
     );
 

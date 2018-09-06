@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { shareReplay, map, combineLatest } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Wallet } from '@wallet/core';
 import { TransactionInfoModal } from '../../../shared';
-import * as moment from 'moment';
 
 @Component({
   selector: 'lto-wallet-leasing',
@@ -14,7 +13,7 @@ export class LeasingComponent implements OnInit {
   transactions$: Observable<any[]>;
 
   constructor(private wallet: Wallet, private transactionInfoModal: TransactionInfoModal) {
-    this.transactions$ = wallet.transactions$.pipe(map(wallet.groupByDate));
+    this.transactions$ = wallet.leasingTransactions$.pipe(map(wallet.groupByDate));
   }
 
   ngOnInit() {}

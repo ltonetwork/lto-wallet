@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { SharedModule } from '../../shared';
 import { RouterModule } from '@angular/router';
 import { MatToolbarModule, MatButtonModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -6,9 +7,8 @@ import { PrivateComponent } from './private.component';
 
 @NgModule({
   imports: [
-    FlexLayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
+    SharedModule,
+
     RouterModule.forChild([
       {
         path: '',

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MyWalletInfoModal } from '../../shared';
 
 @Component({
   selector: 'lto-wallet-private',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./private.component.scss']
 })
 export class PrivateComponent implements OnInit {
+  constructor(private myWalletModal: MyWalletInfoModal) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  showMyWalletInfo() {
+    this.myWalletModal.show();
   }
-
 }

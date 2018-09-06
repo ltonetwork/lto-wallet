@@ -1,2 +1,7 @@
 export * from './shared.module';
-export { MakeTransactionModal, ReceiveModal, TransactionInfoModal } from './modals';
+export {
+  MakeTransactionModal,
+  ReceiveModal,
+  TransactionInfoModal,
+  MyWalletInfoModal
+} from './modals';

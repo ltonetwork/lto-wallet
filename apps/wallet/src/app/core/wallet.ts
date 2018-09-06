@@ -19,7 +19,7 @@ export class Wallet {
   balance$!: Observable<any>;
   transactions$!: Observable<any[]>;
 
-  private ltoAccount$: Observable<Account>;
+  public ltoAccount$: Observable<Account>;
 
   private _update$: BehaviorSubject<any> = new BehaviorSubject(null);
 
@@ -44,10 +44,6 @@ export class Wallet {
     );
 
     this.address$ = this.ltoAccount$.pipe(map(account => account.address));
-
-    (window as any)['update'] = () => {
-      this._update$.next(null);
-    };
   }
 
   transfer(data: ITransferPayload): Promise<any> {

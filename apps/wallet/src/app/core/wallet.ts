@@ -1,10 +1,11 @@
 import { Injectable, Inject } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { switchMap, shareReplay, take, map, switchMapTo, tap } from 'rxjs/operators';
 import { Account } from 'lto-api';
 import { AccountManagementService } from './account-management.service';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { AMOUNT_DIVIDER } from '@legalthings-one/component-kit';
+import * as moment from 'moment';
 
 export interface ITransferPayload {
   amount: number;
@@ -18,6 +19,9 @@ export class Wallet {
   address$: Observable<string>;
   balance$!: Observable<any>;
   transactions$!: Observable<any[]>;
+
+  leasingTransactions$: Observable<any[]>;
+  dataTransactions$: Observable<any[]>;
 
   public ltoAccount$: Observable<Account>;
 
@@ -40,6 +44,19 @@ export class Wallet {
       switchMap(wallet =>
         publicNode.transactionsOf(wallet.address, 200).pipe(map(results => results[0]))
       ),
+      shareReplay(1)
+    );
+
+    this.leasingTransactions$ = this.transactions$.pipe(
+      map(transactions =>
+        transactions.filter(transaction => transaction.type === 8 || transaction.type === 9)
+      ),
+      map(this.groupByDate),
+      shareReplay(1)
+    );
+    this.dataTransactions$ = this.transactions$.pipe(
+      map(transactions => transactions.filter(transaction => transaction.type === 12)),
+      map(this.groupByDate),
       shareReplay(1)
     );
 
@@ -66,5 +83,35 @@ export class Wallet {
         take(1)
       )
       .toPromise();
+  }
+
+  groupByDate(transactions: any[]): any[] {
+    const grouped = transactions.reduce((group, transaction) => {
+      const date = moment(transaction.timestamp).format('MMMM, D, YYYY');
+      const dateGroup = group[date] || [];
+      dateGroup.push(transaction);
+      return {
+        ...group,
+        [date]: dateGroup
+      };
+    }, {});
+
+    // After transaction have been grouped by date we need to ordrer them
+    return Object.keys(grouped)
+      .reduce(
+        (flattened, date) => {
+          return [
+            ...flattened,
+            {
+              date,
+              transactions: grouped[date]
+            }
+          ];
+        },
+        [] as any[]
+      )
+      .sort((a, b) => {
+        return moment(a.date, 'MMMM, D, YYYY').isBefore(moment(b.date, 'MMMM, D, YYYY')) ? 1 : -1;
+      });
   }
 }

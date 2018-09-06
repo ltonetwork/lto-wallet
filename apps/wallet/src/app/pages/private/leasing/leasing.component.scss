@@ -14,11 +14,14 @@ mat-toolbar {
   }
 }
 
+mat-card {
+  box-sizing: border-box;
+}
+
 .content {
   margin: 0 auto;
   padding: 16px;
   box-sizing: border-box;
-  max-width: 1400px;
   width: 100%;
 }
 

@@ -27,6 +27,10 @@ import { PrivateComponent } from './private.component';
             loadChildren: './leasing/leasing.module#LeasingModule'
           },
           {
+            path: 'anchors',
+            loadChildren: './anchors-page/anchors-page.module#AnchorsPageModule'
+          },
+          {
             path: '',
             redirectTo: 'portfolio'
           }

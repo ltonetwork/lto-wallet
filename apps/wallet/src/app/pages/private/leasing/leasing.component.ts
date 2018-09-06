@@ -14,52 +14,7 @@ export class LeasingComponent implements OnInit {
   transactions$: Observable<any[]>;
 
   constructor(private wallet: Wallet, private transactionInfoModal: TransactionInfoModal) {
-    this.transactions$ = wallet.transactions$.pipe(
-      combineLatest(wallet.address$),
-      map(([transactions, address]) => {
-        // We need to calculate ammount
-        // because for mass transactions we can send several parts
-        return transactions.map((transaction: any) => ({
-          ...transaction,
-          sender: transaction.sender === address ? 'You' : transaction.sender,
-          recipient: transaction.recipient === address ? 'You' : transaction.recipient,
-          amount: this.calculateAmount(transaction, address)
-        }));
-      }),
-      map((transactions: any[]) => {
-        // Now we need to group them by date
-        const grouped = transactions.reduce((group, transaction) => {
-          const date = moment(transaction.timestamp).format('MMMM, D, YYYY');
-          const dateGroup = group[date] || [];
-          dateGroup.push(transaction);
-          return {
-            ...group,
-            [date]: dateGroup
-          };
-        }, {});
-
-        // After transaction have been grouped by date we need to ordrer them
-        return Object.keys(grouped)
-          .reduce(
-            (flattened, date) => {
-              return [
-                ...flattened,
-                {
-                  date,
-                  transactions: grouped[date]
-                }
-              ];
-            },
-            [] as any[]
-          )
-          .sort((a, b) => {
-            return moment(a.date, 'MMMM, D, YYYY').isBefore(moment(b.date, 'MMMM, D, YYYY'))
-              ? 1
-              : -1;
-          });
-      }),
-      shareReplay(1)
-    );
+    this.transactions$ = wallet.transactions$.pipe(map(wallet.groupByDate));
   }
 
   ngOnInit() {}

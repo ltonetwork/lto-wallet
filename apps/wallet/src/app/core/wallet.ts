@@ -29,8 +29,7 @@ export class Wallet {
 
   public ltoAccount$: Observable<Account>;
 
-  private polling$: Observable<number> = timer(0);
-  private _update$: BehaviorSubject<any> = new BehaviorSubject(null);
+  private polling$: Observable<number> = timer(0, 2000);
 
   constructor(
     private accountManager: AccountManagementService,
@@ -101,7 +100,6 @@ export class Wallet {
             wallet.getSignKeys()
           );
         }),
-        tap(() => this._update$.next(null)),
         take(1)
       )
       .toPromise();
@@ -122,7 +120,6 @@ export class Wallet {
             wallet.getSignKeys()
           );
         }),
-        tap(() => this._update$.next(null)),
         take(1)
       )
       .toPromise();

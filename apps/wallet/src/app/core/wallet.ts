@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, timer } from 'rxjs';
 import { switchMap, shareReplay, take, map, switchMapTo, tap } from 'rxjs/operators';
 import { Account } from 'lto-api';
 import { AccountManagementService } from './account-management.service';
@@ -17,14 +17,19 @@ export interface ITransferPayload {
 @Injectable({ providedIn: 'root' })
 export class Wallet {
   address$: Observable<string>;
-  balance$!: Observable<any>;
-  transactions$!: Observable<any[]>;
+  balance$: Observable<any>;
 
+  // Transactions history
+  transactions$: Observable<any[]>;
   leasingTransactions$: Observable<any[]>;
   dataTransactions$: Observable<any[]>;
 
+  // Unconfirmed transactrions
+  uncofirmed$: Observable<any[]>;
+
   public ltoAccount$: Observable<Account>;
 
+  private polling$: Observable<number> = timer(0);
   private _update$: BehaviorSubject<any> = new BehaviorSubject(null);
 
   constructor(
@@ -33,13 +38,14 @@ export class Wallet {
     @Inject(AMOUNT_DIVIDER) private amountDivider: number
   ) {
     this.ltoAccount$ = accountManager.wallet$;
-    this.balance$ = this._update$.pipe(
+
+    this.balance$ = this.polling$.pipe(
       switchMapTo(this.ltoAccount$),
       switchMap(account => publicNode.balanceOf(account.address)),
       shareReplay(1)
     );
 
-    this.transactions$ = this._update$.pipe(
+    this.transactions$ = this.polling$.pipe(
       switchMapTo(this.ltoAccount$),
       switchMap(wallet =>
         publicNode.transactionsOf(wallet.address, 200).pipe(map(results => results[0]))
@@ -59,6 +65,9 @@ export class Wallet {
     );
 
     this.address$ = this.ltoAccount$.pipe(map(account => account.address));
+
+    // Create unconfirmed transactions observable
+    this.uncofirmed$ = this.polling$.pipe(switchMapTo(publicNode.unconfirmedTransactions()));
   }
 
   transfer(data: ITransferPayload): Promise<any> {
@@ -83,7 +92,7 @@ export class Wallet {
       .toPromise();
   }
 
-  lease(recipient: string, amount: number, fee: number) {
+  lease(recipient: string, amount: number, fee: number): Promise<any> {
     // Fee, amount, recipient
     return this.ltoAccount$
       .pipe(
@@ -103,6 +112,12 @@ export class Wallet {
       )
       .toPromise();
   }
+
+  /**
+   *
+   * @param transactions - transactions
+   */
+  relpaceWithYOU(transactions: any[]) {}
 
   groupByDate(transactions: any[]): any[] {
     const grouped = transactions.reduce((group, transaction) => {

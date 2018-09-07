@@ -57,4 +57,8 @@ export class LtoPublicNodeService {
   balanceOf(address: string): Observable<any> {
     return this._http.get<any>(this._publicApi + 'addresses/balance/details/' + address);
   }
+
+  unconfirmedTransactions(): Observable<any[]> {
+    return this._http.get<any>(this._publicApi + 'transactions/unconfirmed');
+  }
 }

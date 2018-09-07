@@ -11,9 +11,13 @@ import { TransactionInfoModal, StartLeaseModal } from '../../../shared';
 })
 export class LeasingComponent implements OnInit {
   transactions$: Observable<any[]>;
+  unconfirmed$: Observable<any[]>;
 
   constructor(private wallet: Wallet, private startLeaseModal: StartLeaseModal) {
     this.transactions$ = wallet.leasingTransactions$.pipe(map(wallet.groupByDate));
+    this.unconfirmed$ = wallet.uncofirmed$.pipe(
+      map(transactions => transactions.filter(t => t.type === 8 || t.type === 9))
+    );
   }
 
   ngOnInit() {}

@@ -74,6 +74,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="['date', 'type', 'sender', 'recipient', 'fee', 'amount']"></tr>
-    <tr mat-row *matRowDef="let transaction; columns: ['date', 'type', 'sender', 'recipient', 'fee', 'amount'];"></tr>
+    <tr mat-row *matRowDef="let transaction; columns: ['date', 'type', 'sender', 'recipient', 'fee', 'amount'];"
+      (click)="showDetails(transaction)"></tr>
   </table>
 </ng-template>

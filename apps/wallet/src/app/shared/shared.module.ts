@@ -16,7 +16,8 @@ import {
   ReceiveModalModule,
   TransactionInfoModule,
   MyWalletInfoModalModule,
-  StartLeaseModalModule
+  StartLeaseModalModule,
+  LeaseDetailsModalModule
 } from './modals';
 
 @NgModule({
@@ -34,7 +35,8 @@ import {
     FlexLayoutModule,
     TransactionInfoModule,
     MyWalletInfoModalModule,
-    MatTooltipModule
+    MatTooltipModule,
+    LeaseDetailsModalModule
   ],
   declarations: []
 })

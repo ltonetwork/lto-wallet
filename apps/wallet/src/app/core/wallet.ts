@@ -132,8 +132,8 @@ export class Wallet {
           return this.accountManager.ltoInstance.API.PublicNode.transactions.broadcast(
             'cancelLeasing',
             {
-              txId: transactionId,
-              fee: 10000
+              transactionId,
+              fee: 100000
             },
             wallet.getSignKeys()
           );

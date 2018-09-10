@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Wallet } from '@wallet/core';
-import { StartLeaseModal } from '../../../shared';
+import { StartLeaseModal, LeaseDetailsModal } from '../../../shared';
 
 @Component({
   selector: 'lto-wallet-leasing',
@@ -13,7 +13,11 @@ export class LeasingComponent {
   transactions$: Observable<any[]>;
   unconfirmed$: Observable<any[]>;
 
-  constructor(wallet: Wallet, private startLeaseModal: StartLeaseModal) {
+  constructor(
+    wallet: Wallet,
+    private startLeaseModal: StartLeaseModal,
+    private leaseDetails: LeaseDetailsModal
+  ) {
     this.transactions$ = wallet.leasingTransactions$.pipe(
       switchMap(t => wallet.relpaceWithYOU(t)),
       map(wallet.groupByDate)
@@ -26,5 +30,9 @@ export class LeasingComponent {
 
   startLease() {
     this.startLeaseModal.show();
+  }
+
+  showDetails(transaction: any) {
+    this.leaseDetails.show(transaction);
   }
 }

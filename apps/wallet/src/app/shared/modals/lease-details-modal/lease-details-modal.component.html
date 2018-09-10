@@ -1,0 +1,13 @@
+<div mat-dialog-title>Lease info</div>
+<mat-dialog-content>
+  <lto-keyvalue-list>
+    <lto-keyvalue-list-item label="Id">{{transaction.id}}</lto-keyvalue-list-item>
+    <lto-keyvalue-list-item label="Amount">{{transaction.amount | lto_amount}}</lto-keyvalue-list-item>
+    <lto-keyvalue-list-item label="Fee">{{transaction.fee | lto_amount}}</lto-keyvalue-list-item>
+  </lto-keyvalue-list>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
+  <button mat-button color="warn" (click)="cancelLease()" *ngIf="transaction.type === 8">Cancel lease</button>
+  <span fxFlex="1 1 auto"></span>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

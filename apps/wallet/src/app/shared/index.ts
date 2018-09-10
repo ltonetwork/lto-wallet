@@ -4,5 +4,6 @@ export {
   ReceiveModal,
   TransactionInfoModal,
   MyWalletInfoModal,
-  StartLeaseModal
+  StartLeaseModal,
+  LeaseDetailsModal
 } from './modals';

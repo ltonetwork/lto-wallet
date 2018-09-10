@@ -17,6 +17,7 @@ export class TransactionsComponent {
     this.transactions$ = wallet.transactions$.pipe(
       switchMap(t => wallet.relpaceWithYOU(t)),
       switchMap(t => wallet.replaceAmount(t)),
+      map(t => wallet.setRecipient(t)),
       map(t => wallet.groupByDate(t)),
       shareReplay(1)
     );
@@ -24,6 +25,7 @@ export class TransactionsComponent {
     this.unconfirmed$ = wallet.uncofirmed$.pipe(
       switchMap(t => wallet.relpaceWithYOU(t)),
       switchMap(t => wallet.replaceAmount(t)),
+      map(t => wallet.setRecipient(t)),
       map(t => wallet.groupByDate(t)),
       shareReplay(1)
     );

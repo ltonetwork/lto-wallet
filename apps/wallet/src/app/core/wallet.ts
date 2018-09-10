@@ -80,7 +80,8 @@ export class Wallet {
 
           return false;
         });
-      })
+      }),
+      shareReplay(1)
     );
   }
 
@@ -141,6 +142,23 @@ export class Wallet {
         take(1)
       )
       .toPromise();
+  }
+
+  setRecipient(transactions: any[]): any[] {
+    return transactions.map(transaction => {
+      let recipient = transaction.recipient;
+      let sender = transaction.sender;
+
+      if (transaction.type === 9) {
+        recipient = transaction.lease.recipient;
+      }
+
+      return {
+        ...transaction,
+        recipient,
+        sender
+      };
+    });
   }
 
   /**
@@ -214,6 +232,8 @@ export class Wallet {
       }, 0);
 
       return amount;
+    } else if (transaction.type === 9) {
+      return transaction.lease.amount;
     }
 
     return transaction.amount;

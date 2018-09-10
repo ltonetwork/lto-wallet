@@ -20,10 +20,14 @@ export class LeasingComponent {
   ) {
     this.transactions$ = wallet.leasingTransactions$.pipe(
       switchMap(t => wallet.relpaceWithYOU(t)),
+      switchMap(t => wallet.replaceAmount(t)),
+      map(t => wallet.setRecipient(t)),
       map(wallet.groupByDate)
     );
     this.unconfirmed$ = wallet.uncofirmed$.pipe(
       switchMap(t => wallet.relpaceWithYOU(t)),
+      switchMap(t => wallet.replaceAmount(t)),
+      map(t => wallet.setRecipient(t)),
       map(transactions => transactions.filter(t => t.type === 8 || t.type === 9))
     );
   }
@@ -34,5 +38,13 @@ export class LeasingComponent {
 
   showDetails(transaction: any) {
     this.leaseDetails.show(transaction);
+  }
+
+  getAmount(transaction: any): number {
+    return transaction.type === 8 ? transaction.amount : transaction.lease.amount;
+  }
+
+  getRecipient(transaction: any): string {
+    return transaction.type === 8 ? transaction.recipient : transaction.lease.recipient;
   }
 }

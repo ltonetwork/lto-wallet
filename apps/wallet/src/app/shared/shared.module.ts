@@ -5,7 +5,8 @@ import {
   MatIconModule,
   MatButtonModule,
   MatToolbarModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatTooltipModule
 } from '@angular/material';
 import { AmountPipeModule } from '@legalthings-one/component-kit';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -32,7 +33,8 @@ import {
     AmountPipeModule,
     FlexLayoutModule,
     TransactionInfoModule,
-    MyWalletInfoModalModule
+    MyWalletInfoModalModule,
+    MatTooltipModule
   ],
   declarations: []
 })

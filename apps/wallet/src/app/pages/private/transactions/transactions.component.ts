@@ -20,6 +20,13 @@ export class TransactionsComponent {
       map(t => wallet.groupByDate(t)),
       shareReplay(1)
     );
+
+    this.unconfirmed$ = wallet.uncofirmed$.pipe(
+      switchMap(t => wallet.relpaceWithYOU(t)),
+      switchMap(t => wallet.replaceAmount(t)),
+      map(t => wallet.groupByDate(t)),
+      shareReplay(1)
+    );
   }
 
   showDetails(transaction: any) {

@@ -125,6 +125,24 @@ export class Wallet {
       .toPromise();
   }
 
+  cancelLease(transactionId: string): Promise<any> {
+    return this.ltoAccount$
+      .pipe(
+        switchMap(wallet => {
+          return this.accountManager.ltoInstance.API.PublicNode.transactions.broadcast(
+            'cancelLeasing',
+            {
+              txId: transactionId,
+              fee: 10000
+            },
+            wallet.getSignKeys()
+          );
+        }),
+        take(1)
+      )
+      .toPromise();
+  }
+
   /**
    * Replace recipient/sender address with 'You' string if it is you
    * @param transactions - transactions

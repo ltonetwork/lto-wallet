@@ -23,6 +23,7 @@ export class LeasingComponent {
       map(transactions => transactions.filter(t => t.type === 8 || t.type === 9))
     );
   }
+
   startLease() {
     this.startLeaseModal.show();
   }

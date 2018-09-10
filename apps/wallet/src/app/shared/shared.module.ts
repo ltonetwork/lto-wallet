@@ -10,6 +10,7 @@ import {
 } from '@angular/material';
 import { AmountPipeModule } from '@legalthings-one/component-kit';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TypeLabelModule } from './pipes';
 
 import {
   MakeTransactionModalModule,
@@ -36,8 +37,8 @@ import {
     TransactionInfoModule,
     MyWalletInfoModalModule,
     MatTooltipModule,
-    LeaseDetailsModalModule
-  ],
-  declarations: []
+    LeaseDetailsModalModule,
+    TypeLabelModule
+  ]
 })
 export class SharedModule {}

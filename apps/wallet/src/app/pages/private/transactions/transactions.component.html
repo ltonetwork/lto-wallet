@@ -22,7 +22,7 @@
 
       <ng-container matColumnDef="type">
         <th mat-header-cell *matHeaderCellDef><span>Type</span></th>
-        <td mat-cell *matCellDef="let transaction">{{transaction.type}}</td>
+        <td mat-cell *matCellDef="let transaction">{{transaction.type | lto_typeLabel}}</td>
       </ng-container>
 
       <ng-container matColumnDef="sender">

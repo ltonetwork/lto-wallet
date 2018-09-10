@@ -1,5 +1,5 @@
 <div class="content" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="32px">
-  <div class="side-panel" fxFlex="25%">
+  <!-- <div class="side-panel" fxFlex="25%">
     <mat-card>
       <mat-card-title>Anchor</mat-card-title>
       <mat-card-content>Anchor something</mat-card-content>
@@ -7,7 +7,7 @@
         <button mat-button>Create</button>
       </mat-card-actions>
     </mat-card>
-  </div>
+  </div> -->
   <div fxFlex="1 1 auto">
     <h2>Anchor transactions</h2>
     <ng-container *ngIf="transactions$ | async as transactions; else loadingTpl">
@@ -46,7 +46,8 @@
                 <td mat-cell *matCellDef="let transaction">{{transaction.amount | lto_amount}}</td>
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="['date', 'type', 'sender', 'recipient', 'fee', 'amount']"></tr>
-              <tr mat-row *matRowDef="let transaction; columns: ['date', 'type', 'sender', 'recipient', 'fee', 'amount'];" (click)="showDetails(transaction)"></tr>
+              <tr mat-row *matRowDef="let transaction; columns: ['date', 'type', 'sender', 'recipient', 'fee', 'amount'];"
+                (click)="showDetails(transaction)"></tr>
             </table>
           </div>
         </ng-container>

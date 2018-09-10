@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Wallet } from '../../../core';
+import { Wallet, AccountManagementService } from '../../../core';
 
 @Component({
   selector: 'lto-wallet-my-wallet-info-modal',
@@ -7,7 +7,9 @@ import { Wallet } from '../../../core';
   styleUrls: ['./my-wallet-info-modal.component.scss']
 })
 export class MyWalletInfoModalComponent implements OnInit {
-  constructor(public wallet: Wallet) {}
+  constructor(public wallet: Wallet, public accountManagement: AccountManagementService) {
+    wallet.address$;
+  }
 
   ngOnInit() {}
 }

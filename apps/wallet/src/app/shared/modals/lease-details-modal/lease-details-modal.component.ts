@@ -8,6 +8,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
   styleUrls: ['./lease-details-modal.component.scss']
 })
 export class LeaseDetailsModalComponent {
+  get isCancelable(): boolean {
+    return this.transaction.type === 8 && this.transaction.status === 'active';
+  }
   constructor(
     @Inject(MAT_DIALOG_DATA) public transaction: any,
     private wallet: Wallet,

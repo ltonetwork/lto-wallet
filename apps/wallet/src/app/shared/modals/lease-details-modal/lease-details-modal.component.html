@@ -7,7 +7,7 @@
   </lto-keyvalue-list>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
-  <button mat-button color="warn" (click)="cancelLease()" *ngIf="transaction.type === 8">Cancel lease</button>
+  <button mat-button color="warn" (click)="cancelLease()" *ngIf="isCancelable">Cancel lease</button>
   <span fxFlex="1 1 auto"></span>
   <button mat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>

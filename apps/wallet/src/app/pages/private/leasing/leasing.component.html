@@ -53,6 +53,11 @@
       <td mat-cell *matCellDef="let transaction">{{transaction.type}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef><span>Status</span></th>
+      <td mat-cell *matCellDef="let transaction">{{transaction.status}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="sender">
       <th mat-header-cell *matHeaderCellDef><span>Sender</span></th>
       <td mat-cell *matCellDef="let transaction">{{transaction.sender}}</td>
@@ -73,8 +78,8 @@
       <td mat-cell *matCellDef="let transaction">{{transaction.amount | lto_amount}}</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['date', 'type', 'sender', 'recipient', 'fee', 'amount']"></tr>
-    <tr mat-row *matRowDef="let transaction; columns: ['date', 'type', 'sender', 'recipient', 'fee', 'amount'];"
+    <tr mat-header-row *matHeaderRowDef="['date', 'type', 'status', 'sender', 'recipient', 'fee', 'amount']"></tr>
+    <tr mat-row *matRowDef="let transaction; columns: ['date', 'type','status', 'sender', 'recipient', 'fee', 'amount'];"
       (click)="showDetails(transaction)"></tr>
   </table>
 </ng-template>

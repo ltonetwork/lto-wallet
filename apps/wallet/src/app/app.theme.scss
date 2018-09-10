@@ -38,6 +38,7 @@ $main-color: A200;
   .mat-stroked-button,
   .mat-raised-button {
     border-radius: 4px !important;
+    text-transform: uppercase;
   }
 
   lto-page-content {

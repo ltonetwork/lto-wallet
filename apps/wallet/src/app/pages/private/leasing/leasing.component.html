@@ -1,13 +1,7 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="end center">
+  <button mat-button color="primary" (click)="startLease()">START LEASE</button>
+</mat-toolbar>
 <div class="content" fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="32px">
-  <div class="side-panel" fxFlex="25%">
-    <mat-card>
-      <mat-card-title>Leasing</mat-card-title>
-      <mat-card-content>Leasing something</mat-card-content>
-      <mat-card-actions>
-        <button mat-button (click)="startLease()">Lease</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
   <div fxFlex="1 1 auto">
     <ng-container *ngIf="unconfirmed$ | async as unconfirmedTransactions">
       <ng-container *ngIf="unconfirmedTransactions.length">

@@ -19,7 +19,7 @@ import { PrivateComponent } from './private.component';
             loadChildren: './portfolio-page/portfolio-page.module#PortfolioPageModule'
           },
           {
-            path: 'transactions',
+            path: 'transfers',
             loadChildren: './transactions/transactions.module#TransactionsModule'
           },
           {
@@ -32,7 +32,7 @@ import { PrivateComponent } from './private.component';
           },
           {
             path: '',
-            redirectTo: 'portfolio'
+            redirectTo: 'transfers'
           }
         ]
       }

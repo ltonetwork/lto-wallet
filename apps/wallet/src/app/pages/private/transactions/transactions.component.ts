@@ -13,8 +13,8 @@ export class TransactionsComponent {
   transactions$: Observable<any[]>;
   unconfirmed$: Observable<any[]>;
 
-  constructor(wallet: Wallet, private transactionInfoModal: TransactionInfoModal) {
-    this.transactions$ = wallet.transactions$.pipe(
+  constructor(public wallet: Wallet, private transactionInfoModal: TransactionInfoModal) {
+    this.transactions$ = wallet.transfers$.pipe(
       switchMap(t => wallet.relpaceWithYOU(t)),
       switchMap(t => wallet.replaceAmount(t)),
       map(t => wallet.setRecipient(t)),
@@ -23,10 +23,10 @@ export class TransactionsComponent {
     );
 
     this.unconfirmed$ = wallet.uncofirmed$.pipe(
+      map(t => t.filter(transaction => transaction.type === 4 || transaction.type === 11)),
       switchMap(t => wallet.relpaceWithYOU(t)),
       switchMap(t => wallet.replaceAmount(t)),
       map(t => wallet.setRecipient(t)),
-      map(t => wallet.groupByDate(t)),
       shareReplay(1)
     );
   }

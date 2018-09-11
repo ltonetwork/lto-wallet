@@ -1,3 +1,5 @@
+$break-small: 640px;
+
 mat-toolbar {
   background: white;
   // height: auto;
@@ -35,5 +37,45 @@ h3 {
 
   table {
     width: 100%;
+  }
+}
+
+.balance {
+  max-width: 950px;
+  margin: 0 auto;
+  margin-bottom: 64px;
+
+  .balance-box {
+    display: flex;
+
+    .balance {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+
+      .label {
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.52);
+        flex: 1 1 auto;
+      }
+      .value {
+        font-size: 24px;
+        color: rgba(0, 0, 0, 0.72);
+      }
+    }
+
+    @media screen and (max-width: $break-small) {
+      flex-direction: column;
+
+      .balance {
+        flex-direction: row;
+        padding: 8px 0;
+
+        .label,
+        .value {
+          font-size: 18px;
+        }
+      }
+    }
   }
 }

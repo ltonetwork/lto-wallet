@@ -23,6 +23,7 @@ export class Wallet {
   transactions$: Observable<any[]>;
   leasingTransactions$: Observable<any[]>;
   dataTransactions$: Observable<any[]>;
+  transfers$: Observable<any[]>; // Filtered by type 4 and 11
 
   // Unconfirmed transactrions
   uncofirmed$: Observable<any[]>;
@@ -48,6 +49,13 @@ export class Wallet {
       switchMapTo(this.ltoAccount$),
       switchMap(wallet =>
         publicNode.transactionsOf(wallet.address, 200).pipe(map(results => results[0]))
+      ),
+      shareReplay(1)
+    );
+
+    this.transfers$ = this.transactions$.pipe(
+      map(transactions =>
+        transactions.filter(transaction => transaction.type === 4 || transaction.type === 11)
       ),
       shareReplay(1)
     );

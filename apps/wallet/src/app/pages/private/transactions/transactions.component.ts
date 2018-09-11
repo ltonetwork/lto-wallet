@@ -3,6 +3,7 @@ import { shareReplay, map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Wallet } from '@wallet/core';
 import { TransactionInfoModal } from '../../../shared';
+import { MakeTransactionModal, ReceiveModal } from '@wallet/shared';
 
 @Component({
   selector: 'lto-wallet-transactions',
@@ -13,7 +14,12 @@ export class TransactionsComponent {
   transactions$: Observable<any[]>;
   unconfirmed$: Observable<any[]>;
 
-  constructor(public wallet: Wallet, private transactionInfoModal: TransactionInfoModal) {
+  constructor(
+    public wallet: Wallet,
+    private transactionInfoModal: TransactionInfoModal,
+    private makeTransactionModal: MakeTransactionModal,
+    private receiveFundsModal: ReceiveModal
+  ) {
     this.transactions$ = wallet.transfers$.pipe(
       switchMap(t => wallet.relpaceWithYOU(t)),
       switchMap(t => wallet.replaceAmount(t)),
@@ -33,5 +39,13 @@ export class TransactionsComponent {
 
   showDetails(transaction: any) {
     this.transactionInfoModal.show(transaction);
+  }
+
+  makeTransaction() {
+    this.makeTransactionModal.show();
+  }
+
+  receive() {
+    this.receiveFundsModal.show();
   }
 }

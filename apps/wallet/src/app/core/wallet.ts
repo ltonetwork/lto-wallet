@@ -30,7 +30,7 @@ export class Wallet {
 
   public ltoAccount$: Observable<Account>;
 
-  private polling$: Observable<number> = timer(0, 5000);
+  private polling$: Observable<number> = timer(0, 500000);
 
   constructor(
     private accountManager: AccountManagementService,

@@ -72,8 +72,15 @@
       <td mat-cell *matCellDef="let transaction">{{transaction.amount | lto_amount}}</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['date', 'type', 'status', 'sender', 'recipient', 'fee', 'amount']"></tr>
-    <tr mat-row *matRowDef="let transaction; columns: ['date', 'type','status', 'sender', 'recipient', 'fee', 'amount'];"
+    <ng-container matColumnDef="icon">
+      <th mat-header-cell *matHeaderCellDef class="icon-column"></th>
+      <td mat-cell *matCellDef="let transaction">
+        <mat-icon svgIcon="lto"></mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['date', 'type', 'status', 'sender', 'recipient', 'fee', 'amount', 'icon']"></tr>
+    <tr mat-row *matRowDef="let transaction; columns: ['date', 'type','status', 'sender', 'recipient', 'fee', 'amount', 'icon'];"
       (click)="showDetails(transaction)"></tr>
   </table>
 </ng-template>

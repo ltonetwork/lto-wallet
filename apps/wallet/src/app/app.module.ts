@@ -5,13 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { LTO_PUBLIC_API } from '@legalthings-one/platform';
 import { AMOUNT_DIVIDER } from '@legalthings-one/component-kit';
 import { LTO_NETWORK_BYTE } from './tokens';
+import { CoreModule } from './core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule, CoreModule],
   providers: [
     {
       provide: LTO_NETWORK_BYTE,

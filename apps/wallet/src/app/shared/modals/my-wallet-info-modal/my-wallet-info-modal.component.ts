@@ -7,9 +7,7 @@ import { Wallet, AccountManagementService } from '../../../core';
   styleUrls: ['./my-wallet-info-modal.component.scss']
 })
 export class MyWalletInfoModalComponent implements OnInit {
-  constructor(public wallet: Wallet, public accountManagement: AccountManagementService) {
-    wallet.address$;
-  }
+  constructor(public wallet: Wallet, public accountManagement: AccountManagementService) {}
 
   ngOnInit() {}
 }

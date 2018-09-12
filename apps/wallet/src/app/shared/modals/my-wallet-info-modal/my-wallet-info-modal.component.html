@@ -6,7 +6,7 @@
     <h5>Seed</h5>
     <pre>{{ltoAccount.seed}}</pre>
     <h5>Encrypted seed</h5>
-    <pre>{{(accountManagement.account$ | async)?.encryptedSeed}}</pre>
+    <pre>{{ltoAccount.getEncodedPhrase()}}</pre>
     <h5>Private key</h5>
     <pre>{{ltoAccount.getPrivateSignKey()}}</pre>
     <h5>Public key</h5>

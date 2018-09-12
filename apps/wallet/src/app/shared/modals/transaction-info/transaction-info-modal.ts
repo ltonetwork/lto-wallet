@@ -7,6 +7,6 @@ export class TransactionInfoModal {
   constructor(private dialog: MatDialog) {}
 
   show(transaction: any) {
-    this.dialog.open(TransactionInfoComponent);
+    this.dialog.open(TransactionInfoComponent, { width: '550px', data: transaction });
   }
 }

@@ -21,7 +21,7 @@
                 <poe-keyvalue-list-item label="Fee">{{transaction.fee | lto_amount}}</poe-keyvalue-list-item>
                 <poe-keyvalue-list-item label="Sender"><a [routerLink]="['/', 'address', transaction.sender]">{{transaction.sender}}</a></poe-keyvalue-list-item>
                 <poe-keyvalue-list-item *ngIf="showRecipient(transaction)" label="Recipient"><a [routerLink]="['/', 'address', transaction.recipient]">{{transaction.recipient}}</a></poe-keyvalue-list-item>
-                <poe-keyvalue-list-item label="Signature">{{transaction.signature}}</poe-keyvalue-list-item>
+                <poe-keyvalue-list-item label="Signature">{{transaction.signature || transaction.proofs[0]}}</poe-keyvalue-list-item>
               </poe-keyvalue-list>
             </ng-container>
           </mat-card-content>

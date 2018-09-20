@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
+import { MatSnackBar } from '@angular/material';
 
-import { Observable } from 'rxjs';
-import { switchMap, shareReplay, map } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { switchMap, shareReplay, map, retry, retryWhen, delay, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'poe-block',
@@ -11,13 +12,38 @@ import { switchMap, shareReplay, map } from 'rxjs/operators';
   styleUrls: ['./block.component.scss']
 })
 export class BlockComponent implements OnInit {
-  height$: Observable<number>;
+  blockHeight$: Observable<number>;
   block$: Observable<any>;
 
-  constructor(_activatedRote: ActivatedRoute, _publicNode: LtoPublicNodeService) {
-    this.height$ = _activatedRote.params.pipe(map(params => params['height']));
-    this.block$ = this.height$.pipe(
-      switchMap(height => _publicNode.block(height)),
+  constructor(
+    _activatedRote: ActivatedRoute,
+    publicNode: LtoPublicNodeService,
+    snackbar: MatSnackBar,
+    router: Router
+  ) {
+    this.blockHeight$ = _activatedRote.params.pipe(map(params => params['height']));
+
+    this.block$ = combineLatest(publicNode.height(), this.blockHeight$).pipe(
+      switchMap(([nodeHeight, blockHeight]) => {
+        if (nodeHeight < blockHeight) {
+          throw 'Block height cannot be lower than node height!';
+        }
+
+        return publicNode.block(blockHeight).pipe(
+          map(block => {
+            if (block.status === 'error') {
+              throw block;
+            }
+            return block;
+          }),
+          retryWhen(errors => errors.pipe(delay(1000)))
+        );
+      }),
+      catchError(err => {
+        snackbar.open('Block load error', 'DISMISS', { duration: 3000 });
+        router.navigate(['/']);
+        throw err;
+      }),
       shareReplay(1)
     );
   }

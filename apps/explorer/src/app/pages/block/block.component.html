@@ -2,11 +2,11 @@
   <lto-page-content-header>
     <h2 fxLayout="column">
       <span>Block</span>
-      <span>{{height$ | async}}</span>
+      <span>{{blockHeight$ | async}}</span>
     </h2>
   </lto-page-content-header>
   <lto-page-content-body>
-    <div fxLayout="column" *ngIf="block$ | async as block">
+    <div fxLayout="column" *ngIf="block$ | async as block; else loadingTpl">
       <mat-card>
         <mat-card-title>Block {{block.height}}</mat-card-title>
         <mat-card-content>

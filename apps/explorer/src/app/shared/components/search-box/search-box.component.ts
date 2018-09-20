@@ -32,6 +32,6 @@ export class SearchBoxComponent implements OnInit {
   }
 
   searchSubmit(value: string) {
-    this.search.next(value);
+    this.search.next(value.trim());
   }
 }

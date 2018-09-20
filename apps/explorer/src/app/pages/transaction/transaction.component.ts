@@ -25,4 +25,9 @@ export class TransactionComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  showRecipient(transaction: { type: number }): boolean {
+    // Hide recipient for data/anchor transactions
+    return transaction.type !== 12 && transaction.type !== 15;
+  }
 }

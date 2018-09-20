@@ -16,7 +16,7 @@ export class TransactionsTableComponent implements OnInit {
    * https://docs.wavesplatform.com/en/technical-details/data-structures.html
    */
   @Input()
-  transactionsType!: '4' | '8' | '9' | '12';
+  transactionsType!: '4' | '8' | '9' | '11' | '12' | '15';
 
   @Input()
   transactions!: any[];
@@ -26,9 +26,12 @@ export class TransactionsTableComponent implements OnInit {
       case '4':
       case '8':
         return ['id', 'fee', 'timestamp', 'sender', 'recipient', 'amount'];
+      case '11':
+        return ['id', 'fee', 'timestamp', 'sender', 'total_amount'];
       case '9':
         return ['id', 'fee', 'timestamp', 'sender', 'leasing'];
       case '12':
+      case '15':
         return ['id', 'fee', 'timestamp', 'sender'];
     }
 
@@ -38,7 +41,7 @@ export class TransactionsTableComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    const supportedTypes = ['4', '8', '9', '12'];
+    const supportedTypes = ['4', '8', '9', '11', '12', '15'];
     const isSuported = supportedTypes.indexOf(this.transactionsType) !== -1;
 
     if (isSuported !== true) {

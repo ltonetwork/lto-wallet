@@ -34,6 +34,8 @@ export class TransactionsSectionComponent implements OnInit, OnChanges {
         return 'Lease cancel';
       case '12':
         return 'Data';
+      case '15':
+        return 'Anchors';
     }
 
     return '';

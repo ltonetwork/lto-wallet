@@ -46,7 +46,7 @@ export class LtoPublicNodeService {
     return this._http.get<any>(this._publicApi + 'transactions/info/' + id);
   }
 
-  block(height: number): Observable<any> {
+  block(height: number | string): Observable<any> {
     return this._http.get<any>(this._publicApi + 'blocks/at/' + height);
   }
 

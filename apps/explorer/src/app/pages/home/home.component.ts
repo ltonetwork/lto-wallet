@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '@legalthings-one/component-kit';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { Router } from '@angular/router';
-import { ISearchValue } from '../../shared/components';
-import { Observable } from 'rxjs';
-import { take, delay } from 'rxjs/operators';
+import { Observable, combineLatest, of } from 'rxjs';
+import { take, delay, catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'poe-home',
@@ -24,11 +23,26 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {}
 
-  search(value: ISearchValue) {
-    if (!value) {
-      this._notification.show('Invalid value');
-    } else {
-      this._router.navigate(['/', value.type, value.value]);
-    }
+  search(value: string) {
+    combineLatest(
+      this._node.block(value).pipe(
+        map(block => (block.status === 'error' ? null : block)),
+        catchError(() => of(null))
+      ),
+      this._node.transaction(value).pipe(catchError(() => of(null))),
+      this._node.balanceOf(value).pipe(catchError(() => of(null)))
+    )
+      .pipe(take(1))
+      .subscribe(([isBlock, isTransaction, isAddress]) => {
+        if (isBlock) {
+          this._router.navigate(['/', 'block', value]);
+        } else if (isTransaction) {
+          this._router.navigate(['/', 'transaction', value]);
+        } else if (isAddress) {
+          this._router.navigate(['/', 'address', value]);
+        } else {
+          this._notification.show('Invalid value');
+        }
+      });
   }
 }

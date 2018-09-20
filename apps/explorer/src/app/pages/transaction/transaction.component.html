@@ -44,6 +44,19 @@
             </mat-card-content>
           </mat-card>
         </ng-container>
+
+        <ng-container *ngIf="transaction.type == 15">
+          <mat-card>
+            <mat-card-title>Transaction anchors</mat-card-title>
+            <mat-card-content>
+              <div class="anchors-container">
+                <mat-list>
+                  <mat-list-item *ngFor="let anchor of transaction.anchors">{{anchor}}</mat-list-item>
+                </mat-list>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
       </div>
     </ng-container>
   </lto-page-content-body>

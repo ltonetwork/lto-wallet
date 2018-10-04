@@ -34,7 +34,7 @@
             <mat-icon *ngIf="receipt.invalid !== true">check_circle_outline</mat-icon>
             <mat-icon *ngIf="receipt.invalid">highlight_off</mat-icon>
             <div fxLayout="column" fxFlex="1 1 auto">
-              <h2>Receipt {{receipt.invalid ? 'invalid' : 'valid'}}</h2>
+              <h2>Hash {{receipt.invalid ? 'invalid' : 'valid'}}</h2>
               <div class="hash">{{receipt.hash}}</div>
             </div>
           </div>

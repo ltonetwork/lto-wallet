@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { Observable } from 'rxjs';
-import { switchMap, shareReplay, map } from 'rxjs/operators';
+import { switchMap, shareReplay, map, withLatestFrom, filter, combineLatest } from 'rxjs/operators';
+import { EncoderService } from '../../core';
 
 @Component({
   selector: 'poe-transaction',
@@ -14,14 +15,60 @@ export class TransactionComponent implements OnInit {
   transaction$: Observable<any>;
   type$: Observable<4 | 8 | 9 | 12>; // Supported types
 
-  constructor(_activatedRoute: ActivatedRoute, _publicNode: LtoPublicNodeService) {
-    this.id$ = _activatedRoute.params.pipe(map(params => params['id']));
+  anchors$: Observable<any[]>;
+  checkedReceipt$: Observable<any>;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private publicNode: LtoPublicNodeService,
+    private encoderService: EncoderService
+  ) {
+    this.id$ = activatedRoute.params.pipe(map(params => params['id']));
     this.transaction$ = this.id$.pipe(
-      switchMap(id => _publicNode.transaction(id)),
+      switchMap(id => publicNode.transaction(id)),
       shareReplay(1)
     );
 
     this.type$ = this.transaction$.pipe(map(transaction => transaction.type));
+
+    this.anchors$ = this.transaction$.pipe(
+      map(transaction => {
+        if (transaction.type === 12) {
+          return transaction.data.filter((item: any) => item.key === '⚓');
+        }
+
+        if (transaction.type === 15) {
+          return transaction.anchors;
+        }
+
+        return [];
+      }),
+      map(anchors => {
+        return anchors.map((anchorData: any) => {
+          const anchorValue = this.encoderService.base64Decode(anchorData.value.slice(7)); // Slice "base64:" part
+          const hash = this.encoderService.hexEncode(anchorValue);
+          const base58 = this.encoderService.base58Encode(anchorValue);
+          return {
+            value: anchorData.value,
+            hash,
+            base58
+          };
+        });
+      })
+    );
+
+    this.checkedReceipt$ = this.activatedRoute.queryParams.pipe(
+      map(params => params['hash']),
+      filter(hash => !!hash),
+      combineLatest(this.anchors$),
+      map(([hash, anchors]) => {
+        const anchor = anchors.find(anchor => anchor.hash === hash);
+        return {
+          hash,
+          invalid: !anchor
+        };
+      })
+    );
   }
 
   ngOnInit() {}

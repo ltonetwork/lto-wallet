@@ -27,6 +27,21 @@
           </mat-card-content>
         </mat-card>
 
+        <ng-container *ngIf="checkedReceipt$ | async as receipt">
+
+          <div class="receipt" [ngClass]="{'invalid': receipt.invalid}" fxLayout="row" fxLayoutAlign="start center"
+            fxLayoutGap="24px">
+            <mat-icon *ngIf="receipt.invalid !== true">check_circle_outline</mat-icon>
+            <mat-icon *ngIf="receipt.invalid">highlight_off</mat-icon>
+            <div fxLayout="column" fxFlex="1 1 auto">
+              <h2>Receipt {{receipt.invalid ? 'invalid' : 'valid'}}</h2>
+              <div class="hash">{{receipt.hash}}</div>
+            </div>
+          </div>
+
+
+        </ng-container>
+
         <ng-container *ngIf="transaction.type == 4">
           <mat-card>
             <mat-card-title>Attachment</mat-card-title>
@@ -34,6 +49,27 @@
               <pre>{{transaction.attachment}}</pre>
             </mat-card-content>
           </mat-card>
+        </ng-container>
+
+        <ng-container *ngIf="anchors$ | async as anchors;">
+          <ng-container *ngIf="anchors.length">
+            <mat-card>
+              <mat-card-title>Transaction anchors</mat-card-title>
+              <mat-card-content>
+                <div class="anchors-container">
+                  <div class="anchors-list">
+                    <div class="anchor" *ngFor="let anchor of anchors">
+                      <h3>{{anchor.value}}</h3>
+                      <div class="additional">
+                        <div class="base58">Base58:{{anchor.base58}}</div>
+                        <div class="hex">Hex:{{anchor.hash}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </ng-container>
         </ng-container>
 
         <ng-container *ngIf="transaction.type == 12">
@@ -45,18 +81,6 @@
           </mat-card>
         </ng-container>
 
-        <ng-container *ngIf="transaction.type == 15">
-          <mat-card>
-            <mat-card-title>Transaction anchors</mat-card-title>
-            <mat-card-content>
-              <div class="anchors-container">
-                <mat-list>
-                  <mat-list-item *ngFor="let anchor of transaction.anchors">{{anchor}}</mat-list-item>
-                </mat-list>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </ng-container>
       </div>
     </ng-container>
   </lto-page-content-body>

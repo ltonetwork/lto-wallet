@@ -21,6 +21,11 @@ pre {
 
 .anchors-container {
   color: rgba(0, 0, 0, 0.82);
+  margin-left: -24px;
+  margin-right: -24px;
+  table {
+    width: 100%;
+  }
   .anchors-list {
     .anchor {
       background: rgba(0, 0, 0, 0.02);

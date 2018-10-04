@@ -49,4 +49,8 @@ $main-color: A200;
       }
     }
   }
+
+  .mat-tooltip {
+    max-width: none !important;
+  }
 }

@@ -45,14 +45,11 @@ export class TransactionComponent implements OnInit {
       }),
       map(anchors => {
         return anchors.map((anchorData: any) => {
-          const anchorValue = this.encoderService.base64Decode(anchorData.value.slice(7)); // Slice "base64:" part
-          const hash = this.encoderService.hexEncode(anchorValue);
+          const base64 = anchorData.value.slice(7); // Slice "base64:" part
+          const anchorValue = this.encoderService.base64Decode(base64);
+          const hex = this.encoderService.hexEncode(anchorValue);
           const base58 = this.encoderService.base58Encode(anchorValue);
-          return {
-            value: anchorData.value,
-            hash,
-            base58
-          };
+          return { base64, hex, base58 };
         });
       })
     );
@@ -62,7 +59,7 @@ export class TransactionComponent implements OnInit {
       filter(hash => !!hash),
       combineLatest(this.anchors$),
       map(([hash, anchors]) => {
-        const anchor = anchors.find(anchor => anchor.hash === hash);
+        const anchor = anchors.find(anchor => anchor.hex === hash);
         return {
           hash,
           invalid: !anchor

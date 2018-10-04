@@ -38,8 +38,6 @@
               <div class="hash">{{receipt.hash}}</div>
             </div>
           </div>
-
-
         </ng-container>
 
         <ng-container *ngIf="transaction.type == 4">
@@ -57,7 +55,29 @@
               <mat-card-title>Transaction anchors</mat-card-title>
               <mat-card-content>
                 <div class="anchors-container">
-                  <div class="anchors-list">
+                  <table mat-table [dataSource]="anchors">
+                    <ng-container matColumnDef="hex">
+                      <th mat-header-cell *matHeaderCellDef> Hex </th>
+                      <td mat-cell *matCellDef="let anchor"> {{anchor.hex}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="base64">
+                      <th mat-header-cell *matHeaderCellDef> Base64 </th>
+                      <td mat-cell *matCellDef="let anchor">
+                        <span [matTooltip]="anchor.base64">{{anchor.base64.substring(0, 10)}}...</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="base58">
+                      <th mat-header-cell *matHeaderCellDef> Base58 </th>
+                      <td mat-cell *matCellDef="let anchor">
+                        <span [matTooltip]="anchor.base58">{{anchor.base58.substring(0, 10)}}...</span> </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="['hex', 'base64', 'base58']"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ['hex', 'base64', 'base58'];"></tr>
+                  </table>
+                  <!-- <div class="anchors-list">
                     <div class="anchor" *ngFor="let anchor of anchors">
                       <h3>{{anchor.value}}</h3>
                       <div class="additional">
@@ -65,7 +85,7 @@
                         <div class="hex">Hex:{{anchor.hash}}</div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </mat-card-content>
             </mat-card>

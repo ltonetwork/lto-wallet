@@ -13,7 +13,7 @@ import { EncoderService } from '../../core';
 export class TransactionComponent implements OnInit {
   id$: Observable<string>;
   transaction$: Observable<any>;
-  type$: Observable<4 | 8 | 9 | 12>; // Supported types
+  type$: Observable<4 | 8 | 9 | 12 | 15>; // Supported types
 
   anchors$: Observable<any[]>;
   checkedReceipt$: Observable<any>;
@@ -45,11 +45,19 @@ export class TransactionComponent implements OnInit {
       }),
       map(anchors => {
         return anchors.map((anchorData: any) => {
-          const base64 = anchorData.value.slice(7); // Slice "base64:" part
-          const anchorValue = this.encoderService.base64Decode(base64);
-          const hex = this.encoderService.hexEncode(anchorValue);
-          const base58 = this.encoderService.base58Encode(anchorValue);
-          return { base64, hex, base58 };
+          if (typeof anchorData === 'string') {
+            const base58 = anchorData;
+            const anchorValue = this.encoderService.decode(base58, 'base58');
+            const hex = this.encoderService.hexEncode(anchorValue);
+            const base64 = this.encoderService.base64Encode(anchorValue);
+            return { base64, hex, base58 };
+          } else {
+            const base64 = anchorData.value.slice(7); // Slice "base64:" part
+            const anchorValue = this.encoderService.base64Decode(base64);
+            const hex = this.encoderService.hexEncode(anchorValue);
+            const base58 = this.encoderService.base58Encode(anchorValue);
+            return { base64, hex, base58 };
+          }
         });
       })
     );
@@ -59,7 +67,7 @@ export class TransactionComponent implements OnInit {
       filter(hash => !!hash),
       combineLatest(this.anchors$),
       map(([hash, anchors]) => {
-        const anchor = anchors.find(anchor => anchor.hex === hash);
+        const anchor = anchors.find(anchor => anchor.hex === hash || anchor.base58 === hash || anchor.base64 === hash);
         return {
           hash,
           invalid: !anchor

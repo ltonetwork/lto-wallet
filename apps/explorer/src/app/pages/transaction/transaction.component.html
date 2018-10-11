@@ -101,6 +101,15 @@
           </mat-card>
         </ng-container>
 
+        <ng-container *ngIf="transaction.type == 15">
+          <mat-card>
+            <mat-card-title>Transaction data</mat-card-title>
+            <mat-card-content>
+              <pre>{{transaction.anchors | json}}</pre>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+
       </div>
     </ng-container>
   </lto-page-content-body>

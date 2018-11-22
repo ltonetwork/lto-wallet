@@ -1,0 +1,14 @@
+<lto-content-section>
+  <h3 class="section-title">Active lease</h3>
+  <mat-grid-list [cols]="2" gutterSize="16px" rowHeight="380px">
+    <mat-grid-tile *ngFor="let transaction of (activeTransactions$ | async)">
+      <lto-lease-info
+        [transaction]="transaction"
+        (cancel)="cancelLease(transaction)"
+      ></lto-lease-info>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="start-lease" matRipple (click)="startLease()"><span>+ start lease</span></div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</lto-content-section>

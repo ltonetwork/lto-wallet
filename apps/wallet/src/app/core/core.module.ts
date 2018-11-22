@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconRegistry } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { AuthService, MyWallet, ScreenService } from './services';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: []
+  declarations: [],
+  imports: [HttpClientModule, FlexLayoutModule],
+  providers: [AuthService.provider, MyWallet.provider, ScreenService.provider]
 })
-export class CoreModule {
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon('lto', sanitizer.bypassSecurityTrustResourceUrl('/assets/lto.svg'));
-  }
-}
+export class CoreModule {}

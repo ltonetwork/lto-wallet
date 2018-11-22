@@ -1,0 +1,89 @@
+<mat-sidenav-container fxFlexFill>
+  <mat-sidenav #sidenav [opened]="detailsOpened" [mode]="sidenavMode$ | async" position="end">
+    <lto-transaction-details
+      (close)="select(null)"
+      [transaction]="selectedTransaction"
+    ></lto-transaction-details>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- Balance -->
+    <lto-content-section width="small">
+      <mat-card>
+        <mat-card-title>Balance</mat-card-title>
+        <mat-card-content>
+          <div class="balance-box" *ngIf="(balance$ | async) as balance">
+            <div class="balance">
+              <div class="label">Regular</div>
+              <div class="value">{{ balance.regular | amountDivide }}</div>
+            </div>
+            <div class="balance">
+              <div class="label">Generating</div>
+              <div class="value">{{ balance.generating | amountDivide }}</div>
+            </div>
+            <div class="balance">
+              <div class="label">Available</div>
+              <div class="value">{{ balance.available | amountDivide }}</div>
+            </div>
+            <div class="balance">
+              <div class="label">Effective</div>
+              <div class="value">{{ balance.effective | amountDivide }}</div>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="end">
+          <button mat-button (click)="deposit()">Deposit</button>
+          <button mat-button (click)="withdraw()">Withdraw</button>
+          <button mat-button (click)="makeTransaction()">Send</button>
+        </mat-card-actions>
+      </mat-card>
+    </lto-content-section>
+
+    <!-- Unconfirmed transactions -->
+    <ng-container *ngIf="(unconfirmed$ | async) as unconfirmedTransactions">
+      <lto-content-section width="small" *ngIf="unconfirmedTransactions.length">
+        <h2 class="section-header">Unconfirmed transactions</h2>
+        <ng-container
+          *ngTemplateOutlet="transactionsListTpl; context: { $implicit: unconfirmedTransactions }"
+        ></ng-container>
+      </lto-content-section>
+    </ng-container>
+    <!-- Confirmed transactions -->
+    <lto-content-section width="small">
+      <section *ngFor="let transfersGroup of (wallet.groupedTransfers$ | async)">
+        <h2 class="section-header">{{ transfersGroup.date }}</h2>
+        <ng-container
+          *ngTemplateOutlet="
+            transactionsListTpl;
+            context: { $implicit: transfersGroup.transactions }
+          "
+        ></ng-container>
+      </section>
+    </lto-content-section>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #transactionsListTpl let-transactions>
+  <div class="transactions">
+    <div
+      class="transaction"
+      fxLayout="row"
+      *ngFor="let transaction of transactions"
+      (click)="select(transaction)"
+      [ngClass]="{ selected: selectedTransaction === transaction }"
+    >
+      <div class="icon"><mat-icon svgIcon="lto"></mat-icon></div>
+      <div class="body" fxFlex="1 1 auto">
+        <h3 class="title" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <span>{{ transaction.sender | isYou }}</span>
+          <mat-icon *ngIf="transaction.recipient">arrow_right_alt</mat-icon>
+          <span>{{ transaction.recipient | isYou }}</span>
+        </h3>
+        <div class="subtitle">
+          {{ transaction.timestamp | date: 'HH:MM' }} · {{ transaction.type | typeLabel }} · Fee:
+          {{ transaction.fee | amountDivide }}
+        </div>
+      </div>
+      <div class="ammount">{{ transaction.amount | amountDivide }}</div>
+    </div>
+  </div>
+</ng-template>

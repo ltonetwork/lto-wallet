@@ -1,0 +1,56 @@
+<lto-content-section width="very-small">
+  <mat-card fxFlexFill>
+    <mat-progress-bar mode="buffer" [bufferValue]="100" [value]="progress"></mat-progress-bar>
+    <mat-card-title>Create New Account</mat-card-title>
+    <mat-card-content>
+      <mat-horizontal-stepper #stepper>
+        <mat-step>
+          <div class="step-1">
+            <p>We generate random account address for you</p>
+            <div fxLayout="column">
+              <mat-form-field>
+                <mat-label>Address</mat-label>
+                <input type="text" matInput disabled value="{{wallet.address}}" />
+              </mat-form-field>
+              <mat-checkbox [checked]="true">Keep the account on this computer</mat-checkbox>
+            </div>
+            <div class="step-actions" fxLayout="row" fxLayoutAlign="end">
+              <button mat-flat-button color="primary" (click)="stepper.next()">Next</button>
+            </div>
+          </div>
+        </mat-step>
+        <mat-step>
+          <div class="step-2"><lto-credentials-form #credentialsForm></lto-credentials-form></div>
+          <div class="step-actions" fxLayout="row" fxLayoutAlign="end">
+            <button
+              mat-flat-button
+              color="primary"
+              [disabled]="credentialsForm.invalid"
+              (click)="saveAccount(credentialsForm.value)"
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <p>It is really important to backup account</p>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <button mat-stroked-button fxFlex="1 1 50" (click)="redirectToHome()">Later</button>
+            <button mat-flat-button color="primary" fxFlex="1 1 50" (click)="stepper.next()">
+              Backup
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <lto-backup-phrase
+            [phrase]="'foo bar zed kittens mittens chese'"
+            (later)="redirectToHome()"
+            (confirmed)="redirectToHome()"
+          ></lto-backup-phrase>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </mat-card-content>
+  </mat-card>
+</lto-content-section>

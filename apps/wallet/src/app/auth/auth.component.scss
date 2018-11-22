@@ -1,0 +1,16 @@
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  height: 100%;
+  padding: 10px 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.84);
+  img {
+    height: 32px;
+    margin-right: 8px;
+  }
+}

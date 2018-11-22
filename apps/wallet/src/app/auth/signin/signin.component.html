@@ -1,0 +1,44 @@
+<lto-content-section width="very-small">
+  <mat-card fxFlexFill>
+    <mat-card-title>Sign in</mat-card-title>
+    <mat-card-content>
+      <p class="description">Accounts on this device</p>
+      <mat-list>
+        <mat-list-item
+          matRipple
+          *ngFor="let account of accounts"
+          (click)="select(account)"
+          [ngClass]="{ selected: selected === account }"
+        >
+          <h4 matLine>{{ account.name }}</h4>
+          <p matLine>{{ account.address }}</p>
+          <mat-icon mat-list-icon color="primary">account_circle</mat-icon>
+        </mat-list-item>
+      </mat-list>
+      <form class="password-container" fxLayout="column" [formGroup]="passwordForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Account password</mat-label>
+          <input
+            type="password"
+            matInput
+            formControlName="password"
+            required
+            (keydown)="inputKeydown($event)"
+          />
+        </mat-form-field>
+      </form>
+      <div class="button-container" fxLayout="column" fxLayoutGap="8px">
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="passwordForm.invalid"
+          (click)="signIn()"
+        >
+          Sign In
+        </button>
+        <div>OR</div>
+        <a mat-button routerLink="../create">Create account</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</lto-content-section>

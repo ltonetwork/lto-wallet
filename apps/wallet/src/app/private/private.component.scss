@@ -1,0 +1,65 @@
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+mat-sidenav-container {
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  @media screen and(max-width: 599px) {
+    top: 57px;
+  }
+
+  mat-sidenav-content {
+    background: #fff;
+  }
+
+  mat-sidenav {
+    border: none;
+  }
+}
+
+mat-divider {
+  margin: 16px 0;
+}
+
+.brand {
+  height: 100%;
+  padding: 10px 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.84);
+  img {
+    height: 32px;
+    margin-right: 8px;
+  }
+}
+.main-navigation {
+  width: 300px;
+  padding-top: 16px;
+
+  a {
+    display: flex;
+    flex-direction: row;
+    padding: 8px 16px 8px 28px;
+    margin-bottom: 6px;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.54);
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+
+    mat-icon {
+      margin-right: 16px;
+    }
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.05);
+    }
+  }
+}

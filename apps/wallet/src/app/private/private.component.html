@@ -1,0 +1,30 @@
+<mat-toolbar>
+  <mat-toolbar-row fxLayout="row">
+    <button mat-icon-button fxHide.gt-md (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a routerLink="/" class="brand" fxLayout="row" fxLayoutAlign="start center">
+      <img src="assets/logo.png" alt="" /> <span>LTO</span>
+    </a>
+    <span fxFlex="1 1 auto"></span> <button mat-button (click)="signOut()">Sign out</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav [opened]="true" [mode]="sidenavMode$ | async" #sidenav>
+    <div class="main-navigation">
+      <a routerLink="/transfers" routerLinkActive="active">
+        <mat-icon>swap_horiz</mat-icon><span>Transfers</span></a
+      >
+
+      <a routerLink="/leasing" routerLinkActive="active"
+        ><mat-icon>watch_later</mat-icon> <span>Leasing</span></a
+      >
+      <a routerLink="/anchors" routerLinkActive="active"
+        ><mat-icon>alternate_email</mat-icon> <span>Anchors</span></a
+      >
+      <mat-divider></mat-divider>
+      <a (click)="backupAccount()"><mat-icon>security</mat-icon> <span>Backup account</span></a>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content> <router-outlet></router-outlet> </mat-sidenav-content>
+</mat-sidenav-container>

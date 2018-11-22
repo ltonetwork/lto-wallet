@@ -1,18 +1,36 @@
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { LTO_PUBLIC_API } from '@legalthings-one/platform';
-import { AMOUNT_DIVIDER } from '@legalthings-one/component-kit';
-import { LTO_NETWORK_BYTE } from './tokens';
-import { CoreModule } from './core/core.module';
+import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared';
+import { LTO_NETWORK_BYTE, LTO_PUBLIC_API, AMOUNT_DIVIDER } from './tokens';
+
+import {
+  StartLeaseModalModule,
+  MakeTransactionModalModule,
+  DepositModalModule,
+  WithdrawModalModule,
+  BackupAccountModalModule
+} from './modals';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule, CoreModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    CoreModule,
+    StartLeaseModalModule,
+    MakeTransactionModalModule,
+    DepositModalModule,
+    WithdrawModalModule,
+    BackupAccountModalModule,
+    SharedModule
+  ],
   providers: [
     {
       provide: LTO_NETWORK_BYTE,
@@ -21,7 +39,8 @@ import { AppComponent } from './app.component';
     {
       provide: LTO_PUBLIC_API,
       // useValue: 'https://nodes.wavesnodes.com/'
-      useValue: 'https://testnet.legalthings.one/'
+      // useValue: 'https://testnet.legalthings.one/'
+      useValue: 'https://testnet.lto.network/'
     },
     {
       provide: AMOUNT_DIVIDER,

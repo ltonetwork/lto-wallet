@@ -1,0 +1,21 @@
+@import './transfers/transfers.theme';
+@import './leasing/leasing.component.theme.scss';
+@import './anchors/anchors.theme.scss';
+
+@mixin private-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  lto-private {
+    .main-navigation {
+      a:hover,
+      a.active {
+        color: mat-color($primary) !important;
+        background-color: rgba($color: mat-color($primary, 50), $alpha: 0.5);
+      }
+    }
+  }
+
+  @include transfers-theme($theme);
+  @include leasing-theme($theme);
+  @include anchors-theme($theme);
+}

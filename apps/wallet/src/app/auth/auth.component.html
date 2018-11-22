@@ -1,0 +1,16 @@
+<div fxFlexFill fxLayout="column">
+  <mat-toolbar>
+    <mat-toolbar-row fxLayout="row">
+      <a routerLink="/" class="brand" fxLayout="row" fxLayoutAlign="start center">
+        <img src="assets/logo.png" alt="" /> <span>LTO</span>
+      </a>
+      <span fxFlex="1 1 auto"></span>
+      <div fxLayoutGap="8px" fxLayout="row">
+        <a routerLink="./signin" mat-button color="primary">Sign in</a>
+        <a mat-button color="primary" routerLink="./create">Create account</a>
+        <a routerLink="./import" mat-button color="primary">Import account</a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="content" fxFlex="1 1 auto"><router-outlet></router-outlet></div>
+</div>

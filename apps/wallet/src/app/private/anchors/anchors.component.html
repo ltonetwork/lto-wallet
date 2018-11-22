@@ -1,0 +1,44 @@
+<mat-sidenav-container fxFlexFill>
+  <mat-sidenav #sidenav [opened]="detailsOpened" [mode]="sidenavMode$ | async" position="end">
+    <lto-transaction-details
+      (close)="select(null)"
+      [transaction]="selectedTransaction"
+    ></lto-transaction-details>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <lto-content-section width="small">
+      <h2>Anchors</h2>
+      <ng-container *ngIf="(anchorTransactions$ | async) as transactions">
+        <div class="transactions" *ngIf="transactions.length; else: emptyTpl">
+          <div
+            class="transaction"
+            fxLayout="row"
+            *ngFor="let transaction of transactions"
+            (click)="select(transaction)"
+            [ngClass]="{ selected: selectedTransaction === transaction }"
+          >
+            <div class="icon"><mat-icon svgIcon="lto"></mat-icon></div>
+            <div class="body" fxFlex="1 1 auto" fxLayout="row">
+              <div fxFlex="1 1 auto">
+                <h3 class="title" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+                  <span>{{ transaction.sender | isYou }}</span>
+                  <mat-icon *ngIf="transaction.recipient">arrow_right_alt</mat-icon>
+                  <span>{{ transaction.recipient | isYou }}</span>
+                </h3>
+                <div class="subtitle">
+                  {{ transaction.timestamp | date: 'HH:MM' }} · {{ transaction.type | typeLabel }} ·
+                  Fee: {{ transaction.fee | amountDivide }}
+                </div>
+              </div>
+              <div class="ammount">{{ transaction.amount | amountDivide }}</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </lto-content-section>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #emptyTpl>
+  <h3 class="mat-h3">Seems like you have no achor transactions</h3>
+</ng-template>

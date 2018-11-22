@@ -1,0 +1,10 @@
+@mixin anchors-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  lto-anchors {
+    .transaction:hover,
+    .transaction.selected {
+      background-color: rgba($color: mat-color($primary, 50), $alpha: 0.5);
+    }
+  }
+}

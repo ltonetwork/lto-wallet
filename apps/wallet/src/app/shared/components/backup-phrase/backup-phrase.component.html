@@ -1,0 +1,54 @@
+<mat-horizontal-stepper #stepper>
+  <mat-step fxLayout="column">
+    <div class="step-1">
+      <p>Please carefully write down these 15 words</p>
+      <div class="phrase">
+        <span class="word" *ngFor="let word of words">{{ word }}</span>
+      </div>
+      <p class="big-margin">You will confirm this phrase on the next screen.</p>
+      <div fxLayout="row" fxLayoutGap="16px">
+        <button mat-stroked-button fxFlex="1 1 50" (click)="_later()">Later</button>
+        <button mat-flat-button color="primary" fxFlex="1 1 50" (click)="toConfirmationStep()">
+          I’ve written it down
+        </button>
+      </div>
+    </div>
+  </mat-step>
+  <mat-step class="step-2">
+    <div class="step-2">
+      <p>Verify your backup phrase</p>
+      <div class="answer">
+        <div class="word" *ngFor="let word of selectedWords">{{ word }}</div>
+      </div>
+      <ng-container *ngIf="finished && invalid">
+        <div class="error">Wrong order</div>
+        <button mat-flat-button color="primary" (click)="resetConfirmation()">Try again</button>
+      </ng-container>
+      <ng-container *ngIf="!finished || !invalid">
+        <p class="explanation">Please, tap each word in the correct order</p>
+        <div class="words">
+          <div
+            class="word"
+            *ngFor="let word of shuffledWords"
+            [ngClass]="{ selected: isSelected(word) }"
+          >
+            <button mat-flat-button color="accent" (click)="selectWord(word)">{{ word }}</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="actions" fxLayout="row" fxLayoutGap="16px">
+        <button mat-stroked-button fxFlex="1 1 50" (click)="stepper.previous()">Go back</button>
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="invalid"
+          (click)="_confirmed()"
+          fxFlex="1 1 50"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

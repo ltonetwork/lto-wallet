@@ -1,0 +1,10 @@
+@mixin transfers-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  lto-transfers {
+    .transaction:hover,
+    .transaction.selected {
+      background-color: rgba($color: mat-color($primary, 50), $alpha: 0.5);
+    }
+  }
+}

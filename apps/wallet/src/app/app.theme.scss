@@ -1,57 +1,51 @@
 @import '~@angular/material/theming';
+// Plus imports for other components in your app.
+@import './private/private.theme';
 
-// @import './pages/pages.theme';
-// @import './shared/components/components.theme';
+@include mat-core();
 
-$main-color: A200;
+$lto-wallet-primary: mat-palette($mat-purple);
+$lto-wallet-accent: mat-palette($mat-pink, A200, A100, A400);
 
-@mixin app-theme() {
-  @include mat-core();
+$lto-wallet-warn: mat-palette($mat-red);
 
-  $app-primary: mat-palette($mat-indigo, $main-color);
-  $app-accent: mat-palette($mat-orange);
+$lto-wallet-theme: mat-light-theme($lto-wallet-primary, $lto-wallet-accent, $lto-wallet-warn);
 
-  $app-warn: mat-palette($mat-red);
-  $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+@include angular-material-theme($lto-wallet-theme);
 
-  @include angular-material-theme($app-theme);
-
-  // @include shared-components($app-theme);
-  // @include pages-theme($app-theme);
-
-  a {
-    text-decoration: none;
-    color: mat-color($app-primary, 700);
-  }
-
-  .sidenav-navigation .links a.active {
-    color: mat-color($app-primary, 700) !important;
-  }
-
-  .mat-card {
-    border-radius: 8px !important;
-  }
-
-  .mat-button,
-  .mat-flat-button,
-  .mat-icon-button,
-  .mat-stroked-button,
-  .mat-raised-button {
-    border-radius: 4px !important;
-    text-transform: uppercase;
-  }
-
-  lto-page-content {
-    .page-content-header {
-      background-color: mat-color($app-primary, 'A200') !important;
-      color: mat-color($app-primary, 'A200-contrast') !important;
-
-      h1,
-      h2,
-      h3,
-      h4 {
-        font-weight: 400;
-      }
-    }
-  }
+.mat-toolbar {
+  background: white;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.12);
 }
+
+.mat-card.mat-card {
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+}
+.mat-card:not([class*='mat-elevation-z']) {
+  box-shadow: none;
+}
+
+.mat-sidenav-content {
+  background: #fff;
+}
+
+.cdk-overlay-pane {
+  padding: 16px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.mat-card-title {
+  font-weight: 400;
+}
+
+p {
+  font-size: 16px;
+}
+
+@include private-theme($lto-wallet-theme);

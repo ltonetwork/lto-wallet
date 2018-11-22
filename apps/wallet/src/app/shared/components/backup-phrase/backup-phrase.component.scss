@@ -1,0 +1,73 @@
+:host::ng-deep {
+  .mat-horizontal-stepper-header-container {
+    display: none;
+  }
+
+  .mat-horizontal-content-container {
+    padding: 0 !important;
+  }
+}
+
+:host {
+  text-align: center;
+}
+
+.step-1 {
+  .big-margin {
+    margin: 48px 0;
+  }
+
+  .phrase {
+    padding: 24px 16px;
+    border: 1px solid #ebebeb;
+    text-align: center;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.02);
+
+    .word {
+      display: inline-block;
+      padding: 4px 8px;
+    }
+  }
+}
+
+.step-2 {
+  .answer {
+    padding: 24px 16px;
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.02);
+    min-height: 180px;
+    margin-bottom: 32px;
+
+    .word {
+      display: inline-block;
+      margin: 4px 8px;
+    }
+  }
+  .words {
+    .word {
+      display: inline-block;
+      margin: 4px 8px;
+      border: 1px dashed transparent;
+      border-radius: 4px;
+
+      &.selected {
+        border-color: #989898;
+
+        button {
+          visibility: hidden;
+        }
+      }
+    }
+  }
+
+  .actions {
+    margin-top: 32px;
+  }
+}
+
+.error {
+  color: red;
+  margin-bottom: 32px;
+}

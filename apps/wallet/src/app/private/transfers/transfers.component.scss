@@ -1,0 +1,89 @@
+section {
+  h2.section-header {
+    padding: 24px 0 16px 24px;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.12);
+    font-size: 21px;
+    margin-bottom: 0;
+  }
+}
+
+.transaction-details {
+  width: 400px;
+}
+
+section {
+  margin-bottom: 32px;
+}
+
+.transactions {
+  .transaction {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+
+    &:hover {
+      // background: rgba(0, 0, 0, 0.03);
+    }
+    > div {
+      padding: 16px;
+    }
+    .icon {
+      padding-left: 24px;
+      mat-icon {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .title {
+      margin: 0;
+
+      font-size: 16px;
+    }
+    .subtitle {
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 14px;
+    }
+
+    .ammount {
+      display: flex;
+      font-size: 18px;
+      align-items: center;
+      justify-content: end;
+      padding-right: 24px;
+    }
+  }
+}
+
+.balance-box {
+  display: flex;
+
+  .balance {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+
+    .label {
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.52);
+      flex: 1 1 auto;
+    }
+    .value {
+      font-size: 24px;
+      color: rgba(0, 0, 0, 0.72);
+    }
+  }
+
+  @media screen and (max-width: 799px) {
+    flex-direction: column;
+
+    .balance {
+      flex-direction: row;
+      padding: 8px 0;
+
+      .label,
+      .value {
+        font-size: 18px;
+      }
+    }
+  }
+}

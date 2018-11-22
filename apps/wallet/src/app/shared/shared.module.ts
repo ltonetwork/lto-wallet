@@ -1,44 +1,88 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  MatCardModule,
-  MatIconModule,
-  MatButtonModule,
-  MatToolbarModule,
-  MatProgressSpinnerModule,
-  MatTooltipModule
-} from '@angular/material';
-import { AmountPipeModule } from '@legalthings-one/component-kit';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TypeLabelModule } from './pipes';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import {
-  MakeTransactionModalModule,
-  ReceiveModalModule,
-  TransactionInfoModule,
-  MyWalletInfoModalModule,
-  StartLeaseModalModule,
-  LeaseDetailsModalModule
-} from './modals';
+  MatToolbarModule,
+  MatButtonModule,
+  MatIconModule,
+  MatCardModule,
+  MatSnackBarModule,
+  MatListModule,
+  MatRippleModule,
+  MatSidenavModule,
+  MatDividerModule,
+  MatGridListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatTableModule,
+  MatTooltipModule,
+  MatStepperModule
+} from '@angular/material';
+import { ContentSectionComponent } from './components/content-section/content-section.component';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
+import { IsYouPipe } from './pipes/is-you.pipe';
+import { TypeLabelPipe } from './pipes/type-label.pipe';
+import { AmountDividePipe } from './pipes/amount-divide.pipe';
+import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
+import { LeaseInfoComponent } from './components/lease-info/lease-info.component';
+import { BackupPhraseComponent } from './components/backup-phrase/backup-phrase.component';
 
 @NgModule({
+  declarations: [
+    ContentSectionComponent,
+    IsYouPipe,
+    TypeLabelPipe,
+    AmountDividePipe,
+    TransactionDetailsComponent,
+    LeaseInfoComponent,
+    BackupPhraseComponent
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatListModule,
+    MatRippleModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatStepperModule
+  ],
   exports: [
     CommonModule,
-    StartLeaseModalModule,
-    MakeTransactionModalModule,
-    ReceiveModalModule,
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    AmountPipeModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
-    TransactionInfoModule,
-    MyWalletInfoModalModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatListModule,
+    ContentSectionComponent,
+    MatRippleModule,
+    MatSidenavModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    IsYouPipe,
+    TypeLabelPipe,
+    AmountDividePipe,
+    TransactionDetailsComponent,
+    LeaseInfoComponent,
     MatTooltipModule,
-    LeaseDetailsModalModule,
-    TypeLabelModule
+    MatTableModule,
+    MatStepperModule,
+    BackupPhraseComponent
   ]
 })
-export class SharedModule {}
+export class SharedModule {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon('lto', sanitizer.bypassSecurityTrustResourceUrl('/assets/lto.svg'));
+  }
+}

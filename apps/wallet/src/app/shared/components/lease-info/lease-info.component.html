@@ -1,0 +1,38 @@
+<ng-container *ngIf="transaction">
+  <div class="compoennt-content" fxFlex="1 1 auto" fxLayout="row">
+    <div class="info-list" fxFlex="1 1 auto">
+      <div class="item">
+        <div class="label">Amount</div>
+        <div class="value">{{ transaction.amount | amountDivide }}</div>
+      </div>
+
+      <div class="item">
+        <div class="label">Transaction ID</div>
+        <div class="value">{{ transaction.id }}</div>
+      </div>
+
+      <div class="item">
+        <div class="label">Sender</div>
+        <div class="value">{{ transaction.sender }}</div>
+      </div>
+
+      <div class="item">
+        <div class="label">Recipinet</div>
+        <div class="value">{{ transaction.recipient }}</div>
+      </div>
+
+      <div class="item">
+        <div class="label">Fee</div>
+        <div class="value">{{ transaction.fee | amountDivide }}</div>
+      </div>
+      <div class="item">
+        <div class="label">date</div>
+        <div class="value">{{ transaction.timestamp | date: 'fullDate' }}</div>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="actions" fxLayout="row" fxLayoutAlign="end">
+    <button mat-button (click)="_cancel()">Cancel lease</button>
+  </div>
+</ng-container>

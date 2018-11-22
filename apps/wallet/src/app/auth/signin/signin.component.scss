@@ -1,0 +1,50 @@
+:host::ng-deep {
+  .mat-horizontal-stepper-header-container {
+    display: none;
+  }
+
+  .mat-horizontal-content-container {
+    padding: 0 !important;
+  }
+}
+
+mat-card {
+  margin-top: 50px;
+}
+
+mat-card-title {
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+}
+.button-container {
+  padding-top: 16px;
+  text-align: center;
+}
+
+mat-list {
+  padding-top: 0;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  mat-list-item {
+    cursor: pointer;
+
+    &:hover,
+    &.selected {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    p {
+      color: rgba(0, 0, 0, 0.54);
+    }
+  }
+}
+
+.password-container {
+  padding-top: 32px;
+  mat-form-field {
+    display: block;
+  }
+}

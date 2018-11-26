@@ -141,14 +141,14 @@ export class MyWalletImpl implements MyWallet {
     );
   }
 
-  async withdraw(recipient: string, amount: number) {
+  async withdraw(recipient: string, amount: number, fee: number) {
     // Create a bridge
     const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient));
     // Make a transaction
     return this.transfer({
       amount,
       recipient: bridgeAddress,
-      fee: 0.001
+      fee
     });
   }
 }
@@ -175,5 +175,5 @@ export abstract class MyWallet {
   abstract transfer(data: ITransferPayload): Promise<void>;
   abstract lease(recipient: string, amount: number, fee: number): Promise<any>;
   abstract cancelLease(transactionId: string): Promise<any>;
-  abstract withdraw(address: string, ammount: number): Promise<any>;
+  abstract withdraw(address: string, ammount: number, fee: number): Promise<any>;
 }

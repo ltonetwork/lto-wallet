@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { MyWallet } from '../../core';
 import { MatSnackBar, MatDialogRef } from '@angular/material';
 
@@ -10,6 +11,7 @@ import { MatSnackBar, MatDialogRef } from '@angular/material';
 })
 export class WithdrawModalComponent implements OnInit {
   withdrawForm: FormGroup;
+  balance$: Observable<any>;
 
   constructor(
     private wallet: MyWallet,
@@ -18,16 +20,25 @@ export class WithdrawModalComponent implements OnInit {
   ) {
     this.withdrawForm = new FormGroup({
       address: new FormControl('', [Validators.required]),
-      amount: new FormControl(0, [Validators.required])
+      amount: new FormControl(0, [Validators.required]),
+      fee: new FormControl(
+        {
+          value: 0.001,
+          disabled: true
+        },
+        []
+      )
     });
+
+    this.balance$ = wallet.balance$;
   }
 
   ngOnInit() {}
 
   async withdraw() {
     try {
-      const { address, amount } = this.withdrawForm.value;
-      await this.wallet.withdraw(address, amount);
+      const { address, amount, fee } = this.withdrawForm.value;
+      await this.wallet.withdraw(address, amount, fee);
       this.snackbar.open('Withdraw successfull', 'Dismiss', { duration: 3000 });
       this.dialog.close();
     } catch (error) {

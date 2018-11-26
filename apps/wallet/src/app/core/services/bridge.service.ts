@@ -17,11 +17,9 @@ export class BridgeServiceImpl {
   ): Observable<string> {
     return this.http
       .post<any>(this.ltoBridgeHost + '/bridge/address', {
-        params: {
-          from_token: fromToken,
-          to_token: toToken,
-          to_address: toAddress
-        }
+        from_token: fromToken,
+        to_token: toToken,
+        to_address: toAddress
       })
       .pipe(map(response => response.address));
   }

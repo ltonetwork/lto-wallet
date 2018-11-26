@@ -50,14 +50,19 @@ export class LtoPublicNodeService {
     return this._http.get<any>(this._publicApi + 'blocks/at/' + height);
   }
 
-  transactionsOf(address: string, params: { limit?: number; type?: string }): Observable<any> {
-    const getParams: any = {
-      limit: 100,
-      type: 'transfer',
-      ...params
+  transactionsOf(address: string): Observable<any> {
+    return this._http
+      .get<any>(this._publicApi + 'transactions/address/' + address + '/limit/' + 200)
+      .pipe(map(response => response[0]));
+  }
+
+  indexedTransactions(address: string, index: string = 'anchor', limit = 100): Observable<any[]> {
+    const params: any = {
+      limit,
+      type: index
     };
-    return this._http.get(this._publicApi + 'index/transactions/addresses/' + address, {
-      params: getParams
+    return this._http.get<any[]>(this._publicApi + 'index/transactions/addresses/' + address, {
+      params
     });
   }
 

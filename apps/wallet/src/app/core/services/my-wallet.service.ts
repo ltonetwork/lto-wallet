@@ -64,7 +64,7 @@ export class MyWalletImpl implements MyWallet {
     this.balance$.subscribe(); // make balance hot
 
     this.transactions$ = this.update$.pipe(
-      switchMapTo(publicNode.transactionsOf(auth.wallet.address, { type: 'transfer' })),
+      switchMapTo(publicNode.transactionsOf(auth.wallet.address)),
       shareReplay(1)
     );
 
@@ -98,7 +98,7 @@ export class MyWalletImpl implements MyWallet {
     );
 
     this.anchors$ = this.update$.pipe(
-      switchMapTo(publicNode.transactionsOf(auth.wallet.address, { type: 'anchor' })),
+      switchMapTo(publicNode.indexedTransactions(auth.wallet.address, 'anchor')),
       shareReplay(1)
     );
   }

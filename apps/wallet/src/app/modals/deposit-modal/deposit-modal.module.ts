@@ -4,7 +4,8 @@ import {
   MatInputModule,
   MatFormFieldModule,
   MatDialogModule,
-  MatButtonModule
+  MatButtonModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DepositModalComponent } from './deposit-modal.component';
@@ -18,6 +19,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     QRCodeModule,
     MatInputModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
     MatDialogModule,
     MatButtonModule,
     FlexLayoutModule

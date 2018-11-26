@@ -1,12 +1,22 @@
 <div mat-dialog-title>Deposit</div>
 <mat-dialog-content>
-  <p>What is deposit and maybe some more info</p>
-  <div class="address-container">
-    <div class="address">{{ address }}</div>
-  </div>
-  <p>Maybe little more explanation</p>
-  <div class="qr-code"><qrcode [qrdata]="address" [size]="128"></qrcode></div>
+  <ng-container *ngIf="loaded; else: loadingTpl">
+    <ng-container *ngIf="!error; else: errorTpl">
+      <p>What is deposit and maybe some more info</p>
+      <div class="address-container">
+        <div class="address">{{ bridgeAddress }}</div>
+      </div>
+      <p>Maybe little more explanation</p>
+      <div class="qr-code"><qrcode [qrdata]="bridgeAddress" [size]="128"></qrcode></div>
+    </ng-container>
+  </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
   <button mat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>
+
+<ng-template #loadingTpl>
+  <div class="loading"><mat-progress-spinner mode="indeterminate"></mat-progress-spinner></div>
+</ng-template>
+
+<ng-template #errorTpl> <div class="error">Unable to generate bridge</div> </ng-template>

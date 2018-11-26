@@ -5,12 +5,12 @@ import { AuthService } from './auth.service';
 import { LtoPublicNodeService } from './lto-public-node.service';
 import { AMOUNT_DIVIDER } from '../../tokens';
 
-import { groupByDate, replaceAmountFor, setRecipient } from '../utils';
+import { groupByDate, replaceAmountFor, setRecipient, toPromise } from '../utils';
 
 export interface ITransferPayload {
   amount: number;
   fee: number;
-  attachment: string;
+  attachment?: string;
   recipient: string;
 }
 
@@ -138,6 +138,17 @@ export class MyWalletImpl implements MyWallet {
       this.auth.wallet.getSignKeys()
     );
   }
+
+  async withdraw(recipinet: string, amount: number) {
+    // Create a bridge
+    const bridgeAddress = await toPromise(this.publicNode.bridge('LTO', 'LTO20', recipinet));
+    // Make a transaction
+    return this.transfer({
+      amount,
+      recipient: bridgeAddress,
+      fee: 0.001
+    });
+  }
 }
 
 export abstract class MyWallet {
@@ -162,4 +173,5 @@ export abstract class MyWallet {
   abstract transfer(data: ITransferPayload): Promise<void>;
   abstract lease(recipient: string, amount: number, fee: number): Promise<any>;
   abstract cancelLease(transactionId: string): Promise<any>;
+  abstract withdraw(address: string, ammount: number): Promise<any>;
 }

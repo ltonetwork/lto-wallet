@@ -4,6 +4,8 @@ import { Observable, timer } from 'rxjs';
 import { map, switchMap, switchMapTo, distinctUntilChanged } from 'rxjs/operators';
 import { LTO_PUBLIC_API } from '../../tokens';
 
+type TokenType = 'LTO' | 'LTO20';
+
 /**
  * Provide communication with LTO backend
  */
@@ -26,7 +28,7 @@ export class LtoPublicNodeService {
     poll: boolean = false,
     pollInterval: number = 5000
   ): Observable<any> {
-    let pollTimer = poll ? timer(0, pollInterval) : timer(0);
+    const pollTimer = poll ? timer(0, pollInterval) : timer(0);
     return pollTimer.pipe(
       switchMapTo(this.height()),
       distinctUntilChanged(),
@@ -68,5 +70,11 @@ export class LtoPublicNodeService {
   unconfirmedTransactions(): Observable<any[]> {
     console.log('Get some unconfirmed');
     return this._http.get<any>(this._publicApi + 'transactions/unconfirmed');
+  }
+
+  bridge(fromToken: TokenType, toToke: TokenType, toAddress: string): Observable<string> {
+    return this._http
+      .get<any>(this._publicApi + 'bridge/address')
+      .pipe(map(response => response.address));
   }
 }

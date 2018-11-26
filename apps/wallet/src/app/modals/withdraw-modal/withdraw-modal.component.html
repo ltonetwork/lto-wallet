@@ -1,5 +1,18 @@
 <h1 mat-dialog-title>Withdraw</h1>
-<mat-dialog-content></mat-dialog-content>
+<mat-dialog-content>
+  <p>Some explanation about Withdraw</p>
+  <form fxLayout="column" [formGroup]="withdrawForm">
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <input matInput type="text" formControlName="address" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" formControlName="amount" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
-  <button mat-button mat-dialog-close>Close</button> <button mat-button>Withdraw</button>
+  <button mat-button mat-dialog-close>Close</button>
+  <button mat-button (click)="withdraw()" [disabled]="withdrawForm.invalid">Withdraw</button>
 </mat-dialog-actions>

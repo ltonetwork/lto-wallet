@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WithdrawModalComponent } from './withdraw-modal.component';
 import { WithdrawModal } from './withdraw-modal';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule,
@@ -18,7 +19,8 @@ import {
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   providers: [WithdrawModal],
   entryComponents: [WithdrawModalComponent]

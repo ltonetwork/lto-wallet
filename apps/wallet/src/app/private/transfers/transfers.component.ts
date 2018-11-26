@@ -47,11 +47,10 @@ export class TransfersComponent implements OnInit {
   }
 
   async deposit() {
-    const result = await this.depositModal.show();
-    console.log('Deposit');
+    await this.depositModal.show();
   }
 
   async withdraw() {
-    const result = await this.withdrawModal.show();
+    await this.withdrawModal.show();
   }
 }

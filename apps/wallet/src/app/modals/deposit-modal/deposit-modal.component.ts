@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core';
+import { toPromise } from '../../core/utils';
+import { AuthService, LtoPublicNodeService } from '../../core';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'lto-deposit-modal',
@@ -7,11 +9,31 @@ import { AuthService } from '../../core';
   styleUrls: ['./deposit-modal.component.scss']
 })
 export class DepositModalComponent implements OnInit {
-  address: string;
+  bridgeAddress = '';
+  error = false;
+  loaded = false;
 
-  constructor(auth: AuthService) {
-    this.address = auth.wallet.address;
+  constructor(
+    private auth: AuthService,
+    private publicNode: LtoPublicNodeService,
+    private snackbar: MatSnackBar
+  ) {
+    this.generateBridgeAddress();
   }
 
   ngOnInit() {}
+
+  async generateBridgeAddress() {
+    try {
+      this.bridgeAddress = await toPromise(
+        this.publicNode.bridge('LTO20', 'LTO', this.auth.wallet.address)
+      );
+      this.loaded = true;
+    } catch (error) {
+      this.error = true;
+      this.snackbar.open('Unable generate bridge', 'Dismiss', { duration: 3000 });
+    } finally {
+      this.loaded = true;
+    }
+  }
 }

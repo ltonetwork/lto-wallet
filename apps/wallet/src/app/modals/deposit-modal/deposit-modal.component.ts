@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { toPromise } from '../../core/utils';
-import { AuthService, LtoPublicNodeService } from '../../core';
+import { AuthService, BridgeService } from '../../core';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -15,7 +15,7 @@ export class DepositModalComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private publicNode: LtoPublicNodeService,
+    private bridgeService: BridgeService,
     private snackbar: MatSnackBar
   ) {
     this.generateBridgeAddress();
@@ -26,7 +26,7 @@ export class DepositModalComponent implements OnInit {
   async generateBridgeAddress() {
     try {
       this.bridgeAddress = await toPromise(
-        this.publicNode.bridge('LTO20', 'LTO', this.auth.wallet.address)
+        this.bridgeService.createBridgeAddress('LTO20', 'LTO', this.auth.wallet.address)
       );
       this.loaded = true;
     } catch (error) {

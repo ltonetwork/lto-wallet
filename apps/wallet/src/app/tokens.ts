@@ -12,3 +12,5 @@ export const LTO_PUBLIC_API = new InjectionToken<string>('LTO_PUBLIC_API');
  * To make user-consumable value we need to dive it by speciffic ammout
  */
 export const AMOUNT_DIVIDER = new InjectionToken<number>('AMOUNT_DIVIDER');
+
+export const LTO_BRIDGE_HOST = new InjectionToken<string>('LTO_BRIDGE_API');

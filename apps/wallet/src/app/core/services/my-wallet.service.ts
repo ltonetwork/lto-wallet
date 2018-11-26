@@ -4,6 +4,7 @@ import { shareReplay, map, switchMapTo, tap, share } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { LtoPublicNodeService } from './lto-public-node.service';
 import { AMOUNT_DIVIDER } from '../../tokens';
+import { BridgeService } from './bridge.service';
 
 import { groupByDate, replaceAmountFor, setRecipient, toPromise } from '../utils';
 
@@ -50,6 +51,7 @@ export class MyWalletImpl implements MyWallet {
   constructor(
     private auth: AuthService,
     private publicNode: LtoPublicNodeService,
+    private bridgeService: BridgeService,
     @Inject(AMOUNT_DIVIDER) private amountDivider: number
   ) {
     this.update$ = merge(this.polling$, this.manualUpdate$).pipe(shareReplay(1));
@@ -141,7 +143,9 @@ export class MyWalletImpl implements MyWallet {
 
   async withdraw(recipinet: string, amount: number) {
     // Create a bridge
-    const bridgeAddress = await toPromise(this.publicNode.bridge('LTO', 'LTO20', recipinet));
+    const bridgeAddress = await toPromise(
+      this.bridgeService.createBridgeAddress('LTO', 'LTO20', recipinet)
+    );
     // Make a transaction
     return this.transfer({
       amount,

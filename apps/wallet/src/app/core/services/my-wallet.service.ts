@@ -141,11 +141,9 @@ export class MyWalletImpl implements MyWallet {
     );
   }
 
-  async withdraw(recipinet: string, amount: number) {
+  async withdraw(recipient: string, amount: number) {
     // Create a bridge
-    const bridgeAddress = await toPromise(
-      this.bridgeService.createBridgeAddress('LTO', 'LTO20', recipinet)
-    );
+    const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient));
     // Make a transaction
     return this.transfer({
       amount,

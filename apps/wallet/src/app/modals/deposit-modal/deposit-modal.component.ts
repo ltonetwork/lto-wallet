@@ -25,9 +25,7 @@ export class DepositModalComponent implements OnInit {
 
   async generateBridgeAddress() {
     try {
-      this.bridgeAddress = await toPromise(
-        this.bridgeService.createBridgeAddress('LTO20', 'LTO', this.auth.wallet.address)
-      );
+      this.bridgeAddress = await toPromise(this.bridgeService.depositTo(this.auth.wallet.address));
       this.loaded = true;
     } catch (error) {
       this.error = true;

@@ -58,7 +58,17 @@ export class TransfersComponent implements OnInit {
   }
 
   async withdraw() {
-    await this.withdrawModal.show(100);
+    const balance = await toPromise(this.balance$);
+    const data = await this.withdrawModal.show(balance.available);
+    if (!data) {
+      return;
+    }
+
+    try {
+      this.wallet.withdraw(data.address, data.amount, data.fee);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   trackByFn(transaction: any) {

@@ -45,7 +45,7 @@
 
         <mat-step>
           <lto-backup-phrase
-            [phrase]="'foo bar zed kittens mittens chese'"
+            [phrase]="wallet.seed"
             (later)="redirectToHome()"
             (confirmed)="redirectToHome()"
           ></lto-backup-phrase>

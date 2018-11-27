@@ -5,25 +5,21 @@ import { AuthService } from './auth.service';
 import { LtoPublicNodeService } from './lto-public-node.service';
 import { AMOUNT_DIVIDER } from '../../tokens';
 import { BridgeService } from './bridge.service';
+import { TransactionTypes } from '../transaction-types';
 
-import { groupByDate, replaceAmountFor, setRecipient, toPromise } from '../utils';
+import {
+  groupByDate,
+  replaceAmountFor,
+  setRecipient,
+  toPromise,
+  transactionsFilter
+} from '../utils';
 
 export interface ITransferPayload {
   amount: number;
   fee: number;
   attachment?: string;
   recipient: string;
-}
-
-/**
- * Factory of transaction filters.
- * Returns function which accepts transactions array and returns filtered by provided types numbers
- * @param types - transaction types to filter
- */
-function transactionsFilter(...types: number[]) {
-  return function(transactions: { type: number }[]) {
-    return transactions.filter(t => types.indexOf(t.type) !== -1);
-  };
 }
 
 @Injectable()
@@ -37,13 +33,14 @@ export class MyWalletImpl implements MyWallet {
   anchors$: Observable<any[]>;
 
   uncofirmed$: Observable<any[]>;
+  unconfirmedLeasing$: Observable<any[]>;
   groupedTransfers$: Observable<any[]>; // Transactions grouped by date
 
   /**
    * Polling interval.
    * TODO: Inject interval amount
    */
-  private polling$: Observable<number> = timer(0, 500000).pipe(share());
+  private polling$: Observable<number> = timer(0, 5000).pipe(share());
   private manualUpdate$ = new Subject<any>();
 
   private update$: Observable<void>;
@@ -68,9 +65,17 @@ export class MyWalletImpl implements MyWallet {
       shareReplay(1)
     );
 
-    this.transfers$ = this.transactions$.pipe(map(transactionsFilter(4, 11)));
-    this.leasingTransactions$ = this.transactions$.pipe(map(transactionsFilter(8, 9)));
-    this.dataTransactions$ = this.transactions$.pipe(map(transactionsFilter(12)));
+    this.transfers$ = this.transactions$.pipe(
+      map(transactionsFilter(TransactionTypes.TRANSFER, TransactionTypes.MASS_TRANSFER))
+    );
+
+    this.leasingTransactions$ = this.transactions$.pipe(
+      map(transactionsFilter(TransactionTypes.LEASING))
+    );
+
+    this.dataTransactions$ = this.transactions$.pipe(
+      map(transactionsFilter(TransactionTypes.ANCHOR))
+    );
 
     this.uncofirmed$ = this.update$.pipe(
       switchMapTo(publicNode.unconfirmedTransactions()),
@@ -90,6 +95,8 @@ export class MyWalletImpl implements MyWallet {
       }),
       shareReplay(1)
     );
+
+    this.unconfirmedLeasing$ = this.uncofirmed$.pipe(map(transactionsFilter(8, 9)));
 
     this.groupedTransfers$ = this.transfers$.pipe(
       map(replaceAmountFor(auth.wallet.address)),
@@ -119,7 +126,7 @@ export class MyWalletImpl implements MyWallet {
   }
 
   async lease(recipient: string, amount: number, fee: number): Promise<any> {
-    return this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
+    await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
       'lease',
       {
         recipient,
@@ -128,10 +135,11 @@ export class MyWalletImpl implements MyWallet {
       },
       this.auth.wallet.getSignKeys()
     );
+    this.manualUpdate$.next();
   }
 
   async cancelLease(transactionId: string): Promise<any> {
-    return this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
+    await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
       'cancelLeasing',
       {
         transactionId,
@@ -139,6 +147,7 @@ export class MyWalletImpl implements MyWallet {
       },
       this.auth.wallet.getSignKeys()
     );
+    this.manualUpdate$.next();
   }
 
   async withdraw(recipient: string, amount: number, fee: number) {
@@ -170,6 +179,7 @@ export abstract class MyWallet {
 
   // Unconfirmed transactrions
   abstract uncofirmed$: Observable<any[]>;
+  abstract unconfirmedLeasing$: Observable<any[]>;
   abstract groupedTransfers$: Observable<any[]>; // Transactions grouped by date
 
   abstract transfer(data: ITransferPayload): Promise<void>;

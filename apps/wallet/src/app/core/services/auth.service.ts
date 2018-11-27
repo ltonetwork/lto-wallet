@@ -27,8 +27,6 @@ export class AuthServiceImpl implements AuthService {
     this.ltoInstance = new LTO(networkBye);
 
     this.availableAccounts = this.readFromLocalStorage();
-
-    this.login(this.availableAccounts[0], 'zpirit');
   }
 
   saveAccount(name: string, password: string, wallet: Account): IUserAccount {

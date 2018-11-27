@@ -7,6 +7,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class LeaseInfoComponent implements OnInit {
   @Input() transaction!: any;
+  @Input() canceling = true;
+  @Input() unconfirmed = false;
   @Output() cancel = new EventEmitter();
 
   constructor() {}

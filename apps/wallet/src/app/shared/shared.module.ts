@@ -17,7 +17,8 @@ import {
   MatInputModule,
   MatTableModule,
   MatTooltipModule,
-  MatStepperModule
+  MatStepperModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { ContentSectionComponent } from './components/content-section/content-section.component';
 import { MatIconRegistry } from '@angular/material';
@@ -52,7 +53,8 @@ import { BackupPhraseComponent } from './components/backup-phrase/backup-phrase.
     MatRippleModule,
     MatSidenavModule,
     MatDividerModule,
-    MatStepperModule
+    MatStepperModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     CommonModule,

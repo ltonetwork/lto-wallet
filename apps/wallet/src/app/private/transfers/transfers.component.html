@@ -49,7 +49,9 @@
     </ng-container>
     <!-- Confirmed transactions -->
     <lto-content-section width="small">
-      <section *ngFor="let transfersGroup of (wallet.groupedTransfers$ | async)">
+      <section
+        *ngFor="let transfersGroup of (wallet.groupedTransfers$ | async); trackBy: trackByFn"
+      >
         <h2 class="section-header">{{ transfersGroup.date }}</h2>
         <ng-container
           *ngTemplateOutlet="
@@ -67,7 +69,7 @@
     <div
       class="transaction"
       fxLayout="row"
-      *ngFor="let transaction of transactions"
+      *ngFor="let transaction of transactions; trackBy: trackByFn"
       (click)="select(transaction)"
       [ngClass]="{ selected: selectedTransaction === transaction }"
     >

@@ -33,6 +33,10 @@
   </div>
   <mat-divider></mat-divider>
   <div class="actions" fxLayout="row" fxLayoutAlign="end">
-    <button mat-button (click)="_cancel()">Cancel lease</button>
+    <button mat-button (click)="_cancel()" [disabled]="unconfirmed">Cancel lease</button>
   </div>
 </ng-container>
+
+<div class="canceling" *ngIf="canceling" fxLayout="column" fxLayoutAlign="center center">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>

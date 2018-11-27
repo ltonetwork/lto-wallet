@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { StartLeaseModalComponent } from './start-lease-modal.component';
+import { StartLeaseModalComponent, LeaseData } from './start-lease-modal.component';
 
 @Injectable()
 export class StartLeaseModal {
   constructor(private dialog: MatDialog) {}
 
-  show(): Promise<any> {
+  show(balance: number): Promise<LeaseData | void> {
     return this.dialog
       .open(StartLeaseModalComponent, {
-        width: '500px'
+        width: '500px',
+        data: balance
       })
       .afterClosed()
       .toPromise();

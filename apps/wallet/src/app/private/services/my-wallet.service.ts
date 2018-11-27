@@ -1,11 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable, timer, Subject, merge } from 'rxjs';
 import { shareReplay, map, switchMapTo, tap, share } from 'rxjs/operators';
-import { AuthService } from './auth.service';
-import { LtoPublicNodeService } from './lto-public-node.service';
+import { AuthService, LtoPublicNodeService, BridgeService, TransactionTypes } from '../../core';
 import { AMOUNT_DIVIDER } from '../../tokens';
-import { BridgeService } from './bridge.service';
-import { TransactionTypes } from '../transaction-types';
 
 import {
   groupByDate,
@@ -13,7 +10,7 @@ import {
   setRecipient,
   toPromise,
   transactionsFilter
-} from '../utils';
+} from '../../core/utils';
 
 export interface ITransferPayload {
   amount: number;

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
-import { MyWallet, transactionsFilter, TransactionTypes } from '../../core';
+import { transactionsFilter, TransactionTypes, toPromise } from '../../core';
+import { MyWallet } from '../services';
 
 import { map, shareReplay } from 'rxjs/operators';
-import { StartLeaseModal } from '../../modals';
+import { StartLeaseModal } from '../modals';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -81,9 +82,18 @@ export class LeasingComponent implements OnInit {
   }
 
   async startLease() {
-    const isCreated = await this.startLeaseModal.show();
-    if (isCreated) {
+    const balance = await toPromise(this.wallet.balance$);
+    const leaseData = await this.startLeaseModal.show(balance.available);
+    if (!leaseData) {
+      return;
+    }
+
+    try {
+      await this.wallet.lease(leaseData.recipient, leaseData.amount, leaseData.fee);
       this.notify('New lease created');
+    } catch (Err) {
+      this.notify('Cannot lease');
+      console.error(Err);
     }
   }
 

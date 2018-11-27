@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ScreenService, AuthService } from '../core';
-import { BackupAccountModal } from '../modals';
+import { BackupAccountModal } from './modals';
 import { Router } from '@angular/router';
+
+import { MyWallet } from './services/my-wallet.service';
 
 @Component({
   selector: 'lto-private',
   templateUrl: './private.component.html',
-  styleUrls: ['./private.component.scss']
+  styleUrls: ['./private.component.scss'],
+  providers: [MyWallet.provider]
 })
 export class PrivateComponent implements OnInit {
   sidenavMode$: Observable<string>;

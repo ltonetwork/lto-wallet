@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MyWallet, ScreenService } from '../../core';
+import { ScreenService, toPromise } from '../../core';
+import { MyWallet } from '../services';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MakeTransactionModal, DepositModal, WithdrawModal } from '../../modals';
+import { MakeTransactionModal, DepositModal, WithdrawModal } from '../modals';
 
 @Component({
   selector: 'lto-transfers',
@@ -43,7 +44,13 @@ export class TransfersComponent implements OnInit {
   }
 
   async makeTransaction() {
-    this.makeTraknsactionModal.show();
+    const balance = await toPromise(this.balance$);
+    const transactionData = await this.makeTraknsactionModal.show(balance.available);
+    if (!transactionData) {
+      return;
+    }
+
+    await this.wallet.transfer(transactionData);
   }
 
   async deposit() {
@@ -51,7 +58,17 @@ export class TransfersComponent implements OnInit {
   }
 
   async withdraw() {
-    await this.withdrawModal.show();
+    const balance = await toPromise(this.balance$);
+    const data = await this.withdrawModal.show(balance.available);
+    if (!data) {
+      return;
+    }
+
+    try {
+      this.wallet.withdraw(data.address, data.amount, data.fee);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   trackByFn(transaction: any) {

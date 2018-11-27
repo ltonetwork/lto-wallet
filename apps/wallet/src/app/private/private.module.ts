@@ -7,6 +7,14 @@ import { TransfersComponent } from './transfers/transfers.component';
 import { LeasingComponent } from './leasing/leasing.component';
 import { AnchorsComponent } from './anchors/anchors.component';
 
+import {
+  StartLeaseModalModule,
+  MakeTransactionModalModule,
+  DepositModalModule,
+  WithdrawModalModule,
+  BackupAccountModalModule
+} from './modals';
+
 @NgModule({
   declarations: [
     BackupComponent,
@@ -17,6 +25,11 @@ import { AnchorsComponent } from './anchors/anchors.component';
   ],
   imports: [
     SharedModule,
+    StartLeaseModalModule,
+    MakeTransactionModalModule,
+    DepositModalModule,
+    WithdrawModalModule,
+    BackupAccountModalModule,
     RouterModule.forChild([
       {
         path: '',

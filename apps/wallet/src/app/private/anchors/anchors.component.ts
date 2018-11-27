@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MyWallet, ScreenService } from '../../core';
+import { ScreenService } from '../../core';
+import { MyWallet } from '../services';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

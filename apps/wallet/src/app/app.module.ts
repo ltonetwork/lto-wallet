@@ -9,28 +9,9 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared';
 import { LTO_NETWORK_BYTE, LTO_PUBLIC_API, AMOUNT_DIVIDER, LTO_BRIDGE_HOST } from './tokens';
 
-import {
-  StartLeaseModalModule,
-  MakeTransactionModalModule,
-  DepositModalModule,
-  WithdrawModalModule,
-  BackupAccountModalModule
-} from './modals';
-
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    CoreModule,
-    StartLeaseModalModule,
-    MakeTransactionModalModule,
-    DepositModalModule,
-    WithdrawModalModule,
-    BackupAccountModalModule,
-    SharedModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, CoreModule, SharedModule],
   providers: [
     {
       provide: LTO_NETWORK_BYTE,

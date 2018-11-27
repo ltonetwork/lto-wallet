@@ -58,7 +58,7 @@ export class TransfersComponent implements OnInit {
   }
 
   async withdraw() {
-    await this.withdrawModal.show();
+    await this.withdrawModal.show(100);
   }
 
   trackByFn(transaction: any) {

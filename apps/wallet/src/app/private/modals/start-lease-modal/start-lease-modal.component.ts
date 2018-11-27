@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-// import { MyWallet } from '../../core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+export interface LeaseData {
+  amount: number;
+  recipient: string;
+  fee: number;
+}
 
 @Component({
   selector: 'lto-wallet-start-lease-modal',
@@ -11,7 +16,10 @@ import { MatDialogRef } from '@angular/material';
 export class StartLeaseModalComponent implements OnInit {
   leaseForm: FormGroup;
 
-  constructor(private dialogRef: MatDialogRef<any>) {
+  constructor(
+    private dialogRef: MatDialogRef<any, LeaseData>,
+    @Inject(MAT_DIALOG_DATA) public balance: number
+  ) {
     this.leaseForm = new FormGroup({
       recipient: new FormControl('', [Validators.required]),
       amount: new FormControl(0, [Validators.required]),
@@ -27,11 +35,6 @@ export class StartLeaseModalComponent implements OnInit {
     }
 
     const { amount, recipient, fee } = this.leaseForm.value;
-    try {
-      // await this.wallet.lease(recipient, amount, fee);
-      this.dialogRef.close(true);
-    } catch (err) {
-      console.error(err);
-    }
+    this.dialogRef.close({ amount, recipient, fee });
   }
 }

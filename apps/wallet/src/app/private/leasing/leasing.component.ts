@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
-import { transactionsFilter, TransactionTypes } from '../../core';
+import { transactionsFilter, TransactionTypes, toPromise } from '../../core';
 import { MyWallet } from '../services';
 
 import { map, shareReplay } from 'rxjs/operators';
@@ -82,9 +82,18 @@ export class LeasingComponent implements OnInit {
   }
 
   async startLease() {
-    const isCreated = await this.startLeaseModal.show();
-    if (isCreated) {
+    const balance = await toPromise(this.wallet.balance$);
+    const leaseData = await this.startLeaseModal.show(balance.available);
+    if (!leaseData) {
+      return;
+    }
+
+    try {
+      await this.wallet.lease(leaseData.recipient, leaseData.amount, leaseData.fee);
       this.notify('New lease created');
+    } catch (Err) {
+      this.notify('Cannot lease');
+      console.error(Err);
     }
   }
 

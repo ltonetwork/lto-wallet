@@ -1,24 +1,22 @@
 <div mat-dialog-title>Start lease</div>
 <mat-dialog-content>
   <form [formGroup]="leaseForm" fxLayout="column">
-    <ng-container *ngIf="(wallet.balance$ | async) as balance">
-      <mat-form-field>
-        <mat-label>Balance</mat-label>
-        <input matInput disabled value="{{balance.regular | amountDivide}}" />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Recipient</mat-label>
-        <input type="text" formControlName="recipient" required matInput />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Amount</mat-label>
-        <input type="number" formControlName="amount" required matInput />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>fee</mat-label>
-        <input type="text" formControlName="fee" matInput />
-      </mat-form-field>
-    </ng-container>
+    <mat-form-field>
+      <mat-label>Balance</mat-label>
+      <input matInput disabled value="{{balance | amountDivide}}" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Recipient</mat-label>
+      <input type="text" formControlName="recipient" required matInput />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input type="number" formControlName="amount" required matInput />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>fee</mat-label>
+      <input type="text" formControlName="fee" matInput />
+    </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">

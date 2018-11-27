@@ -7,10 +7,11 @@ import { toPromise } from '../../../core';
 export class WithdrawModal {
   constructor(private matDialog: MatDialog) {}
 
-  show(): Promise<any> {
+  show(balance: number): Promise<any> {
     const dialog = this.matDialog.open(WithdrawModalComponent, {
       maxWidth: '100%',
-      width: '500px'
+      width: '500px',
+      data: balance
     });
     return toPromise(dialog.afterClosed());
   }

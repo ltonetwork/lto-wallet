@@ -9,7 +9,8 @@ export class MakeTransactionModal {
 
   show(balance: number): Promise<TransferData | void> {
     const dialog = this._dialog.open(MakeTransactionComponent, {
-      width: '500px'
+      width: '500px',
+      data: balance
     });
 
     return toPromise(dialog.afterClosed());

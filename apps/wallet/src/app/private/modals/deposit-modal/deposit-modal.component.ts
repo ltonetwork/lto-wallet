@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { toPromise } from '../../core/utils';
-import { AuthService, BridgeService } from '../../core';
+import { toPromise } from '../../../core/utils';
+import { AuthService, BridgeService } from '../../../core';
 import { MatSnackBar } from '@angular/material';
 
 @Component({

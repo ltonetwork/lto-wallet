@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared';
+import { SharedModule } from '../../../shared';
 import { BackupAccountModalComponent } from './backup-account-modal.component';
 import { BackupAccountModal } from './backup-account-modal';
 import { MatDialogModule, MatButtonModule } from '@angular/material';

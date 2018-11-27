@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
-import { MyWallet, transactionsFilter, TransactionTypes } from '../../core';
+import { transactionsFilter, TransactionTypes } from '../../core';
+import { MyWallet } from '../services';
 
 import { map, shareReplay } from 'rxjs/operators';
-import { StartLeaseModal } from '../../modals';
+import { StartLeaseModal } from '../modals';
 import { MatSnackBar } from '@angular/material';
 
 @Component({

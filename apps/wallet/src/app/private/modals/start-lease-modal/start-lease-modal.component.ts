@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MyWallet } from '../../core';
+// import { MyWallet } from '../../core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 
@@ -11,7 +11,7 @@ import { MatDialogRef } from '@angular/material';
 export class StartLeaseModalComponent implements OnInit {
   leaseForm: FormGroup;
 
-  constructor(public wallet: MyWallet, private dialogRef: MatDialogRef<any>) {
+  constructor(private dialogRef: MatDialogRef<any>) {
     this.leaseForm = new FormGroup({
       recipient: new FormControl('', [Validators.required]),
       amount: new FormControl(0, [Validators.required]),
@@ -28,7 +28,7 @@ export class StartLeaseModalComponent implements OnInit {
 
     const { amount, recipient, fee } = this.leaseForm.value;
     try {
-      await this.wallet.lease(recipient, amount, fee);
+      // await this.wallet.lease(recipient, amount, fee);
       this.dialogRef.close(true);
     } catch (err) {
       console.error(err);

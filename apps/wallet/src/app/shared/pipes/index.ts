@@ -1,3 +1,3 @@
-export * from './amount-divide.pipe';
+export * from './amount-divide';
 export * from './is-you.pipe';
-export * from './type-label.pipe';
+export * from './type-label';

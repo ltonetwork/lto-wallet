@@ -23,23 +23,15 @@ import {
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IsYouPipe } from './pipes/is-you.pipe';
-import { TypeLabelPipe } from './pipes/type-label.pipe';
-import { AmountDividePipe } from './pipes/amount-divide.pipe';
-import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
+
 import { LeaseInfoComponent } from './components/lease-info/lease-info.component';
 import { BackupPhraseComponent } from './components/backup-phrase/backup-phrase.component';
 
-import { ContentSectionModule } from './components';
+import { ContentSectionModule, TransactionDetailsModule } from './components';
+import { AmountDividePipeModule, TypeLabelPipeModule } from './pipes';
 
 @NgModule({
-  declarations: [
-    IsYouPipe,
-    TypeLabelPipe,
-    AmountDividePipe,
-    TransactionDetailsComponent,
-    LeaseInfoComponent,
-    BackupPhraseComponent
-  ],
+  declarations: [IsYouPipe, LeaseInfoComponent, BackupPhraseComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -54,7 +46,9 @@ import { ContentSectionModule } from './components';
     MatSidenavModule,
     MatDividerModule,
     MatStepperModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    AmountDividePipeModule,
+    TypeLabelPipeModule
   ],
   exports: [
     CommonModule,
@@ -72,15 +66,15 @@ import { ContentSectionModule } from './components';
     MatFormFieldModule,
     MatInputModule,
     IsYouPipe,
-    TypeLabelPipe,
-    AmountDividePipe,
-    TransactionDetailsComponent,
+    TypeLabelPipeModule,
+    AmountDividePipeModule,
     LeaseInfoComponent,
     MatTooltipModule,
     MatTableModule,
     MatStepperModule,
     BackupPhraseComponent,
-    ContentSectionModule
+    ContentSectionModule,
+    TransactionDetailsModule
   ]
 })
 export class SharedModule {

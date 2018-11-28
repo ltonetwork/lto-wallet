@@ -1,16 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatSidenavModule, MatIconModule } from '@angular/material';
 
 import { AnchorsComponent } from './anchors.component';
 
-describe('AnchorsComponent', () => {
+fdescribe('AnchorsComponent', () => {
   let component: AnchorsComponent;
   let fixture: ComponentFixture<AnchorsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnchorsComponent ]
-    })
-    .compileComponents();
+      imports: [MatSidenavModule, MatIconModule],
+      declarations: [AnchorsComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

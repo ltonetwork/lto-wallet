@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform, Inject } from '@angular/core';
-import { AMOUNT_DIVIDER } from '../../tokens';
+import { AMOUNT_DIVIDER } from '../../../tokens';
 
 @Pipe({
   name: 'amountDivide'

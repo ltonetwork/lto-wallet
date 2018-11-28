@@ -21,5 +21,13 @@
 
     <div class="label">Private key</div>
     <lto-wallet-hidden-text>{{ wallet.getPrivateSignKey() }}</lto-wallet-hidden-text>
+
+    <div class="label">Public key</div>
+    <lto-wallet-hidden-text [hidden]="false">{{
+      wallet.getPublicSignKey()
+    }}</lto-wallet-hidden-text>
+
+    <div class="label">Address</div>
+    <lto-wallet-hidden-text [hidden]="false">{{ wallet.address }}</lto-wallet-hidden-text>
   </div>
 </ng-template>

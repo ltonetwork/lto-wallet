@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'lto-wallet-hidden-text',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hidden-text.component.scss']
 })
 export class HiddenTextComponent implements OnInit {
-  hidden = true;
+  @Input() hidden = true;
 
   constructor() {}
 

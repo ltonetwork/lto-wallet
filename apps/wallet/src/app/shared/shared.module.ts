@@ -20,7 +20,6 @@ import {
   MatStepperModule,
   MatProgressSpinnerModule
 } from '@angular/material';
-import { ContentSectionComponent } from './components/content-section/content-section.component';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IsYouPipe } from './pipes/is-you.pipe';
@@ -30,9 +29,10 @@ import { TransactionDetailsComponent } from './components/transaction-details/tr
 import { LeaseInfoComponent } from './components/lease-info/lease-info.component';
 import { BackupPhraseComponent } from './components/backup-phrase/backup-phrase.component';
 
+import { ContentSectionModule } from './components';
+
 @NgModule({
   declarations: [
-    ContentSectionComponent,
     IsYouPipe,
     TypeLabelPipe,
     AmountDividePipe,
@@ -66,7 +66,6 @@ import { BackupPhraseComponent } from './components/backup-phrase/backup-phrase.
     MatCardModule,
     MatSnackBarModule,
     MatListModule,
-    ContentSectionComponent,
     MatRippleModule,
     MatSidenavModule,
     MatGridListModule,
@@ -80,7 +79,8 @@ import { BackupPhraseComponent } from './components/backup-phrase/backup-phrase.
     MatTooltipModule,
     MatTableModule,
     MatStepperModule,
-    BackupPhraseComponent
+    BackupPhraseComponent,
+    ContentSectionModule
   ]
 })
 export class SharedModule {

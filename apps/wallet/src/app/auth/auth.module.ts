@@ -13,8 +13,9 @@ import {
   MatStepperModule,
   MatProgressBarModule
 } from '@angular/material';
-import { CrendetialsFormComponent } from './components/credentials-form/credentials-form.component';
+
 import { NoAccountGuard } from './no-account.guard';
+import { CredentialsFormModule } from './components/credentials-form';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,7 @@ import { NoAccountGuard } from './no-account.guard';
     SigninComponent,
     ImportComponent,
     CreateComponent,
-    NoAccountComponent,
-    CrendetialsFormComponent
+    NoAccountComponent
   ],
   imports: [
     SharedModule,
@@ -32,6 +32,7 @@ import { NoAccountGuard } from './no-account.guard';
     MatCheckboxModule,
     MatStepperModule,
     MatProgressBarModule,
+    CredentialsFormModule,
     RouterModule.forChild([
       {
         path: '',

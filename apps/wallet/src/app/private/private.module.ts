@@ -12,7 +12,8 @@ import {
   MakeTransactionModalModule,
   DepositModalModule,
   WithdrawModalModule,
-  BackupAccountModalModule
+  BackupAccountModalModule,
+  AccountInfoModule
 } from './modals';
 
 @NgModule({
@@ -30,6 +31,7 @@ import {
     DepositModalModule,
     WithdrawModalModule,
     BackupAccountModalModule,
+    AccountInfoModule,
     RouterModule.forChild([
       {
         path: '',

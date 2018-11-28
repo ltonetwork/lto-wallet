@@ -12,6 +12,8 @@
 <mat-sidenav-container>
   <mat-sidenav [opened]="true" [mode]="sidenavMode$ | async" #sidenav>
     <div class="main-navigation">
+      <a (click)="showAccountInfo()"><mat-icon>account_box</mat-icon> <span>Account info</span></a>
+      <mat-divider></mat-divider>
       <a routerLink="/transfers" routerLinkActive="active">
         <mat-icon>swap_horiz</mat-icon><span>Transfers</span></a
       >

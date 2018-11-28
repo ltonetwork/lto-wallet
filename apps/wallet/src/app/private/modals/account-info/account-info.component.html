@@ -1,7 +1,14 @@
 <div mat-dialog-title>Account info</div>
 <mat-dialog-content>
   <h3 class="mat-h3">Your address</h3>
-  <div class="address">{{ ltoWallet.address }}</div>
+  <div class="address" fxLayout="row" fxLayoutAlign="start center">
+    <span fxFlex="1 1 auto">{{ ltoWallet.address }}</span>
+    <div class="copy-button" matRipple (click)="copyToClipboard()">
+      <mat-icon color="accent" matTooltip="Copy to clipboard" matTooltipPosition="above"
+        >file_copy</mat-icon
+      >
+    </div>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
   <button mat-button mat-dialog-close>Close</button>

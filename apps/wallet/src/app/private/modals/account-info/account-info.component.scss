@@ -1,9 +1,18 @@
 .address {
-  padding: 16px;
   background: rgba(0, 0, 0, 0.02);
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   text-align: center;
+
+  span {
+    text-align: center;
+    padding: 16px;
+  }
+  .copy-button {
+    padding: 16px;
+    cursor: pointer;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+  }
 }
 
 h3 {

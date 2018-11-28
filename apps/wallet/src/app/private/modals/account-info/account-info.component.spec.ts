@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AccountInfoComponent } from './account-info.component';
+import { SharedModule } from '../../../shared';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material';
 
 describe('AccountInfoComponent', () => {
   let component: AccountInfoComponent;
@@ -8,9 +9,15 @@ describe('AccountInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AccountInfoComponent ]
-    })
-    .compileComponents();
+      imports: [SharedModule, MatDialogModule],
+      declarations: [AccountInfoComponent],
+      providers: [
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {}
+        }
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

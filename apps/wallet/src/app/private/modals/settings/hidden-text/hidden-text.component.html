@@ -1,0 +1,4 @@
+<div class="content" *ngIf="!hidden"><ng-content></ng-content></div>
+<div class="cover" fxLayout="row" fxLayoutAlign="start center" *ngIf="hidden">
+  <button mat-raised-button (click)="reveal()">Show</button>
+</div>

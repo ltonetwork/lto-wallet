@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="header" fxLayout="row" fxLayoutAlign="start center">
+    <span fxFlex="1 1 auto">Settings</span>
+    <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+  </div>
+  <div class="content" fxLayout="row">
+    <div class="tabs" fxFlex="1 1 auto">
+      <div class="tab themed-selected" matRipple>
+        <mat-icon>security</mat-icon>
+        Security
+      </div>
+    </div>
+    <div class="tab-content"><ng-content *ngTemplateOutlet="securityTpl"></ng-content></div>
+  </div>
+</div>
+
+<ng-template #securityTpl>
+  <div>
+    <div class="label">Backup phrase</div>
+    <lto-wallet-hidden-text>{{ wallet.seed }}</lto-wallet-hidden-text>
+
+    <div class="label">Private key</div>
+    <lto-wallet-hidden-text>{{ wallet.getPrivateSignKey() }}</lto-wallet-hidden-text>
+  </div>
+</ng-template>

@@ -1,0 +1,22 @@
+$backgroundColor: #e8e8e8;
+
+:host {
+  display: block;
+  background: $backgroundColor;
+  padding: 16px 24px;
+  position: relative;
+  border-radius: 4px;
+  overflow: auto;
+  min-height: 52px;
+  box-sizing: border-box;
+}
+
+.cover {
+  position: absolute;
+  background: $backgroundColor;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding-left: 16px;
+}

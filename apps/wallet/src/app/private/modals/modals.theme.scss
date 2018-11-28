@@ -1,0 +1,5 @@
+@import './settings/settings.theme';
+
+@mixin modals-theme($theme) {
+  @include settings-modal-theme($theme);
+}

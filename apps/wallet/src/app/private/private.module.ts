@@ -13,7 +13,8 @@ import {
   DepositModalModule,
   WithdrawModalModule,
   BackupAccountModalModule,
-  AccountInfoModule
+  AccountInfoModule,
+  SettingsModule
 } from './modals';
 
 @NgModule({
@@ -32,6 +33,7 @@ import {
     WithdrawModalModule,
     BackupAccountModalModule,
     AccountInfoModule,
+    SettingsModule,
     RouterModule.forChild([
       {
         path: '',
@@ -63,4 +65,8 @@ import {
     ])
   ]
 })
-export class PrivateModule {}
+export class PrivateModule {
+  constructor() {
+    console.log('Private constructed');
+  }
+}

@@ -1,0 +1,11 @@
+@mixin settings-modal-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  lto-wallet-settings {
+    .themed-selected {
+      background-color: rgba($color: mat-color($primary, 400), $alpha: 1);
+      color: white;
+    }
+  }
+}

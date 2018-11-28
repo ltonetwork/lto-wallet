@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ScreenService, AuthService } from '../core';
-import { BackupAccountModal, AccountInfoModal } from './modals';
+import { BackupAccountModal, AccountInfoModal, SettingsModal } from './modals';
 import { Router } from '@angular/router';
 
 import { MyWallet } from './services/my-wallet.service';
@@ -21,7 +21,8 @@ export class PrivateComponent implements OnInit {
     private backupAccountModal: BackupAccountModal,
     private auth: AuthService,
     private router: Router,
-    private accountInfo: AccountInfoModal
+    private accountInfo: AccountInfoModal,
+    private settings: SettingsModal
   ) {
     this.sidenavMode$ = screen.mediaAlias$.pipe(
       map(alias => {
@@ -49,5 +50,9 @@ export class PrivateComponent implements OnInit {
 
   showAccountInfo() {
     this.accountInfo.show(this.auth.wallet);
+  }
+
+  showSettings() {
+    this.settings.show(this.auth.wallet);
   }
 }

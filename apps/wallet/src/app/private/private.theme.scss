@@ -1,6 +1,7 @@
 @import './transfers/transfers.theme';
 @import './leasing/leasing.component.theme.scss';
 @import './anchors/anchors.theme.scss';
+@import './modals/modals.theme.scss';
 
 @mixin private-theme($theme) {
   $primary: map-get($theme, primary);
@@ -18,4 +19,5 @@
   @include transfers-theme($theme);
   @include leasing-theme($theme);
   @include anchors-theme($theme);
+  @include modals-theme($theme);
 }

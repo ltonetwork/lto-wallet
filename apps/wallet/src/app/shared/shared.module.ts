@@ -22,16 +22,15 @@ import {
 } from '@angular/material';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
-import { IsYouPipe } from './pipes/is-you.pipe';
 
 import { LeaseInfoComponent } from './components/lease-info/lease-info.component';
 import { BackupPhraseComponent } from './components/backup-phrase/backup-phrase.component';
 
 import { ContentSectionModule, TransactionDetailsModule } from './components';
-import { AmountDividePipeModule, TypeLabelPipeModule } from './pipes';
+import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './pipes';
 
 @NgModule({
-  declarations: [IsYouPipe, LeaseInfoComponent, BackupPhraseComponent],
+  declarations: [LeaseInfoComponent, BackupPhraseComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -48,7 +47,8 @@ import { AmountDividePipeModule, TypeLabelPipeModule } from './pipes';
     MatStepperModule,
     MatProgressSpinnerModule,
     AmountDividePipeModule,
-    TypeLabelPipeModule
+    TypeLabelPipeModule,
+    IsYouPipeModule
   ],
   exports: [
     CommonModule,
@@ -65,7 +65,7 @@ import { AmountDividePipeModule, TypeLabelPipeModule } from './pipes';
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
-    IsYouPipe,
+    IsYouPipeModule,
     TypeLabelPipeModule,
     AmountDividePipeModule,
     LeaseInfoComponent,

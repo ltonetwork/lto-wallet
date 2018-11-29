@@ -6,6 +6,7 @@ import { MatHorizontalStepper } from '@angular/material';
 import { Account } from 'lto-api';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { CrendetialsFormComponent } from '../components';
 
 @Component({
   selector: 'lto-import',
@@ -14,8 +15,23 @@ import { Router } from '@angular/router';
 })
 export class ImportComponent implements OnInit {
   @ViewChild(MatHorizontalStepper) stepper!: MatHorizontalStepper;
+  @ViewChild(CrendetialsFormComponent) credentialsForm!: CrendetialsFormComponent;
 
   seedCtrl: FormControl;
+
+  get continueButtonLabel(): string {
+    return this.stepper.selectedIndex === 0 ? 'Continue' : 'Import';
+  }
+
+  get cannotContinue(): boolean {
+    if (this.stepper.selectedIndex === 0) {
+      return this.seedCtrl.invalid;
+    } else if (this.stepper.selectedIndex === 1) {
+      return this.credentialsForm && this.credentialsForm.invalid;
+    }
+
+    return false;
+  }
 
   private wallet: Account | null = null;
 
@@ -56,6 +72,14 @@ export class ImportComponent implements OnInit {
     } catch (error) {
       this.notify('Cannot import account');
       console.error(error);
+    }
+  }
+
+  continue() {
+    if (this.stepper.selectedIndex === 0) {
+      this.restoreWallet();
+    } else if (this.stepper.selectedIndex === 1) {
+      this.saveAccount(this.credentialsForm.value);
     }
   }
 

@@ -14,23 +14,10 @@
               </mat-form-field>
               <mat-checkbox [checked]="true">Keep the account on this computer</mat-checkbox>
             </div>
-            <div class="step-actions" fxLayout="row" fxLayoutAlign="end">
-              <button mat-flat-button color="primary" (click)="stepper.next()">Next</button>
-            </div>
           </div>
         </mat-step>
         <mat-step>
           <div class="step-2"><lto-credentials-form #credentialsForm></lto-credentials-form></div>
-          <div class="step-actions" fxLayout="row" fxLayoutAlign="end">
-            <button
-              mat-flat-button
-              color="primary"
-              [disabled]="credentialsForm.invalid"
-              (click)="saveAccount(credentialsForm.value)"
-            >
-              Next
-            </button>
-          </div>
         </mat-step>
 
         <mat-step>
@@ -52,5 +39,12 @@
         </mat-step>
       </mat-horizontal-stepper>
     </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="start center" *ngIf="stepper.selectedIndex < 2">
+      <a mat-button routerLink="../signin">Sign in</a>
+      <a mat-button routerLink="../import">Import account</a><span fxFlex="1 1 auto"></span>
+      <button mat-flat-button color="primary" (click)="continue()" [disabled]="cannotContinue">
+        Continue
+      </button>
+    </mat-card-actions>
   </mat-card>
 </lto-content-section>

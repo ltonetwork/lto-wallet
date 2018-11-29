@@ -15,27 +15,23 @@
               ></textarea>
             </mat-form-field>
             <mat-checkbox [checked]="true">Keep the account on this computer</mat-checkbox>
-            <div class="step-actions" fxLayout="row" fxLayoutAlign="end">
-              <button mat-flat-button color="primary" (click)="restoreWallet()">Next</button>
-            </div>
           </div>
         </mat-step>
         <mat-step>
           <h1>Protect Your Account</h1>
           <lto-credentials-form #form></lto-credentials-form>
-          <div class="step-actions" fxLayout="row" fxLayoutAlign="space-between">
-            <button mat-button (click)="stepper.previous()">Back</button>
-            <button
-              mat-flat-button
-              color="primary"
-              (click)="saveAccount(form.value)"
-              [disabled]="form.invalid"
-            >
-              Import
-            </button>
-          </div>
         </mat-step>
       </mat-horizontal-stepper>
     </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="start center">
+      <a mat-button routerLink="../signin">Sign in</a>
+      <a mat-button routerLink="../create">Create account</a> <span fxFlex="1 1 auto"></span>
+      <button mat-flat-button (click)="stepper.previous()" *ngIf="stepper.selectedIndex === 1">
+        Back
+      </button>
+      <button mat-flat-button color="primary" [disabled]="cannotContinue" (click)="continue()">
+        {{ continueButtonLabel }}
+      </button>
+    </mat-card-actions>
   </mat-card>
 </lto-content-section>

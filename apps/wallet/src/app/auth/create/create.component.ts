@@ -5,6 +5,7 @@ import { Account } from 'lto-api';
 import { IAccountCredentials } from '../components/credentials-form/credentials-form.component';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { CrendetialsFormComponent } from '../components';
 
 @Component({
   selector: 'lto-create',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class CreateComponent implements OnInit {
   @ViewChild(MatHorizontalStepper) stepper!: MatHorizontalStepper;
+  @ViewChild('credentialsForm') credentialsForm!: CrendetialsFormComponent;
 
   /**
    * Random wallt which will be offered to user
@@ -21,6 +23,14 @@ export class CreateComponent implements OnInit {
 
   get progress(): number {
     return this.stepper ? (this.stepper.selectedIndex / 2) * 100 : 0;
+  }
+
+  get cannotContinue(): boolean {
+    if (this.stepper.selectedIndex === 1) {
+      return this.credentialsForm.invalid;
+    }
+
+    return false;
   }
 
   constructor(private auth: AuthService, private snackbar: MatSnackBar, private router: Router) {
@@ -47,6 +57,13 @@ export class CreateComponent implements OnInit {
 
   redirectToHome() {
     this.router.navigate(['/']);
+  }
+
+  async continue() {
+    if (this.stepper.selectedIndex === 1) {
+      await this.saveAccount(this.credentialsForm.value);
+    }
+    this.stepper.next();
   }
 
   private notify(message: string) {

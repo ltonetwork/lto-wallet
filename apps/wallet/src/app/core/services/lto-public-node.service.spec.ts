@@ -3,10 +3,17 @@ import { TestBed } from '@angular/core/testing';
 import { LtoPublicNodeService } from './lto-public-node.service';
 
 describe('LtoPublicNodeService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: LtoPublicNodeService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [LtoPublicNodeService.provider]
+    });
+
+    service = TestBed.get(LtoPublicNodeService);
+  });
 
   it('should be created', () => {
-    const service: LtoPublicNodeService = TestBed.get(LtoPublicNodeService);
     expect(service).toBeTruthy();
   });
 });

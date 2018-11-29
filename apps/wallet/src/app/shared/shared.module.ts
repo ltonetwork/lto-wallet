@@ -20,26 +20,17 @@ import {
   MatStepperModule,
   MatProgressSpinnerModule
 } from '@angular/material';
-import { ContentSectionComponent } from './components/content-section/content-section.component';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
-import { IsYouPipe } from './pipes/is-you.pipe';
-import { TypeLabelPipe } from './pipes/type-label.pipe';
-import { AmountDividePipe } from './pipes/amount-divide.pipe';
-import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
+
 import { LeaseInfoComponent } from './components/lease-info/lease-info.component';
 import { BackupPhraseComponent } from './components/backup-phrase/backup-phrase.component';
 
+import { ContentSectionModule, TransactionDetailsModule } from './components';
+import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './pipes';
+
 @NgModule({
-  declarations: [
-    ContentSectionComponent,
-    IsYouPipe,
-    TypeLabelPipe,
-    AmountDividePipe,
-    TransactionDetailsComponent,
-    LeaseInfoComponent,
-    BackupPhraseComponent
-  ],
+  declarations: [LeaseInfoComponent, BackupPhraseComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -54,7 +45,10 @@ import { BackupPhraseComponent } from './components/backup-phrase/backup-phrase.
     MatSidenavModule,
     MatDividerModule,
     MatStepperModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    AmountDividePipeModule,
+    TypeLabelPipeModule,
+    IsYouPipeModule
   ],
   exports: [
     CommonModule,
@@ -66,21 +60,21 @@ import { BackupPhraseComponent } from './components/backup-phrase/backup-phrase.
     MatCardModule,
     MatSnackBarModule,
     MatListModule,
-    ContentSectionComponent,
     MatRippleModule,
     MatSidenavModule,
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
-    IsYouPipe,
-    TypeLabelPipe,
-    AmountDividePipe,
-    TransactionDetailsComponent,
+    IsYouPipeModule,
+    TypeLabelPipeModule,
+    AmountDividePipeModule,
     LeaseInfoComponent,
     MatTooltipModule,
     MatTableModule,
     MatStepperModule,
-    BackupPhraseComponent
+    BackupPhraseComponent,
+    ContentSectionModule,
+    TransactionDetailsModule
   ]
 })
 export class SharedModule {

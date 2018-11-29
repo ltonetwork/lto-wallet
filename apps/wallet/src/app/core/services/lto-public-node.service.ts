@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, ClassProvider } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap, switchMapTo, distinctUntilChanged } from 'rxjs/operators';
@@ -7,10 +7,8 @@ import { LTO_PUBLIC_API } from '../../tokens';
 /**
  * Provide communication with LTO backend
  */
-@Injectable({
-  providedIn: 'root'
-})
-export class LtoPublicNodeService {
+@Injectable()
+export class LtoPublicNodeServiceImpl implements LtoPublicNodeService {
   constructor(private _http: HttpClient, @Inject(LTO_PUBLIC_API) private _publicApi: string) {}
 
   version(): Observable<string> {
@@ -73,4 +71,22 @@ export class LtoPublicNodeService {
   unconfirmedTransactions(): Observable<any[]> {
     return this._http.get<any>(this._publicApi + 'transactions/unconfirmed');
   }
+}
+
+export abstract class LtoPublicNodeService {
+  static provider: ClassProvider = {
+    provide: LtoPublicNodeService,
+    useClass: LtoPublicNodeServiceImpl
+  };
+
+  abstract version(): Observable<string>;
+  abstract height(): Observable<number>;
+  abstract lastBlocks(count: number, poll: boolean, pollInterval: number): Observable<any[]>;
+  abstract headerSequence(height: number, count: number): Observable<any[]>;
+  abstract transaction(id: string): Observable<any>;
+  abstract block(height: number | string): Observable<any>;
+  abstract transactionsOf(address: string): Observable<any>;
+  abstract indexedTransactions(address: string, index?: string, limit?: number): Observable<any[]>;
+  abstract balanceOf(address: string): Observable<any>;
+  abstract unconfirmedTransactions(): Observable<any[]>;
 }

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AuthService } from '../../core';
+import { AuthService } from '../../../core';
 
 /**
  * Replacec address with 'You'

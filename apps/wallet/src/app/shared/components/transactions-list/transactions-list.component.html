@@ -6,7 +6,7 @@
         class="transaction"
         *ngFor="let transaction of group.transactions; trackBy: transactionTrackBy"
         fxLayout="row"
-        fxLayoutAlign="space-between"
+        fxLayoutAlign="start center"
         (click)="_transactionClick(transaction)"
         [ngClass]="{ selected: selectedId === transaction.id }"
       >
@@ -23,11 +23,25 @@
               <span class="label">TYPE:</span>
               <span class="value">{{ transaction.type | typeLabel }}</span>
             </div>
-            <div class="fee"><span class="label">FEE:</span> <span class="value">0.001</span></div>
+            <div class="fee">
+              <span class="label">FEE:</span>
+              <span class="value">{{ transaction.fee | amountDivide }}</span>
+            </div>
           </div>
         </div>
-        <div class="amount" fxLayout="row" fxLayoutAlign="start center">
-          <span class="label">{{ transaction.amount | amountDivide }}</span> <span>LTO</span>
+        <span fxFlex="1 1 auto"></span>
+        <div class="amount" fxLayout="column" fxLayoutAlign="start center">
+          <div>
+            <span class="label">{{ transaction.amount | amountDivide }}</span> <span>LTO</span>
+          </div>
+          <button
+            *ngIf="isLease(transaction)"
+            mat-button
+            color="warn"
+            (click)="_cancelLease(transaction, $event)"
+          >
+            Cancel lease
+          </button>
         </div>
       </div>
     </div>

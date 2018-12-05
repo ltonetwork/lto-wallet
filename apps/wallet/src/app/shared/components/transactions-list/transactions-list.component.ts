@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { groupByDate, TransactionsGroup, replaceAmountFor } from '../../../core';
+import { groupByDate, TransactionsGroup, replaceAmountFor, TransactionTypes } from '../../../core';
 
 @Component({
   selector: 'lto-transactions-list',
@@ -12,6 +12,7 @@ export class TransactionsListComponent implements OnInit, OnChanges {
   @Input('selectedId') selectedId!: string;
 
   @Output() transactionClick = new EventEmitter();
+  @Output() cancelLease = new EventEmitter();
 
   transactions: TransactionsGroup[] = [];
 
@@ -33,8 +34,18 @@ export class TransactionsListComponent implements OnInit, OnChanges {
     return transaction.id;
   }
 
+  isLease(transaction: any) {
+    return transaction.type === TransactionTypes.LEASING;
+  }
+
   _transactionClick(transaction: any) {
     this.transactionClick.next(transaction);
+  }
+
+  _cancelLease(transaction: any, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.cancelLease.next(transaction);
   }
 
   private processTransactions() {

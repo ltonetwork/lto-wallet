@@ -1,10 +1,22 @@
 <lto-content-section title="Leasing" subtitle="Dashboard">
   <mat-card>
-    <mat-card-title>Active lease</mat-card-title>
+    <mat-card-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+      <span fxFlex="1 1 auto">Active lease</span>
+      <button mat-flat-button color="primary" (click)="startLease()">Start lease</button>
+    </mat-card-title>
     <mat-card-content>
-      <ng-container *ngTemplateOutlet="emptyTpl"></ng-container>
+      <ng-container *ngIf="(transactions$ | async) as transactions; else: loadingTpl">
+        <lto-transactions-list
+          *ngIf="transactions.length; else: emptyTpl"
+          [transactions]="transactions"
+          [address]="'ads'"
+          (cancelLease)="cancelLease($event)"
+          [selectedId]="123"
+        ></lto-transactions-list>
+      </ng-container>
     </mat-card-content>
   </mat-card>
 </lto-content-section>
 
 <ng-template #emptyTpl> <h2 class="empty">There is no lease active</h2> </ng-template>
+<ng-template #loadingTpl> <lto-loading-spinner></lto-loading-spinner> </ng-template>

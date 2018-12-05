@@ -12,7 +12,13 @@
       >
         <div class="info">
           <div class="addresses">
-            <span class="label">FROM:</span> <span class="value">{{ transaction.sender }}</span>
+            <ng-container *ngIf="address === transaction.sender">
+              <span class="label">TO:</span> <span class="value">{{ transaction.recipient }}</span>
+            </ng-container>
+
+            <ng-container *ngIf="address !== transaction.sender">
+              <span class="label">FROM:</span> <span class="value">{{ transaction.sender }}</span>
+            </ng-container>
           </div>
           <div class="misc" fxLayout="row" fxLayoutAlign="space-between">
             <div class="time">

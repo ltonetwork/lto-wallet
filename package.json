@@ -28,6 +28,7 @@
     "core-js": "^2.6.0",
     "lto-api": "^0.5.5",
     "moment": "^2.22.2",
+    "ngx-file-drop": "^5.0.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
     "zone.js": "~0.8.26"

@@ -23,12 +23,16 @@
 
   .misc {
     > div {
-      width: 33%;
+      // width: 33%;
     }
     .fee,
     .type {
       text-align: right;
     }
+  }
+
+  .time {
+    min-width: 100px;
   }
 
   .amount {
@@ -37,5 +41,6 @@
 
   .type {
     text-transform: uppercase;
+    // min-width: 185px;
   }
 }

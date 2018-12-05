@@ -1,5 +1,5 @@
 <div mat-dialog-title>New transaction</div>
-<mat-dialog-content>
+<mat-dialog-content *ngIf="(balance$ | async) as balance">
   <form [formGroup]="sendForm" fxLayout="column">
     <mat-form-field>
       <mat-label>Recipient</mat-label>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core';
-import { SigninComponent, SigninModule } from './signin';
+// import { SigninComponent, SigninModule } from './signin';
 import { CreateAccountComponent, CreateAccountModule } from './create-account';
 import { ImportComponent, ImportModule } from './import';
 import { NoAccountComponent, NoAccountModule } from './no-account';
@@ -12,7 +12,7 @@ import { AnchorsComponent, AnchorsModule } from './anchors';
 const routes: Routes = [
   {
     path: 'signin',
-    component: SigninComponent
+    loadChildren: './signin/signin.module#SigninModule'
   },
   {
     path: 'create-account',
@@ -54,7 +54,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
-    SigninModule,
+    // SigninModule,
     CreateAccountModule,
     ImportModule,
     NoAccountModule,

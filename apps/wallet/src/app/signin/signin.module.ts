@@ -6,6 +6,15 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [SigninComponent],
-  imports: [SharedModule, FormsModule, RouterModule.forChild([])]
+  imports: [
+    SharedModule,
+    FormsModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: SigninComponent
+      }
+    ])
+  ]
 })
 export class SigninModule {}

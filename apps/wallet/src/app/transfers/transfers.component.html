@@ -1,0 +1,79 @@
+<mat-sidenav-container [hasBackdrop]="false">
+  <mat-sidenav #sidenav [opened]="detailsOpened" [mode]="'side'" position="end">
+    <lto-transaction-details
+      (close)="select(null)"
+      [transaction]="selectedTransaction"
+    ></lto-transaction-details>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <lto-content-section title="Transfers" subtitle="Dashboard">
+      <div class="balance" fxLayout="row" *ngIf="(balance$ | async) as balance" fxLayoutGap="24px">
+        <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
+          <div class="label">Regular</div>
+          <div class="value">{{ balance.regular | amountDivide }}</div>
+        </mat-card>
+
+        <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
+          <div class="label">Generating</div>
+          <div class="value">{{ balance.generating | amountDivide }}</div>
+        </mat-card>
+
+        <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
+          <div class="label">Available</div>
+          <div class="value">{{ balance.available | amountDivide }}</div>
+        </mat-card>
+
+        <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
+          <div class="label">Effective</div>
+          <div class="value">{{ balance.effective | amountDivide }}</div>
+        </mat-card>
+
+        <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
+          <div class="label">LOREM</div>
+          <div class="value">{{ balance.effective | amountDivide }}</div>
+        </mat-card>
+      </div>
+      <mat-card fxLayout="column">
+        <mat-card-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <span fxFlex="1 1 auto">Transactions</span>
+          <button mat-flat-button color="primary" (click)="deposit()">Deposit</button>
+          <button mat-flat-button color="primary" (click)="withdraw()">Withdraw</button>
+          <button mat-flat-button color="primary" (click)="makeTransaction()">Send</button>
+        </mat-card-title>
+        <mat-card-content fxFlex="1 1 auto">
+          <ng-container *ngIf="(transfers$ | async) as transfers; else: loadingTpl">
+            <lto-transactions-list
+              [transactions]="transfers"
+              [address]="address$ | async"
+              (transactionClick)="select($event)"
+              [selectedId]="selectedTransaction?.id"
+            ></lto-transactions-list>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </lto-content-section>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #loadingTpl> <lto-loading-spinner></lto-loading-spinner> </ng-template>
+<ng-template #emptyTpl> <h2 class="empty">There are no transactions</h2> </ng-template>
+
+<!--
+  <table
+              mat-table
+              *ngIf="transfers.length; else: emptyTpl"
+              [dataSource]="transfers"
+              fxFlexFill
+            >
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let transaction">{{ transaction.id }}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="visibleColumns"></tr>
+              <tr
+                mat-row
+                *matRowDef="let transfer; columns: visibleColumns"
+                (click)="select(transfer)"
+              ></tr>
+            </table>
+-->

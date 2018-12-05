@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'lto_typeLabel'
+  name: 'typeLabel'
 })
 export class TypeLabelPipe implements PipeTransform {
   transform(type: number, args?: any): string {

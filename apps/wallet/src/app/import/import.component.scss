@@ -1,0 +1,31 @@
+mat-card-content {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 38px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 48px;
+}
+
+p {
+  font-size: 24px;
+  margin-bottom: 32px;
+}
+
+.narrow {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+mat-form-field {
+  display: block;
+}
+
+.buttons {
+  border-top: 1px solid #becad6;
+  padding: 32px;
+  margin-top: 48px;
+}

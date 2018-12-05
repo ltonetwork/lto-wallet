@@ -1,0 +1,99 @@
+<lto-content-section>
+  <mat-card>
+    <mat-card-content>
+      <div>
+        <h1>Create New Account</h1>
+        <div class="create-account-steps">
+          <ng-container *ngTemplateOutlet="stepTemplate"></ng-container>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</lto-content-section>
+
+<ng-template #step1Tpl>
+  <div class="step-1 narrow">
+    <p>We will generate a random account adress for you</p>
+    <lto-copyable-text [text]="wallet.address"></lto-copyable-text>
+  </div>
+  <div class="buttons">
+    <div class="narrow">
+      <button mat-flat-button color="primary" (click)="goToStep(2)">Continue</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #step2Tpl>
+  <div class="step-2 narrow">
+    <p>Account will be stored locally on your device</p>
+    <div class="credentials-form">
+      <lto-credentials-form #credentialsForm></lto-credentials-form>
+    </div>
+  </div>
+  <div class="buttons">
+    <div class="narrow">
+      <button
+        mat-flat-button
+        [disabled]="credentialsForm.invalid"
+        (click)="saveAccount(credentialsForm.value)"
+        color="primary"
+      >
+        Continue
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #step3Tpl>
+  <div class="step-3 narrow">
+    <p>Please carefully write down these 15 words</p>
+    <div class="words">
+      <span class="word" *ngFor="let word of seedWords">{{ word }}</span>
+    </div>
+  </div>
+  <div class="buttons">
+    <div class="narrow">
+      <button mat-flat-button color="primary" (click)="toConfirmationStep()">
+        I&apos;ve written it down
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #step4Tpl>
+  <div class="step-4 narrow">
+    <p>Please verify your backup phrase by tapping each word in the correct order</p>
+    <div class="answer">
+      <div class="word" *ngFor="let word of selectedWords">{{ word }}</div>
+    </div>
+
+    <ng-container *ngIf="finished && invalid">
+      <div class="error">Wrong order</div>
+      <button mat-flat-button color="primary" (click)="resetConfirmation()">Try again</button>
+    </ng-container>
+    <ng-container *ngIf="!finished || !invalid">
+      <div class="words">
+        <div
+          class="word"
+          *ngFor="let word of shuffledWords"
+          [ngClass]="{ selected: isSelected(word) }"
+        >
+          <button mat-flat-button color="accent" (click)="selectWord(word)">{{ word }}</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="buttons">
+    <div class="narrow">
+      <button mat-flat-button (click)="goToStep(3)">Back</button>
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="!finished || (finished && invalid)"
+        routerLink="/"
+      >
+        Confirm
+      </button>
+    </div>
+  </div>
+</ng-template>

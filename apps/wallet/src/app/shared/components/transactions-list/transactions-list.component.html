@@ -1,0 +1,35 @@
+<div class="list-container">
+  <div class="group" *ngFor="let group of transactions; trackBy: groupDayTrackBy">
+    <div class="date">{{ group.date }}</div>
+    <div class="transactions">
+      <div
+        class="transaction"
+        *ngFor="let transaction of group.transactions; trackBy: transactionTrackBy"
+        fxLayout="row"
+        fxLayoutAlign="space-between"
+        (click)="_transactionClick(transaction)"
+        [ngClass]="{ selected: selectedId === transaction.id }"
+      >
+        <div class="info">
+          <div class="addresses">
+            <span class="label">FROM:</span> <span class="value">{{ transaction.sender }}</span>
+          </div>
+          <div class="misc" fxLayout="row">
+            <div class="time">
+              <span class="label">TIME:</span>
+              <span class="value">{{ transaction.timestamp | date: 'shortTime' }}</span>
+            </div>
+            <div class="type">
+              <span class="label">TYPE:</span>
+              <span class="value">{{ transaction.type | typeLabel }}</span>
+            </div>
+            <div class="fee"><span class="label">FEE:</span> <span class="value">0.001</span></div>
+          </div>
+        </div>
+        <div class="amount" fxLayout="row" fxLayoutAlign="start center">
+          <span class="label">{{ transaction.amount | amountDivide }}</span> <span>LTO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

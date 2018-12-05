@@ -1,0 +1,40 @@
+@import '~@angular/material/theming';
+
+:host {
+  display: block;
+  padding-bottom: 64px;
+}
+
+mat-sidenav-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+mat-card-title {
+  height: 71px;
+}
+
+.empty {
+  text-align: center;
+  padding: 50px;
+}
+
+.balance {
+  height: 150px;
+  margin-bottom: 24px;
+  mat-card {
+    .label {
+      color: #818ea3;
+      font-size: 12px;
+    }
+
+    .value {
+      color: #3d5170;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  }
+}

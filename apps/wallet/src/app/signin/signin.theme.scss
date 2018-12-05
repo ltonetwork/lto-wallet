@@ -1,0 +1,13 @@
+@mixin signin-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  lto-signin {
+    mat-list-item {
+      &:hover,
+      &.selected {
+        color: mat-color($primary) !important;
+        background-color: rgba($color: mat-color($primary, 50), $alpha: 0.5);
+      }
+    }
+  }
+}

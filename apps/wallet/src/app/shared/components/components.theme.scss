@@ -1,0 +1,5 @@
+@import './transactions-list/transactions-list.theme.scss';
+
+@mixin shared-components-theme($theme) {
+  @include transactions-list-theme($theme);
+}

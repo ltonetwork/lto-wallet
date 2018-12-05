@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  width: 300px;
+}
+
+mat-toolbar {
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.brand {
+}
+
+.main-navigation {
+  width: 300px;
+
+  a {
+    display: flex;
+    flex-direction: row;
+    padding: 16px 16px 16px 28px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.54);
+    border-left: 4px solid transparent;
+    align-items: center;
+    cursor: pointer;
+
+    mat-icon {
+      margin-right: 16px;
+    }
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.05);
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="center center"> <lto-brand></lto-brand> </mat-toolbar>
+<div class="main-navigation">
+  <a routerLink="/transfers" routerLinkActive="active">
+    <mat-icon>swap_horiz</mat-icon><span>Transfers</span></a
+  >
+
+  <a routerLink="/leasing" routerLinkActive="active"
+    ><mat-icon>watch_later</mat-icon> <span>Leasing</span></a
+  >
+  <a routerLink="/anchors" routerLinkActive="active"
+    ><mat-icon>alternate_email</mat-icon> <span>Anchors</span></a
+  >
+  <a (click)="showSettings()"><mat-icon>security</mat-icon> <span>Backup your account</span></a>
+</div>

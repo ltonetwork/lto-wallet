@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconRegistry } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { AppbarModule, SidenavModule } from './components';
+
+import { LtoPublicNodeService, BridgeService, EncoderService, WalletService } from './services';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: []
+  declarations: [],
+  imports: [HttpClientModule],
+  exports: [AppbarModule, SidenavModule],
+  providers: [
+    LtoPublicNodeService.provider,
+    BridgeService.provider,
+    EncoderService,
+    WalletService.provider
+  ]
 })
-export class CoreModule {
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon('lto', sanitizer.bypassSecurityTrustResourceUrl('/assets/lto.svg'));
-  }
-}
+export class CoreModule {}

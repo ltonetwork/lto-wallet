@@ -1,44 +1,59 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MatCardModule,
-  MatIconModule,
   MatButtonModule,
-  MatToolbarModule,
-  MatProgressSpinnerModule,
-  MatTooltipModule
+  MatIconModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatListModule,
+  MatRippleModule,
+  MatTooltipModule,
+  MatSnackBarModule,
+  MatSidenavModule,
+  MatTableModule
 } from '@angular/material';
-import { AmountPipeModule } from '@legalthings-one/component-kit';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TypeLabelModule } from './pipes';
-
+import { FormsModule } from '@angular/forms';
 import {
-  MakeTransactionModalModule,
-  ReceiveModalModule,
-  TransactionInfoModule,
-  MyWalletInfoModalModule,
-  StartLeaseModalModule,
-  LeaseDetailsModalModule
-} from './modals';
+  ContentSectionModule,
+  CredentialsFormModule,
+  CopyableTextModule,
+  LoadingSpinnerModule,
+  TransactionDetailsModule,
+  TransactionRowModule,
+  TransactionsListModule
+} from './components';
+
+import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './pipes';
 
 @NgModule({
+  declarations: [],
   exports: [
     CommonModule,
-    StartLeaseModalModule,
-    MakeTransactionModalModule,
-    ReceiveModalModule,
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    AmountPipeModule,
+    ContentSectionModule,
     FlexLayoutModule,
-    TransactionInfoModule,
-    MyWalletInfoModalModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatRippleModule,
     MatTooltipModule,
-    LeaseDetailsModalModule,
-    TypeLabelModule
+    CredentialsFormModule,
+    MatSnackBarModule,
+    CopyableTextModule,
+    FormsModule,
+    MatSidenavModule,
+    MatTableModule,
+    LoadingSpinnerModule,
+    AmountDividePipeModule,
+    TypeLabelPipeModule,
+    IsYouPipeModule,
+    TransactionDetailsModule,
+    TransactionRowModule,
+    TransactionsListModule
   ]
 })
 export class SharedModule {}

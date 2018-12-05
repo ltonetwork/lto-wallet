@@ -1,0 +1,79 @@
+import { Injectable, Inject } from '@angular/core';
+import { LTO, Account } from 'lto-api';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { LTO_NETWORK_BYTE } from '../../tokens';
+import { map } from 'rxjs/operators';
+
+export interface IUserAccount {
+  name: string;
+  encryptedSeed: string;
+  address: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  readonly STORAGE_KEY: string = '_USERS_ACCOUNTS_';
+
+  authenticated$: Observable<boolean>;
+  account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(null);
+  wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
+
+  availableAccounts$: Observable<IUserAccount[]>;
+
+  ltoInstance: LTO;
+  constructor(@Inject(LTO_NETWORK_BYTE) networkBye: string) {
+    this.ltoInstance = new LTO(networkBye);
+
+    this.availableAccounts$ = new Observable(subscriber => {
+      subscriber.next(this.readFromLocalStorage());
+    });
+
+    this.authenticated$ = this.wallet$.pipe(map(wallet => !!wallet));
+  }
+
+  saveAccount(name: string, password: string, wallet: Account): IUserAccount {
+    const encryptedSeed = wallet.encryptSeed(password);
+    const newAccount: IUserAccount = {
+      name,
+      encryptedSeed,
+      address: wallet.address
+    };
+
+    // Save this account in local storage
+    this.saveToLocalStorage(newAccount);
+
+    return newAccount;
+  }
+
+  generateWallet(phrase?: string) {
+    return phrase
+      ? this.ltoInstance.createAccountFromExistingPhrase(phrase)
+      : this.ltoInstance.createAccount();
+  }
+
+  login(userAccount: IUserAccount, password: string): string {
+    const seed = this.ltoInstance.decryptSeedPhrase(userAccount.encryptedSeed, password);
+    const wallet = this.ltoInstance.createAccountFromExistingPhrase(seed);
+
+    this.account$.next(userAccount);
+    this.wallet$.next(wallet);
+
+    return wallet.address;
+  }
+
+  logout() {
+    this.account$.next(null);
+    this.wallet$.next(null);
+  }
+
+  private readFromLocalStorage(): IUserAccount[] {
+    return JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]');
+  }
+
+  private saveToLocalStorage(account: IUserAccount) {
+    const accounts = this.readFromLocalStorage();
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...accounts, account]));
+  }
+}

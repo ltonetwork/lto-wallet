@@ -1,0 +1,10 @@
+<lto-content-section title="Leasing" subtitle="Dashboard">
+  <mat-card>
+    <mat-card-title>Active lease</mat-card-title>
+    <mat-card-content>
+      <ng-container *ngTemplateOutlet="emptyTpl"></ng-container>
+    </mat-card-content>
+  </mat-card>
+</lto-content-section>
+
+<ng-template #emptyTpl> <h2 class="empty">There is no lease active</h2> </ng-template>

@@ -15,6 +15,7 @@ export class LeasingComponent implements OnInit {
   unconfirmedLeasing$: Observable<any[]>;
 
   transactions$: Observable<any[]>;
+  address$: Observable<string>;
 
   constructor(
     private wallet: WalletService,
@@ -22,6 +23,7 @@ export class LeasingComponent implements OnInit {
     private snackbar: MatSnackBar
   ) {
     this.activeTransactions$ = this.getActiveTransactions();
+    this.address$ = wallet.address$;
 
     this.unconfirmedLeasing$ = wallet.uncofirmed$.pipe(
       map(transactionsFilter(TransactionTypes.LEASING)),

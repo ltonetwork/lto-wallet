@@ -9,7 +9,7 @@
         <lto-transactions-list
           *ngIf="transactions.length; else: emptyTpl"
           [transactions]="transactions"
-          [address]="'ads'"
+          [address]="address$ | async"
           (cancelLease)="cancelLease($event)"
           [selectedId]="123"
         ></lto-transactions-list>

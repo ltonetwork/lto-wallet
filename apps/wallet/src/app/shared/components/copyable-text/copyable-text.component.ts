@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class CopyableTextComponent implements OnInit {
   @Input() text: string = '';
+  @Input() label: string = '';
 
   constructor(private snackbar: MatSnackBar) {}
 

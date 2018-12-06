@@ -1,0 +1,40 @@
+:host {
+  display: block;
+  width: 400px;
+}
+
+.list {
+  .list-item {
+    padding: 16px;
+    color: #818ea3;
+    font-size: 16px;
+    cursor: pointer;
+
+    .label {
+      font-weight: 500;
+      margin-right: 2px;
+      text-transform: uppercase;
+    }
+  }
+
+  .achors {
+  }
+}
+
+.anchors-header {
+  margin-bottom: 4px;
+}
+
+.anchor-button {
+  font-size: 12px;
+  padding: 2px 8px;
+  box-sizing: border-box;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  margin: 0 4px;
+  cursor: pointer;
+
+  &.selected {
+    background-color: rgba(0, 0, 0, 0.054);
+  }
+}

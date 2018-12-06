@@ -7,7 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared';
 
 import { CoreModule } from './core/core.module';
-import { LTO_NETWORK_BYTE, LTO_PUBLIC_API, AMOUNT_DIVIDER, LTO_BRIDGE_HOST } from './tokens';
+import {
+  LTO_NETWORK_BYTE,
+  LTO_PUBLIC_API,
+  AMOUNT_DIVIDER,
+  LTO_BRIDGE_HOST,
+  TRANSFER_FEE,
+  ANCHOR_FEE
+} from './tokens';
 import { ModalsModule } from './modals/modals.module';
 
 @NgModule({
@@ -38,6 +45,14 @@ import { ModalsModule } from './modals/modals.module';
     {
       provide: LTO_BRIDGE_HOST,
       useValue: 'https://bridge.lto.network'
+    },
+    {
+      provide: TRANSFER_FEE,
+      useValue: 100000
+    },
+    {
+      provide: ANCHOR_FEE,
+      useValue: 100000
     }
   ],
   bootstrap: [AppComponent]

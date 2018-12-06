@@ -1,5 +1,5 @@
 <div class="text-box">
-  <div class="label">your adress</div>
+  <div class="label" *ngIf="label">{{ label }}</div>
   <div class="address" fxLayout="row" fxLayoutAlign="start center">
     <div class="text" fxFlex="1 1 auto">{{ text }}</div>
     <div class="copy-button" matRipple (click)="copy()">

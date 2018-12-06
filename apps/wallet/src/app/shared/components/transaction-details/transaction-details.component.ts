@@ -24,6 +24,11 @@ export class TransactionDetailsComponent implements OnInit, OnChanges {
 
   anchors: any[] = [];
 
+  get amountInfoVisible(): boolean {
+    // Do not show amount info for anchors
+    return this.transaction.type !== 15;
+  }
+
   constructor(private encoderService: EncoderService) {}
 
   ngOnInit() {}

@@ -189,6 +189,21 @@ export class WalletServiceImpl implements WalletService {
     );
     this.manualUpdate$.next();
   }
+
+  async anchor(hash: string, fee: number) {
+    const wallet: any = await toPromise(this.auth.wallet$);
+
+    await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
+      'anchor',
+      {
+        fee: fee * this.amountDivider,
+        anchors: [hash]
+      },
+      wallet.getSignKeys()
+    );
+    // Trigger update
+    this.manualUpdate$.next();
+  }
 }
 
 export abstract class WalletService {
@@ -216,4 +231,6 @@ export abstract class WalletService {
   abstract lease(recipient: string, amount: number, fee: number): Promise<any>;
   abstract cancelLease(transactionId: string): Promise<any>;
   abstract withdraw(address: string, ammount: number, fee: number): Promise<any>;
+
+  abstract anchor(hash: string, fee: number): Promise<void>;
 }

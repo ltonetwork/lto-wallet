@@ -3,7 +3,13 @@
     <span fxFlex="1 1 auto">Transaction details</span>
     <button mat-icon-button (click)="_close()"><mat-icon>close</mat-icon></button>
   </h1>
-  <div class="general-info" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="16px">
+  <div
+    class="general-info"
+    fxLayout="column"
+    fxLayoutAlign="start center"
+    fxLayoutGap="16px"
+    *ngIf="amountInfoVisible"
+  >
     <mat-icon class="crypto-icon" svgIcon="lto"></mat-icon>
     <div class="amount">
       <div class="label">Amount</div>

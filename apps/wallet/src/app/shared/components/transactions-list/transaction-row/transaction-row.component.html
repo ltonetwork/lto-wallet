@@ -1,0 +1,40 @@
+<div class="transaction" fxLayout="row" fxLayoutAlign="start center">
+  <div class="icon">
+    <mat-icon *ngIf="isIncoming" class="income-icon">arrow_downward</mat-icon>
+    <mat-icon *ngIf="isOutcoming">arrow_upward</mat-icon>
+  </div>
+  <div class="info">
+    <div class="addresses">
+      <ng-container *ngIf="isOutcoming">
+        <span class="label">TO:</span> <span class="value">{{ transaction.recipient }}</span>
+      </ng-container>
+
+      <ng-container *ngIf="isIncoming">
+        <span class="label">FROM:</span> <span class="value">{{ transaction.sender }}</span>
+      </ng-container>
+    </div>
+    <div class="misc" fxLayout="row" fxLayoutAlign="space-between">
+      <div class="time">
+        <span class="label">TIME:</span>
+        <span class="value">{{ transaction.timestamp | date: 'HH:MM' }}</span>
+      </div>
+      <div class="type">
+        <span class="label">TYPE:</span>
+        <span class="value">{{ transaction.type | typeLabel }}</span>
+      </div>
+      <div class="fee">
+        <span class="label">FEE:</span>
+        <span class="value">{{ transaction.fee | amountDivide }}</span>
+      </div>
+    </div>
+  </div>
+  <span fxFlex="1 1 auto"></span>
+  <div class="amount" fxLayout="column" fxLayoutAlign="start center">
+    <div>
+      <span class="label">{{ transaction.amount | amountDivide }}</span> <span>LTO</span>
+    </div>
+    <button *ngIf="isLease" mat-button color="warn" (click)="_cancelLease(transaction, $event)">
+      Cancel lease
+    </button>
+  </div>
+</div>

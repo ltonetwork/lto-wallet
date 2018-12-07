@@ -1,9 +1,5 @@
-.date {
-  font-weight: 500;
-  color: #3d5170;
-  font-size: 18px;
-  padding: 16px;
-  padding-bottom: 8px;
+:host {
+  display: block;
 }
 
 .transaction {
@@ -15,6 +11,9 @@
   .icon {
     padding: 8px;
     padding-right: 16px;
+    .income-icon {
+      color: #17c671;
+    }
   }
 
   .label {

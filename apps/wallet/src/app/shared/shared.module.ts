@@ -21,7 +21,6 @@ import {
   CopyableTextModule,
   LoadingSpinnerModule,
   TransactionDetailsModule,
-  TransactionRowModule,
   TransactionsListModule
 } from './components';
 
@@ -52,7 +51,6 @@ import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './
     TypeLabelPipeModule,
     IsYouPipeModule,
     TransactionDetailsModule,
-    TransactionRowModule,
     TransactionsListModule
   ]
 })

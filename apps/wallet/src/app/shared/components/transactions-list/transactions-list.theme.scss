@@ -2,8 +2,8 @@
   lto-transactions-list {
     $primary: map-get($theme, primary);
 
-    .transaction:hover,
-    .transaction.selected {
+    lto-transaction-row:hover,
+    lto-transaction-row.selected {
       background-color: rgba($color: mat-color($primary, 50), $alpha: 0.5);
     }
   }

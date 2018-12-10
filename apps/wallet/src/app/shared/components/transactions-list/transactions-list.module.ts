@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TransactionsListComponent } from './transactions-list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AmountDividePipeModule, TypeLabelPipeModule } from '../../pipes';
-import { MatButtonModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatProgressSpinnerModule } from '@angular/material';
 import { TransactionRowComponent } from './transaction-row';
 
 @NgModule({
@@ -14,7 +14,8 @@ import { TransactionRowComponent } from './transaction-row';
     AmountDividePipeModule,
     TypeLabelPipeModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   exports: [TransactionsListComponent]
 })

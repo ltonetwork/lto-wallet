@@ -23,6 +23,18 @@ export class TransactionRowComponent implements OnInit {
     return this.transaction.type === TransactionTypes.LEASING;
   }
 
+  get transactionIcon(): string {
+    if (this.transaction.unconfirmed) {
+      return 'hourglass_empty';
+    } else if (this.isIncoming) {
+      return 'arrow_downward';
+    } else if (this.isOutcoming) {
+      return 'arrow_upward';
+    }
+
+    return '';
+  }
+
   constructor() {}
 
   ngOnInit() {}

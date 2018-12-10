@@ -101,9 +101,13 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.uncofirmed$ = this.update$.pipe(
-      combineLatest(publicNode.unconfirmedTransactions()),
+      switchMap(
+        () => publicNode.unconfirmedTransactions(),
+        (wallet, transactions) => [wallet, transactions] as [Account, any[]]
+      ),
       map(([wallet, transactions]) => {
-        return transactions.filter(transaction => {
+        // Filter trasactions where current user involved
+        const myTransactions = transactions.filter(transaction => {
           const address = wallet.address;
           if (transaction.sender === address || transaction.recipient === address) {
             return true;
@@ -115,6 +119,16 @@ export class WalletServiceImpl implements WalletService {
 
           return false;
         });
+
+        // Mark transactions as unconfirmed to display in the UI
+        const markedAsUnconfirmed = myTransactions.map(transaction => {
+          return {
+            ...transaction,
+            unconfirmed: true
+          };
+        });
+
+        return markedAsUnconfirmed;
       }),
       shareReplay(1)
     );
@@ -134,6 +148,9 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.balance$.subscribe(); // make balance hot
+    this.uncofirmed$.subscribe(transactions => {
+      console.log('Have new uncofirmeed', transactions);
+    });
   }
 
   async transfer(data: ITransferPayload) {

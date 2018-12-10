@@ -1,7 +1,6 @@
 <div class="transaction" fxLayout="row" fxLayoutAlign="start center">
   <div class="icon">
-    <mat-icon *ngIf="isIncoming" class="income-icon">arrow_downward</mat-icon>
-    <mat-icon *ngIf="isOutcoming">arrow_upward</mat-icon>
+    <mat-icon>{{ transactionIcon }}</mat-icon>
   </div>
   <div class="info">
     <div class="addresses">

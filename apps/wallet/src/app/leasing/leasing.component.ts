@@ -32,15 +32,7 @@ export class LeasingComponent implements OnInit {
     this.address$ = wallet.address$;
 
     this.unconfirmedLeasing$ = wallet.uncofirmed$.pipe(
-      map(transactionsFilter(TransactionTypes.LEASING)),
-      map(transactions =>
-        transactions.map(transaction => {
-          return {
-            ...transaction,
-            unconfirmed: true
-          };
-        })
-      )
+      map(transactionsFilter(TransactionTypes.LEASING))
     );
 
     this.transactions$ = combineLatest(this.unconfirmedLeasing$, this.activeTransactions$).pipe(

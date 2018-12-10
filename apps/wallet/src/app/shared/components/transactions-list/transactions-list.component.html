@@ -8,6 +8,7 @@
         [myAddress]="address"
         (click)="_transactionClick(transaction)"
         [ngClass]="{ selected: selectedId === transaction.id }"
+        (cancelLease)="_cancelLease(transaction)"
       ></lto-transaction-row>
       <!--
         <div

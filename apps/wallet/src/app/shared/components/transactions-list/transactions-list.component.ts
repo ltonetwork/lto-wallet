@@ -43,8 +43,6 @@ export class TransactionsListComponent implements OnInit, OnChanges {
   }
 
   _cancelLease(transaction: any, event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
     this.cancelLease.next(transaction);
   }
 

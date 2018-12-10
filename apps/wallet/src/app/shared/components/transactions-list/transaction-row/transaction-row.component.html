@@ -33,7 +33,7 @@
     <div>
       <span class="label">{{ transaction.amount | amountDivide }}</span> <span>LTO</span>
     </div>
-    <button *ngIf="isLease" mat-button color="warn" (click)="_cancelLease(transaction, $event)">
+    <button *ngIf="isLease" mat-button color="warn" (click)="_cancelLease($event)">
       Cancel lease
     </button>
   </div>

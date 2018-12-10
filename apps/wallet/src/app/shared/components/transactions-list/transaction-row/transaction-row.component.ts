@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { TransactionTypes } from '../../../../core';
 
 @Component({
   selector: 'lto-transaction-row',
@@ -8,6 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TransactionRowComponent implements OnInit {
   @Input() transaction!: any;
   @Input() myAddress!: string;
+  @Output() cancelLease = new EventEmitter();
 
   get isOutcoming(): boolean {
     return this.transaction.sender === this.myAddress;
@@ -18,12 +20,15 @@ export class TransactionRowComponent implements OnInit {
   }
 
   get isLease(): boolean {
-    return false;
+    return this.transaction.type === TransactionTypes.LEASING;
   }
 
   constructor() {}
 
   ngOnInit() {}
 
-  _cancelLease() {}
+  _cancelLease(event: Event) {
+    event.stopPropagation();
+    this.cancelLease.next();
+  }
 }

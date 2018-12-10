@@ -17,6 +17,12 @@ export class LeasingComponent implements OnInit {
   transactions$: Observable<any[]>;
   address$: Observable<string>;
 
+  selectedTransaction: any = null;
+
+  get detailsOpened(): boolean {
+    return !!this.selectedTransaction;
+  }
+
   constructor(
     private wallet: WalletService,
     private startLeaseModal: StartLeaseModal,
@@ -79,6 +85,10 @@ export class LeasingComponent implements OnInit {
       }),
       shareReplay(1)
     );
+  }
+
+  select(transaction: any) {
+    this.selectedTransaction = transaction;
   }
 
   async startLease() {

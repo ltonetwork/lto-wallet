@@ -148,9 +148,6 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.balance$.subscribe(); // make balance hot
-    this.uncofirmed$.subscribe(transactions => {
-      console.log('Have new uncofirmeed', transactions);
-    });
   }
 
   async transfer(data: ITransferPayload) {
@@ -169,9 +166,9 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
-  async withdraw(recipient: string, amount: number, fee: number) {
+  async withdraw(recipient: string, amount: number, fee: number, captha: string) {
     // Create a bridge
-    const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient));
+    const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient, captha));
     // Make a transaction
     return this.transfer({
       amount,
@@ -247,7 +244,7 @@ export abstract class WalletService {
   abstract transfer(data: ITransferPayload): Promise<void>;
   abstract lease(recipient: string, amount: number, fee: number): Promise<any>;
   abstract cancelLease(transactionId: string): Promise<any>;
-  abstract withdraw(address: string, ammount: number, fee: number): Promise<any>;
+  abstract withdraw(address: string, ammount: number, fee: number, captha: string): Promise<any>;
 
   abstract anchor(hash: string, fee: number): Promise<void>;
 }

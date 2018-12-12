@@ -1,0 +1,27 @@
+<h2 mat-dialog-title fxLayout="row">
+  <span>Please confirm</span> <span fxFlex="1 1 auto"></span>
+  <span fxLayout="row" fxLayoutAlign="start center" class="fee"
+    ><mat-icon>warning</mat-icon><span>100 LTO FEE</span></span
+  >
+</h2>
+<mat-dialog-content>
+  <ng-container *ngIf="step === 1">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+    </p>
+    <div class="captcha" fxLayout="row" fxLayoutAlign="center">
+      <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
+    </div>
+    <button mat-flat-button color="primary" (click)="createBridget()">Confirm</button>
+  </ng-container>
+
+  <ng-container *ngIf="step === 2">
+    <p>Please send the ERC20 tokens to the following wallet address</p>
+    <div class="address" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">
+      <div class="qrcode-box"><qrcode [qrdata]="bridgeAddress" [size]="160"></qrcode></div>
+      <lto-copyable-text [text]="bridgeAddress"></lto-copyable-text>
+    </div>
+    <button mat-flat-button mat-dialog-close color="primary">Close</button>
+  </ng-container>
+</mat-dialog-content>

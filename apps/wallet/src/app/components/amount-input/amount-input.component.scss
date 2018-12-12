@@ -1,0 +1,17 @@
+:host {
+  display: inline-block;
+  border: 1px dashed #979797;
+  padding: 32px;
+  box-sizing: border-box;
+  width: 230px;
+  border-radius: 8px;
+}
+
+input {
+  border: none;
+  outline: none;
+  border-bottom: 1px dashed #979797;
+  font-size: 18px;
+  text-align: center;
+  max-width: 100%;
+}

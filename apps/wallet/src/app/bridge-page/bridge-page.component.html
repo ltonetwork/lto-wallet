@@ -1,0 +1,65 @@
+<lto-content-section width="large">
+  <img src="assets/bridge.png" alt="" />
+  <h2>The LTO Network Bridge</h2>
+  <mat-card class="wallet-card">
+    <mat-card-title>Fill in your wallet</mat-card-title
+    ><mat-card-content>
+      <mat-form-field appearance="outline">
+        <input type="text" matInput placeholder="Your wallet address" />
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+  <div fxLayout="row" fxLayoutGap="16px" class="calculator" fxLayoutAlign="space-between">
+    <!-- LEFT CARD -->
+    <mat-card fxFlex="1 1 40">
+      <mat-card-title fxLayout="rpw">
+        <span>ERC20</span><span fxFlex="1 1 auto"></span>
+        <span fxLayout="row" fxLayoutAlign="start center" class="fee"
+          ><mat-icon>warning</mat-icon><span>100 LTO FEE</span></span
+        ></mat-card-title
+      >
+      <mat-card-content fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="16px">
+        <lto-wallet-amount-input></lto-wallet-amount-input>
+        <button mat-flat-button color="primary" (click)="deposit()">Deposit</button>
+        <h4>Important information</h4>
+        <div class="info" fxLayout="row" fxLayoutAlign="center center">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <div class="buttons" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+      <button mat-flat-button color="primary" fxLayout="row" fxLayoutAlign="center center">
+        <span>Calculate</span>
+        <mat-icon>arrow_right</mat-icon>
+      </button>
+      <button mat-flat-button color="primary" fxLayout="row" fxLayoutAlign="center center">
+        <mat-icon>arrow_left</mat-icon> <span>Calculate</span>
+      </button>
+    </div>
+    <!-- RIGHT CARD -->
+    <mat-card fxFlex="1 1 40">
+      <mat-card-title fxLayout="rpw">
+        <span>LTO Mainnet</span><span fxFlex="1 1 auto"></span>
+        <span fxLayout="row" fxLayoutAlign="start center" class="fee"
+          ><mat-icon>warning</mat-icon><span>100 LTO FEE</span></span
+        ></mat-card-title
+      >
+      <mat-card-content fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="16px">
+        <lto-wallet-amount-input></lto-wallet-amount-input>
+        <button mat-flat-button color="primary" (click)="withdraw()">Withdraw</button>
+        <h4>Important information</h4>
+        <div class="info" fxLayout="row" fxLayoutAlign="center center">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</lto-content-section>

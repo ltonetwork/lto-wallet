@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RecaptchaModule, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 import { SharedModule } from './shared';
 
 import { CoreModule } from './core/core.module';
@@ -16,18 +17,28 @@ import {
   ANCHOR_FEE
 } from './tokens';
 import { ModalsModule } from './modals/modals.module';
+import { BridgePageComponent } from './bridge-page/bridge-page.component';
+import { WalletComponentsModule } from './components/wallet-components.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, BridgePageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
     CoreModule,
-    ModalsModule
+    ModalsModule,
+    RecaptchaModule.forRoot(),
+    WalletComponentsModule
   ],
   providers: [
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: '6LdsIDYUAAAAAPImboJcK6idKlzFXlW_bPFa7mTu'
+      }
+    },
     {
       provide: LTO_NETWORK_BYTE,
       useValue: 'T'
@@ -55,6 +66,7 @@ import { ModalsModule } from './modals/modals.module';
       useValue: 100000
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: []
 })
 export class AppModule {}

@@ -1,0 +1,35 @@
+<h2 mat-dialog-title fxLayout="row">
+  <span>Please confirm</span> <span fxFlex="1 1 auto"></span>
+  <span fxLayout="row" fxLayoutAlign="start center" class="fee"
+    ><mat-icon>warning</mat-icon><span>100 LTO FEE</span></span
+  >
+</h2>
+<mat-dialog-content [ngSwitch]="step">
+  <ng-container *ngSwitchCase="1">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+      <div>
+        <h4>LTO Mainnet</h4>
+        <lto-wallet-amount-input></lto-wallet-amount-input>
+      </div>
+      <mat-icon>arrow_right_alt</mat-icon>
+      <div>
+        <h4>LTO Mainnet</h4>
+        <lto-wallet-amount-input></lto-wallet-amount-input>
+      </div>
+    </div>
+    <div class="captcha" fxLayout="row" fxLayoutAlign="center"><re-captcha></re-captcha></div>
+    <div class="confirm" fxLayout="row" fxLayoutAlign="center center">
+      <button mat-flat-button color="primary" (click)="step = 2">Confirm swap</button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="2">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px" class="success">
+      <p>
+        We have send the LTO Mainnet token to our Bridge Troll for converting it to ERC20 tokens.
+      </p>
+      <img src="assets/troll.png" alt="" />
+      <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+    </div>
+  </ng-container>
+</mat-dialog-content>

@@ -1,0 +1,40 @@
+lto-content-section {
+  text-align: center;
+}
+
+img {
+  width: 300px;
+}
+
+.wallet-card {
+  margin-bottom: 16px;
+}
+
+:host::ng-deep {
+  .mat-form-field-infix {
+    border-top: none !important;
+  }
+}
+
+.calculator {
+  .fee {
+    color: red;
+  }
+  mat-card-content {
+    padding: 64px 0;
+    padding-bottom: 0;
+    color: #3d5170;
+
+    h4 {
+      font-size: 18px;
+    }
+
+    .info {
+      padding: 32px;
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

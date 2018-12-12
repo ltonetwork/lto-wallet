@@ -11,7 +11,8 @@ import {
   MatTooltipModule,
   MatSnackBarModule,
   MatSidenavModule,
-  MatTableModule
+  MatTableModule,
+  MatDialogModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
@@ -39,6 +40,7 @@ import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './
     MatInputModule,
     MatListModule,
     MatRippleModule,
+    MatDialogModule,
     MatTooltipModule,
     CredentialsFormModule,
     MatSnackBarModule,

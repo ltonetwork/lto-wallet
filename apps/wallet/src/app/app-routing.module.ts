@@ -8,6 +8,7 @@ import { NoAccountComponent, NoAccountModule } from './no-account';
 import { TransfersComponent, TransfersModule } from './transfers';
 import { LeasingComponent, LeasingModule } from './leasing';
 import { AnchorsComponent, AnchorsModule } from './anchors';
+import { BridgePageComponent } from './bridge-page/bridge-page.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'anchors',
         component: AnchorsComponent
+      },
+      {
+        path: 'bridge',
+        component: BridgePageComponent
       },
       {
         path: '',

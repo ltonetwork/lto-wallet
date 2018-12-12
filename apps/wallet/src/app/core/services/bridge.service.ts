@@ -27,12 +27,12 @@ export class BridgeServiceImpl implements BridgeService {
     this.cache = this.restoreCache();
   }
 
-  depositTo(address: string): Observable<string> {
+  depositTo(address: string, captcha: string): Observable<string> {
     if (this.cache.deposit[address]) {
       return of(this.cache.deposit[address]);
     }
 
-    return this.createBridgeAddress('LTO20', 'LTO', address).pipe(
+    return this.createBridgeAddress('LTO20', 'LTO', address, captcha).pipe(
       tap(bridge => {
         this.cache.deposit[address] = bridge;
         this.saveCache(this.cache);
@@ -40,12 +40,12 @@ export class BridgeServiceImpl implements BridgeService {
     );
   }
 
-  withdrawTo(recipient: string): Observable<string> {
+  withdrawTo(recipient: string, captcha: string): Observable<string> {
     if (this.cache.withdraw[recipient]) {
       return of(this.cache.withdraw[recipient]);
     }
 
-    return this.createBridgeAddress('LTO', 'LTO20', recipient).pipe(
+    return this.createBridgeAddress('LTO', 'LTO20', recipient, captcha).pipe(
       tap(bridge => {
         this.cache.withdraw[recipient] = bridge;
         this.saveCache(this.cache);
@@ -56,13 +56,15 @@ export class BridgeServiceImpl implements BridgeService {
   private createBridgeAddress(
     fromToken: TokenType,
     toToken: TokenType,
-    toAddress: string
+    toAddress: string,
+    captcha: string
   ): Observable<string> {
     return this.http
       .post<any>(this.ltoBridgeHost + '/bridge/address', {
         from_token: fromToken,
         to_token: toToken,
-        to_address: toAddress
+        to_address: toAddress,
+        captcha_response: captcha
       })
       .pipe(map(response => response.address));
   }
@@ -97,11 +99,11 @@ export abstract class BridgeService {
    * Generates bridge addres to convert LTO24 -> LTO and transfer on your account
    * @param address - your account address
    */
-  abstract depositTo(address: string): Observable<string>;
+  abstract depositTo(address: string, captcha: string): Observable<string>;
 
   /**
    * Generate bridge addres to convert LTO -> LTO20
    * @param address - recipient addres
    */
-  abstract withdrawTo(recipient: string): Observable<string>;
+  abstract withdrawTo(recipient: string, captcha: string): Observable<string>;
 }

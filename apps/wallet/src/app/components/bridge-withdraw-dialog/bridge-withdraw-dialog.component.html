@@ -1,12 +1,24 @@
 <h2 mat-dialog-title fxLayout="row">
   <span>Please confirm</span> <span fxFlex="1 1 auto"></span>
   <span fxLayout="row" fxLayoutAlign="start center" class="fee"
-    ><mat-icon>warning</mat-icon><span>100 LTO FEE</span></span
+    ><mat-icon>warning</mat-icon><span *ngIf="burnRatePts">{{ burnRatePts }}%</span></span
   >
 </h2>
 <mat-dialog-content [ngSwitch]="step">
   <ng-container *ngSwitchCase="1">
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+    <div class="address-box">
+      <h4>Your ERC20 wallet address:</h4>
+      <mat-form-field appearance="outline" floatLabel="never">
+        <input
+          matInput
+          [(ngModel)]="erc20Address"
+          required
+          type="text"
+          placeholder="Fill in your wallet address"
+        />
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px" *ngIf="burnRatePts">
       <div>
         <h4>LTO Mainnet</h4>
         <lto-wallet-amount-input [(ngModel)]="mainnetAmount"></lto-wallet-amount-input>
@@ -24,7 +36,7 @@
       <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
     </div>
     <div class="confirm" fxLayout="row" fxLayoutAlign="center center">
-      <button mat-flat-button color="primary" (click)="step = 2" [disabled]="cannotContinue">
+      <button mat-flat-button color="primary" (click)="transfer()" [disabled]="cannotContinue">
         Confirm swap
       </button>
     </div>

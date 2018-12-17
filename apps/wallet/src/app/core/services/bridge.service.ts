@@ -1,7 +1,7 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, shareReplay } from 'rxjs/operators';
 import { LTO_BRIDGE_HOST } from '../../tokens';
 
 type TokenType = 'LTO' | 'LTO20';
@@ -16,15 +16,26 @@ interface BridgeCache {
   };
 }
 
+interface BridgeStats {
+  burn_rate: number;
+  burned: number;
+}
+
 @Injectable()
 export class BridgeServiceImpl implements BridgeService {
   readonly STORAGE_KEY = '__bridge__';
 
+  burnRate$: Observable<number>;
+
+  bridgeStats$: Observable<BridgeStats>;
   private cache: BridgeCache;
 
   constructor(@Inject(LTO_BRIDGE_HOST) private ltoBridgeHost: string, private http: HttpClient) {
     // Restore bridge address from localstorage
     this.cache = this.restoreCache();
+
+    this.bridgeStats$ = http.get<BridgeStats>(`${this.ltoBridgeHost}/stats`).pipe(shareReplay(1));
+    this.burnRate$ = this.bridgeStats$.pipe(map(stats => stats.burn_rate));
   }
 
   depositTo(address: string, captcha: string): Observable<string> {
@@ -94,6 +105,8 @@ export abstract class BridgeService {
     provide: BridgeService,
     useClass: BridgeServiceImpl
   };
+
+  abstract burnRate$: Observable<number>;
 
   /**
    * Generates bridge addres to convert LTO24 -> LTO and transfer on your account

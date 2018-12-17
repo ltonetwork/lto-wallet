@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BridgeService, WalletService } from '../../core';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'lto-wallet-bridge-withdraw-dialog',
@@ -14,16 +16,24 @@ export class BridgeWithdrawDialogComponent implements OnInit {
     if (isNaN(amount)) {
       return 0;
     }
-    return amount * 10;
+    return amount - amount * this.burnRate;
   }
 
+  get burnRatePts(): number {
+    return this.burnRate * 100;
+  }
+
+  erc20Address = '';
   captchaResponse: string = '';
+  burnRate: number = 0;
 
   get cannotContinue(): boolean {
-    return !this.captchaResponse || this.erc20Amount === 0;
+    return !this.captchaResponse || this.erc20Amount === 0 || !this.erc20Address;
   }
 
-  constructor() {}
+  constructor(private bridgeService: BridgeService, private wallet: WalletService) {
+    bridgeService.burnRate$.pipe(take(1)).subscribe(burnRate => (this.burnRate = burnRate));
+  }
 
   ngOnInit() {}
 
@@ -31,5 +41,13 @@ export class BridgeWithdrawDialogComponent implements OnInit {
     this.captchaResponse = captchaResponse;
   }
 
-  transfer() {}
+  async transfer() {
+    await this.wallet.withdraw(
+      this.erc20Address,
+      this.mainnetAmount,
+      this.burnRate,
+      this.captchaResponse
+    );
+    this.step = 2;
+  }
 }

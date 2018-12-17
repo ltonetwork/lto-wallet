@@ -1,15 +1,65 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'lto-wallet-amount-input',
   templateUrl: './amount-input.component.html',
-  styleUrls: ['./amount-input.component.scss']
+  styleUrls: ['./amount-input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => AmountInputComponent)
+    }
+  ]
 })
-export class AmountInputComponent implements OnInit {
+export class AmountInputComponent implements OnInit, ControlValueAccessor {
+  @Input()
+  disabled: boolean = false;
 
-  constructor() { }
-
-  ngOnInit() {
+  get value(): any {
+    return this._value;
   }
 
+  set value(v: any) {
+    this._value = v;
+    if (this.changeCb) {
+      this.changeCb(this._value);
+    }
+  }
+
+  get invalid(): boolean {
+    return this._invalid;
+  }
+
+  private _value: any = '';
+  private _invalid: boolean = false;
+
+  private changeCb: Function | null = null;
+
+  constructor() {}
+
+  ngOnInit() {}
+
+  valueChange(event: any) {
+    const input = event.target;
+    const newValue = parseFloat(input.value);
+    this._invalid = input.value && isNaN(newValue);
+
+    this.value = input.value;
+  }
+
+  /**
+   * ControlValueAccessor
+   */
+
+  registerOnChange(cb: Function) {
+    this.changeCb = cb;
+  }
+
+  registerOnTouched(cb: Function) {}
+
+  writeValue(value: any) {
+    this.value = value;
+  }
 }

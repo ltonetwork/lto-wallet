@@ -8,6 +8,25 @@ h2 {
   color: #3d5170;
 }
 
+:host::ng-deep {
+  .address-box {
+    .mat-form-field-infix {
+      margin-top: 0;
+      padding-top: 7px !important;
+    }
+  }
+}
+
+.address-box {
+  h4 {
+    font-size: 22px;
+  }
+  mat-form-field {
+    width: 400px;
+    text-align: center;
+  }
+}
+
 mat-dialog-content {
   text-align: center;
   color: #3d5170;

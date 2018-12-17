@@ -13,7 +13,9 @@
     <div class="captcha" fxLayout="row" fxLayoutAlign="center">
       <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
     </div>
-    <button mat-flat-button color="primary" (click)="createBridget()">Confirm</button>
+    <button mat-flat-button color="primary" (click)="createBridget()" [disabled]="!captcha">
+      Confirm
+    </button>
   </ng-container>
 
   <ng-container *ngIf="step === 2">

@@ -33,7 +33,7 @@ export class WithdrawModalComponent implements OnInit {
 
   async withdraw() {
     const { address, amount, fee } = this.withdrawForm.value;
-    await this.wallet.withdraw(address, amount, fee);
+    // await this.wallet.withdraw(address, amount, fee);
     this.dialog.close();
   }
 }

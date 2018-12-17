@@ -29,7 +29,7 @@ export class DepositModalComponent implements OnInit {
       if (!wallet) {
         throw new Error('You are not authenticated');
       }
-      this.bridgeAddress = await toPromise(this.bridgeService.depositTo(wallet.address));
+      // this.bridgeAddress = await toPromise(this.bridgeService.depositTo(wallet.address));
       this.loaded = true;
     } catch (error) {
       this.error = true;

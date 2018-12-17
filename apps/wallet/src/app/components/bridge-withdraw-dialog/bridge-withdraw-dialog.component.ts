@@ -7,7 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BridgeWithdrawDialogComponent implements OnInit {
   step: number = 1;
+
+  captchaResponse: string = '';
+
   constructor() {}
 
   ngOnInit() {}
+
+  resolvedCaptcha(captchaResponse: string) {
+    this.captchaResponse = captchaResponse;
+  }
+
+  transfer() {}
 }

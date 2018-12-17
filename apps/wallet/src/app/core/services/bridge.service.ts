@@ -36,6 +36,9 @@ export class BridgeServiceImpl implements BridgeService {
 
     this.bridgeStats$ = http.get<BridgeStats>(`${this.ltoBridgeHost}/stats`).pipe(shareReplay(1));
     this.burnRate$ = this.bridgeStats$.pipe(map(stats => stats.burn_rate));
+
+    // Make it hot
+    this.bridgeStats$.subscribe();
   }
 
   depositTo(address: string, captcha: string): Observable<string> {

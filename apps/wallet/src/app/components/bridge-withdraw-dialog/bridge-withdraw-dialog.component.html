@@ -9,19 +9,22 @@
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
       <div>
         <h4>LTO Mainnet</h4>
-        <lto-wallet-amount-input></lto-wallet-amount-input>
+        <lto-wallet-amount-input [(ngModel)]="mainnetAmount"></lto-wallet-amount-input>
       </div>
       <mat-icon>arrow_right_alt</mat-icon>
       <div>
         <h4>ERC20</h4>
-        <lto-wallet-amount-input></lto-wallet-amount-input>
+        <lto-wallet-amount-input
+          [disabled]="true"
+          [ngModel]="erc20Amount"
+        ></lto-wallet-amount-input>
       </div>
     </div>
     <div class="captcha" fxLayout="row" fxLayoutAlign="center">
       <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
     </div>
     <div class="confirm" fxLayout="row" fxLayoutAlign="center center">
-      <button mat-flat-button color="primary" (click)="step = 2" [disabled]="!captchaResponse">
+      <button mat-flat-button color="primary" (click)="step = 2" [disabled]="cannotContinue">
         Confirm swap
       </button>
     </div>

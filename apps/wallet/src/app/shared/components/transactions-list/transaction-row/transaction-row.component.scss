@@ -18,7 +18,7 @@
 
   .label {
     font-weight: 500;
-    margin-right: 2px;
+    margin-right: 4px;
   }
 
   .addresses {
@@ -33,6 +33,17 @@
     .type {
       text-align: right;
     }
+
+    .status {
+      text-transform: uppercase;
+
+      .value {
+        color: #818ea3;
+        &.active {
+          color: green;
+        }
+      }
+    }
   }
 
   .time {
@@ -41,10 +52,10 @@
 
   .amount {
     font-size: 20px;
+    width: 115px;
   }
 
   .type {
     text-transform: uppercase;
-    // min-width: 185px;
   }
 }

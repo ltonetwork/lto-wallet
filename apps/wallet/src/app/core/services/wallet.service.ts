@@ -1,5 +1,5 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
-import { Observable, timer, Subject, merge } from 'rxjs';
+import { Observable, timer, Subject, merge, zip } from 'rxjs';
 import {
   shareReplay,
   share,
@@ -52,8 +52,6 @@ export class WalletServiceImpl implements WalletService {
 
   address$: Observable<string>;
 
-  uncofirmed$: Observable<any[]>;
-  unconfirmedLeasing$: Observable<any[]>;
   groupedTransfers$: Observable<any[]>; // Transactions grouped by date
 
   private polling$: Observable<number> = timer(0, 5000).pipe(share());
@@ -84,7 +82,29 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.transactions$ = this.update$.pipe(
-      switchMap(wallet => publicNode.transactionsOf(wallet.address)),
+      switchMap(
+        wallet => {
+          return zip(
+            publicNode.unconfirmedTransactions(),
+            publicNode.transactionsOf(wallet.address)
+          );
+        },
+        (wallet, transactions) =>
+          [wallet, transactions[0], transactions[1]] as [Account, any[], any[]]
+      ),
+      map(([wallet, unconfirmed, confirmed]) => {
+        // Filter unconfirmed transactions for current wallet and mark them as unconfirmed
+        const myUnconfirmed = this.filterOutAccountTransactions(wallet, unconfirmed).map(
+          transaction => {
+            return {
+              ...transaction,
+              unconfirmed: true
+            };
+          }
+        );
+
+        return [...myUnconfirmed, ...confirmed];
+      }),
       shareReplay(1)
     );
 
@@ -93,47 +113,12 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.leasingTransactions$ = this.transactions$.pipe(
-      map(transactionsFilter(TransactionTypes.LEASING))
+      map(transactionsFilter(TransactionTypes.LEASING, TransactionTypes.CANCEL_LEASING))
     );
 
     this.dataTransactions$ = this.transactions$.pipe(
       map(transactionsFilter(TransactionTypes.ANCHOR))
     );
-
-    this.uncofirmed$ = this.update$.pipe(
-      switchMap(
-        () => publicNode.unconfirmedTransactions(),
-        (wallet, transactions) => [wallet, transactions] as [Account, any[]]
-      ),
-      map(([wallet, transactions]) => {
-        // Filter trasactions where current user involved
-        const myTransactions = transactions.filter(transaction => {
-          const address = wallet.address;
-          if (transaction.sender === address || transaction.recipient === address) {
-            return true;
-          }
-
-          if (transaction.transfers) {
-            transaction.transfers.some((transfer: any) => transfer.recipient === address);
-          }
-
-          return false;
-        });
-
-        // Mark transactions as unconfirmed to display in the UI
-        const markedAsUnconfirmed = myTransactions.map(transaction => {
-          return {
-            ...transaction,
-            unconfirmed: true
-          };
-        });
-
-        return markedAsUnconfirmed;
-      }),
-      shareReplay(1)
-    );
-
-    this.unconfirmedLeasing$ = this.uncofirmed$.pipe(map(transactionsFilter(8, 9)));
 
     this.groupedTransfers$ = this.transfers$.pipe(
       combineLatest(auth.wallet$),
@@ -218,6 +203,22 @@ export class WalletServiceImpl implements WalletService {
     // Trigger update
     this.manualUpdate$.next();
   }
+
+  private filterOutAccountTransactions(account: Account, transactions: any[]): any[] {
+    // Filter trasactions where current user involved
+    return transactions.filter(transaction => {
+      const address = account.address;
+      if (transaction.sender === address || transaction.recipient === address) {
+        return true;
+      }
+
+      if (transaction.transfers) {
+        transaction.transfers.some((transfer: any) => transfer.recipient === address);
+      }
+
+      return false;
+    });
+  }
 }
 
 export abstract class WalletService {
@@ -236,9 +237,6 @@ export abstract class WalletService {
   abstract transfers$: Observable<any[]>; // Filtered by type 4 and 11
   abstract anchors$: Observable<any[]>;
 
-  // Unconfirmed transactrions
-  abstract uncofirmed$: Observable<any[]>;
-  abstract unconfirmedLeasing$: Observable<any[]>;
   abstract groupedTransfers$: Observable<any[]>; // Transactions grouped by date
 
   abstract transfer(data: ITransferPayload): Promise<void>;

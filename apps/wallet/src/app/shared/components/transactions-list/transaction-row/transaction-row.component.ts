@@ -23,6 +23,10 @@ export class TransactionRowComponent implements OnInit {
     return this.transaction.type === TransactionTypes.LEASING;
   }
 
+  get showCancelLease(): boolean {
+    return this.isLease && this.transaction.status === 'active';
+  }
+
   get transactionIcon(): string {
     if (this.transaction.unconfirmed) {
       return 'hourglass_empty';

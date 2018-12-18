@@ -10,7 +10,6 @@ import { MakeTransactionModal, WithdrawModal, DepositModal } from '../modals';
 })
 export class TransfersComponent implements OnInit {
   balance$: Observable<any>;
-  unconfirmed$: Observable<any[]>;
   transfers$: Observable<any[]>;
   address$: Observable<string>;
 
@@ -30,7 +29,6 @@ export class TransfersComponent implements OnInit {
   ) {
     this.address$ = wallet.address$;
     this.balance$ = wallet.balance$;
-    this.unconfirmed$ = wallet.uncofirmed$;
     this.transfers$ = wallet.transfers$;
   }
 

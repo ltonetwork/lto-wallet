@@ -48,6 +48,8 @@
         *ngFor="let anchor of group.transactions"
         (click)="select(anchor)"
       >
+        <mat-icon *ngIf="!anchor.unconfirmed" svgIcon="anchor"></mat-icon>
+        <mat-icon *ngIf="anchor.unconfirmed">hourglass_empty</mat-icon>
         <div class="time">
           <span class="label">TIME:</span>
           <span class="value">{{ anchor.timestamp | date: 'HH:mm' }}</span>

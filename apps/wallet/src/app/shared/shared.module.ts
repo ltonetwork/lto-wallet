@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   MatButtonModule,
   MatIconModule,
@@ -12,7 +13,8 @@ import {
   MatSnackBarModule,
   MatSidenavModule,
   MatTableModule,
-  MatDialogModule
+  MatDialogModule,
+  MatIconRegistry
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
@@ -56,4 +58,11 @@ import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './
     TransactionsListModule
   ]
 })
-export class SharedModule {}
+export class SharedModule {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIcon(
+      'anchor',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/anchor.svg')
+    );
+  }
+}

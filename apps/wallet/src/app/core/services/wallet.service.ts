@@ -93,15 +93,8 @@ export class WalletServiceImpl implements WalletService {
           [wallet, transactions[0], transactions[1]] as [Account, any[], any[]]
       ),
       map(([wallet, unconfirmed, confirmed]) => {
-        // Filter unconfirmed transactions for current wallet and mark them as unconfirmed
-        const myUnconfirmed = this.filterOutAccountTransactions(wallet, unconfirmed).map(
-          transaction => {
-            return {
-              ...transaction,
-              unconfirmed: true
-            };
-          }
-        );
+        // Filter unconfirmed transactions for current wallet
+        const myUnconfirmed = this.filterOutAccountTransactions(wallet, unconfirmed);
 
         return [...myUnconfirmed, ...confirmed];
       }),
@@ -128,7 +121,24 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.anchors$ = this.update$.pipe(
-      switchMap(wallet => publicNode.indexedTransactions(wallet.address, 'anchor')),
+      switchMap(wallet => {
+        return zip(
+          publicNode.indexedTransactions(wallet.address, 'anchor'),
+          publicNode.unconfirmedTransactions().pipe(
+            map(transactions => {
+              const myUnconfirmed = this.filterOutAccountTransactions(wallet, transactions);
+              const myUnconfirmedAnchors = transactionsFilter(
+                TransactionTypes.ANCHOR,
+                TransactionTypes.ANCHOR_NEW
+              )(myUnconfirmed);
+              return myUnconfirmedAnchors;
+            })
+          )
+        );
+      }),
+      map(([anchors, unconfirmedAnchors]) => {
+        return [...anchors, ...unconfirmedAnchors];
+      }),
       shareReplay(1)
     );
 
@@ -204,20 +214,27 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
-  private filterOutAccountTransactions(account: Account, transactions: any[]): any[] {
+  private filterOutAccountTransactions(account: Account, unconfirmedTransactions: any[]): any[] {
     // Filter trasactions where current user involved
-    return transactions.filter(transaction => {
-      const address = account.address;
-      if (transaction.sender === address || transaction.recipient === address) {
-        return true;
-      }
+    return unconfirmedTransactions
+      .filter(transaction => {
+        const address = account.address;
+        if (transaction.sender === address || transaction.recipient === address) {
+          return true;
+        }
 
-      if (transaction.transfers) {
-        transaction.transfers.some((transfer: any) => transfer.recipient === address);
-      }
+        if (transaction.transfers) {
+          transaction.transfers.some((transfer: any) => transfer.recipient === address);
+        }
 
-      return false;
-    });
+        return false;
+      })
+      .map(transaction => {
+        return {
+          ...transaction,
+          unconfirmed: true
+        };
+      });
   }
 }
 

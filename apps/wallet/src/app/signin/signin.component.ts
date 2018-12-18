@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { take } from 'rxjs/operators';
 import { AuthService, IUserAccount, toPromise } from '../core';
 import { Router } from '@angular/router';
+import { DeleteAccountDialogComponent } from '../components/delete-account-dialog/delete-account-dialog.component';
 
 @Component({
   selector: 'lto-signin',
@@ -14,7 +15,12 @@ export class SigninComponent implements OnInit {
   availableAccounts$: Observable<IUserAccount[]>;
   selected$: ReplaySubject<IUserAccount> = new ReplaySubject();
 
-  constructor(private auth: AuthService, private snackbar: MatSnackBar, private router: Router) {
+  constructor(
+    private auth: AuthService,
+    private snackbar: MatSnackBar,
+    private router: Router,
+    private matDialog: MatDialog
+  ) {
     this.availableAccounts$ = auth.availableAccounts$;
   }
 
@@ -37,6 +43,17 @@ export class SigninComponent implements OnInit {
     } catch (err) {
       console.log(err);
       this.snackbar.open('Invalid password', 'Dismiss', { duration: 3000 });
+    }
+  }
+
+  async deleteAccount(account: IUserAccount, event: Event) {
+    event.stopPropagation();
+    const confirmDelete = await toPromise(
+      this.matDialog.open(DeleteAccountDialogComponent).afterClosed()
+    );
+
+    if (confirmDelete) {
+      this.auth.deleteAccount(account);
     }
   }
 }

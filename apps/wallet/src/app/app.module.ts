@@ -18,10 +18,11 @@ import {
 } from './tokens';
 import { ModalsModule } from './modals/modals.module';
 import { BridgePageComponent } from './bridge-page/bridge-page.component';
+import { SigninComponent } from './signin/signin.component';
 import { WalletComponentsModule } from './components/wallet-components.module';
 
 @NgModule({
-  declarations: [AppComponent, BridgePageComponent],
+  declarations: [AppComponent, BridgePageComponent, SigninComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

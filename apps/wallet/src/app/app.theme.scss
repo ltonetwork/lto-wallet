@@ -29,4 +29,11 @@
       font-size: 18px;
     }
   }
+
+  .mat-icon[svgicon] {
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
 }

@@ -33,8 +33,6 @@ export class FileDropComponent implements OnInit {
   private readFile(file: File) {
     const reader = new FileReader();
     reader.onload = () => {
-      console.log('Done:');
-      console.log(reader.result);
       this.generateHash(reader.result);
     };
 

@@ -12,28 +12,50 @@
         <span class="label">FROM:</span> <span class="value">{{ transaction.sender }}</span>
       </ng-container>
     </div>
-    <div class="misc" fxLayout="row" fxLayoutAlign="space-between">
-      <div class="time">
-        <span class="label">TIME:</span>
-        <span class="value">{{ transaction.timestamp | date: 'HH:MM' }}</span>
-      </div>
-      <div class="type">
-        <span class="label">TYPE:</span>
-        <span class="value">{{ transaction.type | typeLabel }}</span>
-      </div>
-      <div class="fee">
-        <span class="label">FEE:</span>
-        <span class="value">{{ transaction.fee | amountDivide }}</span>
-      </div>
-    </div>
+    <ng-container *ngIf="isLease; then: leaseMiscTpl; else: defaultMiscTpl"></ng-container>
   </div>
   <span fxFlex="1 1 auto"></span>
   <div class="amount" fxLayout="column" fxLayoutAlign="start center">
     <div>
       <span class="label">{{ transaction.amount | amountDivide }}</span> <span>LTO</span>
     </div>
-    <button *ngIf="isLease" mat-button color="warn" (click)="_cancelLease($event)">
+    <button
+      *ngIf="showCancelLease"
+      [disabled]="transaction.isCanceling"
+      mat-button
+      color="warn"
+      (click)="_cancelLease($event)"
+    >
       Cancel lease
     </button>
   </div>
 </div>
+
+<ng-template #leaseMiscTpl>
+  <div class="misc" fxLayout="row" fxLayoutAlign="space-between">
+    <div class="status">
+      <span class="label">STATUS:</span>
+      <span class="value {{transaction.status}}">{{ transaction.status }}</span>
+    </div>
+    <div class="time">
+      <span class="label">TIME:</span>
+      <span class="value">{{ transaction.timestamp | date: 'HH:MM' }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #defaultMiscTpl>
+  <div class="misc" fxLayout="row" fxLayoutAlign="space-between">
+    <div class="time">
+      <span class="label">TIME:</span>
+      <span class="value">{{ transaction.timestamp | date: 'HH:MM' }}</span>
+    </div>
+    <div class="type">
+      <span class="label">TYPE:</span> <span class="value">{{ transaction.type | typeLabel }}</span>
+    </div>
+    <div class="fee">
+      <span class="label">FEE:</span>
+      <span class="value">{{ transaction.fee | amountDivide }}</span>
+    </div>
+  </div>
+</ng-template>

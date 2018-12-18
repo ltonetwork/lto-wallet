@@ -6,7 +6,7 @@ import { CreateAccountComponent, CreateAccountModule } from './create-account';
 import { ImportComponent, ImportModule } from './import';
 import { NoAccountComponent, NoAccountModule } from './no-account';
 import { TransfersComponent, TransfersModule } from './transfers';
-import { LeasingComponent, LeasingModule } from './leasing';
+import { LeasingComponent } from './leasing/leasing.component';
 import { AnchorsComponent, AnchorsModule } from './anchors';
 import { BridgePageComponent } from './bridge-page/bridge-page.component';
 import { SigninComponent } from './signin/signin.component';
@@ -65,7 +65,6 @@ const routes: Routes = [
     ImportModule,
     NoAccountModule,
     TransfersModule,
-    LeasingModule,
     AnchorsModule
   ],
   exports: [RouterModule]

@@ -13,7 +13,7 @@ import { DeleteAccountDialogComponent } from '../components/delete-account-dialo
 })
 export class SigninComponent implements OnInit {
   availableAccounts$: Observable<IUserAccount[]>;
-  selected$: ReplaySubject<IUserAccount> = new ReplaySubject();
+  selected$: ReplaySubject<IUserAccount> = new ReplaySubject(1);
 
   constructor(
     private auth: AuthService,

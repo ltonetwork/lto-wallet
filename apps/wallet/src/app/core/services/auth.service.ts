@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { LTO, Account } from 'lto-api';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject, of, merge, Subscriber } from 'rxjs';
 import { LTO_NETWORK_BYTE } from '../../tokens';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 export interface IUserAccount {
   name: string;
@@ -20,13 +20,16 @@ export class AuthService {
   account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(null);
   wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
 
-  availableAccounts$: Observable<IUserAccount[]>;
-
   ltoInstance: LTO;
+  availableAccounts$: Observable<IUserAccount[]>;
+  private _availableAccounts$: Subscriber<IUserAccount[]> | null = null;
+
   constructor(@Inject(LTO_NETWORK_BYTE) networkBye: string) {
     this.ltoInstance = new LTO(networkBye);
 
+    // Create Observable to give latest data on every subscription
     this.availableAccounts$ = new Observable(subscriber => {
+      this._availableAccounts$ = subscriber;
       subscriber.next(this.readFromLocalStorage());
     });
 
@@ -68,6 +71,14 @@ export class AuthService {
     this.wallet$.next(null);
   }
 
+  deleteAccount(account: IUserAccount) {
+    const newAccounts = this.deleteFromLocalStorage(account);
+    if (this._availableAccounts$) {
+      // Update available accounts observable to display changes
+      this._availableAccounts$.next(newAccounts);
+    }
+  }
+
   private readFromLocalStorage(): IUserAccount[] {
     return JSON.parse(localStorage.getItem(this.STORAGE_KEY) || '[]');
   }
@@ -75,5 +86,12 @@ export class AuthService {
   private saveToLocalStorage(account: IUserAccount) {
     const accounts = this.readFromLocalStorage();
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...accounts, account]));
+  }
+
+  private deleteFromLocalStorage(account: IUserAccount): IUserAccount[] {
+    const accounts = this.readFromLocalStorage();
+    const newAccounts = accounts.filter(a => a.address !== account.address);
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(newAccounts));
+    return newAccounts;
   }
 }

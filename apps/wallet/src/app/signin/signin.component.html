@@ -14,6 +14,9 @@
             <h4 matLine>{{ account.name }}</h4>
             <p matLine>{{ account.address }}</p>
             <mat-icon mat-list-icon color="primary">account_circle</mat-icon>
+            <mat-icon class="delete-account" (click)="deleteAccount(account, $event)"
+              >close</mat-icon
+            >
           </mat-list-item>
         </mat-list>
         <div class="password-input">

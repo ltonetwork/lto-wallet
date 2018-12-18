@@ -9,11 +9,12 @@ import { TransfersComponent, TransfersModule } from './transfers';
 import { LeasingComponent, LeasingModule } from './leasing';
 import { AnchorsComponent, AnchorsModule } from './anchors';
 import { BridgePageComponent } from './bridge-page/bridge-page.component';
+import { SigninComponent } from './signin/signin.component';
 
 const routes: Routes = [
   {
     path: 'signin',
-    loadChildren: './signin/signin.module#SigninModule'
+    component: SigninComponent
   },
   {
     path: 'create-account',

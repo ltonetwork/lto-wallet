@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 import { take } from 'rxjs/operators';
 import { AuthService, IUserAccount, toPromise } from '../core';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
   availableAccounts$: Observable<IUserAccount[]>;
-  selected$: ReplaySubject<IUserAccount> = new ReplaySubject();
+  selected$: ReplaySubject<IUserAccount> = new ReplaySubject(1);
 
   constructor(private auth: AuthService, private snackbar: MatSnackBar, private router: Router) {
     this.availableAccounts$ = auth.availableAccounts$;

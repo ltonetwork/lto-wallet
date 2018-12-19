@@ -90,7 +90,7 @@
         mat-flat-button
         color="primary"
         [disabled]="!finished || (finished && invalid)"
-        routerLink="/"
+        (click)="loginAndGoHome()"
       >
         Confirm
       </button>

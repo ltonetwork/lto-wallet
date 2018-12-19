@@ -10,6 +10,9 @@ import { BRIDGE_ENABLED } from '../tokens';
   styleUrls: ['./bridge-page.component.scss']
 })
 export class BridgePageComponent implements OnInit {
+  get disabled(): boolean {
+    return !this.isEnabled;
+  }
   constructor(private dialog: MatDialog, @Inject(BRIDGE_ENABLED) public isEnabled: boolean) {}
 
   ngOnInit() {}

@@ -3,6 +3,15 @@ lto-content-section {
   position: relative;
 }
 
+.holder.no-scroll {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
 img {
   width: 300px;
 }
@@ -53,5 +62,6 @@ img {
   h2 {
     position: sticky;
     top: 50%;
+    text-align: center;
   }
 }

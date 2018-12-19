@@ -1,5 +1,15 @@
 lto-content-section {
   text-align: center;
+  position: relative;
+}
+
+.holder.no-scroll {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
 }
 
 img {
@@ -36,5 +46,26 @@ img {
         margin: 0;
       }
     }
+  }
+}
+
+.coming-soon-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  box-sizing: border-box;
+  text-align: center;
+
+  img {
+    max-width: 800px;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
   }
 }

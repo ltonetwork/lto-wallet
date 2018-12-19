@@ -1,8 +1,8 @@
-import { Injectable, Inject, ClassProvider } from '@angular/core';
+import { Injectable, Inject, FactoryProvider } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, tap, shareReplay } from 'rxjs/operators';
-import { LTO_BRIDGE_HOST } from '../../tokens';
+import { LTO_BRIDGE_HOST, BRIDGE_ENABLED } from '../../tokens';
 
 type TokenType = 'LTO' | 'LTO20';
 
@@ -103,10 +103,35 @@ export class BridgeServiceImpl implements BridgeService {
   }
 }
 
+export class BridgeServiceDummy implements BridgeService {
+  burnRate$ = of(0);
+
+  depositTo(): Observable<string> {
+    return of('BRIDGE_IS_DISABLED');
+  }
+
+  withdrawTo(): Observable<string> {
+    return of('BRIDGE_IS_DISABLED');
+  }
+}
+
+/**
+ * Bridge should be enabled for mainnet only.
+ * This factory provides necessary BridgeService implementation
+ */
+export function bridgeServiceFactory(
+  isBridgeEnabled: boolean,
+  bridgeHost: string,
+  http: HttpClient
+) {
+  return isBridgeEnabled ? new BridgeServiceImpl(bridgeHost, http) : new BridgeServiceDummy();
+}
+
 export abstract class BridgeService {
-  static provider: ClassProvider = {
+  static provider: FactoryProvider = {
     provide: BridgeService,
-    useClass: BridgeServiceImpl
+    useFactory: bridgeServiceFactory,
+    deps: [BRIDGE_ENABLED, LTO_BRIDGE_HOST, HttpClient]
   };
 
   abstract burnRate$: Observable<number>;

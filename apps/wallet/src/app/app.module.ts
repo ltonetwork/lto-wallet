@@ -14,7 +14,8 @@ import {
   AMOUNT_DIVIDER,
   LTO_BRIDGE_HOST,
   TRANSFER_FEE,
-  ANCHOR_FEE
+  ANCHOR_FEE,
+  BRIDGE_ENABLED
 } from './tokens';
 import { ModalsModule } from './modals/modals.module';
 import { BridgePageComponent } from './bridge-page/bridge-page.component';
@@ -66,6 +67,10 @@ import { LeasingComponent } from './leasing/leasing.component';
     {
       provide: ANCHOR_FEE,
       useValue: 100000
+    },
+    {
+      provide: BRIDGE_ENABLED,
+      useValue: false
     }
   ],
   bootstrap: [AppComponent],

@@ -58,10 +58,14 @@ img {
   background: rgba(0, 0, 0, 0.8);
   color: white;
   box-sizing: border-box;
+  text-align: center;
 
-  h2 {
-    position: sticky;
+  img {
+    max-width: 800px;
+    width: 100%;
+    position: absolute;
+    left: 50%;
     top: 50%;
-    text-align: center;
+    transform: translateY(-50%) translateX(-50%);
   }
 }

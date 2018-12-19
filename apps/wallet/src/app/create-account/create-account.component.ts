@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { AuthService } from '../core';
+import { AuthService, IUserAccount } from '../core';
 import { Account } from 'lto-api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lto-create-account',
@@ -36,7 +37,14 @@ export class CreateAccountComponent implements OnInit {
     return this.selectedWords.length === this.seedWords.length;
   }
 
-  constructor(private auth: AuthService) {
+  /**
+   * We login after user confirms that he wrote down seed.
+   * So we need to save account and password for later use;
+   */
+  private _account: IUserAccount | null = null;
+  private _password: string = '';
+
+  constructor(private auth: AuthService, private router: Router) {
     this.wallet = auth.generateWallet();
   }
 
@@ -59,12 +67,13 @@ export class CreateAccountComponent implements OnInit {
 
   saveAccount(credentials: { accountName: string; password: string }) {
     try {
-      const account = this.auth.saveAccount(
+      this._account = this.auth.saveAccount(
         credentials.accountName,
         credentials.password,
         this.wallet
       );
-      this.auth.login(account, credentials.password);
+      this._password = credentials.password;
+      // this.auth.login(account, credentials.password);
       this.goToStep(3);
     } catch (err) {
       console.log(err);
@@ -89,5 +98,14 @@ export class CreateAccountComponent implements OnInit {
   toConfirmationStep() {
     this.resetConfirmation();
     this.goToStep(4);
+  }
+
+  loginAndGoHome() {
+    if (!this._account) {
+      throw new Error('No account found');
+    }
+
+    this.auth.login(this._account, this._password);
+    this.router.navigate(['/']);
   }
 }

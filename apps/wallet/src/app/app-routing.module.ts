@@ -10,6 +10,7 @@ import { LeasingComponent } from './leasing/leasing.component';
 import { AnchorsComponent, AnchorsModule } from './anchors';
 import { BridgePageComponent } from './bridge-page/bridge-page.component';
 import { SigninComponent } from './signin/signin.component';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
       {
         path: 'bridge',
         component: BridgePageComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsPageComponent
       },
       {
         path: '',

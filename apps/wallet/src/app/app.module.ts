@@ -19,13 +19,18 @@ import {
 } from './tokens';
 import { ModalsModule } from './modals/modals.module';
 import { BridgePageComponent } from './bridge-page/bridge-page.component';
-import { SigninComponent } from './signin/signin.component';
 import { WalletComponentsModule } from './components/wallet-components.module';
 import { LeasingComponent } from './leasing/leasing.component';
-import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { SettingsPageComponent, SigninComponent } from './pages';
 
 @NgModule({
-  declarations: [AppComponent, BridgePageComponent, SigninComponent, LeasingComponent, SettingsPageComponent],
+  declarations: [
+    AppComponent,
+    BridgePageComponent,
+    SigninComponent,
+    LeasingComponent,
+    SettingsPageComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

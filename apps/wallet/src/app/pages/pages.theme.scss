@@ -1,0 +1,5 @@
+@import './signin/signin.theme.scss';
+
+@mixin pages-theme($theme) {
+  @include signin-theme($theme);
+}

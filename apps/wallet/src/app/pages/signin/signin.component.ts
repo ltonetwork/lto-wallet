@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { take } from 'rxjs/operators';
-import { AuthService, IUserAccount, toPromise } from '../core';
+import { AuthService, IUserAccount, toPromise } from '../../core';
 import { Router } from '@angular/router';
-import { DeleteAccountDialogComponent } from '../components/delete-account-dialog/delete-account-dialog.component';
+import { DeleteAccountDialogComponent } from '../../components/delete-account-dialog/delete-account-dialog.component';
 
 @Component({
   selector: 'lto-signin',

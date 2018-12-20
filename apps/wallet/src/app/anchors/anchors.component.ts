@@ -27,7 +27,7 @@ export class AnchorsComponent implements OnInit {
   ) {
     this.groupedAcnhors$ = wallet.anchors$.pipe(
       map(anchors => {
-        const withHash = anchors.map(anchorTransaction => {
+        const withHash = anchors.items.map(anchorTransaction => {
           // We need to show HASH in table and this HASH should be HEX-HASH
           const hash =
             anchorTransaction.anchors.length === 1

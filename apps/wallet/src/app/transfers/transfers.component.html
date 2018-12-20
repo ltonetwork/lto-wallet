@@ -29,8 +29,8 @@
         </mat-card>
 
         <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
-          <div class="label">LOREM</div>
-          <div class="value">{{ balance.effective | amountDivide }}</div>
+          <div class="label">Number of transactions</div>
+          <div class="value">{{ (transfers$ | async)?.total }}</div>
         </mat-card>
       </div>
       <mat-card fxLayout="column">
@@ -39,9 +39,9 @@
           <button mat-flat-button color="primary" (click)="makeTransaction()">Send</button>
         </mat-card-title>
         <mat-card-content fxFlex="1 1 auto">
-          <ng-container *ngIf="(transfers$ | async) as transfers; else: loadingTpl">
+          <ng-container *ngIf="(transfers$ | async) as transfersPage; else loadingTpl">
             <lto-transactions-list
-              [transactions]="transfers"
+              [transactions]="transfersPage.items"
               [address]="address$ | async"
               (transactionClick)="select($event)"
               [selectedId]="selectedTransaction?.id"

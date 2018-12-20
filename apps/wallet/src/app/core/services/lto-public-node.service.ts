@@ -54,14 +54,29 @@ export class LtoPublicNodeServiceImpl implements LtoPublicNodeService {
       .pipe(map(response => response[0]));
   }
 
-  indexedTransactions(address: string, index: string = 'anchor', limit = 100): Observable<any[]> {
+  indexedTransactions(
+    address: string,
+    index: string = 'anchor',
+    limit = 100
+  ): Observable<LTO.Page<LTO.Transaction>> {
     const params: any = {
       limit,
       type: index
     };
-    return this._http.get<any[]>(this._publicApi + 'index/transactions/addresses/' + address, {
-      params
-    });
+    return this._http
+      .get<any[]>(this._publicApi + 'index/transactions/addresses/' + address, {
+        params,
+        observe: 'response'
+      })
+      .pipe(
+        map(response => {
+          const total = parseInt(response.headers.get('x-total') || '0', 10);
+          return {
+            total,
+            items: response.body || []
+          };
+        })
+      );
   }
 
   balanceOf(address: string): Observable<any> {
@@ -85,8 +100,12 @@ export abstract class LtoPublicNodeService {
   abstract headerSequence(height: number, count: number): Observable<any[]>;
   abstract transaction(id: string): Observable<any>;
   abstract block(height: number | string): Observable<any>;
-  abstract transactionsOf(address: string): Observable<any>;
-  abstract indexedTransactions(address: string, index?: string, limit?: number): Observable<any[]>;
+  abstract transactionsOf(address: string): Observable<LTO.Transaction[]>;
+  abstract indexedTransactions(
+    address: string,
+    index?: string,
+    limit?: number
+  ): Observable<LTO.Page<LTO.Transaction>>;
   abstract balanceOf(address: string): Observable<any>;
   abstract unconfirmedTransactions(): Observable<any[]>;
 }

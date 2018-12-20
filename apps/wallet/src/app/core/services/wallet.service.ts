@@ -45,19 +45,18 @@ export class WalletServiceImpl implements WalletService {
   balance$: Observable<IBalance>;
 
   transactions$: Observable<any[]>;
-  transfers$: Observable<any[]>;
+  transfers$: Observable<LTO.Page<LTO.Transaction>>;
   leasingTransactions$: Observable<any[]>;
   dataTransactions$: Observable<any[]>;
-  anchors$: Observable<any[]>;
+  anchors$: Observable<LTO.Page<LTO.Transaction>>;
 
   address$: Observable<string>;
-
-  groupedTransfers$: Observable<any[]>; // Transactions grouped by date
 
   private polling$: Observable<number> = timer(0, 5000).pipe(share());
   private manualUpdate$ = new Subject<any>();
 
   private update$: Observable<Account>;
+  private unconfirmed$: Observable<LTO.Transaction[]>;
 
   constructor(
     private publicNode: LtoPublicNodeService,
@@ -81,28 +80,44 @@ export class WalletServiceImpl implements WalletService {
       shareReplay(1)
     );
 
-    this.transactions$ = this.update$.pipe(
-      switchMap(
-        wallet => {
-          return zip(
-            publicNode.unconfirmedTransactions(),
-            publicNode.transactionsOf(wallet.address)
-          );
-        },
-        (wallet, transactions) =>
-          [wallet, transactions[0], transactions[1]] as [Account, any[], any[]]
-      ),
-      map(([wallet, unconfirmed, confirmed]) => {
-        // Filter unconfirmed transactions for current wallet
-        const myUnconfirmed = this.filterOutAccountTransactions(wallet, unconfirmed);
+    this.unconfirmed$ = this.address$.pipe(
+      switchMap(address => {
+        return publicNode.unconfirmedTransactions().pipe(
+          map(transactions => {
+            return this.filterOutAccountTransactions(address, transactions);
+          })
+        );
+      })
+    );
 
-        return [...myUnconfirmed, ...confirmed];
+    this.transactions$ = this.update$.pipe(
+      switchMap(wallet => {
+        return zip(this.unconfirmed$, publicNode.transactionsOf(wallet.address));
+      }),
+      map(([unconfirmed, confirmed]) => {
+        // Filter unconfirmed transactions for current wallet
+        // const myUnconfirmed = this.filterOutAccountTransactions(wallet, unconfirmed);
+
+        return [...unconfirmed, ...confirmed];
       }),
       shareReplay(1)
     );
 
-    this.transfers$ = this.transactions$.pipe(
-      map(transactionsFilter(TransactionTypes.TRANSFER, TransactionTypes.MASS_TRANSFER))
+    this.transfers$ = this.update$.pipe(
+      switchMap(wallet => {
+        return zip(
+          publicNode.indexedTransactions(wallet.address, 'transfer'),
+          this.unconfirmed$.pipe(
+            map(transactionsFilter(TransactionTypes.TRANSFER, TransactionTypes.MASS_TRANSFER))
+          )
+        );
+      }),
+      map(([transferTransactions, unconfirmed]) => {
+        return {
+          total: transferTransactions.total,
+          items: [...transferTransactions.items, ...unconfirmed]
+        };
+      })
     );
 
     this.leasingTransactions$ = this.transactions$.pipe(
@@ -113,31 +128,20 @@ export class WalletServiceImpl implements WalletService {
       map(transactionsFilter(TransactionTypes.ANCHOR))
     );
 
-    this.groupedTransfers$ = this.transfers$.pipe(
-      combineLatest(auth.wallet$),
-      map(([transfers, wallet]) => replaceAmountFor((wallet as any).address)(transfers)),
-      map(setRecipient),
-      map(groupByDate)
-    );
-
     this.anchors$ = this.update$.pipe(
       switchMap(wallet => {
         return zip(
           publicNode.indexedTransactions(wallet.address, 'anchor'),
-          publicNode.unconfirmedTransactions().pipe(
-            map(transactions => {
-              const myUnconfirmed = this.filterOutAccountTransactions(wallet, transactions);
-              const myUnconfirmedAnchors = transactionsFilter(
-                TransactionTypes.ANCHOR,
-                TransactionTypes.ANCHOR_NEW
-              )(myUnconfirmed);
-              return myUnconfirmedAnchors;
-            })
+          this.unconfirmed$.pipe(
+            map(transactionsFilter(TransactionTypes.ANCHOR, TransactionTypes.ANCHOR_NEW))
           )
         );
       }),
       map(([anchors, unconfirmedAnchors]) => {
-        return [...anchors, ...unconfirmedAnchors];
+        return {
+          total: anchors.total,
+          items: [...anchors.items, ...unconfirmedAnchors]
+        };
       }),
       shareReplay(1)
     );
@@ -214,11 +218,10 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
-  private filterOutAccountTransactions(account: Account, unconfirmedTransactions: any[]): any[] {
+  private filterOutAccountTransactions(address: string, unconfirmedTransactions: any[]): any[] {
     // Filter trasactions where current user involved
     return unconfirmedTransactions
       .filter(transaction => {
-        const address = account.address;
         if (transaction.sender === address || transaction.recipient === address) {
           return true;
         }
@@ -251,10 +254,8 @@ export abstract class WalletService {
   abstract transactions$: Observable<any[]>;
   abstract leasingTransactions$: Observable<any[]>;
   abstract dataTransactions$: Observable<any[]>;
-  abstract transfers$: Observable<any[]>; // Filtered by type 4 and 11
-  abstract anchors$: Observable<any[]>;
-
-  abstract groupedTransfers$: Observable<any[]>; // Transactions grouped by date
+  abstract transfers$: Observable<LTO.Page<LTO.Transaction>>; // Filtered by type 4 and 11
+  abstract anchors$: Observable<LTO.Page<LTO.Transaction>>;
 
   abstract transfer(data: ITransferPayload): Promise<void>;
   abstract lease(recipient: string, amount: number, fee: number): Promise<any>;

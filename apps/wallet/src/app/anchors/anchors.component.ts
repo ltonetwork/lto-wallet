@@ -52,10 +52,16 @@ export class AnchorsComponent implements OnInit {
   async createAnchor(fileDropevent: any) {
     const fee = await this.feeInputModal.show(fileDropevent.hex);
     if (fee) {
-      await this.wallet.anchor(fileDropevent.base58, fee);
-      this.snackbar.open('Anchor created', 'Dismiss', {
-        duration: 3000
-      });
+      try {
+        await this.wallet.anchor(fileDropevent.base58, fee);
+        this.snackbar.open('Anchor created', 'Dismiss', {
+          duration: 3000
+        });
+      } catch (error) {
+        this.snackbar.open('Anchor creation error', 'Dismiss', {
+          duration: 3000
+        });
+      }
     }
   }
 

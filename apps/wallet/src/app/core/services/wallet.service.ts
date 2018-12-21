@@ -1,26 +1,12 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
 import { Observable, timer, Subject, merge, zip } from 'rxjs';
-import {
-  shareReplay,
-  share,
-  switchMapTo,
-  switchMap,
-  map,
-  combineLatest,
-  filter
-} from 'rxjs/operators';
+import { shareReplay, share, switchMapTo, switchMap, map, filter } from 'rxjs/operators';
 import { LtoPublicNodeService } from './lto-public-node.service';
 import { AuthService } from './auth.service';
 import { Account } from 'lto-api';
 import { TransactionTypes } from '../transaction-types';
 import { BridgeService } from './bridge.service';
-import {
-  groupByDate,
-  replaceAmountFor,
-  setRecipient,
-  transactionsFilter,
-  toPromise
-} from '../utils';
+import { transactionsFilter, toPromise } from '../utils';
 import { AMOUNT_DIVIDER } from '../../tokens';
 
 export interface IBalance {
@@ -28,6 +14,11 @@ export interface IBalance {
   generating: number;
   available: number;
   effective: number;
+  /**
+   * All numbers in balance come in INT form.
+   * To make them human readable we need to divide them by AMOUNT_DIVIDER
+   */
+  amountDivider: number;
 }
 
 export interface ITransferPayload {
@@ -77,6 +68,12 @@ export class WalletServiceImpl implements WalletService {
 
     this.balance$ = this.update$.pipe(
       switchMap(wallet => publicNode.balanceOf(wallet.address)),
+      map(rawBalance => {
+        return {
+          ...rawBalance,
+          amountDivider // mixin divider to easy access from components
+        };
+      }),
       shareReplay(1)
     );
 

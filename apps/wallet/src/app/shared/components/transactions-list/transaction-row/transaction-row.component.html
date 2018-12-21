@@ -12,7 +12,7 @@
         <span class="label">FROM:</span> <span class="value">{{ transaction.sender }}</span>
       </ng-container>
     </div>
-    <ng-container *ngIf="isLease; then: leaseMiscTpl; else: defaultMiscTpl"></ng-container>
+    <ng-container *ngIf="isLease; then leaseMiscTpl; else defaultMiscTpl"></ng-container>
   </div>
   <span fxFlex="1 1 auto"></span>
   <div class="amount" fxLayout="column" fxLayoutAlign="start center">
@@ -35,11 +35,11 @@
   <div class="misc" fxLayout="row" fxLayoutAlign="space-between">
     <div class="status">
       <span class="label">STATUS:</span>
-      <span class="value {{transaction.status}}">{{ transaction.status }}</span>
+      <span class="value {{ transaction.status }}">{{ transaction.status }}</span>
     </div>
     <div class="time">
       <span class="label">TIME:</span>
-      <span class="value">{{ transaction.timestamp | date: 'HH:MM' }}</span>
+      <span class="value">{{ transaction.timestamp | date: 'HH:mm' }}</span>
     </div>
   </div>
 </ng-template>
@@ -48,7 +48,7 @@
   <div class="misc" fxLayout="row" fxLayoutAlign="space-between">
     <div class="time">
       <span class="label">TIME:</span>
-      <span class="value">{{ transaction.timestamp | date: 'HH:MM' }}</span>
+      <span class="value">{{ transaction.timestamp | date: 'HH:mm' }}</span>
     </div>
     <div class="type">
       <span class="label">TYPE:</span> <span class="value">{{ transaction.type | typeLabel }}</span>

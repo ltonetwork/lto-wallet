@@ -1,14 +1,17 @@
 <div mat-dialog-title>New transaction</div>
 <mat-dialog-content *ngIf="(balance$ | async) as balance">
-  <form [formGroup]="sendForm" fxLayout="column">
+  <form [formGroup]="sendForm" fxLayout="column" *ngIf="sendForm">
     <mat-form-field>
       <mat-label>Recipient</mat-label>
-      <input matInput formControlName="recipient" />
+      <input matInput formControlName="recipient" required />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Amount</mat-label>
-      <input matInput type="number" formControlName="amount" [max]="balance | amountDivide" />
+      <input matInput type="number" formControlName="amount" required />
       <mat-hint>Balance: {{ (balance$ | async).available | amountDivide }}</mat-hint>
+      <mat-error *ngIf="sendForm.get('amount').hasError('max')">
+        Max value: {{ (balance$ | async).available | amountDivide }}
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Attachment</mat-label>
@@ -22,5 +25,5 @@
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
   <button mat-button matDialogClose>Cancel</button>
-  <button mat-button (click)="send()">Send</button>
+  <button mat-button (click)="send()" [disabled]="sendForm?.invalid">Send</button>
 </mat-dialog-actions>

@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { WalletService, IBalance } from '../../core';
+import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 export interface LeaseData {
   amount: number;
@@ -14,23 +17,30 @@ export interface LeaseData {
   styleUrls: ['./start-lease-modal.component.scss']
 })
 export class StartLeaseModalComponent implements OnInit {
-  leaseForm: FormGroup;
+  leaseForm: FormGroup | null = null;
+  balance$: Observable<IBalance>;
 
   constructor(
     private dialogRef: MatDialogRef<any, LeaseData>,
+    private wallet: WalletService,
     @Inject(MAT_DIALOG_DATA) public balance: number
   ) {
-    this.leaseForm = new FormGroup({
-      recipient: new FormControl('', [Validators.required]),
-      amount: new FormControl(0, [Validators.required]),
-      fee: new FormControl({ value: 0.001, disabled: true }, [Validators.required])
+    this.balance$ = wallet.balance$;
+
+    wallet.balance$.pipe(take(1)).subscribe(balance => {
+      const max = balance.available / balance.amountDivider;
+      this.leaseForm = new FormGroup({
+        recipient: new FormControl('', [Validators.required]),
+        amount: new FormControl(0, [Validators.required, Validators.min(0), Validators.max(max)]),
+        fee: new FormControl({ value: 0.001, disabled: true }, [Validators.required])
+      });
     });
   }
 
   ngOnInit() {}
 
   async lease() {
-    if (this.leaseForm.invalid) {
+    if (!this.leaseForm) {
       return;
     }
 

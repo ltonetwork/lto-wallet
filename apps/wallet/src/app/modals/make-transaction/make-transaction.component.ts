@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import { WalletService, IBalance } from '../../core';
 import { take } from 'rxjs/operators';
@@ -15,7 +15,11 @@ export class MakeTransactionComponent implements OnInit {
 
   balance$: Observable<IBalance>;
 
-  constructor(public dialog: MatDialogRef<any>, private wallet: WalletService) {
+  constructor(
+    public dialog: MatDialogRef<any>,
+    private wallet: WalletService,
+    private snackbar: MatSnackBar
+  ) {
     this.balance$ = wallet.balance$;
 
     this.balance$.pipe(take(1)).subscribe(balance => {
@@ -40,8 +44,11 @@ export class MakeTransactionComponent implements OnInit {
     if (!this.sendForm) {
       return;
     }
-
-    await this.wallet.transfer(this.sendForm.value);
+    try {
+      await this.wallet.transfer(this.sendForm.value);
+    } catch (error) {
+      this.snackbar.open('Transacition error', 'DISMISS', { duration: 3000 });
+    }
     this.dialog.close();
   }
 }

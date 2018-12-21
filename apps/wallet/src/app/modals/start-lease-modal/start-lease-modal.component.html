@@ -3,7 +3,7 @@
   <form [formGroup]="leaseForm" fxLayout="column">
     <mat-form-field>
       <mat-label>Balance</mat-label>
-      <input matInput disabled value="{{balance | amountDivide}}" />
+      <input matInput disabled value="{{ balance | amountDivide }}" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Recipient</mat-label>
@@ -12,6 +12,9 @@
     <mat-form-field>
       <mat-label>Amount</mat-label>
       <input type="number" formControlName="amount" required matInput />
+      <mat-error *ngIf="leaseForm?.controls.amount.hasError('max')">
+        Max value: {{ (balance$ | async).available | amountDivide }}
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>fee</mat-label>
@@ -21,5 +24,5 @@
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button (click)="lease()">Start lease</button>
+  <button mat-button (click)="lease()" [disabled]="leaseForm?.invalid">Start lease</button>
 </mat-dialog-actions>

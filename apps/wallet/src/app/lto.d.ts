@@ -3,6 +3,7 @@ declare namespace LTO {
     unconfirmed?: boolean;
     sender: string;
     type: number;
+    fee: number;
 
     [key: string]: any;
   }

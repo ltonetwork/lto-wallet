@@ -25,7 +25,7 @@
       </div>
       <div class="item">
         <div class="label">Time</div>
-        <div class="value">{{ transaction.timestamp | date: 'HH:MM' }}</div>
+        <div class="value">{{ transaction.timestamp | date: 'HH:mm' }}</div>
       </div>
     </div>
     <div class="item">
@@ -75,6 +75,15 @@
       <div class="label">Fee</div>
       <div class="value">{{ transaction.fee | amountDivide }}</div>
     </div>
+
+    <!-- leasing -->
+    <ng-container *ngIf="isLeasing">
+      <div class="item">
+        <div class="label">Status</div>
+        <div class="value uppercase">{{ transaction.status }}</div>
+      </div>
+    </ng-container>
+    <!-- Inactive leasing -->
 
     <!-- Anchors -->
     <div class="item anchors" *ngIf="anchors.length">

@@ -20,16 +20,19 @@
           </mat-list-item>
         </mat-list>
         <div class="password-input">
-          <mat-form-field appearance="outline">
-            <input
-              type="password"
-              matInput
-              placeholder="Password"
-              required
-              ngModel
-              #password="ngModel"
-            />
-          </mat-form-field>
+          <form (submit)="signin(password.value)">
+            <mat-form-field appearance="outline">
+              <input
+                type="password"
+                matInput
+                placeholder="Password"
+                required
+                name="password"
+                ngModel
+                #password="ngModel"
+              />
+            </mat-form-field>
+          </form>
         </div>
       </div>
       <div class="buttons">

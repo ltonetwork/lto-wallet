@@ -1,38 +1,76 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core';
+// import { SigninComponent, SigninModule } from './signin';
+import { CreateAccountComponent, CreateAccountModule } from './create-account';
+import { ImportComponent, ImportModule } from './import';
+import { NoAccountComponent, NoAccountModule } from './no-account';
+import { TransfersComponent, TransfersModule } from './transfers';
+import { LeasingComponent } from './leasing/leasing.component';
+import { AnchorsComponent, AnchorsModule } from './anchors';
+import { BridgePageComponent } from './bridge-page/bridge-page.component';
+import { SettingsPageComponent, SigninComponent } from './pages';
 
 const routes: Routes = [
   {
-    path: 'auth',
-    loadChildren: './pages/auth/auth.module#AuthModule'
+    path: 'signin',
+    component: SigninComponent
+  },
+  {
+    path: 'create-account',
+    component: CreateAccountComponent
+  },
+  {
+    path: 'import-account',
+    component: ImportComponent
+  },
+  {
+    path: 'start',
+    component: NoAccountComponent
   },
   {
     path: '',
     canActivate: [AuthGuard],
-    loadChildren: './pages/private/private.module#PrivateModule'
+    children: [
+      {
+        path: 'transfers',
+        component: TransfersComponent
+      },
+      {
+        path: 'leasing',
+        component: LeasingComponent
+      },
+      {
+        path: 'anchors',
+        component: AnchorsComponent
+      },
+      {
+        path: 'bridge',
+        component: BridgePageComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsPageComponent
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'transfers'
+      }
+    ]
   }
-  // {
-  //   path: 'blocks',
-  //   pathMatch: 'full',
-  //   loadChildren: './pages/blocks/blocks.module#BlocksModule'
-  // },
-  // {
-  //   path: 'block',
-  //   loadChildren: './pages/block/block.module#BlockModule'
-  // },
-  // {
-  //   path: 'transaction',
-  //   loadChildren: './pages/transaction/transaction.module#TransactionModule'
-  // },
-  // {
-  //   path: 'address',
-  //   loadChildren: './pages/address/address.module#AddressModule'
-  // }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes),
+    // SigninModule,
+    CreateAccountModule,
+    ImportModule,
+    NoAccountModule,
+    TransfersModule,
+    AnchorsModule
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

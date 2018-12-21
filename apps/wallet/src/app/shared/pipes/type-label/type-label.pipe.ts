@@ -1,23 +1,26 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { TransactionTypes } from '../../../core';
 
 @Pipe({
-  name: 'lto_typeLabel'
+  name: 'typeLabel'
 })
 export class TypeLabelPipe implements PipeTransform {
-  transform(type: number, args?: any): string {
+  transform(type: TransactionTypes, args?: any): string {
     switch (type) {
-      case 4:
+      case TransactionTypes.TRANSFER:
         return 'Transfer';
-      case 8:
+      case TransactionTypes.LEASING:
         return 'Leasing';
-      case 9:
+      case TransactionTypes.CANCEL_LEASING:
         return 'Cancel leasing';
-      case 11:
+      case TransactionTypes.MASS_TRANSFER:
         return 'Mass transfer';
-      case 12:
+      case TransactionTypes.ANCHOR:
+      case TransactionTypes.ANCHOR_NEW:
         return 'Anchor';
     }
 
-    return type.toString();
+    // In case we have wierd transaction type which we never see before
+    return (type as any).toString();
   }
 }

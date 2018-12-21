@@ -1,0 +1,9 @@
+<div class="text-box">
+  <div class="label" *ngIf="label">{{ label }}</div>
+  <div class="text-holder" fxLayout="row" fxLayoutAlign="start center">
+    <div class="text" fxFlex="1 1 auto">{{ visibleText }}</div>
+    <div class="button" matRipple (click)="show()">
+      <mat-icon color="accent">remove_red_eye</mat-icon>
+    </div>
+  </div>
+</div>

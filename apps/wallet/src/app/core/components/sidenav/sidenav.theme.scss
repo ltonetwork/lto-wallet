@@ -1,0 +1,17 @@
+@mixin sidenav-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  lto-sidenav {
+    .main-navigation {
+      a:hover,
+      a.active {
+        color: mat-color($primary) !important;
+        background-color: rgba($color: mat-color($primary, 50), $alpha: 0.5);
+      }
+
+      a.active {
+        border-left-color: mat-color($primary) !important;
+      }
+    }
+  }
+}

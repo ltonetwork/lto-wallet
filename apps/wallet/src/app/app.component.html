@@ -1,2 +1,9 @@
-<router-outlet></router-outlet>
-<router-outlet name="public"></router-outlet>
+<mat-sidenav-container fxFlexFill [hasBackdrop]="false">
+  <mat-sidenav [opened]="sidenavOpened$ | async" mode="side" class="mat-elevation-z6">
+    <lto-sidenav></lto-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <lto-appbar></lto-appbar>
+    <div class="content"><router-outlet></router-outlet></div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

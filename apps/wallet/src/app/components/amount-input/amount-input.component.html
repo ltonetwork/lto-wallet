@@ -1,0 +1,7 @@
+<input
+  [ngClass]="{ invalid: invalid }"
+  type="text"
+  [value]="value"
+  [disabled]="disabled"
+  (keyup)="valueChange($event)"
+/>

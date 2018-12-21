@@ -1,0 +1,33 @@
+<mat-sidenav-container [hasBackdrop]="false" fxFlexFill>
+  <mat-sidenav #sidenav [opened]="detailsOpened" [mode]="'side'" position="end">
+    <lto-transaction-details
+      (close)="select(null)"
+      [transaction]="selectedTransaction"
+    ></lto-transaction-details>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <lto-content-section title="Leasing" subtitle="Dashboard">
+      <mat-card>
+        <mat-card-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+          <span fxFlex="1 1 auto">Active lease</span>
+          <button mat-flat-button color="primary" (click)="startLease()">Start lease</button>
+        </mat-card-title>
+        <mat-card-content>
+          <ng-container *ngIf="(transactions$ | async) as transactions; else: loadingTpl">
+            <lto-transactions-list
+              *ngIf="transactions.length; else: emptyTpl"
+              [transactions]="transactions"
+              [address]="address$ | async"
+              (cancelLease)="cancelLease($event)"
+              [selectedId]="123"
+              (transactionClick)="select($event)"
+            ></lto-transactions-list>
+          </ng-container>
+        </mat-card-content>
+      </mat-card>
+    </lto-content-section>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #emptyTpl> <h2 class="empty">There is no lease active</h2> </ng-template>
+<ng-template #loadingTpl> <lto-loading-spinner></lto-loading-spinner> </ng-template>

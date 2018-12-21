@@ -1,0 +1,61 @@
+<mat-card>
+  <mat-card-title>Anchor details</mat-card-title>
+  <mat-card-content>
+    <div class="list">
+      <div class="list-item date" fxLayout="row">
+        <div fxFlex="1 1 auto">
+          <div class="label">DATE:</div>
+          <div class="value">Tuesday, December 4, 2018</div>
+        </div>
+        <div>
+          <div class="label">TIME:</div>
+          <div class="value">14:12</div>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="label">Transaction Id:</div>
+        <div class="value">aa790077a446ff1786821d9d19fc8189e4</div>
+      </div>
+
+      <div class="list-item">
+        <div class="label">HASH:</div>
+        <div class="value">aa790077a446ff1786821d9d19fc8189e4</div>
+      </div>
+      <div class="list-item">
+        <div class="label">HASH:</div>
+        <div class="value">aa790077a446ff1786821d9d19fc8189e4</div>
+      </div>
+      <div class="list-item">
+        <div fxLayout="row" fxLayoutAlign="start center" class="anchors-header">
+          <div class="label">ANCHOR:</div>
+          <div
+            class="anchor-button"
+            matRipple
+            [ngClass]="{ selected: selectedAnchorTpe === 'hex' }"
+            (click)="selectAnchorType('hex')"
+          >
+            Hex
+          </div>
+          <div
+            class="anchor-button"
+            matRipple
+            [ngClass]="{ selected: selectedAnchorTpe === 'base64' }"
+            (click)="selectAnchorType('base64')"
+          >
+            Base64
+          </div>
+          <div
+            class="anchor-button"
+            matRipple
+            [ngClass]="{ selected: selectedAnchorTpe === 'base58' }"
+            (click)="selectAnchorType('base58')"
+          >
+            Base58
+          </div>
+        </div>
+        <lto-copyable-text text="ashdkjfhaskjdfh"></lto-copyable-text>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

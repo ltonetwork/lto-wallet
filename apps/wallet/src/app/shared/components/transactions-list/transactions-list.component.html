@@ -1,0 +1,15 @@
+<div class="list-container">
+  <div class="group" *ngFor="let group of transactions; trackBy: groupDayTrackBy">
+    <div class="date">{{ group.date }}</div>
+    <div class="transactions">
+      <lto-transaction-row
+        *ngFor="let transaction of group.transactions; trackBy: transactionTrackBy"
+        [transaction]="transaction"
+        [myAddress]="address"
+        (click)="_transactionClick(transaction)"
+        [ngClass]="{ selected: selectedId === transaction.id }"
+        (cancelLease)="_cancelLease(transaction)"
+      ></lto-transaction-row>
+    </div>
+  </div>
+</div>

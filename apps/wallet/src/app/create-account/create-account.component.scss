@@ -1,0 +1,112 @@
+.create-account-steps {
+  text-align: center;
+}
+mat-card-content {
+  padding-top: 24px;
+}
+h1 {
+  margin-bottom: 38px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 48px;
+}
+
+p {
+  font-size: 24px;
+  margin-bottom: 32px;
+}
+
+.narrow {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+.address-box {
+  margin-top: 64px;
+  .label {
+    margin-bottom: 16px;
+  }
+  .address {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 16px;
+
+    span {
+      text-align: center;
+      padding: 16px;
+    }
+    .copy-button {
+      padding: 16px;
+      cursor: pointer;
+      border-left: 1px solid rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+
+.buttons {
+  border-top: 1px solid #becad6;
+  padding: 32px;
+  margin-top: 48px;
+  button {
+    margin: 0 4px;
+  }
+}
+
+.credentials-form {
+  padding-top: 32px;
+}
+
+.step-3 {
+  .words {
+    padding: 16px;
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+
+    .word {
+      display: inline-block;
+      margin: 8px;
+    }
+  }
+}
+
+.step-4 {
+  .answer {
+    padding: 24px 16px;
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.02);
+    min-height: 180px;
+    margin-bottom: 32px;
+
+    .word {
+      display: inline-block;
+      margin: 4px 8px;
+    }
+  }
+  .words {
+    .word {
+      display: inline-block;
+      margin: 4px 8px;
+      border: 1px dashed transparent;
+      border-radius: 4px;
+
+      &.selected {
+        border-color: #989898;
+
+        button {
+          visibility: hidden;
+        }
+      }
+    }
+  }
+
+  .error {
+    color: red;
+    margin-bottom: 32px;
+  }
+}

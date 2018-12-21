@@ -1,0 +1,61 @@
+:host {
+  display: block;
+}
+
+.transaction {
+  padding: 16px;
+  color: #818ea3;
+  font-size: 16px;
+  cursor: pointer;
+
+  .icon {
+    padding: 8px;
+    padding-right: 16px;
+    .income-icon {
+      color: #17c671;
+    }
+  }
+
+  .label {
+    font-weight: 500;
+    margin-right: 4px;
+  }
+
+  .addresses {
+    margin-bottom: 8px;
+  }
+
+  .misc {
+    > div {
+      // width: 33%;
+    }
+    .fee,
+    .type {
+      text-align: right;
+    }
+
+    .status {
+      text-transform: uppercase;
+
+      .value {
+        color: #818ea3;
+        &.active {
+          color: green;
+        }
+      }
+    }
+  }
+
+  .time {
+    min-width: 100px;
+  }
+
+  .amount {
+    font-size: 20px;
+    width: 115px;
+  }
+
+  .type {
+    text-transform: uppercase;
+  }
+}

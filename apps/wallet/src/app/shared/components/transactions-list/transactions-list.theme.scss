@@ -1,0 +1,10 @@
+@mixin transactions-list-theme($theme) {
+  lto-transactions-list {
+    $primary: map-get($theme, primary);
+
+    lto-transaction-row:hover,
+    lto-transaction-row.selected {
+      background-color: rgba($color: mat-color($primary, 50), $alpha: 0.5);
+    }
+  }
+}

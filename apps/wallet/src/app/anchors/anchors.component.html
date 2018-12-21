@@ -1,0 +1,63 @@
+<mat-sidenav-container [hasBackdrop]="false" fxFlexFill>
+  <mat-sidenav #sidenav [opened]="detailsOpened" [mode]="'side'" position="end">
+    <lto-transaction-details
+      (close)="select(null)"
+      [transaction]="selectedTransaction"
+    ></lto-transaction-details>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <lto-content-section title="Anchors" subtitle="Dashboard">
+      <mat-card>
+        <mat-card-title>Create anchor</mat-card-title>
+        <mat-card-content>
+          <lto-wallet-file-drop (fileHash)="createAnchor($event)"></lto-wallet-file-drop>
+        </mat-card-content>
+      </mat-card>
+    </lto-content-section>
+
+    <lto-content-section>
+      <div fxLayout="row" fxLayoutGap="16px">
+        <mat-card fxFlex="1 1 auto">
+          <mat-card-title>Active anchors</mat-card-title>
+          <mat-card-content>
+            <ng-container *ngIf="(groupedAcnhors$ | async) as groupedAcnhors; else: loadingTpl">
+              <ng-container *ngIf="groupedAcnhors.length; else: emptyTpl">
+                <ng-container
+                  *ngTemplateOutlet="hashTable; context: { groupedAcnhors: groupedAcnhors }"
+                ></ng-container>
+              </ng-container>
+            </ng-container>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </lto-content-section>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #loadingTpl> <lto-loading-spinner></lto-loading-spinner> </ng-template>
+<ng-template #emptyTpl> <h2 class="empty">There is no anchor transactions</h2> </ng-template>
+
+<ng-template #hashTable let-groupedAcnhors="groupedAcnhors">
+  <div class="anchors">
+    <div *ngFor="let group of groupedAcnhors">
+      <div class="date">{{ group.date }}</div>
+      <div
+        class="anchor"
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        *ngFor="let anchor of group.transactions"
+        (click)="select(anchor)"
+      >
+        <mat-icon *ngIf="!anchor.unconfirmed" svgIcon="anchor"></mat-icon>
+        <mat-icon *ngIf="anchor.unconfirmed">hourglass_empty</mat-icon>
+        <div class="time">
+          <span class="label">TIME:</span>
+          <span class="value">{{ anchor.timestamp | date: 'HH:mm' }}</span>
+        </div>
+        <div class="hash">
+          <span class="label">HASH:</span> <span class="value">{{ anchor.hash }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from './core';
 
 @Component({
-  selector: 'legalthings-one-wallet-root',
+  selector: 'lto-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor() {}
+  sidenavOpened$: Observable<boolean>;
+
+  constructor(private auth: AuthService) {
+    this.sidenavOpened$ = auth.authenticated$;
+  }
 }

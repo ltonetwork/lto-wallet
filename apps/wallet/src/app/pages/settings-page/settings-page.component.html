@@ -1,0 +1,25 @@
+<lto-content-section title="Settings" subtitle="Dashboard">
+  <mat-card>
+    <mat-card-title>Acount {{ (userAccount$ | async)?.name }}</mat-card-title>
+    <mat-card-content>
+      <div class="items" fxLayout="column" fxLayoutGap="16px">
+        <lto-copyable-text
+          label="Your address"
+          [text]="(ltoAccount$ | async)?.address"
+        ></lto-copyable-text>
+        <lto-copyable-text
+          label="Public key"
+          [text]="(ltoAccount$ | async)?.getPublicSignKey()"
+        ></lto-copyable-text>
+        <lto-wallet-hidden-text
+          label="Backup phrase"
+          [text]="(ltoAccount$ | async)?.seed"
+        ></lto-wallet-hidden-text>
+        <lto-wallet-hidden-text
+          label="Private key"
+          [text]="(ltoAccount$ | async)?.getPrivateSignKey()"
+        ></lto-wallet-hidden-text>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</lto-content-section>

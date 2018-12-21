@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+mat-toolbar {
+  background: #fff;
+}
+
+.account-button {
+  color: #5a6169;
+  .user-icon {
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,111 @@
+<ng-container *ngIf="transaction">
+  <h1 class="header" fxLayout="row" fxLayoutAlign="start center">
+    <span fxFlex="1 1 auto">Transaction details</span>
+    <button mat-icon-button (click)="_close()"><mat-icon>close</mat-icon></button>
+  </h1>
+  <div
+    class="general-info"
+    fxLayout="column"
+    fxLayoutAlign="start center"
+    fxLayoutGap="16px"
+    *ngIf="amountInfoVisible"
+  >
+    <mat-icon class="crypto-icon" svgIcon="lto"></mat-icon>
+    <div class="amount">
+      <div class="label">Amount</div>
+      <span class="value">{{ transaction.amount | amountDivide }}</span>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="info-list" fxLayout="column" fxLayoutGap="32px">
+    <div class="date" fxLayout="row" fxLayoutAlign="space-between">
+      <div class="item">
+        <div class="label">Date</div>
+        <div class="value">{{ transaction.timestamp | date: 'fullDate' }}</div>
+      </div>
+      <div class="item">
+        <div class="label">Time</div>
+        <div class="value">{{ transaction.timestamp | date: 'HH:MM' }}</div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="label">Type</div>
+      <div class="value">{{ transaction.type | typeLabel }}</div>
+    </div>
+
+    <div class="item">
+      <div class="label">Status</div>
+      <div class="value">Completed</div>
+    </div>
+    <div class="item">
+      <div class="label">Transaction ID</div>
+      <div class="value">{{ transaction.id }}</div>
+    </div>
+
+    <div class="item">
+      <div class="label">Sender</div>
+      <div class="value">{{ transaction.sender }}</div>
+    </div>
+
+    <ng-container [ngSwitch]="isMassTransaction">
+      <div *ngSwitchCase="true" class="item">
+        <div class="label">Recipients</div>
+        <table>
+          <thead>
+            <tr>
+              <th class="address">Address</th>
+              <th class="amount">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transfer of transaction.transfers">
+              <td class="address">{{ transfer.recipient }}</td>
+              <td class="amount">{{ transfer.amount | amountDivide }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="item" *ngSwitchDefault>
+        <div class="label">Recipient</div>
+        <div class="value">{{ transaction.recipient }}</div>
+      </div>
+    </ng-container>
+
+    <div class="item">
+      <div class="label">Fee</div>
+      <div class="value">{{ transaction.fee | amountDivide }}</div>
+    </div>
+
+    <!-- Anchors -->
+    <div class="item anchors" *ngIf="anchors.length">
+      <div fxLayout="row" fxLayoutAlign="start center" class="anchors-header">
+        <div class="label" fxFlex="1 1 auto">Anchors</div>
+        <div
+          class="anchor-button"
+          matRipple
+          [ngClass]="{ selected: selectedAnchorTpe === 'hex' }"
+          (click)="selectAnchorType('hex')"
+        >
+          Hex
+        </div>
+        <div
+          class="anchor-button"
+          matRipple
+          [ngClass]="{ selected: selectedAnchorTpe === 'base64' }"
+          (click)="selectAnchorType('base64')"
+        >
+          Base64
+        </div>
+        <div
+          class="anchor-button"
+          matRipple
+          [ngClass]="{ selected: selectedAnchorTpe === 'base58' }"
+          (click)="selectAnchorType('base58')"
+        >
+          Base58
+        </div>
+      </div>
+      <div class="value anchor" *ngFor="let anchor of anchors">{{ anchor[selectedAnchorTpe] }}</div>
+    </div>
+  </div>
+</ng-container>

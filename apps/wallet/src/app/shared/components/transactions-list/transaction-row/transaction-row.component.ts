@@ -7,7 +7,7 @@ import { TransactionTypes } from '../../../../core';
   styleUrls: ['./transaction-row.component.scss']
 })
 export class TransactionRowComponent implements OnInit {
-  @Input() transaction!: any;
+  @Input() transaction!: LTO.Transaction;
   @Input() myAddress!: string;
   @Output() cancelLease = new EventEmitter();
 
@@ -24,7 +24,11 @@ export class TransactionRowComponent implements OnInit {
   }
 
   get showCancelLease(): boolean {
-    return this.isLease && this.transaction.status === 'active';
+    return (
+      this.isLease &&
+      this.transaction.status === 'active' &&
+      this.transaction.sender === this.myAddress
+    );
   }
 
   get transactionIcon(): string {

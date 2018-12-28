@@ -1,6 +1,15 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
-import { Observable, timer, Subject, merge, zip } from 'rxjs';
-import { shareReplay, share, switchMapTo, switchMap, map, filter } from 'rxjs/operators';
+import { Observable, timer, Subject, merge, zip, of } from 'rxjs';
+import {
+  shareReplay,
+  share,
+  switchMapTo,
+  switchMap,
+  map,
+  filter,
+  withLatestFrom,
+  catchError
+} from 'rxjs/operators';
 import { LtoPublicNodeService } from './lto-public-node.service';
 import { AuthService } from './auth.service';
 import { Account } from 'lto-api';
@@ -35,7 +44,7 @@ export interface ITransferPayload {
 export class WalletServiceImpl implements WalletService {
   balance$: Observable<IBalance>;
 
-  transactions$: Observable<any[]>;
+  transactions$: Observable<LTO.Transaction[]>;
   transfers$: Observable<LTO.Page<LTO.Transaction>>;
   leasingTransactions$: Observable<any[]>;
   dataTransactions$: Observable<any[]>;
@@ -92,9 +101,6 @@ export class WalletServiceImpl implements WalletService {
         return zip(this.unconfirmed$, publicNode.transactionsOf(wallet.address));
       }),
       map(([unconfirmed, confirmed]) => {
-        // Filter unconfirmed transactions for current wallet
-        // const myUnconfirmed = this.filterOutAccountTransactions(wallet, unconfirmed);
-
         return [...unconfirmed, ...confirmed];
       }),
       shareReplay(1)
@@ -117,8 +123,21 @@ export class WalletServiceImpl implements WalletService {
       })
     );
 
-    this.leasingTransactions$ = this.transactions$.pipe(
-      map(transactionsFilter(TransactionTypes.LEASING, TransactionTypes.CANCEL_LEASING))
+    this.leasingTransactions$ = this.update$.pipe(
+      switchMap(wallet => {
+        return zip(
+          publicNode.activeLease(wallet.address).pipe(catchError(err => of([]))),
+          this.transactions$
+        );
+      }),
+      map(([activeLease, transactions]) => {
+        const cancelLease = transactionsFilter(TransactionTypes.CANCEL_LEASING)(transactions);
+        // We need to filter out "unconfirmed" transactions
+        const unconfirmedLease = transactionsFilter(TransactionTypes.LEASING)(transactions).filter(
+          transaction => transaction.unconfirmed
+        );
+        return [...activeLease, ...cancelLease, ...unconfirmedLease];
+      })
     );
 
     this.dataTransactions$ = this.transactions$.pipe(

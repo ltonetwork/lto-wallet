@@ -2,7 +2,13 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppbarModule, SidenavModule } from './components';
 
-import { LtoPublicNodeService, BridgeService, EncoderService, WalletService } from './services';
+import {
+  LtoPublicNodeService,
+  BridgeService,
+  EncoderService,
+  WalletService,
+  AuthService
+} from './services';
 
 @NgModule({
   declarations: [],
@@ -12,7 +18,8 @@ import { LtoPublicNodeService, BridgeService, EncoderService, WalletService } fr
     LtoPublicNodeService.provider,
     BridgeService.provider,
     EncoderService,
-    WalletService.provider
+    WalletService.provider,
+    AuthService.provider
   ]
 })
 export class CoreModule {}

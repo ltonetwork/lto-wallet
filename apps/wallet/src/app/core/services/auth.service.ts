@@ -1,8 +1,8 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, ClassProvider } from '@angular/core';
 import { LTO, Account } from 'lto-api';
-import { Observable, BehaviorSubject, Subject, of, merge, Subscriber } from 'rxjs';
+import { Observable, BehaviorSubject, Subscriber } from 'rxjs';
 import { LTO_NETWORK_BYTE } from '../../tokens';
-import { map, shareReplay } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export interface IUserAccount {
   name: string;
@@ -13,7 +13,7 @@ export interface IUserAccount {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthServiceImpl implements AuthService {
   readonly STORAGE_KEY: string = '_USERS_ACCOUNTS_';
 
   authenticated$: Observable<boolean>;
@@ -94,4 +94,28 @@ export class AuthService {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(newAccounts));
     return newAccounts;
   }
+}
+
+export abstract class AuthService {
+  static provider: ClassProvider = {
+    provide: AuthService,
+    useClass: AuthServiceImpl
+  };
+
+  abstract readonly STORAGE_KEY: string;
+
+  abstract authenticated$: Observable<boolean>;
+  abstract account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(
+    null
+  );
+  abstract wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
+
+  abstract ltoInstance: LTO;
+  abstract availableAccounts$: Observable<IUserAccount[]>;
+
+  abstract saveAccount(name: string, password: string, wallet: Account): IUserAccount;
+  abstract generateWallet(phrase?: string): Account;
+  abstract login(userAccount: IUserAccount, password: string): string;
+  abstract logout(): void;
+  abstract deleteAccount(account: IUserAccount): void;
 }

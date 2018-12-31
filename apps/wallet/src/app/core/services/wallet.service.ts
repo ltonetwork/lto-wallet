@@ -155,10 +155,6 @@ export class WalletServiceImpl implements WalletService {
       })
     );
 
-    // this.leasingTransactions$ = this.transactions$.pipe(
-    //   map(transactionsFilter(TransactionTypes.LEASING, TransactionTypes.CANCEL_LEASING))
-    // );
-
     this.dataTransactions$ = this.transactions$.pipe(
       map(transactionsFilter(TransactionTypes.ANCHOR))
     );

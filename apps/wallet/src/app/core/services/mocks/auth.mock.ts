@@ -3,6 +3,11 @@ import { of, BehaviorSubject, Observable } from 'rxjs';
 import { LTO, Account } from 'lto-api';
 
 export class AuthServiceMock implements AuthService {
+  static provider = {
+    provide: AuthService,
+    useClass: AuthServiceMock
+  };
+
   readonly STORAGE_KEY: string = 'TEST_KEY';
 
   authenticated$: Observable<boolean> = of(true);

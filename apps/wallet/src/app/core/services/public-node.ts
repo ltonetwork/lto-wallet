@@ -1,14 +1,14 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, timer } from 'rxjs';
-import { map, switchMap, switchMapTo, distinctUntilChanged, catchError } from 'rxjs/operators';
+import { map, switchMap, switchMapTo, distinctUntilChanged } from 'rxjs/operators';
 import { LTO_PUBLIC_API } from '../../tokens';
 
 /**
  * Provide communication with LTO backend
  */
 @Injectable()
-export class LtoPublicNodeServiceImpl implements LtoPublicNodeService {
+export class PublicNodeImpl implements PublicNode {
   constructor(private _http: HttpClient, @Inject(LTO_PUBLIC_API) private _publicApi: string) {}
 
   version(): Observable<string> {
@@ -92,10 +92,10 @@ export class LtoPublicNodeServiceImpl implements LtoPublicNodeService {
   }
 }
 
-export abstract class LtoPublicNodeService {
+export abstract class PublicNode {
   static provider: ClassProvider = {
-    provide: LtoPublicNodeService,
-    useClass: LtoPublicNodeServiceImpl
+    provide: PublicNode,
+    useClass: PublicNodeImpl
   };
 
   abstract version(): Observable<string>;

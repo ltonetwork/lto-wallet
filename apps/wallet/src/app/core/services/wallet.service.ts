@@ -10,7 +10,7 @@ import {
   withLatestFrom,
   catchError
 } from 'rxjs/operators';
-import { LtoPublicNodeService } from './lto-public-node.service';
+import { PublicNode } from './public-node';
 import { AuthService } from './auth.service';
 import { Account } from 'lto-api';
 import { TransactionTypes } from '../transaction-types';
@@ -59,7 +59,7 @@ export class WalletServiceImpl implements WalletService {
   private unconfirmed$: Observable<LTO.Transaction[]>;
 
   constructor(
-    private publicNode: LtoPublicNodeService,
+    private publicNode: PublicNode,
     private auth: AuthService,
     private bridgeService: BridgeService,
     @Inject(AMOUNT_DIVIDER) private amountDivider: number

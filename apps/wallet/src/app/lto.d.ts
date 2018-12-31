@@ -4,6 +4,11 @@ declare namespace LTO {
     sender: string;
     type: number;
     fee: number;
+    /**
+     * Lease specific field. We need to keep it here because our endpoint
+     * returns all transactions mixed
+     */
+    status?: 'active' | 'canceled';
 
     [key: string]: any;
   }

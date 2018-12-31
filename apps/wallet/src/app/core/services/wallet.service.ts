@@ -126,19 +126,38 @@ export class WalletServiceImpl implements WalletService {
     this.leasingTransactions$ = this.update$.pipe(
       switchMap(wallet => {
         return zip(
-          publicNode.activeLease(wallet.address).pipe(catchError(err => of([]))),
+          publicNode
+            .activeLease(wallet.address)
+            .pipe(catchError(err => of([] as LTO.Transaction[]))),
           this.transactions$
         );
       }),
-      map(([activeLease, transactions]) => {
-        const cancelLease = transactionsFilter(TransactionTypes.CANCEL_LEASING)(transactions);
+      map(([leaseTransactions, allTransactions]) => {
+        // For this endpoint we receive transactions without status
+        // we need to set it automatically
+        const activeLease = leaseTransactions.map((transaction: LTO.Transaction) => {
+          return {
+            ...transaction,
+            status: 'active'
+          };
+        });
+        const cancelLease = transactionsFilter(TransactionTypes.CANCEL_LEASING)(allTransactions);
         // We need to filter out "unconfirmed" transactions
-        const unconfirmedLease = transactionsFilter(TransactionTypes.LEASING)(transactions).filter(
-          transaction => transaction.unconfirmed
+        const unconfirmedLease = transactionsFilter(TransactionTypes.LEASING)(
+          allTransactions
+        ).filter(transaction => transaction.unconfirmed);
+        // New endpoint does not return 'canceled lease' so we need to take them from
+        // allTransactions aswel
+        const canceledLease = transactionsFilter(TransactionTypes.LEASING)(allTransactions).filter(
+          transaction => transaction.status === 'canceled'
         );
-        return [...activeLease, ...cancelLease, ...unconfirmedLease];
+        return [...activeLease, ...cancelLease, ...unconfirmedLease, ...canceledLease];
       })
     );
+
+    // this.leasingTransactions$ = this.transactions$.pipe(
+    //   map(transactionsFilter(TransactionTypes.LEASING, TransactionTypes.CANCEL_LEASING))
+    // );
 
     this.dataTransactions$ = this.transactions$.pipe(
       map(transactionsFilter(TransactionTypes.ANCHOR))

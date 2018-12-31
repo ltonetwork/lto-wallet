@@ -1,7 +1,7 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, timer } from 'rxjs';
-import { map, switchMap, switchMapTo, distinctUntilChanged } from 'rxjs/operators';
+import { map, switchMap, switchMapTo, distinctUntilChanged, catchError } from 'rxjs/operators';
 import { LTO_PUBLIC_API } from '../../tokens';
 
 /**
@@ -86,6 +86,10 @@ export class LtoPublicNodeServiceImpl implements LtoPublicNodeService {
   unconfirmedTransactions(): Observable<any[]> {
     return this._http.get<any>(this._publicApi + 'transactions/unconfirmed');
   }
+
+  activeLease(address: string): Observable<LTO.Transaction[]> {
+    return this._http.get<LTO.Transaction[]>(`${this._publicApi}leasing/active/${address}`);
+  }
 }
 
 export abstract class LtoPublicNodeService {
@@ -108,4 +112,5 @@ export abstract class LtoPublicNodeService {
   ): Observable<LTO.Page<LTO.Transaction>>;
   abstract balanceOf(address: string): Observable<any>;
   abstract unconfirmedTransactions(): Observable<any[]>;
+  abstract activeLease(address: string): Observable<LTO.Transaction[]>;
 }

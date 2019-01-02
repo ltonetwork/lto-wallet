@@ -9,6 +9,7 @@ import {
 import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { AddressComponent } from './address.component';
+import { of } from 'rxjs';
 
 describe('AddressComponent', () => {
   let component: AddressComponent;
@@ -16,7 +17,9 @@ describe('AddressComponent', () => {
   let publicNodeMock: Partial<LtoPublicNodeService>;
 
   beforeEach(async(() => {
-    publicNodeMock = {};
+    publicNodeMock = {
+      transaction: () => of({})
+    };
 
     TestBed.configureTestingModule({
       imports: [

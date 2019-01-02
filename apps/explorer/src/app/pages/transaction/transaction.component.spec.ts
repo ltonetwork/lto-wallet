@@ -6,7 +6,13 @@ import {
   AmountPipeModule,
   AMOUNT_DIVIDER
 } from '@legalthings-one/component-kit';
-import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
+import {
+  MatCardModule,
+  MatProgressSpinnerModule,
+  MatIconModule,
+  MatTableModule,
+  MatTooltipModule
+} from '@angular/material';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 
 import { TransactionComponent } from './transaction.component';
@@ -26,7 +32,10 @@ describe('TransactionComponent', () => {
         MatCardModule,
         MatProgressSpinnerModule,
         RouterTestingModule,
-        AmountPipeModule
+        AmountPipeModule,
+        MatIconModule,
+        MatTableModule,
+        MatTooltipModule
       ],
       declarations: [TransactionComponent],
       providers: [

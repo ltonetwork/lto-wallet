@@ -3,9 +3,7 @@
     <div class="blocks mat-elevation-z2">
       <poe-blocks-list [blocks]="blocks"></poe-blocks-list>
       <div class="load-more" fxLayout="row" fxLayoutAlign="center">
-        <ng-container *ngIf="loading">
-          <mat-spinner></mat-spinner>
-        </ng-container>
+        <ng-container *ngIf="loading"> <mat-spinner></mat-spinner> </ng-container>
         <button mat-button color="primary" *ngIf="!loading" (click)="loadMore()">Load more</button>
       </div>
     </div>

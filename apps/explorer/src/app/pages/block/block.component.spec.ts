@@ -22,7 +22,8 @@ describe('BlockComponent', () => {
     publicNodeMock = {
       block: () => of({}),
       height: () => of(100),
-      transaction: () => of({})
+      transaction: () => of({}),
+      balanceOf: () => of({})
     };
 
     TestBed.configureTestingModule({

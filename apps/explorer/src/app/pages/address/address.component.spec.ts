@@ -18,7 +18,9 @@ describe('AddressComponent', () => {
 
   beforeEach(async(() => {
     publicNodeMock = {
-      transaction: () => of({})
+      transaction: () => of({}),
+      balanceOf: () => of({}),
+      transactionsOf: () => of([])
     };
 
     TestBed.configureTestingModule({

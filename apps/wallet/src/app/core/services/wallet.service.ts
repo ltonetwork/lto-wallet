@@ -153,9 +153,13 @@ export class WalletServiceImpl implements WalletService {
           transaction => transaction.status === 'canceled'
         );
 
-        // "Unconfirmed" lease tranasactions have status === 'canceled' for a some reason
-        // So we need to merge  "unconfirmedLease" and "canceledLease" and remove doubles
-        const uniqueLease = [...unconfirmedLease, ...canceledLease].reduce(
+        // Remove dublicates
+        const uniqueLease = [
+          ...activeLease,
+          ...cancelLease,
+          ...unconfirmedLease,
+          ...canceledLease
+        ].reduce(
           (obj, transaction) => {
             return {
               ...obj,
@@ -164,7 +168,8 @@ export class WalletServiceImpl implements WalletService {
           },
           {} as any
         );
-        return [...activeLease, ...cancelLease, ...Object.values(uniqueLease)];
+
+        return Object.values(uniqueLease);
       })
     );
 

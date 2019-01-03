@@ -1,5 +1,6 @@
 declare namespace LTO {
   export interface Transaction {
+    id: string;
     unconfirmed?: boolean;
     sender: string;
     type: number;

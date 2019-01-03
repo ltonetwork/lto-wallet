@@ -48,9 +48,7 @@
 <ng-template #step3Tpl>
   <div class="step-3 narrow">
     <p>Please carefully write down these 15 words</p>
-    <div class="words">
-      <span class="word" *ngFor="let word of seedWords">{{ word }}</span>
-    </div>
+    <lto-wallet-seed [seed]="seedWords"></lto-wallet-seed>
   </div>
   <div class="buttons">
     <div class="narrow">

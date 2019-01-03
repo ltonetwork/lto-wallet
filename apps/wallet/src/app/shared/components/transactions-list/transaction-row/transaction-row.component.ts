@@ -31,6 +31,10 @@ export class TransactionRowComponent implements OnInit {
     );
   }
 
+  get cancelButtonDisabled(): boolean {
+    return this.transaction.isCanceling || this._cancelClickedOn === this.transaction.id;
+  }
+
   get transactionIcon(): string {
     if (this.transaction.unconfirmed) {
       return 'hourglass_empty';
@@ -43,11 +47,18 @@ export class TransactionRowComponent implements OnInit {
     return '';
   }
 
+  /**
+   * When we click "cancel" button we need to disable it immediatelly
+   * So we just store id of transaction we want to cancel
+   */
+  private _cancelClickedOn: string = '';
+
   constructor() {}
 
   ngOnInit() {}
 
   _cancelLease(event: Event) {
+    this._cancelClickedOn = this.transaction.id;
     event.stopPropagation();
     this.cancelLease.next();
   }

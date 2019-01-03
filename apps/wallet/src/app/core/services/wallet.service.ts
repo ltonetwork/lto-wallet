@@ -1,5 +1,5 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
-import { Observable, timer, Subject, merge, zip, of } from 'rxjs';
+import { Observable, timer, Subject, merge, zip, of, combineLatest } from 'rxjs';
 import {
   shareReplay,
   share,
@@ -125,7 +125,7 @@ export class WalletServiceImpl implements WalletService {
 
     this.leasingTransactions$ = this.update$.pipe(
       switchMap(wallet => {
-        return zip(
+        return combineLatest(
           publicNode
             .activeLease(wallet.address)
             .pipe(catchError(err => of([] as LTO.Transaction[]))),
@@ -146,12 +146,25 @@ export class WalletServiceImpl implements WalletService {
         const unconfirmedLease = transactionsFilter(TransactionTypes.LEASING)(
           allTransactions
         ).filter(transaction => transaction.unconfirmed);
+
         // New endpoint does not return 'canceled lease' so we need to take them from
         // allTransactions aswel
         const canceledLease = transactionsFilter(TransactionTypes.LEASING)(allTransactions).filter(
           transaction => transaction.status === 'canceled'
         );
-        return [...activeLease, ...cancelLease, ...unconfirmedLease, ...canceledLease];
+
+        // "Unconfirmed" lease tranasactions have status === 'canceled' for a some reason
+        // So we need to merge  "unconfirmedLease" and "canceledLease" and remove doubles
+        const uniqueLease = [...unconfirmedLease, ...canceledLease].reduce(
+          (obj, transaction) => {
+            return {
+              ...obj,
+              [transaction.id]: transaction
+            };
+          },
+          {} as any
+        );
+        return [...activeLease, ...cancelLease, ...Object.values(uniqueLease)];
       })
     );
 

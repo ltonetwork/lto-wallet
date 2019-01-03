@@ -21,7 +21,7 @@
     </div>
     <button
       *ngIf="showCancelLease"
-      [disabled]="transaction.isCanceling"
+      [disabled]="cancelButtonDisabled"
       mat-button
       color="warn"
       (click)="_cancelLease($event)"

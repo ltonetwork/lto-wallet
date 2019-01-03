@@ -1,5 +1,5 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
-import { Observable, timer, Subject, merge, zip, of } from 'rxjs';
+import { Observable, timer, Subject, merge, zip, of, combineLatest } from 'rxjs';
 import {
   shareReplay,
   share,
@@ -125,7 +125,7 @@ export class WalletServiceImpl implements WalletService {
 
     this.leasingTransactions$ = this.update$.pipe(
       switchMap(wallet => {
-        return zip(
+        return combineLatest(
           publicNode
             .activeLease(wallet.address)
             .pipe(catchError(err => of([] as LTO.Transaction[]))),
@@ -153,13 +153,9 @@ export class WalletServiceImpl implements WalletService {
           transaction => transaction.status === 'canceled'
         );
 
-        // Remove dublicates
-        const uniqueLease = [
-          ...activeLease,
-          ...cancelLease,
-          ...unconfirmedLease,
-          ...canceledLease
-        ].reduce(
+        // "Unconfirmed" lease tranasactions have status === 'canceled' for a some reason
+        // So we need to merge  "unconfirmedLease" and "canceledLease" and remove doubles
+        const uniqueLease = [...unconfirmedLease, ...canceledLease].reduce(
           (obj, transaction) => {
             return {
               ...obj,
@@ -168,8 +164,7 @@ export class WalletServiceImpl implements WalletService {
           },
           {} as any
         );
-
-        return Object.values(uniqueLease);
+        return [...activeLease, ...cancelLease, ...Object.values(uniqueLease)];
       })
     );
 

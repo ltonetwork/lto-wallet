@@ -24,6 +24,6 @@ deploy:
     secure: "Jy/fEE5XklE+5hq0XcbarRrdmm9+WNmppMlJNnZN1ZA1L2V7a3yzc/oKW4B/XFH6vBSPrEJ30Q20Bgtbo+lR90l9CGKzMA/ed+QfNS0rZoN4XcmfagTcU9iLohOEbhd3ENvj+lkvYJx/RDGY3GMsyOya1VdVM6B3Zvhu+vf83v5WgIL714Zo3XAe0BUmdHH2xyXUw61oRNyDdvlXT767JqqwRT8lgzEwY8KYLx+D1z3pfDPXBE7GQfzwF7qHyxkMIiD8dbIB+s8gH5Ok0doWCcsW6e3X4e8DxEwWWzQ65Nt2vSIJx3dxMU3VOtLLut5wY5zDIOH29qlPoFOzXpupH7nV8K1maccI+/RyWL31axZqpyDRtBj1cqCnLvAmN6ZhAqJiFNQYgACtJVraFJ4hxTKgbtIRw/e1iHs+Qb5jMylRPz4ksRLx7U4HAr1z9ZUpjPVmw05Rf2UxJksPgPwFPcP8o/zaZjba3hSFVF7xQHhXXWP7Gm8hsJryEvKDDXP2QBOtiZt1PRuPc4og4zCHiXg7dLcWE2HIMi2DfAIjizwvu3zGaQ1GN9htxQXVam+kLN3qMqfddfF/z/ohJVRjDMgyX9LKEI6L+DBtqL5AEAbxGgWJnbGmbYQQsNUZQCB74yCugWL33sqQatXZIHPvqhiAyYTwSLCwAM7Q+FYTQ50="
   region: eu-west-1
   bucket: tn-lto-wallet
-  local_dir: legalthings/lto-ui/dist/wallet
+  local_dir: dist
   on:
     branch: master

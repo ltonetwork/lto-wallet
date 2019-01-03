@@ -8,6 +8,7 @@ import {
   TransactionsSectionModule,
   AMOUNT_DIVIDER
 } from '@legalthings-one/component-kit';
+import { MatSnackBarModule } from '@angular/material';
 
 import { BlockComponent } from './block.component';
 import { of } from 'rxjs';
@@ -19,7 +20,10 @@ describe('BlockComponent', () => {
 
   beforeEach(async(() => {
     publicNodeMock = {
-      block: () => of({})
+      block: () => of({}),
+      height: () => of(100),
+      transaction: () => of({}),
+      balanceOf: () => of({})
     };
 
     TestBed.configureTestingModule({
@@ -29,7 +33,8 @@ describe('BlockComponent', () => {
         TransactionsSectionModule,
         KeyvalueListModule,
         MatCardModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatSnackBarModule
       ],
       declarations: [BlockComponent],
       providers: [

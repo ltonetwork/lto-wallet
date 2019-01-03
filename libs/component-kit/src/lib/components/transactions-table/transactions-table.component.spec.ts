@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AmountPipeModule, AMOUNT_DIVIDER } from '../../pipes';
+import { AmountPipeModule, AMOUNT_DIVIDER, LinksOutletModule } from '../../pipes';
 import { MatTableModule } from '@angular/material';
 
 import { TransactionsTableComponent } from './transactions-table.component';
@@ -11,7 +11,7 @@ describe('TransactionTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatTableModule, RouterTestingModule, AmountPipeModule],
+      imports: [MatTableModule, RouterTestingModule, AmountPipeModule, LinksOutletModule],
       declarations: [TransactionsTableComponent],
       providers: [
         {

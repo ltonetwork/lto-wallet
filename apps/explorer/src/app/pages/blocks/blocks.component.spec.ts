@@ -14,7 +14,8 @@ describe('BlocksComponent', () => {
 
   beforeEach(async(() => {
     publicNodeMock = {
-      lastBlocks: () => of([])
+      lastBlocks: () => of([]),
+      transaction: () => of({})
     };
 
     TestBed.configureTestingModule({

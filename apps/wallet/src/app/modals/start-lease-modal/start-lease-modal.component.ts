@@ -1,13 +1,20 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { WalletService, IBalance } from '../../core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { WalletService, IBalance, toPromise } from '../../core';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
 
 export interface LeaseData {
   amount: number;
   recipient: string;
+  fee: number;
+}
+
+interface LeaseFormData {
+  recipient: string;
+  amount: number;
   fee: number;
 }
 
@@ -22,7 +29,8 @@ export class StartLeaseModalComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<any, LeaseData>,
-    private wallet: WalletService,
+    wallet: WalletService,
+    private confirmDialog: TransactionConfirmDialog,
     @Inject(MAT_DIALOG_DATA) public balance: number
   ) {
     this.balance$ = wallet.balance$;
@@ -44,7 +52,34 @@ export class StartLeaseModalComponent implements OnInit {
       return;
     }
 
-    const { amount, recipient, fee } = this.leaseForm.value;
-    this.dialogRef.close({ amount, recipient, fee });
+    const formData = this.leaseForm.getRawValue() as LeaseFormData;
+
+    const confirmed = await this._confirm(formData);
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.dialogRef.close(formData);
+  }
+
+  private _confirm(formData: LeaseFormData) {
+    return this.confirmDialog.show({
+      title: 'Confirm lease',
+      transactionData: [
+        {
+          label: 'To',
+          value: formData.recipient
+        },
+        {
+          label: 'Amount',
+          value: formData.amount.toString()
+        },
+        {
+          label: 'Fee',
+          value: formData.fee.toString()
+        }
+      ]
+    });
   }
 }

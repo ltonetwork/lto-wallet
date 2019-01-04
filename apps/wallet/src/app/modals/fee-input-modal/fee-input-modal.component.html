@@ -3,7 +3,7 @@
   <form>
     <mat-form-field>
       <mat-label>Hash</mat-label>
-      <input type="text" matInput name="hash" value="{{hash}}" disabled />
+      <input type="text" matInput name="hash" value="{{ hash }}" disabled />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Transaction fee</mat-label>
@@ -13,7 +13,7 @@
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button color="primary" [mat-dialog-close]="fee" [disabled]="feeInput.invalid">
+  <button mat-button color="primary" (click)="closeDialog()" [disabled]="feeInput.invalid">
     Anchor
   </button>
 </mat-dialog-actions>

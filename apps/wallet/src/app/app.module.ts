@@ -13,7 +13,7 @@ import {
   LTO_PUBLIC_API,
   AMOUNT_DIVIDER,
   LTO_BRIDGE_HOST,
-  TRANSFER_FEE,
+  DEFAULT_TRANSFER_FEE,
   ANCHOR_FEE,
   BRIDGE_ENABLED
 } from './tokens';
@@ -67,7 +67,7 @@ import { SettingsPageComponent, SigninComponent } from './pages';
       useValue: 'https://bridge.lto.network'
     },
     {
-      provide: TRANSFER_FEE,
+      provide: DEFAULT_TRANSFER_FEE,
       useValue: 100000
     },
     {

@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { WalletService, IBalance, formControlErrors, AddressValidator } from '../../core';
-import { DEFAUTL_TRANSFER_FEE } from '../../tokens';
+import { DEFAULT_TRANSFER_FEE } from '../../tokens';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
@@ -38,7 +38,7 @@ export class StartLeaseModalComponent implements OnInit {
     private confirmDialog: TransactionConfirmDialog,
     private _addressValidator: AddressValidator,
     @Inject(MAT_DIALOG_DATA) public balance: number,
-    @Inject(DEFAUTL_TRANSFER_FEE) public defaultFee: number
+    @Inject(DEFAULT_TRANSFER_FEE) public defaultFee: number
   ) {}
 
   ngOnInit() {

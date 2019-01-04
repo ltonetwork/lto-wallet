@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { WalletService, IBalance, formControlErrors, AddressValidator } from '../../core';
 import { take } from 'rxjs/operators';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
-import { DEFAUTL_TRANSFER_FEE } from '../../tokens';
+import { DEFAULT_TRANSFER_FEE } from '../../tokens';
 
 interface FormValue {
   recipient: string;
@@ -35,7 +35,7 @@ export class MakeTransactionComponent implements OnInit {
     private snackbar: MatSnackBar,
     private transactionConfirmDialog: TransactionConfirmDialog,
     private _addressValidator: AddressValidator,
-    @Inject(DEFAUTL_TRANSFER_FEE) private _defaultFee: number
+    @Inject(DEFAULT_TRANSFER_FEE) private _defaultFee: number
   ) {}
 
   ngOnInit() {

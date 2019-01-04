@@ -15,7 +15,7 @@ export const AMOUNT_DIVIDER = new InjectionToken<number>('AMOUNT_DIVIDER');
 
 export const LTO_BRIDGE_HOST = new InjectionToken<string>('LTO_BRIDGE_API');
 
-export const TRANSFER_FEE = new InjectionToken<number>('TRANSFER_FEE');
+export const DEFAUTL_TRANSFER_FEE = new InjectionToken<number>('DEFAUTL_TRANSFER_FEE');
 export const ANCHOR_FEE = new InjectionToken<number>('ANCHOR_FEE');
 
 /**

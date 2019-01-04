@@ -2,7 +2,14 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppbarModule, SidenavModule } from './components';
 
-import { PublicNode, BridgeService, EncoderService, WalletService, AuthService } from './services';
+import {
+  PublicNode,
+  BridgeService,
+  EncoderService,
+  WalletService,
+  AuthService,
+  AddressValidator
+} from './services';
 
 @NgModule({
   declarations: [],
@@ -13,7 +20,8 @@ import { PublicNode, BridgeService, EncoderService, WalletService, AuthService }
     BridgeService.provider,
     EncoderService,
     WalletService.provider,
-    AuthService.provider
+    AuthService.provider,
+    AddressValidator.provider
   ]
 })
 export class CoreModule {}

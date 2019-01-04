@@ -4,6 +4,9 @@
     <mat-form-field>
       <mat-label>Recipient</mat-label>
       <input matInput formControlName="recipient" required />
+      <mat-error *ngIf="recipientErrors && recipientErrors.invalidAddress"
+        >Invalid address</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
       <mat-label>Amount</mat-label>
@@ -14,8 +17,8 @@
       </mat-error>
     </mat-form-field>
     <!--<mat-form-field>-->
-      <!--<mat-label>Attachment</mat-label>-->
-      <!--<input matInput formControlName="attachment" />-->
+    <!--<mat-label>Attachment</mat-label>-->
+    <!--<input matInput formControlName="attachment" />-->
     <!--</mat-form-field>-->
     <mat-form-field>
       <mat-label>Fee</mat-label>

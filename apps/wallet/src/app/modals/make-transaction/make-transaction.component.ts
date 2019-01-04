@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
-import { WalletService, IBalance, toPromise } from '../../core';
+import { WalletService, IBalance, formControlErrors, AddressValidator } from '../../core';
 import { take } from 'rxjs/operators';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
+import { DEFAUTL_TRANSFER_FEE } from '../../tokens';
 
 interface FormValue {
   recipient: string;
@@ -21,30 +22,42 @@ interface FormValue {
 export class MakeTransactionComponent implements OnInit {
   sendForm: FormGroup | null = null;
 
+  get recipientErrors() {
+    const errors = formControlErrors(this.sendForm, 'recipient');
+    return errors;
+  }
+
   balance$!: Observable<IBalance>;
 
   constructor(
     public dialogRef: MatDialogRef<any>,
     private wallet: WalletService,
     private snackbar: MatSnackBar,
-    private transactionConfirmDialog: TransactionConfirmDialog
+    private transactionConfirmDialog: TransactionConfirmDialog,
+    private _addressValidator: AddressValidator,
+    @Inject(DEFAUTL_TRANSFER_FEE) private _defaultFee: number
   ) {}
 
   ngOnInit() {
     this.balance$ = this.wallet.balance$;
 
     this.balance$.pipe(take(1)).subscribe(balance => {
-      const maxValue = balance.available / balance.amountDivider;
+      const maxTransactionValue = balance.available / balance.amountDivider;
+      const minTransactionValue = 1 / balance.amountDivider;
+      const fee = this._defaultFee / balance.amountDivider;
 
       this.sendForm = new FormGroup({
-        recipient: new FormControl('', [Validators.required]),
+        recipient: new FormControl('', [Validators.required, this._addressValidator]),
         amount: new FormControl(0, [
           Validators.required,
-          Validators.min(0),
-          Validators.max(maxValue)
+          Validators.min(minTransactionValue),
+          Validators.max(maxTransactionValue)
         ]),
         attachment: new FormControl('', []),
-        fee: new FormControl({ value: 0.001, disabled: true }, [Validators.required])
+        fee: new FormControl({ value: fee, disabled: true }, [
+          Validators.required,
+          Validators.min(minTransactionValue)
+        ])
       });
     });
   }

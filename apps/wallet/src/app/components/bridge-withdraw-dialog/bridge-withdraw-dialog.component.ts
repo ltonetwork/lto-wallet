@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { BridgeService, WalletService } from '../../core';
 import { take } from 'rxjs/operators';
-import { TRANSFER_FEE, AMOUNT_DIVIDER } from '../../tokens';
+import { DEFAUTL_TRANSFER_FEE, AMOUNT_DIVIDER } from '../../tokens';
 
 @Component({
   selector: 'lto-wallet-bridge-withdraw-dialog',
@@ -35,7 +35,7 @@ export class BridgeWithdrawDialogComponent implements OnInit {
   constructor(
     private bridgeService: BridgeService,
     private wallet: WalletService,
-    @Inject(TRANSFER_FEE) private TRANSFER_FEE: number,
+    @Inject(DEFAUTL_TRANSFER_FEE) private DEFAUTL_TRANSFER_FEE: number,
     @Inject(AMOUNT_DIVIDER) private AMOUNT_DIVIDER: number
   ) {
     bridgeService.burnRate$.pipe(take(1)).subscribe(burnRate => (this.burnRate = burnRate));
@@ -51,7 +51,7 @@ export class BridgeWithdrawDialogComponent implements OnInit {
     await this.wallet.withdraw(
       this.erc20Address,
       this.mainnetAmount,
-      this.TRANSFER_FEE / this.AMOUNT_DIVIDER,
+      this.DEFAUTL_TRANSFER_FEE / this.AMOUNT_DIVIDER,
       this.captchaResponse
     );
     this.step = 2;

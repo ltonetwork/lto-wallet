@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-import { WalletService, IBalance, toPromise } from '../../core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { WalletService, IBalance, formControlErrors, AddressValidator } from '../../core';
+import { DEFAUTL_TRANSFER_FEE } from '../../tokens';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
@@ -25,27 +26,43 @@ interface LeaseFormData {
 })
 export class StartLeaseModalComponent implements OnInit {
   leaseForm: FormGroup | null = null;
-  balance$: Observable<IBalance>;
+  balance$!: Observable<IBalance>;
+
+  get recipientErrors() {
+    return formControlErrors(this.leaseForm, 'recipient');
+  }
 
   constructor(
     private dialogRef: MatDialogRef<any, LeaseData>,
-    wallet: WalletService,
+    private _wallet: WalletService,
     private confirmDialog: TransactionConfirmDialog,
-    @Inject(MAT_DIALOG_DATA) public balance: number
-  ) {
-    this.balance$ = wallet.balance$;
+    private _addressValidator: AddressValidator,
+    @Inject(MAT_DIALOG_DATA) public balance: number,
+    @Inject(DEFAUTL_TRANSFER_FEE) public defaultFee: number
+  ) {}
 
-    wallet.balance$.pipe(take(1)).subscribe(balance => {
-      const max = balance.available / balance.amountDivider;
+  ngOnInit() {
+    this.balance$ = this._wallet.balance$;
+
+    this._wallet.balance$.pipe(take(1)).subscribe(balance => {
+      const maxAmount = balance.available / balance.amountDivider;
+      const minAmount = 1 / balance.amountDivider;
+      const fee = this.defaultFee / balance.amountDivider;
+
       this.leaseForm = new FormGroup({
-        recipient: new FormControl('', [Validators.required]),
-        amount: new FormControl(0, [Validators.required, Validators.min(0), Validators.max(max)]),
-        fee: new FormControl({ value: 0.001, disabled: true }, [Validators.required])
+        recipient: new FormControl('', [Validators.required, this._addressValidator]),
+        amount: new FormControl(0, [
+          Validators.required,
+          Validators.min(minAmount),
+          Validators.max(maxAmount)
+        ]),
+        fee: new FormControl({ value: fee, disabled: true }, [
+          Validators.required,
+          Validators.min(minAmount)
+        ])
       });
     });
   }
-
-  ngOnInit() {}
 
   async lease() {
     if (!this.leaseForm) {

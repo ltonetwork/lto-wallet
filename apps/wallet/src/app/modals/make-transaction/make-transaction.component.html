@@ -16,10 +16,10 @@
         Max value: {{ (balance$ | async).available | amountDivide }}
       </mat-error>
     </mat-form-field>
-    <!--<mat-form-field>-->
-    <!--<mat-label>Attachment</mat-label>-->
-    <!--<input matInput formControlName="attachment" />-->
-    <!--</mat-form-field>-->
+    <mat-form-field>
+      <mat-label>Attachment</mat-label>
+      <input matInput formControlName="attachment" />
+    </mat-form-field>
     <mat-form-field>
       <mat-label>Fee</mat-label>
       <input matInput formControlName="fee" />

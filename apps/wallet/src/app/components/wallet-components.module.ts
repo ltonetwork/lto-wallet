@@ -8,6 +8,7 @@ import { BridgeDepositDialogComponent } from './bridge-deposit-dialog/bridge-dep
 import { BridgeWithdrawDialogComponent } from './bridge-withdraw-dialog/bridge-withdraw-dialog.component';
 import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
 import { HiddenTextComponent } from './hidden-text/hidden-text.component';
+import { TransactionConfirmationDialogModule } from './transaction-confirmation-dialog';
 
 @NgModule({
   imports: [SharedModule, QRCodeModule, RecaptchaModule],
@@ -22,7 +23,8 @@ import { HiddenTextComponent } from './hidden-text/hidden-text.component';
     AmountInputComponent,
     BridgeDepositDialogComponent,
     BridgeWithdrawDialogComponent,
-    HiddenTextComponent
+    HiddenTextComponent,
+    TransactionConfirmationDialogModule
   ],
   entryComponents: [
     BridgeDepositDialogComponent,

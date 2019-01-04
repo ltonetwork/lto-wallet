@@ -1,10 +1,18 @@
 import { LTO_NETWORK_BYTE } from '../../tokens';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { LTO } from 'lto-api';
 
 function addressValidatorFactory(networkByte: string): ValidatorFn {
   return function(control: any) {
-    const invalidAddress = true;
-    return invalidAddress ? { invalidAddress: { value: control.value } } : null;
+    const value = control.value;
+    let isValid = true;
+
+    if (value) {
+      const lto = new LTO(networkByte);
+      isValid = lto.isValidAddress(control.value);
+    }
+
+    return isValid ? null : { invalidAddress: { value: control.value } };
   };
 }
 

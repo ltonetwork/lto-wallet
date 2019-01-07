@@ -76,7 +76,7 @@ import { SettingsPageComponent, SigninComponent } from './pages';
     },
     {
       provide: BRIDGE_ENABLED,
-      useValue: false
+      useValue: true
     }
   ],
   bootstrap: [AppComponent],

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BridgeService } from '../../../../core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
 @Component({
@@ -25,7 +25,7 @@ export class SwapDialogComponent implements OnInit {
 
   goToStep2() {
     this.bridgeAddress$ = this._bridge
-      .depositTo(this.wavesWallet, this.captcha)
+      .depositTo(this.wavesWallet, this.captcha, 'WAVES')
       .pipe(shareReplay(1));
     this.step = 2;
   }

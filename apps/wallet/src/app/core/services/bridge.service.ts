@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map, tap, shareReplay } from 'rxjs/operators';
 import { LTO_BRIDGE_HOST, BRIDGE_ENABLED } from '../../tokens';
 
-type TokenType = 'LTO' | 'LTO20';
+type TokenType = 'LTO' | 'LTO20' | 'WAVES';
 
 interface BridgeCache {
   deposit: {
@@ -41,12 +41,12 @@ export class BridgeServiceImpl implements BridgeService {
     this.bridgeStats$.subscribe();
   }
 
-  depositTo(address: string, captcha: string): Observable<string> {
+  depositTo(address: string, captcha: string, tokenType: TokenType = 'LTO20'): Observable<string> {
     if (this.cache.deposit[address]) {
       return of(this.cache.deposit[address]);
     }
 
-    return this.createBridgeAddress('LTO20', 'LTO', address, captcha).pipe(
+    return this.createBridgeAddress(tokenType, 'LTO', address, captcha).pipe(
       tap(bridge => {
         this.cache.deposit[address] = bridge;
         this.saveCache(this.cache);
@@ -140,7 +140,7 @@ export abstract class BridgeService {
    * Generates bridge addres to convert LTO24 -> LTO and transfer on your account
    * @param address - your account address
    */
-  abstract depositTo(address: string, captcha: string): Observable<string>;
+  abstract depositTo(address: string, captcha: string, tokenType: TokenType): Observable<string>;
 
   /**
    * Generate bridge addres to convert LTO -> LTO20

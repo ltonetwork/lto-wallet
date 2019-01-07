@@ -51,6 +51,9 @@
 
 <ng-template #step2Tpl>
   <div class="page-2 page" *ngIf="bridgeAddress$" [ngSuspense]="bridgeAddress$">
+    <ng-container *ngSuspensePlaceholder="500">
+      <lto-loading-spinner></lto-loading-spinner>
+    </ng-container>
     <ng-container *ngSuspenseSuccess="let bridgeAddress">
       <p>Please send the LegalThings One Waves tokens to the following wallet address</p>
       <div class="address-box" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">

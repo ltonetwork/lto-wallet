@@ -1,7 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialModule } from '../../../../shared/material.module';
+
+import { RecaptchaModule } from 'ng-recaptcha';
+import { BridgeServiceMock } from '../../../../core/mocks';
+import { QRCodeModule } from 'angularx-qrcode';
+import { SharedModule } from '../../../../shared';
 
 import { SwapDialogComponent } from './swap-dialog.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SwapDialogComponent', () => {
   let component: SwapDialogComponent;
@@ -9,8 +14,9 @@ describe('SwapDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule],
-      declarations: [SwapDialogComponent]
+      imports: [SharedModule, RecaptchaModule, QRCodeModule, NoopAnimationsModule],
+      declarations: [SwapDialogComponent],
+      providers: [BridgeServiceMock.provider]
     }).compileComponents();
   }));
 

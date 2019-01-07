@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { WalletService, IBalance, formControlErrors, AddressValidator } from '../../core';
+import { WalletService, IBalance, formControlErrors, ADDRESS_VALIDATOR } from '../../core';
 import { DEFAULT_TRANSFER_FEE } from '../../tokens';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -36,7 +36,7 @@ export class StartLeaseModalComponent implements OnInit {
     private dialogRef: MatDialogRef<any, LeaseData>,
     private _wallet: WalletService,
     private confirmDialog: TransactionConfirmDialog,
-    private _addressValidator: AddressValidator,
+    @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn,
     @Inject(MAT_DIALOG_DATA) public balance: number,
     @Inject(DEFAULT_TRANSFER_FEE) public defaultFee: number
   ) {}

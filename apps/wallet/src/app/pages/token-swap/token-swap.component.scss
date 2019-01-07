@@ -1,0 +1,18 @@
+mat-card-content {
+  .guts {
+    text-align: center;
+    margin: 0 auto;
+    padding: 50px 24px;
+    box-sizing: border-box;
+    max-width: 470px;
+    width: 100%;
+
+    p {
+      font-size: 18px;
+    }
+
+    .button-box {
+      margin-top: 80px;
+    }
+  }
+}

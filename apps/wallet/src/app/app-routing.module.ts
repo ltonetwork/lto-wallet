@@ -53,6 +53,10 @@ const routes: Routes = [
         component: SettingsPageComponent
       },
       {
+        path: 'seed-swap',
+        loadChildren: './pages/token-swap/token-swap.module#TokenSwapModule'
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'transfers'

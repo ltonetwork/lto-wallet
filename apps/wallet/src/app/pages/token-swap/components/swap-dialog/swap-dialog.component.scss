@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  width: 500px;
+}
+
+mat-dialog-content {
+  text-align: center;
+
+  h3 {
+    font-weight: 600;
+  }
+}
+
+.page-1 {
+  .token-logos {
+    .logo {
+      padding: 16px;
+      border: 1px solid #ebebeb;
+      border-radius: 8px;
+    }
+  }
+}

@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
-import { WalletService, IBalance, formControlErrors, AddressValidator } from '../../core';
+import { WalletService, IBalance, formControlErrors, ADDRESS_VALIDATOR } from '../../core';
 import { take } from 'rxjs/operators';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
 import { DEFAULT_TRANSFER_FEE } from '../../tokens';
@@ -34,7 +34,7 @@ export class MakeTransactionComponent implements OnInit {
     private wallet: WalletService,
     private snackbar: MatSnackBar,
     private transactionConfirmDialog: TransactionConfirmDialog,
-    private _addressValidator: AddressValidator,
+    @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn,
     @Inject(DEFAULT_TRANSFER_FEE) private _defaultFee: number
   ) {}
 

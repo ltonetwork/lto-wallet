@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SharedModule } from '../../shared';
 
 import { TokenSwapComponent } from './token-swap.component';
 
@@ -8,9 +9,9 @@ describe('TokenSwapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TokenSwapComponent ]
-    })
-    .compileComponents();
+      imports: [SharedModule],
+      declarations: [TokenSwapComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

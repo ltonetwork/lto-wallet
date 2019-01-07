@@ -1,21 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer } from '@angular/platform-browser';
-import {
-  MatButtonModule,
-  MatIconModule,
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatListModule,
-  MatRippleModule,
-  MatTooltipModule,
-  MatSnackBarModule,
-  MatSidenavModule,
-  MatTableModule,
-  MatDialogModule,
-  MatIconRegistry
-} from '@angular/material';
+import { MaterialModule } from './material.module';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import {
@@ -35,21 +21,10 @@ import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './
     CommonModule,
     ContentSectionModule,
     FlexLayoutModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatListModule,
-    MatRippleModule,
-    MatDialogModule,
-    MatTooltipModule,
+    MaterialModule,
     CredentialsFormModule,
-    MatSnackBarModule,
     CopyableTextModule,
     FormsModule,
-    MatSidenavModule,
-    MatTableModule,
     LoadingSpinnerModule,
     AmountDividePipeModule,
     TypeLabelPipeModule,
@@ -58,11 +33,4 @@ import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './
     TransactionsListModule
   ]
 })
-export class SharedModule {
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
-      'anchor',
-      sanitizer.bypassSecurityTrustResourceUrl('/assets/icons/anchor.svg')
-    );
-  }
-}
+export class SharedModule {}

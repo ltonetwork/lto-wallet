@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MaterialModule } from '../../../../shared/material.module';
 
 import { SwapDialogComponent } from './swap-dialog.component';
 
@@ -8,9 +9,9 @@ describe('SwapDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SwapDialogComponent ]
-    })
-    .compileComponents();
+      imports: [MaterialModule],
+      declarations: [SwapDialogComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

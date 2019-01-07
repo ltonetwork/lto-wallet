@@ -8,7 +8,7 @@ import {
   EncoderService,
   WalletService,
   AuthService,
-  AddressValidator
+  addresValidatorProvider
 } from './services';
 
 @NgModule({
@@ -21,7 +21,7 @@ import {
     EncoderService,
     WalletService.provider,
     AuthService.provider,
-    AddressValidator.provider
+    addresValidatorProvider
   ]
 })
 export class CoreModule {}

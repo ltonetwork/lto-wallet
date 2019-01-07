@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { SwapDialogComponent } from './components/swap-dialog/swap-dialog.component';
 
 @Component({
   selector: 'lto-wallet-token-swap',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./token-swap.component.scss']
 })
 export class TokenSwapComponent implements OnInit {
+  constructor(private _matDialog: MatDialog) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  showSwapDialog() {
+    this._matDialog.open(SwapDialogComponent);
   }
-
 }

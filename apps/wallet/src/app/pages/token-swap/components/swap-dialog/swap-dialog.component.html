@@ -1,0 +1,15 @@
+<h3 mat-dialog-title>Dialog title</h3>
+<mat-dialog-content>
+  <ng-container *ngTemplateOutlet="step1Tpl"></ng-container>
+</mat-dialog-content>
+
+<ng-template #step1Tpl>
+  <div class="page-1">
+    <h3 class="mat-h3">Please fill in your Waves wallet address.</h3>
+    <p>If you forgot your address you can click one of the Clients you’ve used.</p>
+    <div class="token-logos" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="32px">
+      <div class="logo"><span>Waves Beta Client</span></div>
+      <div class="logo"><span>Waves Lite Client</span></div>
+    </div>
+  </div>
+</ng-template>

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, combineLatest } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
 import { WalletService, BridgeService, toPromise } from '../../core';
 
 @Component({

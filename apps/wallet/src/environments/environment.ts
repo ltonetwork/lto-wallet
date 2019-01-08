@@ -3,8 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  networkByte: 'T',
+  transfer_fee: 100000,
+  anchor_fee: 100000,
+  bridge: false,
+  lto_api_url: 'https://testnet.lto.network/'
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

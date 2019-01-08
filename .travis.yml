@@ -16,7 +16,7 @@ script:
 - npm test
 
 before_deploy:
-- npm run build -- wallet --prod
+- npm run build -- wallet --configuration=testnet
 
 deploy:
 - provider: s3

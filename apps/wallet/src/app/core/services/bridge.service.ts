@@ -140,7 +140,7 @@ export abstract class BridgeService {
    * Generates bridge addres to convert LTO24 -> LTO and transfer on your account
    * @param address - your account address
    */
-  abstract depositTo(address: string, captcha: string, tokenType: TokenType): Observable<string>;
+  abstract depositTo(address: string, captcha: string, tokenType?: TokenType): Observable<string>;
 
   /**
    * Generate bridge addres to convert LTO -> LTO20

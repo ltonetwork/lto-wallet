@@ -1,5 +1,11 @@
-<mat-sidenav-container fxFlexFill [hasBackdrop]="false">
-  <mat-sidenav [opened]="sidenavOpened$ | async" mode="side" class="mat-elevation-z6">
+<mat-sidenav-container fxFlexFill [hasBackdrop]="hasBackdrop$ | async" (backdropClick)="closeSidenav()">
+  <mat-sidenav
+    *ngIf="authenticated$ | async"
+    [opened]="opened$ | async"
+    [mode]="mode$ | async"
+    class="mat-elevation-z6"
+    [disableClose]="true"
+  >
     <lto-sidenav></lto-sidenav>
   </mat-sidenav>
   <mat-sidenav-content>

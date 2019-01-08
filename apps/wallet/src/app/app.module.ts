@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecaptchaModule, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 import { SharedModule } from './shared';
+import { BREAKPOINT, DEFAULT_BREAKPOINTS } from '@angular/flex-layout';
 
 import { CoreModule } from './core/core.module';
 import {
@@ -42,6 +43,36 @@ import { SettingsPageComponent, SigninComponent } from './pages';
     WalletComponentsModule
   ],
   providers: [
+    {
+      provide: BREAKPOINT,
+      useValue: [
+        {
+          alias: 'md',
+          suffix: 'Md',
+          mediaQuery: 'screen and (min-width: 960px) and (max-width: 1499px)',
+          overlapping: false
+        },
+        {
+          alias: 'lg',
+          suffix: 'Lg',
+          mediaQuery: 'screen and (min-width: 1500px) and (max-width: 1919px)',
+          overlapping: false
+        },
+        {
+          alias: 'gt-md',
+          suffix: 'GtMd',
+          mediaQuery: 'screen and (min-width: 1500px)',
+          overlapping: false
+        },
+        {
+          alias: 'lt-lg',
+          suffix: 'LtLg',
+          mediaQuery: 'screen and (max-width: 1499px)',
+          overlapping: false
+        }
+      ],
+      multi: true
+    },
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {

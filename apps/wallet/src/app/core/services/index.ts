@@ -8,3 +8,4 @@ export {
   addressValidatorFactory,
   addresValidatorProvider
 } from './address-validator';
+export { Sidenav, SidenavMode } from './sidenav';

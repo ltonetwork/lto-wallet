@@ -11,6 +11,8 @@ branches:
   - master
 
 script:
+- npm run build -- wallet
+- npm run build -- explorer
 - npm test
 
 before_deploy:

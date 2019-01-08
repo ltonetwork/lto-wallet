@@ -24,6 +24,8 @@ import { WalletComponentsModule } from './components/wallet-components.module';
 import { LeasingComponent } from './leasing/leasing.component';
 import { SettingsPageComponent, SigninComponent } from './pages';
 
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,13 +83,13 @@ import { SettingsPageComponent, SigninComponent } from './pages';
     },
     {
       provide: LTO_NETWORK_BYTE,
-      useValue: 'T'
+      useValue: environment.networkByte
     },
     {
       provide: LTO_PUBLIC_API,
       // useValue: 'https://nodes.wavesnodes.com/'
       // useValue: 'https://testnet.legalthings.one/'
-      useValue: 'https://testnet.lto.network/'
+      useValue: environment.lto_api_url
     },
     {
       provide: AMOUNT_DIVIDER,
@@ -99,15 +101,15 @@ import { SettingsPageComponent, SigninComponent } from './pages';
     },
     {
       provide: DEFAULT_TRANSFER_FEE,
-      useValue: 100000
+      useValue: environment.transfer_fee
     },
     {
       provide: ANCHOR_FEE,
-      useValue: 100000
+      useValue: environment.anchor_fee
     },
     {
       provide: BRIDGE_ENABLED,
-      useValue: false
+      useValue: environment.bridge
     }
   ],
   bootstrap: [AppComponent],

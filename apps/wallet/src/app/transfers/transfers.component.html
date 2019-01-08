@@ -7,7 +7,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <lto-content-section title="Transfers" subtitle="Dashboard">
-      <div class="balance" fxLayout="row" *ngIf="(balance$ | async) as balance" fxLayoutGap="24px">
+      <div class="balance" fxLayout="row" fxLayout.lt-md="column" *ngIf="(balance$ | async) as balance" fxLayoutGap="24px">
         <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
           <div class="label">Regular</div>
           <div class="value">{{ balance.regular | amountDivide }}</div>

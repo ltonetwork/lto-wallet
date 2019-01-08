@@ -1,5 +1,11 @@
 <mat-toolbar class="mat-elevation-z1" fxLayout="row">
   <lto-brand *ngIf="(authenticated$ | async) !== true"></lto-brand>
+  <ng-container *ngIf="authenticated$ | async">
+    <button mat-icon-button fxHide fxShow.lt-lg (click)="openSidenav()" class="menu-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <lto-brand></lto-brand>
+  </ng-container>
   <span fxFlex="1 1 auto"></span>
   <div fxLayout="row" fxLayoutGap="8px" *ngIf="(authenticated$ | async) !== true">
     <a mat-button routerLink="/signin">Sign in</a>

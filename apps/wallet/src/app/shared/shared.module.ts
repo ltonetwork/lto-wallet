@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NgSuspenseModule } from 'ng-suspense';
 import { MaterialModule } from './material.module';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule, BREAKPOINTS, DEFAULT_BREAKPOINTS } from '@angular/flex-layout';
+
 import { FormsModule } from '@angular/forms';
 import {
   ContentSectionModule,

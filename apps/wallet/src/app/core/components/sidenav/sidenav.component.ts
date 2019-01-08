@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { BRIDGE_ENABLED } from '../../../tokens';
 
 @Component({
   selector: 'lto-sidenav',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
-  constructor() {}
+  constructor(@Inject(BRIDGE_ENABLED) public bridgeEnabled: boolean) {}
 
   ngOnInit() {}
 

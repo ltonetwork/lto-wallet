@@ -1,15 +1,84 @@
 <h3 mat-dialog-title>Dialog title</h3>
 <mat-dialog-content>
-  <ng-container *ngTemplateOutlet="step1Tpl"></ng-container>
+  <ng-container [ngSwitch]="step">
+    <ng-container *ngSwitchCase="1">
+      <ng-container *ngTemplateOutlet="step1Tpl"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="2">
+      <ng-container *ngTemplateOutlet="step2Tpl"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="3">
+      <ng-container *ngTemplateOutlet="step3Tpl"></ng-container>
+    </ng-container>
+  </ng-container>
 </mat-dialog-content>
 
 <ng-template #step1Tpl>
-  <div class="page-1">
+  <div class="page-1 page">
     <h3 class="mat-h3">Please fill in your Waves wallet address.</h3>
     <p>If you forgot your address you can click one of the Clients you’ve used.</p>
     <div class="token-logos" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="32px">
-      <div class="logo"><span>Waves Beta Client</span></div>
-      <div class="logo"><span>Waves Lite Client</span></div>
+      <div class="logo">
+        <img src="assets/images/logo-beta.png" alt="" /> <span>Waves Beta Client</span>
+      </div>
+      <div class="logo">
+        <img src="assets/images/logo-alfa.png" alt="" /> <span>Waves Lite Client</span>
+      </div>
+    </div>
+
+    <div class="input-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Your Waves wallet address</mat-label>
+        <input type="text" matInput [(ngModel)]="wavesWallet" />
+      </mat-form-field>
+    </div>
+
+    <div class="captcha" fxLayout="row" fxLayoutAlign="center">
+      <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
+    </div>
+    <div class="button-box">
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="!wavesWallet || !captcha"
+        (click)="goToStep2()"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #step2Tpl>
+  <div class="page-2 page" *ngIf="bridgeAddress$" [ngSuspense]="bridgeAddress$">
+    <ng-container *ngSuspensePlaceholder="500">
+      <lto-loading-spinner></lto-loading-spinner>
+    </ng-container>
+    <ng-container *ngSuspenseSuccess="let bridgeAddress">
+      <p>Please send the LegalThings One Waves tokens to the following wallet address</p>
+      <div class="address-box" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">
+        <qrcode [size]="130" [qrdata]="bridgeAddress"></qrcode>
+        <p>OR</p>
+        <lto-copyable-text [text]="bridgeAddress"></lto-copyable-text>
+      </div>
+      <div class="button-box">
+        <button mat-flat-button color="primary" (click)="gotoStep3()">Next</button>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #step3Tpl>
+  <div class="page-3 page">
+    <img class="swap" src="assets/images/seed-swap.png" alt="" />
+    <h2 class="mat-h2">We’re processing your tokenswap.</h2>
+    <p>
+      Once we have received your Waves tokens, we will automatically swap them for LTO Network
+      Mainnet tokens.
+    </p>
+    <div class="button-box" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+      <button mat-flat-button color="primary" mat-dialog-close>Close</button>
+      <button mat-button (click)="backToStep2()">Go back</button>
     </div>
   </div>
 </ng-template>

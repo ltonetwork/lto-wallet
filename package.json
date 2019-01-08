@@ -30,7 +30,6 @@
     "lto-api": "^0.5.6",
     "moment": "^2.23.0",
     "ng-recaptcha": "^4.2.1",
-    "ng-suspense": "0.0.1",
     "ngx-file-drop": "^5.0.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",

@@ -50,11 +50,8 @@
 </ng-template>
 
 <ng-template #step2Tpl>
-  <div class="page-2 page" *ngIf="bridgeAddress$" [ngSuspense]="bridgeAddress$">
-    <ng-container *ngSuspensePlaceholder="500">
-      <lto-loading-spinner></lto-loading-spinner>
-    </ng-container>
-    <ng-container *ngSuspenseSuccess="let bridgeAddress">
+  <div class="page-2 page" *ngIf="bridgeAddress$; else loadingTpl">
+    <div *ngIf="bridgeAddress$ | async as bridgeAddress; else loadingTpl">
       <p>Please send the LegalThings One Waves tokens to the following wallet address</p>
       <div class="address-box" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="32px">
         <qrcode [size]="130" [qrdata]="bridgeAddress"></qrcode>
@@ -64,7 +61,7 @@
       <div class="button-box">
         <button mat-flat-button color="primary" (click)="gotoStep3()">Next</button>
       </div>
-    </ng-container>
+    </div>
   </div>
 </ng-template>
 
@@ -81,4 +78,8 @@
       <button mat-button (click)="backToStep2()">Go back</button>
     </div>
   </div>
+</ng-template>
+
+<ng-template #loadingTpl>
+    <lto-loading-spinner></lto-loading-spinner>
 </ng-template>

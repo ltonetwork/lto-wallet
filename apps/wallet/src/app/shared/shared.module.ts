@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgSuspenseModule } from 'ng-suspense';
 import { MaterialModule } from './material.module';
 
 import { FlexLayoutModule, BREAKPOINTS, DEFAULT_BREAKPOINTS } from '@angular/flex-layout';
@@ -32,8 +31,7 @@ import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './
     TypeLabelPipeModule,
     IsYouPipeModule,
     TransactionDetailsModule,
-    TransactionsListModule,
-    NgSuspenseModule
+    TransactionsListModule
   ]
 })
 export class SharedModule {}

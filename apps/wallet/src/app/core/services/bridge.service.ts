@@ -103,18 +103,6 @@ export class BridgeServiceImpl implements BridgeService {
   }
 }
 
-export class BridgeServiceDummy implements BridgeService {
-  burnRate$ = of(0);
-
-  depositTo(): Observable<string> {
-    return of('BRIDGE_IS_DISABLED');
-  }
-
-  withdrawTo(): Observable<string> {
-    return of('BRIDGE_IS_DISABLED');
-  }
-}
-
 export abstract class BridgeService {
   static provider: ClassProvider = {
     provide: BridgeService,

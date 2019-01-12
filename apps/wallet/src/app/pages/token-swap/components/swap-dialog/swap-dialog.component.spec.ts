@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecaptchaModule } from 'ng-recaptcha';
-import { BridgeServiceMock } from '../../../../core/mocks';
+import { BridgeServiceMock, WalletServiceMock } from '../../../../core/mocks';
 import { QRCodeModule } from 'angularx-qrcode';
 import { SharedModule } from '../../../../shared';
 
@@ -16,7 +16,7 @@ describe('SwapDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [SharedModule, RecaptchaModule, QRCodeModule, NoopAnimationsModule],
       declarations: [SwapDialogComponent],
-      providers: [BridgeServiceMock.provider]
+      providers: [BridgeServiceMock.provider, WalletServiceMock.provider]
     }).compileComponents();
   }));
 

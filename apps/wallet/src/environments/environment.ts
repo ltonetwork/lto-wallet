@@ -8,6 +8,7 @@ export const environment = {
   transfer_fee: 200000,
   anchor_fee: 100000,
   bridge: false,
+  swapPageEnabled: true,
   lto_api_url: 'https://testnet.lto.network/'
 };
 

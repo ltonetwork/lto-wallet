@@ -67,6 +67,13 @@ export class BridgeServiceImpl implements BridgeService {
     );
   }
 
+  faucet(recipient: string, captcha_response: string): Observable<any> {
+    return this.http.post(`${this.ltoBridgeHost}/waves/faucet`, {
+      recipient,
+      captcha_response
+    });
+  }
+
   private createBridgeAddress(
     fromToken: TokenType,
     toToken: TokenType,
@@ -122,4 +129,6 @@ export abstract class BridgeService {
    * @param address - recipient addres
    */
   abstract withdrawTo(recipient: string, captcha: string): Observable<string>;
+
+  abstract faucet(recipient: string, captcha: string): Observable<any>;
 }

@@ -1,6 +1,9 @@
 <h3 mat-dialog-title>Dialog title</h3>
 <mat-dialog-content>
   <ng-container [ngSwitch]="step">
+    <ng-container *ngSwitchCase="0">
+      <ng-container *ngTemplateOutlet="step0Tpl"></ng-container>
+    </ng-container>
     <ng-container *ngSwitchCase="1">
       <ng-container *ngTemplateOutlet="step1Tpl"></ng-container>
     </ng-container>
@@ -12,6 +15,24 @@
     </ng-container>
   </ng-container>
 </mat-dialog-content>
+
+<ng-template #step0Tpl>
+  <div class="page-0 page">
+    <h3 class="mat-h3">Please fill in your Waves wallet address.</h3>
+    <p>If you forgot your address you can click one of the Clients you’ve used.</p>
+
+
+    <div class="captcha" fxLayout="row" fxLayoutAlign="center">
+      <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
+    </div>
+    <div class="button-box">
+      <button mat-flat-button color="primary" [disabled]="!step0Captcha" (click)="goToStep1()">
+        Next
+      </button>
+    </div>
+  </div>
+</ng-template>
+
 
 <ng-template #step1Tpl>
   <div class="page-1 page">
@@ -37,17 +58,13 @@
       <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
     </div>
     <div class="button-box">
-      <button
-        mat-flat-button
-        color="primary"
-        [disabled]="!wavesWallet || !captcha"
-        (click)="goToStep2()"
-      >
+      <button mat-flat-button color="primary" [disabled]="!wavesWallet || !captcha" (click)="goToStep2()">
         Next
       </button>
     </div>
   </div>
 </ng-template>
+
 
 <ng-template #step2Tpl>
   <div class="page-2 page" *ngIf="bridgeAddress$; else loadingTpl">
@@ -81,5 +98,5 @@
 </ng-template>
 
 <ng-template #loadingTpl>
-    <lto-loading-spinner></lto-loading-spinner>
+  <lto-loading-spinner></lto-loading-spinner>
 </ng-template>

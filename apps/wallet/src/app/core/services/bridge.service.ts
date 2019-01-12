@@ -42,13 +42,14 @@ export class BridgeServiceImpl implements BridgeService {
   }
 
   depositTo(address: string, captcha: string, tokenType: TokenType = 'LTO20'): Observable<string> {
-    if (this.cache.deposit[address]) {
+    const cacheKey = address + tokenType;
+    if (this.cache.deposit[cacheKey]) {
       return of(this.cache.deposit[address]);
     }
 
     return this.createBridgeAddress(tokenType, 'LTO', address, captcha).pipe(
       tap(bridge => {
-        this.cache.deposit[address] = bridge;
+        this.cache.deposit[cacheKey] = bridge;
         this.saveCache(this.cache);
       })
     );
@@ -121,6 +122,8 @@ export abstract class BridgeService {
   /**
    * Generates bridge addres to convert LTO24 -> LTO and transfer on your account
    * @param address - your account address
+   * @param captcha - captcha response
+   * @param tokenType type of token which will be converted to LTO
    */
   abstract depositTo(address: string, captcha: string, tokenType?: TokenType): Observable<string>;
 

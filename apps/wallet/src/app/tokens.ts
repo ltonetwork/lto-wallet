@@ -23,3 +23,4 @@ export const ANCHOR_FEE = new InjectionToken<number>('ANCHOR_FEE');
  * BridgetService factory will decide which version of BridgeService to use
  */
 export const BRIDGE_ENABLED = new InjectionToken<boolean>('BRIDGE_ENABLED');
+export const SWAP_PAGE_ENABLED = new InjectionToken<boolean>('SWAP_PAGE_ENABLED');

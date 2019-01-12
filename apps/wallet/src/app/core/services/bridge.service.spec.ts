@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { BridgeService, BridgeServiceDummy, BridgeServiceImpl } from './bridge.service';
+import { BridgeService, BridgeServiceImpl } from './bridge.service';
 import { LTO_BRIDGE_HOST, BRIDGE_ENABLED } from '@wallet/tokens';
 
 function configureTestingModule(bridgeEnabled: boolean) {
@@ -21,10 +21,10 @@ function configureTestingModule(bridgeEnabled: boolean) {
 }
 
 describe('Core/BridgeService', () => {
-  it('should provide BridgeServiceDummy if bridge disabled', () => {
+  it('should provide BridgeServiceImpl if bridge disabled', () => {
     configureTestingModule(false);
     const service = TestBed.get(BridgeService);
-    expect(service instanceof BridgeServiceDummy).toBe(true);
+    expect(service instanceof BridgeServiceImpl).toBe(true);
   });
 
   it('should provide BridgeServiceImpl if bridge disabled', () => {

@@ -1,20 +1,24 @@
-<mat-toolbar fxLayout="row" fxLayoutAlign="center center"> <lto-brand></lto-brand> </mat-toolbar>
+<mat-toolbar fxLayout="row" fxLayoutAlign="center center">
+  <lto-brand></lto-brand>
+</mat-toolbar>
 <div class="main-navigation">
   <a routerLink="/transfers" routerLinkActive="active" (click)="linkClick()">
-    <mat-icon>swap_horiz</mat-icon><span>Transfers</span></a
-  >
+    <mat-icon>swap_horiz</mat-icon><span>Transfers</span>
+  </a>
 
-  <a routerLink="/leasing" routerLinkActive="active" (click)="linkClick()"
-    ><mat-icon>watch_later</mat-icon> <span>Leasing</span></a
-  >
-  <a routerLink="/anchors" routerLinkActive="active" (click)="linkClick()"
-    ><mat-icon>alternate_email</mat-icon> <span>Anchors</span></a
-  >
-  <a routerLink="/bridge" routerLinkActive="active" (click)="linkClick()"
-    ><mat-icon>settings_ethernet</mat-icon> <span>Bridge</span></a
-  >
-  <a routerLink="/settings" (click)="linkClick()"><mat-icon>settings</mat-icon> <span>Settings</span></a>
-  <a routerLink="/seed-swap" *ngIf="bridgeEnabled" (click)="linkClick()"
-    ><mat-icon>replay</mat-icon> <span>Seed Swap</span></a
-  >
+  <a routerLink="/leasing" routerLinkActive="active" (click)="linkClick()">
+    <mat-icon>watch_later</mat-icon> <span>Leasing</span>
+  </a>
+  <a routerLink="/anchors" routerLinkActive="active" (click)="linkClick()">
+    <mat-icon>alternate_email</mat-icon> <span>Anchors</span>
+  </a>
+  <a routerLink="/bridge" routerLinkActive="active" (click)="linkClick()">
+    <mat-icon>settings_ethernet</mat-icon> <span>Bridge</span>
+  </a>
+  <a routerLink="/settings" (click)="linkClick()">
+    <mat-icon>settings</mat-icon> <span>Settings</span>
+  </a>
+  <a routerLink="/seed-swap" *ngIf="swapEnabled" (click)="linkClick()">
+    <mat-icon>replay</mat-icon> <span>Seed Swap</span>
+  </a>
 </div>

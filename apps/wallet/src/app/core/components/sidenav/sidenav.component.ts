@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { BRIDGE_ENABLED } from '../../../tokens';
+import { SWAP_PAGE_ENABLED } from '../../../tokens';
 import { Sidenav } from '../../services';
 
 @Component({
@@ -8,7 +8,7 @@ import { Sidenav } from '../../services';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
-  constructor(@Inject(BRIDGE_ENABLED) public bridgeEnabled: boolean, private _sidenav: Sidenav) {}
+  constructor(@Inject(SWAP_PAGE_ENABLED) public swapEnabled: boolean, private _sidenav: Sidenav) {}
 
   ngOnInit() {}
 

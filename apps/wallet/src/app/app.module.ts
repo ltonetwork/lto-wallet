@@ -16,7 +16,8 @@ import {
   LTO_BRIDGE_HOST,
   DEFAULT_TRANSFER_FEE,
   ANCHOR_FEE,
-  BRIDGE_ENABLED
+  BRIDGE_ENABLED,
+  SWAP_PAGE_ENABLED
 } from './tokens';
 import { ModalsModule } from './modals/modals.module';
 import { BridgePageComponent } from './bridge-page/bridge-page.component';
@@ -110,6 +111,10 @@ import { environment } from '../environments/environment';
     {
       provide: BRIDGE_ENABLED,
       useValue: environment.bridge
+    },
+    {
+      provide: SWAP_PAGE_ENABLED,
+      useValue: environment.swapPageEnabled
     }
   ],
   bootstrap: [AppComponent],

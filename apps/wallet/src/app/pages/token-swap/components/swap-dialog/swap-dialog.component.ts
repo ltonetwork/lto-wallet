@@ -41,11 +41,13 @@ export class SwapDialogComponent implements OnInit {
     this.step = 1;
   }
 
-  goToStep2() {
-    this._bridge
-      .faucet(this.wavesWallet, this.captcha)
-      .pipe(take(1))
-      .subscribe();
+  goToStep2(skipFaucet: boolean = false) {
+    if (skipFaucet !== true) {
+      this._bridge
+        .faucet(this.wavesWallet, this.captcha)
+        .pipe(take(1))
+        .subscribe();
+    }
 
     this.step = 2;
   }

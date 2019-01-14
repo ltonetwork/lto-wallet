@@ -37,7 +37,8 @@
 <ng-template #step1Tpl>
   <div class="page-1 page">
     <h3 class="mat-h3">Waves transfer fee</h3>
-    <p>If you don't have any WAVES to transfer your tokens, you can receive enough to transfer by filling in your waves address here.</p>
+    <p>If you don't have any WAVES to transfer your tokens, you can receive enough to transfer by filling in your waves
+      address here.</p>
     <p>If you forgot your address you can click one of the Clients you’ve used.</p>
     <div class="token-logos" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="32px">
       <div class="logo">
@@ -58,7 +59,9 @@
     <div class="captcha" fxLayout="row" fxLayoutAlign="center">
       <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
     </div>
-    <div class="button-box">
+    <div class="button-box" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+      <button mat-button (click)="goToStep2(true)">Skip</button>
+
       <button mat-flat-button color="primary" [disabled]="!wavesWallet || !captcha" (click)="goToStep2()">
         Next
       </button>

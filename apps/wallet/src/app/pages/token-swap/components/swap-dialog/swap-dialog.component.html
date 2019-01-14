@@ -1,4 +1,4 @@
-<h3 mat-dialog-title>Dialog title</h3>
+<h3 mat-dialog-title>Waves Token Swap</h3>
 <mat-dialog-content>
   <ng-container [ngSwitch]="step">
     <ng-container *ngSwitchCase="0">
@@ -18,9 +18,9 @@
 
 <ng-template #step0Tpl>
   <div class="page-0 page">
-    <h3 class="mat-h3">Please fill in your Waves wallet address.</h3>
-    <p>If you forgot your address you can click one of the Clients you’ve used.</p>
-
+    <h3 class="mat-h3">Generate a bridge address</h3>
+    <p>We will now generate a bridge address, where you can send you LTO Tokens to</p>
+    <p><b>Attention: Don't tranfer WAVES or other tokens to the bridge, because they will not be refunded.</b></p>
 
     <div class="captcha" fxLayout="row" fxLayoutAlign="center">
       <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
@@ -36,7 +36,8 @@
 
 <ng-template #step1Tpl>
   <div class="page-1 page">
-    <h3 class="mat-h3">Please fill in your Waves wallet address.</h3>
+    <h3 class="mat-h3">Waves transfer fee</h3>
+    <p>If you don't have any WAVES to transfer your tokens, you can receive enough to transfer by filling in your waves address here.</p>
     <p>If you forgot your address you can click one of the Clients you’ve used.</p>
     <div class="token-logos" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="32px">
       <div class="logo">

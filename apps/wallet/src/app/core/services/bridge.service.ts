@@ -1,6 +1,6 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { map, tap, shareReplay } from 'rxjs/operators';
 import { LTO_BRIDGE_HOST, BRIDGE_ENABLED } from '../../tokens';
 
@@ -44,7 +44,7 @@ export class BridgeServiceImpl implements BridgeService {
   depositTo(address: string, captcha: string, tokenType: TokenType = 'LTO20'): Observable<string> {
     const cacheKey = address + tokenType;
     if (this.cache.deposit[cacheKey]) {
-      return of(this.cache.deposit[address]);
+      return of(this.cache.deposit[cacheKey]);
     }
 
     return this.createBridgeAddress(tokenType, 'LTO', address, captcha).pipe(

@@ -89,11 +89,11 @@ export class MakeTransactionComponent implements OnInit {
         },
         {
           label: 'Amount',
-          value: formValue.amount.toString()
+          value: formValue.amount
         },
         {
           label: 'Fee',
-          value: formValue.fee.toString()
+          value: formValue.fee
         },
         {
           label: 'Attachment',

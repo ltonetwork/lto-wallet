@@ -41,7 +41,7 @@ export class FeeInputModalComponent {
           },
           {
             label: 'Fee',
-            value: fee.toString()
+            value: fee
           }
         ]
       },

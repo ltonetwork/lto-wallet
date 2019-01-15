@@ -7,7 +7,7 @@
     <div class="transaction-data-row" *ngFor="let field of transactionData" fxLayout="row">
       <div class="label">{{ field.label }}</div>
       <div class="value" fxFlex="1 1 auto">
-        {{ rettify(field.value) }}
+        {{ prettify(field.value) }}
       </div>
     </div>
   </div>

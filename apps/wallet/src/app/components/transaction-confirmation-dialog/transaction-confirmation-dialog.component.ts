@@ -37,7 +37,7 @@ export class TransactionConfirmationDialogComponent implements OnInit {
     return typeof value === 'number';
   }
 
-  rettify(value: string | number) {
+  prettify(value: string | number) {
     if (typeof value === 'number') {
       return this._decimalPipe.transform(value);
     }

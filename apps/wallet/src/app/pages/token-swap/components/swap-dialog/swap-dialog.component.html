@@ -1,6 +1,9 @@
-<h3 mat-dialog-title>Dialog title</h3>
+<h3 mat-dialog-title>Waves Token Swap</h3>
 <mat-dialog-content>
   <ng-container [ngSwitch]="step">
+    <ng-container *ngSwitchCase="0">
+      <ng-container *ngTemplateOutlet="step0Tpl"></ng-container>
+    </ng-container>
     <ng-container *ngSwitchCase="1">
       <ng-container *ngTemplateOutlet="step1Tpl"></ng-container>
     </ng-container>
@@ -13,9 +16,32 @@
   </ng-container>
 </mat-dialog-content>
 
+<ng-template #step0Tpl>
+  <div class="page-0 page">
+    <h3 class="mat-h3">Generate a bridge address</h3>
+    <p>To receive your LTO Network Tokens you will need to send your LegalThings One Waves Tokens to our bridge.
+      The bridge will generate a unique address to which you should send your LegalThings One Waves Tokens. Our bridge will then transfer your
+      LTO Network Mainnet tokens to this wallet.</p>
+    <p><b>Attention: Don't tranfer WAVES or other tokens to the bridge, because they will not be refunded.</b></p>
+
+    <div class="captcha" fxLayout="row" fxLayoutAlign="center">
+      <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
+    </div>
+    <div class="button-box">
+      <button mat-flat-button color="primary" [disabled]="!step0Captcha" (click)="goToStep1()">
+        Next
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+
 <ng-template #step1Tpl>
   <div class="page-1 page">
-    <h3 class="mat-h3">Please fill in your Waves wallet address.</h3>
+    <h3 class="mat-h3">Waves transfer fee</h3>
+    <p>To transfer your LegalThings One Waves Tokens to the bridge you will need to pay a transaction fee in WAVES.
+      You will be given an option to receive some WAVES, so that you can pay the transaction fee.
+      In order to receive the WAVES transaction fee you will be asked to enter the waves address from where you are sending your LegalThings One Waves Tokens.</p>
     <p>If you forgot your address you can click one of the Clients you’ve used.</p>
     <div class="token-logos" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="32px">
       <div class="logo">
@@ -36,18 +62,16 @@
     <div class="captcha" fxLayout="row" fxLayoutAlign="center">
       <re-captcha (resolved)="resolvedCaptcha($event)"></re-captcha>
     </div>
-    <div class="button-box">
-      <button
-        mat-flat-button
-        color="primary"
-        [disabled]="!wavesWallet || !captcha"
-        (click)="goToStep2()"
-      >
+    <div class="button-box" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+      <button mat-button (click)="goToStep2(true)">Skip</button>
+
+      <button mat-flat-button color="primary" [disabled]="!wavesWallet || !captcha" (click)="goToStep2()">
         Next
       </button>
     </div>
   </div>
 </ng-template>
+
 
 <ng-template #step2Tpl>
   <div class="page-2 page" *ngIf="bridgeAddress$; else loadingTpl">
@@ -81,5 +105,5 @@
 </ng-template>
 
 <ng-template #loadingTpl>
-    <lto-loading-spinner></lto-loading-spinner>
+  <lto-loading-spinner></lto-loading-spinner>
 </ng-template>

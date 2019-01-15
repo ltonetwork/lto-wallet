@@ -1,6 +1,6 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { map, tap, shareReplay } from 'rxjs/operators';
 import { LTO_BRIDGE_HOST, BRIDGE_ENABLED } from '../../tokens';
 
@@ -42,13 +42,14 @@ export class BridgeServiceImpl implements BridgeService {
   }
 
   depositTo(address: string, captcha: string, tokenType: TokenType = 'LTO20'): Observable<string> {
-    if (this.cache.deposit[address]) {
-      return of(this.cache.deposit[address]);
+    const cacheKey = address + tokenType;
+    if (this.cache.deposit[cacheKey]) {
+      return of(this.cache.deposit[cacheKey]);
     }
 
     return this.createBridgeAddress(tokenType, 'LTO', address, captcha).pipe(
       tap(bridge => {
-        this.cache.deposit[address] = bridge;
+        this.cache.deposit[cacheKey] = bridge;
         this.saveCache(this.cache);
       })
     );
@@ -65,6 +66,13 @@ export class BridgeServiceImpl implements BridgeService {
         this.saveCache(this.cache);
       })
     );
+  }
+
+  faucet(recipient: string, captcha_response: string): Observable<any> {
+    return this.http.post(`${this.ltoBridgeHost}/waves/faucet`, {
+      recipient,
+      captcha_response
+    });
   }
 
   private createBridgeAddress(
@@ -114,6 +122,8 @@ export abstract class BridgeService {
   /**
    * Generates bridge addres to convert LTO24 -> LTO and transfer on your account
    * @param address - your account address
+   * @param captcha - captcha response
+   * @param tokenType type of token which will be converted to LTO
    */
   abstract depositTo(address: string, captcha: string, tokenType?: TokenType): Observable<string>;
 
@@ -122,4 +132,6 @@ export abstract class BridgeService {
    * @param address - recipient addres
    */
   abstract withdrawTo(recipient: string, captcha: string): Observable<string>;
+
+  abstract faucet(recipient: string, captcha: string): Observable<any>;
 }

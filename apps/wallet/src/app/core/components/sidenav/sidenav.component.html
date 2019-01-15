@@ -15,10 +15,10 @@
   <a routerLink="/bridge" routerLinkActive="active" (click)="linkClick()">
     <mat-icon>settings_ethernet</mat-icon> <span>Bridge</span>
   </a>
+  <a routerLink="/seed-swap" *ngIf="swapEnabled" (click)="linkClick()">
+    <mat-icon>replay</mat-icon> <span>Waves Token Swap</span>
+  </a>
   <a routerLink="/settings" (click)="linkClick()">
     <mat-icon>settings</mat-icon> <span>Settings</span>
-  </a>
-  <a routerLink="/seed-swap" *ngIf="swapEnabled" (click)="linkClick()">
-    <mat-icon>replay</mat-icon> <span>Seed Swap</span>
   </a>
 </div>

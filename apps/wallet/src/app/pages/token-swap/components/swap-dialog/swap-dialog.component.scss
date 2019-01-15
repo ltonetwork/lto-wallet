@@ -11,8 +11,18 @@ mat-dialog-content {
   }
 }
 
+.page-0 {
+  padding: 8px 0;
+
+  .button-box {
+    padding-top: 32px;
+    text-align: center;
+  }
+}
+
 .page-1 {
   padding: 8px 0;
+
   .token-logos {
     .logo {
       padding: 16px;
@@ -31,6 +41,7 @@ mat-dialog-content {
 
   .input-container {
     padding: 32px 0;
+
     mat-form-field {
       width: 430px;
     }
@@ -45,10 +56,12 @@ mat-dialog-content {
 .page-2 {
   .address-box {
     padding-top: 16px;
+
     lto-copyable-text {
       width: 100%;
     }
   }
+
   .button-box {
     padding-top: 32px;
     text-align: center;

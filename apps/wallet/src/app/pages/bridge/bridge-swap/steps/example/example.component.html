@@ -14,7 +14,7 @@
   <div class="example">
     <div class="row">
       <div class="label">From</div>
-      <div class="value">AMOUNT LTO <span class="blue">ERC-20</span></div>
+      <div class="value input"><input type="number" [(ngModel)]="ercDesiting"><span class="blue">ERC-20</span></div>
     </div>
     <div class="row">
       <div class="label">Fee</div>
@@ -22,7 +22,7 @@
     </div>
     <div class="row">
       <div class="label">Receiving</div>
-      <div class="value">AMOUNT LTO <span class="blue">ERC-20</span></div>
+      <div class="value">{{ltoReceving}} LTO <span class="blue">ERC-20</span></div>
     </div>
   </div>
 </ng-template>
@@ -35,7 +35,7 @@
   <div class="example">
     <div class="row">
       <div class="label">Amount</div>
-      <div class="value">1000 LTO (<span class="purple">MAINNET</span>)</div>
+      <div class="value input"><input type="number" [(ngModel)]="ltoWithdrawing"> LTO (<span class="purple">MAINNET</span>)</div>
     </div>
     <div class="row">
       <div class="label">Burn %</div>
@@ -43,12 +43,12 @@
     </div>
     <div class="row">
       <div class="label">Burned tokens</div>
-      <div class="value">500 LTO (<span class="purple">MAINNET</span>)</div>
+      <div class="value">{{burnedTokens}} LTO (<span class="purple">MAINNET</span>)</div>
     </div>
 
     <div class="row">
       <div class="label">Receiving</div>
-      <div class="value">500 LTO (<span class="blue">ERC-20</span>)</div>
+      <div class="value">{{ercReceving}} LTO (<span class="blue">ERC-20</span>)</div>
     </div>
 
     <div class="row">

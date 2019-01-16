@@ -90,11 +90,11 @@ export class StartLeaseModalComponent implements OnInit {
         },
         {
           label: 'Amount',
-          value: formData.amount.toString()
+          value: formData.amount
         },
         {
           label: 'Fee',
-          value: formData.fee.toString()
+          value: formData.fee
         }
       ]
     });

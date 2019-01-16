@@ -1,16 +1,23 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { SwapType } from '../../swap-type';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BridgeService } from '../../../../../core';
 
 @Component({
   selector: 'lto-wallet-example',
   templateUrl: './example.component.html',
   styleUrls: ['./example.component.scss']
 })
-export class ExampleComponent {
+export class ExampleComponent implements OnInit {
   @Input() swapType!: SwapType;
   @Output() nextStep = new EventEmitter();
 
-  ercDesiting: number = 1000;
+  burnRatePct$!: Observable<number>;
+  burnedTokens$!: Observable<number>;
+  receiving$!: Observable<number>;
+
+  ercDesiting = 1000;
 
   get ltoReceving(): number {
     if (this.ercDesiting < 100) {
@@ -31,6 +38,14 @@ export class ExampleComponent {
 
   get isERC20ToMain(): boolean {
     return this.swapType === SwapType.ERC20_MAIN;
+  }
+
+  constructor(private _bridge: BridgeService) {}
+
+  ngOnInit() {
+    this.burnRatePct$ = this._bridge.burnRate$.pipe(map(rate => rate * 100));
+    this.burnedTokens$ = this._bridge.burnRate$.pipe(map(rate => rate * 1000));
+    this.receiving$ = this.burnedTokens$.pipe(map(burned => 1000 - burned));
   }
 
   nextStepClick() {

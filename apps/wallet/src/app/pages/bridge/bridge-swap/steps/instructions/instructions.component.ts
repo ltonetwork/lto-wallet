@@ -8,8 +8,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class InstructionsComponent {
   @Output() nextStep = new EventEmitter();
 
-  constructor() {}
-
   nextStepClick() {
     this.nextStep.next();
   }

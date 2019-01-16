@@ -9,7 +9,7 @@ import { SwapType } from './swap-type';
   styleUrls: ['./bridge-swap.component.scss']
 })
 export class BridgeSwapComponent implements OnInit {
-  step = 1;
+  step = 2;
   swapType!: SwapType;
 
   constructor(private _dialogRef: MatDialogRef<any>) {}

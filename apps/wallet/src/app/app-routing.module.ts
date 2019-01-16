@@ -8,7 +8,6 @@ import { NoAccountComponent, NoAccountModule } from './no-account';
 import { TransfersComponent, TransfersModule } from './transfers';
 import { LeasingComponent } from './leasing/leasing.component';
 import { AnchorsComponent, AnchorsModule } from './anchors';
-import { BridgePageComponent } from './bridge-page/bridge-page.component';
 import { SettingsPageComponent, SigninComponent } from './pages';
 
 const routes: Routes = [
@@ -46,7 +45,7 @@ const routes: Routes = [
       },
       {
         path: 'bridge',
-        component: BridgePageComponent
+        loadChildren: './pages/bridge/bridge.module#BridgeModule'
       },
       {
         path: 'settings',

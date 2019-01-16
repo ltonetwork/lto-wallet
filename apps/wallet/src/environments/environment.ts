@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  networkByte: 'T',
+  networkByte: 'L',
   transfer_fee: 200000,
   anchor_fee: 100000,
   bridge: true,

@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Choose your swap</h2>
+<mat-dialog-content>
+  <div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation </p>
+
+    <div class="swap-type-picker">
+      <div class="erc-to-main" (click)="selectERC20ToMain()" [ngClass]="{active: ercToMainActive}">
+        LTO (<span class="blue">ERC-20</span>) to LTO (<span class="purple">MAINNET</span>)
+      </div>
+      <div class="main-to-erc" (click)="selectMainToERC20()" [ngClass]="{active: mainToErcActive}">
+        LTO (<span class="purple">MAINNET</span>) to LTO (<span class="blue">ERC-20</span>)
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" [disabled]="!selectedType" (click)="nextStepClick()">Next</button>
+</mat-dialog-actions>

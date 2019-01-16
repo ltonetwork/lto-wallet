@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { BridgeSwapComponent } from './components/bridge-swap';
+import { BridgeSwapComponent } from './bridge-swap';
 
 @Component({
   selector: 'lto-wallet-bridge',

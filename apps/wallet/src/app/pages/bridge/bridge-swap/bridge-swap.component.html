@@ -1,0 +1,7 @@
+<ng-container [ngSwitch]="step">
+  <lto-wallet-instructions *ngSwitchCase="1" (nextStep)="gotoStep2()"></lto-wallet-instructions>
+  <lto-wallet-swap-type *ngSwitchCase="2" (selectType)="selectSwapType($event)"></lto-wallet-swap-type>
+  <lto-wallet-example *ngSwitchCase="3" [swapType]="swapType" (nextStep)="goToNextStep()"></lto-wallet-example>
+  <!-- From here our path splits 4-7 erc->mainnet part, 7-13 mainnet->erc part -->
+  <lto-wallet-deposit-erc *ngSwitchCase="4" (close)="close()"></lto-wallet-deposit-erc>
+</ng-container>

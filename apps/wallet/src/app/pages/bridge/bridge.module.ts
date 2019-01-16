@@ -3,7 +3,7 @@ import { SharedModule } from '../../shared';
 
 import { BridgeRoutingModule } from './bridge-routing.module';
 import { BridgeComponent } from './bridge.component';
-import { BridgeSwapModule } from './components/bridge-swap/bridge-swap.module';
+import { BridgeSwapModule } from './bridge-swap/bridge-swap.module';
 
 @NgModule({
   declarations: [BridgeComponent],

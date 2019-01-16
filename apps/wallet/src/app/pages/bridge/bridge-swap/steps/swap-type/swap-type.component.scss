@@ -1,0 +1,27 @@
+.swap-type-picker {
+  border: 1px solid #becad6;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 32px;
+
+  >div {
+    font-size: 24px;
+    padding: 20px 16px;
+    line-height: 24px;
+    color: #5a6169;
+    cursor: pointer;
+
+    &:last-child {
+      border-top: 1px solid #becad6;
+    }
+
+    &:hover,
+    &.active {
+      background: rgba(0, 0, 0, 0.04);
+    }
+  }
+}

@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>How does it work?</h2>
+<mat-dialog-content>
+  <ng-container *ngIf="isERC20ToMain; then ercToMainTpl; else mainToErcTpl"></ng-container>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="nextStepClick()">Next</button>
+</mat-dialog-actions>
+
+<ng-template #ercToMainTpl>
+  <p>
+    To help you understand the process of swapping
+    LTO (<span class="blue">ERC-20</span>) to LTO (<span class="purple">MAINNET</span>), we have made an example:
+  </p>
+  <div class="example">
+    <div class="row">
+      <div class="label">From</div>
+      <div class="value">AMOUNT LTO <span class="blue">ERC-20</span></div>
+    </div>
+    <div class="row">
+      <div class="label">Fee</div>
+      <div class="value">100 LTO <span class="purple">MAINNET</span></div>
+    </div>
+    <div class="row">
+      <div class="label">Receiving</div>
+      <div class="value">AMOUNT LTO <span class="blue">ERC-20</span></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #mainToErcTpl>
+  <p>
+    To help you understand the process of swapping
+    LTO (<span class="purple">MAINNET</span>) to LTO (<span class="blue">ERC-20</span>), we have made an example:
+  </p>
+  <div class="example">
+    <div class="row">
+      <div class="label">Amount</div>
+      <div class="value">1000 LTO (<span class="purple">MAINNET</span>)</div>
+    </div>
+    <div class="row">
+      <div class="label">Burn %</div>
+      <div class="value">50%</div>
+    </div>
+    <div class="row">
+      <div class="label">Burned tokens</div>
+      <div class="value">500 LTO (<span class="purple">MAINNET</span>)</div>
+    </div>
+
+    <div class="row">
+      <div class="label">Receiving</div>
+      <div class="value">500 LTO (<span class="blue">ERC-20</span>)</div>
+    </div>
+
+    <div class="row">
+      <div class="label">To</div>
+      <div class="value">ETH ADDRESS</div>
+    </div>
+  </div>
+</ng-template>

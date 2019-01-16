@@ -240,7 +240,7 @@ export class WalletServiceImpl implements WalletService {
       'cancelLeasing',
       {
         transactionId,
-        fee: 100000
+        fee: 25000000
       },
       wallet.getSignKeys()
     );

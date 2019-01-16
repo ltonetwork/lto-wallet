@@ -26,6 +26,7 @@ export class BridgeServiceImpl implements BridgeService {
   readonly STORAGE_KEY = '__bridge__';
 
   burnRate$: Observable<number>;
+  burnedTokens$: Observable<number>;
 
   bridgeStats$: Observable<BridgeStats>;
   private cache: BridgeCache;
@@ -36,6 +37,7 @@ export class BridgeServiceImpl implements BridgeService {
 
     this.bridgeStats$ = http.get<BridgeStats>(`${this.ltoBridgeHost}/stats`).pipe(shareReplay(1));
     this.burnRate$ = this.bridgeStats$.pipe(map(stats => stats.burn_rate));
+    this.burnedTokens$ = this.bridgeStats$.pipe(map(stats => stats.burned));
 
     // Make it hot
     this.bridgeStats$.subscribe();
@@ -118,6 +120,7 @@ export abstract class BridgeService {
   };
 
   abstract burnRate$: Observable<number>;
+  abstract burnedTokens$: Observable<number>;
 
   /**
    * Generates bridge addres to convert LTO24 -> LTO and transfer on your account

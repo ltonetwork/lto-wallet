@@ -1,7 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { BridgeService, WalletService } from '../../../../../core';
 import { DEFAULT_TRANSFER_FEE } from '../../../../../tokens';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'lto-wallet-withdraw-form',
@@ -20,16 +22,23 @@ export class WithdrawFormComponent implements OnInit {
 
   transfer$: Promise<any> | null = null;
 
+  burnRate$!: Observable<number>;
+  burnedTokens$!: Observable<number>;
+
   get cannotSend(): boolean {
     return !this.confirmed || !this.captchaResponse;
   }
 
   constructor(
     private _wallet: WalletService,
+    private _bridge: BridgeService,
     @Inject(DEFAULT_TRANSFER_FEE) private _transferFee: number
   ) {}
 
   ngOnInit() {
+    this.burnRate$ = this._bridge.burnRate$.pipe(map(rate => rate * 100));
+    this.burnedTokens$ = this._bridge.burnedTokens$;
+
     this.withdrawForm = new FormGroup({
       amount: new FormControl(0, [Validators.min(0), Validators.required]),
       address: new FormControl('', [Validators.required])

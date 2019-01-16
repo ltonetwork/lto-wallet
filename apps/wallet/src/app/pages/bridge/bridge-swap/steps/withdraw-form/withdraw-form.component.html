@@ -9,11 +9,11 @@
       </div>
       <div class="row">
         <div class="label">Burn %</div>
-        <div class="value">50%</div>
+        <div class="value">{{burnRate$ | async | number: '1.0-0'}}%</div>
       </div>
       <div class="row">
         <div class="label">Burned tokens</div>
-        <div class="value">500 LTO (<span class="purple">MAINNET</span>)</div>
+        <div class="value">{{burnedTokens$ | async}} LTO (<span class="purple">MAINNET</span>)</div>
       </div>
 
       <div class="row">

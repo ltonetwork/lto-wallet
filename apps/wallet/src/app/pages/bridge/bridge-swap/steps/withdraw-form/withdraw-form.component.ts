@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { BridgeService, WalletService } from '../../../../../core';
 import { DEFAULT_TRANSFER_FEE } from '../../../../../tokens';
-import { map } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 
 @Component({
   selector: 'lto-wallet-withdraw-form',
@@ -37,12 +37,19 @@ export class WithdrawFormComponent implements OnInit {
 
   ngOnInit() {
     this.burnRate$ = this._bridge.burnRate$.pipe(map(rate => rate * 100));
-    this.burnedTokens$ = this._bridge.burnedTokens$;
 
     this.withdrawForm = new FormGroup({
       amount: new FormControl(0, [Validators.min(0), Validators.required]),
       address: new FormControl('', [Validators.required])
     });
+
+    this.burnedTokens$ = this.withdrawForm.valueChanges.pipe(
+      map(value => value.amount),
+      withLatestFrom(this.burnRate$),
+      map(([amount, burnRate]) => {
+        return amount * burnRate;
+      })
+    );
   }
 
   goToInputStep() {

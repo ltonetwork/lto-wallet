@@ -1,0 +1,81 @@
+.withdraw-form {
+  border: 1px solid #becad6;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 32px;
+
+
+  >div {
+    font-size: 16px;
+    padding: 16px 8px;
+    line-height: 16px;
+    color: #5a6169;
+    cursor: pointer;
+    border-bottom: 1px solid #becad6;
+    display: flex;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      flex: 1 1 auto;
+      text-align-last: left;
+    }
+
+    .value.input {
+      border-bottom: dotted 1px #888585;
+
+      input {
+        border: none;
+        font-size: 16px;
+        text-align: right;
+        max-width: 100px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .address {
+    .label {
+      flex: 0;
+      margin-right: 8px;
+    }
+
+    .value {
+      flex: 1 1 auto;
+    }
+
+    input {
+      max-width: 100% !important;
+      width: 100%;
+      text-align: right;
+    }
+  }
+}
+
+.confirmation {
+  margin: 0 auto;
+  margin-top: 16px;
+  max-width: 400px;
+  width: 100%;
+  background: #fafafa;
+  border: 1px solid #d6d6d6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+}
+
+.captcha-box {
+  padding: 10px;
+}
+
+.troll {
+  width: 300px;
+}

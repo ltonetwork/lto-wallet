@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
 import { SwapType } from './swap-type';
 
@@ -11,7 +12,7 @@ export class BridgeSwapComponent implements OnInit {
   step = 1;
   swapType!: SwapType;
 
-  constructor() {}
+  constructor(private _dialogRef: MatDialogRef<any>) {}
 
   ngOnInit() {}
 
@@ -31,8 +32,12 @@ export class BridgeSwapComponent implements OnInit {
   goToNextStep() {
     if (this.swapType === SwapType.ERC20_MAIN) {
       this.step = 4;
+    } else {
+      this.step = 5;
     }
   }
 
-  close() {}
+  close() {
+    this._dialogRef.close();
+  }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { QRCodeModule } from 'angularx-qrcode';
 import { BridgeSwapComponent } from './bridge-swap.component';
@@ -11,6 +12,7 @@ import { DepositErcComponent } from './steps/deposit-erc/deposit-erc.component';
 import { CopyableTextModule, LoadingSpinnerModule } from '../../../shared/components';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgSuspenseModule } from 'ng-suspense';
+import { WithdrawFormComponent } from './steps/withdraw-form/withdraw-form.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { NgSuspenseModule } from 'ng-suspense';
     InstructionsComponent,
     SwapTypeComponent,
     ExampleComponent,
-    DepositErcComponent
+    DepositErcComponent,
+    WithdrawFormComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +32,8 @@ import { NgSuspenseModule } from 'ng-suspense';
     CopyableTextModule,
     FlexLayoutModule,
     NgSuspenseModule,
-    LoadingSpinnerModule
+    LoadingSpinnerModule,
+    ReactiveFormsModule
   ],
   exports: [BridgeSwapComponent],
   entryComponents: [BridgeSwapComponent]

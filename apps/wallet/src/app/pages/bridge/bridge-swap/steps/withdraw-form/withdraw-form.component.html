@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>LTO (<span color="purple">MAINNET</span>) to LTO (<span class="blue">ERC-20</span>)</h2>
+<mat-dialog-content>
+  <ng-container *ngIf="!transfer$; else trollTpl">
+    <p>Please fill in all the details</p>
+    <form class="withdraw-form" [formGroup]="withdrawForm">
+      <div class="row">
+        <div class="label">Amount</div>
+        <div class="value input"><input type="number" formControlName="amount"> LTO (<span class="purple">MAINNET</span>)</div>
+      </div>
+      <div class="row">
+        <div class="label">Burn %</div>
+        <div class="value">50%</div>
+      </div>
+      <div class="row">
+        <div class="label">Burned tokens</div>
+        <div class="value">500 LTO (<span class="purple">MAINNET</span>)</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Receiving</div>
+        <div class="value">500 LTO (<span class="blue">ERC-20</span>)</div>
+      </div>
+
+      <div class="row address">
+        <div class="label">To</div>
+        <div class="value input"><input type="text" placeholder="ETH ADDRESS" formControlName="address"></div>
+      </div>
+    </form>
+    <ng-container *ngIf="step === 'confirm'">
+      <div class="confirmation" fxLayout="row" fxLayoutGap="8px">
+        <input type="checkbox" name="confirm" id="confirm" (change)="confirm()">
+        <label for="confirm">
+          I confirm that the all the information I filled in is correct.
+        </label>
+      </div>
+      <div *ngIf="confirmed" class="captcha-box" fxLayout="row" fxLayoutAlign="center">
+        <re-captcha (resolved)="solveCaptcha($event)"></re-captcha>
+      </div>
+    </ng-container>
+  </ng-container>
+
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+  <ng-container *ngIf="!transfer$">
+    <button mat-flat-button color="primary" [disabled]="withdrawForm.invalid" *ngIf="step === 'input'" (click)="goToConfirmation()">Next</button>
+    <ng-container *ngIf="step ==='confirm'">
+      <button mat-button (click)="goToInputStep()">Back</button>
+      <button mat-flat-button color="primary" [disabled]="cannotSend" (click)="transfer()">Transfer</button>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="transfer$">
+    <button mat-flat-button color="primary" (click)="closeClick()">Close</button>
+  </ng-container>
+</mat-dialog-actions>
+
+<ng-template #trollTpl>
+  <ng-container [ngSuspense]="transfer$">
+    <p *ngSuspenseError class="error">Cannot make a transfer</p>
+    <lto-loading-spinner *ngSuspensePlaceholder="500"></lto-loading-spinner>
+    <div *ngSuspenseSuccess>
+      <img class="troll" src="assets/troll.png" alt="">
+      <p>We have send the LTO (<span class="purple">MAINNET</span>) token
+        to our Bridge Troll for converting it to LTO (<span class="blue">ERC20</span>) tokens.</p>
+
+      <p>You will receive the tokens automatically in your filled in ETH address.</p>
+    </div>
+  </ng-container>
+</ng-template>

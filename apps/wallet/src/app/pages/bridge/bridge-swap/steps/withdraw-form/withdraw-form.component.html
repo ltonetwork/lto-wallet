@@ -9,16 +9,16 @@
       </div>
       <div class="row">
         <div class="label">Burn %</div>
-        <div class="value">{{burnRate$ | async | number: '1.0-0'}}% (minimum of {{ 0.75 | number }} LTO)</div>
+        <div class="value">{{burnRatePct$ | async | number: '1.0-1'}}% (minimum of {{ 0.75 | number }} LTO)</div>
       </div>
       <div class="row">
         <div class="label">Burned tokens</div>
-        <div class="value">{{burnedTokens$ | async | number: '1.0-3'}} LTO (<span class="purple">MAINNET</span>)</div>
+        <div class="value">{{burnedTokens$ | async | number: '1.0-4'}} LTO (<span class="purple">MAINNET</span>)</div>
       </div>
 
       <div class="row">
         <div class="label">Receiving</div>
-        <div class="value">500 LTO (<span class="blue">ERC-20</span>)</div>
+        <div class="value">{{receiving$ | async | number: '1.0-4'}} LTO (<span class="blue">ERC-20</span>)</div>
       </div>
 
       <div class="row address">

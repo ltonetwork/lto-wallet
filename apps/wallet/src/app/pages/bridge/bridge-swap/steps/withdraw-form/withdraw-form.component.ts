@@ -22,8 +22,9 @@ export class WithdrawFormComponent implements OnInit {
 
   transfer$: Promise<any> | null = null;
 
-  burnRate$!: Observable<number>;
+  burnRatePct$!: Observable<number>;
   burnedTokens$!: Observable<number>;
+  receiving$!: Observable<number>;
 
   get cannotSend(): boolean {
     return !this.confirmed || !this.captchaResponse;
@@ -36,7 +37,7 @@ export class WithdrawFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.burnRate$ = this._bridge.burnRate$.pipe(map(rate => rate * 100));
+    this.burnRatePct$ = this._bridge.burnRate$.pipe(map(rate => rate * 100));
 
     this.withdrawForm = new FormGroup({
       amount: new FormControl(0, [Validators.min(0), Validators.required]),
@@ -45,11 +46,26 @@ export class WithdrawFormComponent implements OnInit {
 
     this.burnedTokens$ = this.withdrawForm.valueChanges.pipe(
       map(value => value.amount),
-      withLatestFrom(this.burnRate$),
+      withLatestFrom(this._bridge.burnRate$),
       map(([amount, burnRate]) => {
-        return amount * burnRate;
+        const burned = amount * burnRate;
+        return burned < 0.75 ? 0.75 : burned;
       })
     );
+
+    this.receiving$ = this.withdrawForm.valueChanges.pipe(
+      map(value => value.amount),
+      withLatestFrom(this.burnedTokens$),
+      map(([amount, burned]) => {
+        return amount - burned;
+      })
+    );
+    /**
+     * amount : 1
+     * Burn rate: 0.03
+     * Burned tokens: amount * burnRate or 0.75 (whatever is higher)
+     * Reciving: amount - burndTokens
+     */
   }
 
   goToInputStep() {

@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BridgeService, WalletService } from '../../../../../core';
+import { DEFAULT_TRANSFER_FEE } from '../../../../../tokens';
 
 @Component({
   selector: 'lto-wallet-withdraw-form',
@@ -23,7 +24,10 @@ export class WithdrawFormComponent implements OnInit {
     return !this.confirmed || !this.captchaResponse;
   }
 
-  constructor(private _wallet: WalletService) {}
+  constructor(
+    private _wallet: WalletService,
+    @Inject(DEFAULT_TRANSFER_FEE) private _transferFee: number
+  ) {}
 
   ngOnInit() {
     this.withdrawForm = new FormGroup({
@@ -54,7 +58,12 @@ export class WithdrawFormComponent implements OnInit {
 
   transfer() {
     const { amount, address } = this.withdrawForm.value;
-    this.transfer$ = this._wallet.withdraw(address, amount, 0, this.captchaResponse);
+    this.transfer$ = this._wallet.withdraw(
+      address,
+      amount,
+      this._transferFee,
+      this.captchaResponse
+    );
   }
 
   closeClick() {

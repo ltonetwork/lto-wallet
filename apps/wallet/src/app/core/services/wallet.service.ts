@@ -216,7 +216,7 @@ export class WalletServiceImpl implements WalletService {
     return this.transfer({
       amount,
       recipient: bridgeAddress,
-      fee
+      fee: fee / this.amountDivider
     });
   }
 

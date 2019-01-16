@@ -91,7 +91,8 @@ import { environment } from '../environments/environment';
     },
     {
       provide: LTO_BRIDGE_HOST,
-      useValue: 'https://bridge.lto.network'
+      // useValue: 'https://bridge.lto.network'
+      useValue: 'http://192.168.1.70:3000'
     },
     {
       provide: DEFAULT_TRANSFER_FEE,

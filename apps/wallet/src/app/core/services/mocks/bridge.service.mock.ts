@@ -8,6 +8,7 @@ export class BridgeServiceMock implements BridgeService {
   };
 
   burnRate$ = of(1);
+  burnedTokens$ = of(1);
 
   depositTo() {
     return of('test_deposit_address');

@@ -1,7 +1,8 @@
-<h2 mat-dialog-title>LTO (<span color="purple">MAINNET</span>) to LTO (<span class="blue">ERC-20</span>)</h2>
+<h2 mat-dialog-title>LTO (<span class="purple">MAINNET</span>) to LTO (<span class="blue">ERC-20</span>)</h2>
 <mat-dialog-content>
   <ng-container *ngIf="!transfer$; else trollTpl">
-    <p>Please fill in the amount of <span class="purple">MAINNET</span> tokens you want to transfer and the ETH address where you want to receive the <span class="blue">ERC-20</span> tokens.</p>
+    <p>Please fill in the amount of <span class="purple">MAINNET</span> tokens you want to transfer and the ETH address
+      where you want to receive the <span class="blue">ERC-20</span> tokens.</p>
     <p>Please use a wallet which is compatible with the ERC-20 token standard and which private keys you control.</p>
     <form class="withdraw-form" [formGroup]="withdrawForm">
       <div class="row" [ngClass]="{invalid: isInvalid('amount')}">
@@ -61,9 +62,12 @@
     <div *ngSuspenseSuccess>
       <img class="troll" src="assets/troll.png" alt="">
       <p>We have send the LTO (<span class="purple">MAINNET</span>) tokens
-        to our Bridge Troll to convert them to LTO (<span class="blue">ERC20</span>) tokens.</p>
+        to our Bridge Troll to convert them to LTO (<span class="blue">ERC-20</span>) tokens.</p>
 
-      <p>You will receive the tokens automatically in your filled in ETH address.</p>
+      <p>The LTO (<span class="blue">ERC-20</span>) tokens will be sent to:<br>
+        <b>{{withdrawForm.value.address}}</b> ETH address.
+      </p>
+
     </div>
   </ng-container>
 </ng-template>

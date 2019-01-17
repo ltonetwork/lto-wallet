@@ -1,7 +1,8 @@
 <h2 mat-dialog-title>Choose your swap</h2>
 <mat-dialog-content>
   <div>
-    <p>Choose your swap direction, either (MAINNET to ERC-20) or (ERC-20 to MAINNET) and press next.</p>
+    <p>Choose your swap direction, either (<span class="purple">MAINNET</span> to <span class="blue">ERC-20</span>) or
+      (<span class="blue">ERC-20</span> to <span class="purple">MAINNET</span>) and press next.</p>
 
     <div class="swap-type-picker">
       <div class="erc-to-main" (click)="selectERC20ToMain()" [ngClass]="{active: ercToMainActive}">

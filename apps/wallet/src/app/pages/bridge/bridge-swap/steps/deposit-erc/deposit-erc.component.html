@@ -9,7 +9,8 @@
 
 <ng-template #captchaTpl>
   <div class="captcha-box" fxLayout="column" fxLayoutAlign="start center">
-    <p>We will now generate an ERC-20 address to which you should transfer your LTO (<span class="blue">ERC-20</span>) tokens to receive LTO (<span color="purple">MAINNET</span>) in your LTO wallet.</p>
+    <p>We will now generate an ERC-20 address to which you should transfer your LTO (<span class="blue">ERC-20</span>)
+      tokens to receive LTO (<span class="purple">MAINNET</span>) in your LTO wallet.</p>
     <re-captcha (resolved)="resolveCaptcha($event)"></re-captcha>
   </div>
 </ng-template>

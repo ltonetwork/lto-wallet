@@ -79,3 +79,11 @@
 .troll {
   width: 300px;
 }
+
+.invalid {
+  color: red !important;
+
+  .value {
+    border-color: red !important;
+  }
+}

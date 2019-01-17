@@ -3,7 +3,7 @@
   <ng-container *ngIf="!transfer$; else trollTpl">
     <p>Please fill in all the details</p>
     <form class="withdraw-form" [formGroup]="withdrawForm">
-      <div class="row">
+      <div class="row" [ngClass]="{invalid: isInvalid('amount')}">
         <div class="label">Amount</div>
         <div class="value input"><input type="number" formControlName="amount"> LTO (<span class="purple">MAINNET</span>)</div>
       </div>
@@ -21,9 +21,9 @@
         <div class="value">{{receiving$ | async | number: '1.0-4'}} LTO (<span class="blue">ERC-20</span>)</div>
       </div>
 
-      <div class="row address">
+      <div class="row address" [ngClass]="{invalid: isInvalid('address')}">
         <div class="label">To</div>
-        <div class="value input"><input type="text" placeholder="ETH ADDRESS" formControlName="address"></div>
+        <div class="value input"><input type="text" placeholder="ETH ADDRESS" required formControlName="address"></div>
       </div>
     </form>
     <ng-container *ngIf="step === 'confirm'">

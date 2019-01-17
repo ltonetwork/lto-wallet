@@ -101,4 +101,9 @@ export class WithdrawFormComponent implements OnInit {
   closeClick() {
     this.close.next();
   }
+
+  isInvalid(controlName: string) {
+    const control = this.withdrawForm.controls[controlName];
+    return control.dirty && control.invalid;
+  }
 }

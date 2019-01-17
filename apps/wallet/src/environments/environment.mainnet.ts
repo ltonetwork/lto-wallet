@@ -3,7 +3,7 @@ export const environment = {
   networkByte: 'L',
   transfer_fee: 25000000,
   anchor_fee: 25000000,
-  bridge: false,
+  bridge: true,
   swapPageEnabled: true,
   lto_api_url: 'https://nodes.lto.network/'
 };

@@ -2,6 +2,7 @@
   display: block;
   max-width: 960px;
   width: 960px;
+  position: relative;
 }
 
 :host::ng-deep {
@@ -36,4 +37,10 @@
   .blue {
     color: #4a90e2;
   }
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 0px;
 }

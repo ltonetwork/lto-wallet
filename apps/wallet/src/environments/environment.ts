@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   networkByte: 'T',
-  transfer_fee: 200000,
-  anchor_fee: 100000,
+  transfer_fee: 25000000,
+  anchor_fee: 25000000,
   bridge: true,
   swapPageEnabled: true,
   lto_api_url: 'https://testnet.lto.network/'

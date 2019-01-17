@@ -20,7 +20,6 @@ import {
   SWAP_PAGE_ENABLED
 } from './tokens';
 import { ModalsModule } from './modals/modals.module';
-import { BridgePageComponent } from './bridge-page/bridge-page.component';
 import { WalletComponentsModule } from './components/wallet-components.module';
 import { LeasingComponent } from './leasing/leasing.component';
 import { SettingsPageComponent, SigninComponent } from './pages';
@@ -28,13 +27,7 @@ import { SettingsPageComponent, SigninComponent } from './pages';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BridgePageComponent,
-    SigninComponent,
-    LeasingComponent,
-    SettingsPageComponent
-  ],
+  declarations: [AppComponent, SigninComponent, LeasingComponent, SettingsPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -88,8 +81,6 @@ import { environment } from '../environments/environment';
     },
     {
       provide: LTO_PUBLIC_API,
-      // useValue: 'https://nodes.wavesnodes.com/'
-      // useValue: 'https://testnet.legalthings.one/'
       useValue: environment.lto_api_url
     },
     {

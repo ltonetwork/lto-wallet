@@ -25,6 +25,8 @@ export class CreateAccountComponent implements OnInit {
   selectedWords: string[] = [];
   shuffledWords: string[] = [];
 
+  private _selectedWordsIndexes: { [key: number]: boolean } = {};
+
   get getAvailableWords(): string[] {
     return [];
   }
@@ -42,7 +44,7 @@ export class CreateAccountComponent implements OnInit {
    * So we need to save account and password for later use;
    */
   private _account: IUserAccount | null = null;
-  private _password: string = '';
+  private _password = '';
 
   constructor(private auth: AuthService, private router: Router) {
     this.wallet = auth.generateWallet();
@@ -80,8 +82,9 @@ export class CreateAccountComponent implements OnInit {
     }
   }
 
-  selectWord(word: string) {
+  selectWord(word: string, index: number) {
     this.selectedWords.push(word);
+    this._selectedWordsIndexes[index] = true;
   }
 
   resetConfirmation() {
@@ -89,10 +92,11 @@ export class CreateAccountComponent implements OnInit {
       .split(' ')
       .sort(() => (Math.random() * 100 > 50 ? -1 : 1));
     this.selectedWords = [];
+    this._selectedWordsIndexes = {};
   }
 
-  isSelected(word: string): boolean {
-    return this.selectedWords.indexOf(word) !== -1;
+  isSelected(index: number): boolean {
+    return this._selectedWordsIndexes[index];
   }
 
   toConfirmationStep() {

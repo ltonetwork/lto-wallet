@@ -33,12 +33,7 @@
   </div>
   <div class="buttons">
     <div class="narrow">
-      <button
-        mat-flat-button
-        [disabled]="credentialsForm.invalid"
-        (click)="saveAccount(credentialsForm.value)"
-        color="primary"
-      >
+      <button mat-flat-button [disabled]="credentialsForm.invalid" (click)="saveAccount(credentialsForm.value)" color="primary">
         Continue
       </button>
     </div>
@@ -73,12 +68,8 @@
     </ng-container>
     <ng-container *ngIf="!finished || !invalid">
       <div class="words">
-        <div
-          class="word"
-          *ngFor="let word of shuffledWords"
-          [ngClass]="{ selected: isSelected(word) }"
-        >
-          <button mat-flat-button color="accent" (click)="selectWord(word)">{{ word }}</button>
+        <div class="word" *ngFor="let word of shuffledWords; index as i" [ngClass]="{ selected: isSelected(i) }">
+          <button mat-flat-button color="accent" (click)="selectWord(word, i)">{{ word }}</button>
         </div>
       </div>
     </ng-container>
@@ -86,12 +77,7 @@
   <div class="buttons">
     <div class="narrow">
       <button mat-flat-button (click)="goToStep(3)">Back</button>
-      <button
-        mat-flat-button
-        color="primary"
-        [disabled]="!finished || (finished && invalid)"
-        (click)="loginAndGoHome()"
-      >
+      <button mat-flat-button color="primary" [disabled]="!finished || (finished && invalid)" (click)="loginAndGoHome()">
         Confirm
       </button>
     </div>

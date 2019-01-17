@@ -81,8 +81,6 @@ import { environment } from '../environments/environment';
     },
     {
       provide: LTO_PUBLIC_API,
-      // useValue: 'https://nodes.wavesnodes.com/'
-      // useValue: 'https://testnet.legalthings.one/'
       useValue: environment.lto_api_url
     },
     {
@@ -91,8 +89,7 @@ import { environment } from '../environments/environment';
     },
     {
       provide: LTO_BRIDGE_HOST,
-      // useValue: 'https://bridge.lto.network'
-      useValue: 'http://192.168.1.70:3000'
+      useValue: 'https://bridge.lto.network'
     },
     {
       provide: DEFAULT_TRANSFER_FEE,

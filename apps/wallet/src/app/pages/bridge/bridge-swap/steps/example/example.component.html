@@ -16,18 +16,16 @@
   </p>
   <div class="example">
     <div class="row">
-      <div class="label">From</div>
-      <div class="value input">
-        <input disabled type="number" [(ngModel)]="ercDesiting" /><span class="blue">ERC-20</span>
-      </div>
+      <div class="label">Sending</div>
+      <div class="value">1000 LTO <span class="blue">ERC-20</span></div>
     </div>
     <div class="row">
       <div class="label">Fee</div>
-      <div class="value">100 LTO <span class="purple">MAINNET</span></div>
+      <div class="value">- 100 LTO <span class="purple">MAINNET</span></div>
     </div>
     <div class="row">
       <div class="label">Receiving</div>
-      <div class="value">{{ ltoReceving }} LTO <span class="blue">ERC-20</span></div>
+      <div class="value">{{ ltoReceving }} LTO <span class="purple">MAINNET</span></div>
     </div>
   </div>
 </ng-template>
@@ -43,13 +41,13 @@
   </p>
   <div class="example">
     <div class="row">
-      <div class="label">Amount</div>
+      <div class="label">Sending</div>
       <div class="value input">
         <input type="number" disabled [(ngModel)]="ltoWithdrawing" /> LTO (<span class="purple">MAINNET</span>)
       </div>
     </div>
     <div class="row">
-      <div class="label">Burn %</div>
+      <div class="label">Bridge fee %</div>
       <div class="value">{{burnRatePct$ | async | number: '1.0-1'}}% (minimum of {{ 0.75 | number }} LTO)</div>
     </div>
     <div class="row">
@@ -60,11 +58,6 @@
     <div class="row">
       <div class="label">Receiving</div>
       <div class="value">{{receiving$ | async | number: '1.0-4'}} LTO (<span class="blue">ERC-20</span>)</div>
-    </div>
-
-    <div class="row">
-      <div class="label">To</div>
-      <div class="value">ETH ADDRESS</div>
     </div>
   </div>
 </ng-template>

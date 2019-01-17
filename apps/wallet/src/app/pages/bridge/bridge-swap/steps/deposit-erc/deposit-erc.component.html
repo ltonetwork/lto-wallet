@@ -9,8 +9,7 @@
 
 <ng-template #captchaTpl>
   <div class="captcha-box" fxLayout="column" fxLayoutAlign="start center">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation </p>
+    <p>We will now generate an ERC-20 address to which you should transfer your LTO (<span class="blue">ERC-20</span>) tokens to receive LTO (<span color="purple">MAINNET</span>) in your LTO wallet.</p>
     <re-captcha (resolved)="resolveCaptcha($event)"></re-captcha>
   </div>
 </ng-template>
@@ -21,15 +20,17 @@
     <p *ngSuspenseError class="error">Cannot generate bridge</p>
     <lto-loading-spinner *ngSuspensePlaceholder="1000"></lto-loading-spinner>
     <div class="address-box" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px" *ngSuspenseSuccess="let address;">
-      <p>Once we have received your LTO (<span color="blue">ERC-20</span>) tokens
-        we will swap them to LTO (<span color="purple">MAINNET</span>) tokens.
-      </p>
-      <p>Your tokens will be automatically added to your LTO wallet.</p>
       <p>Please send the LTO (<span class="blue">ERC-20</span>) tokens
         to the following wallet address:</p>
+      <p></p>
       <qrcode [qrdata]="address" [size]="120"></qrcode>
       <span>or</span>
       <lto-copyable-text [text]="address"></lto-copyable-text>
+      <p></p>
+      <p>Once we have received your LTO (<span color="blue">ERC-20</span>) tokens
+        we will swap them to LTO (<span color="purple">MAINNET</span>) tokens.
+      </p>
+      <p>Your <span color="purple">MAINNET</span> tokens will be automatically added to your LTO wallet.</p>
     </div>
   </ng-container>
 </ng-template>

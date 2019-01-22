@@ -14,12 +14,17 @@ poe-search-box {
   width: 100%;
 }
 
-.last-blocks {
+.content {
   margin-top: 32px;
+}
+
+.last-blocks {
+
 
   .last-blocks-container {
     border-radius: 4px;
     overflow: hidden;
+
     .all-blocks {
       box-sizing: border-box;
       display: block;
@@ -27,12 +32,22 @@ poe-search-box {
       font-size: 16px;
       background: white;
       text-transform: uppercase;
+
       &:hover {
         background-color: rgba(0, 0, 0, 0.01);
       }
+
       span {
         padding-right: 6px;
       }
     }
+  }
+}
+
+.unconfirmed {
+  min-width: 600px;
+
+  h2 {
+    text-align: center;
   }
 }

@@ -17,11 +17,26 @@ $break-small: 600px;
   }
 }
 
-.page-content-header-content,
-.page-content-body {
+.page-content-header-content {
   max-width: 1120px;
   width: 100%;
   margin: 0 auto;
   padding: 16px;
   box-sizing: border-box;
+}
+
+:host::ng-deep {
+  lto-page-content-body {
+    display: block;
+    max-width: 1120px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 16px;
+    box-sizing: border-box;
+
+    &.full {
+      max-width: 100%;
+    }
+  }
+
 }

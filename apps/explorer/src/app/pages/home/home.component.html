@@ -7,26 +7,24 @@
       </div>
     </div>
   </lto-page-content-header>
-  <lto-page-content-body>
-    <!-- <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="16px">
-      <mat-card fxFlex="1 1 100">
-        <mat-card-title>Graph 1</mat-card-title>
-        <mat-card-content>Something goes here</mat-card-content>
-      </mat-card>
-      <mat-card fxFlex="1 1 100">
-        <mat-card-title>Graph 2</mat-card-title>
-        <mat-card-content>Something goes here</mat-card-content>
-      </mat-card>
-    </div> -->
-    <div class="last-blocks">
-      <h3 class="mat-h3">Last blocks</h3>
-      <ng-container *ngIf="lastBlocks$ | async as blocks; else loadingTpl">
-        <div class="mat-elevation-z2 last-blocks-container">
-          <poe-blocks-list [blocks]="blocks"></poe-blocks-list>
-          <a routerLink="/blocks" class="all-blocks" fxLayout="row" fxLayoutAlign="start center">
-            <span>All blocks</span>
-            <mat-icon>arrow_forward</mat-icon>
-          </a>
+  <lto-page-content-body width="full">
+    <div fxLayout="row" class="content" fxLayoutAlign="center start" fxLayoutGap="16px">
+      <div class="last-blocks">
+        <h3 class="mat-h3">Last blocks</h3>
+        <ng-container *ngIf="lastBlocks$ | async as blocks; else loadingTpl">
+          <div class="mat-elevation-z2 last-blocks-container">
+            <poe-blocks-list [blocks]="blocks"></poe-blocks-list>
+            <a routerLink="/blocks" class="all-blocks" fxLayout="row" fxLayoutAlign="start center">
+              <span>All blocks</span>
+              <mat-icon>arrow_forward</mat-icon>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="unconfirmedTransactions$ | async as unconfirmedTransactions">
+        <div class="unconfirmed">
+          <h3 class="mat-h3">Unconfirmed transactions</h3>
+          <lto-transactions-section *ngIf="unconfirmedTransactions.length; else noTransactionsTpl" [transactions]="unconfirmedTransactions"></lto-transactions-section>
         </div>
       </ng-container>
     </div>
@@ -37,4 +35,9 @@
   <div fxLayout="row" fxLayoutAlign="center">
     <mat-spinner></mat-spinner>
   </div>
+</ng-template>
+
+
+<ng-template #noTransactionsTpl>
+  <h4 class="mat-h4">All transactions are confirmed</h4>
 </ng-template>

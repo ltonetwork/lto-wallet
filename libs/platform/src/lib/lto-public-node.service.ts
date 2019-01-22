@@ -61,4 +61,12 @@ export class LtoPublicNodeService {
   unconfirmedTransactions(): Observable<any[]> {
     return this._http.get<any>(this._publicApi + 'transactions/unconfirmed');
   }
+
+  getLastBlock(): Observable<any[]> {
+    return this._http.get<any>(`${this._publicApi}blocks/last`);
+  }
+
+  getLastBlocks(): Observable<any[]> {
+    return this.height().pipe(switchMap(height => this.headerSequence(height, 20)));
+  }
 }

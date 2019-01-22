@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '@legalthings-one/component-kit';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { Router } from '@angular/router';
-import { Observable, combineLatest, of } from 'rxjs';
-import { take, delay, catchError, map } from 'rxjs/operators';
+import { Observable, combineLatest, of, timer } from 'rxjs';
+import { take, delay, catchError, map, switchMapTo, share } from 'rxjs/operators';
 
 @Component({
   selector: 'poe-home',
@@ -15,13 +15,21 @@ export class HomeComponent implements OnInit {
     delay(500) // Make delay to let animations ned smoothly
   );
 
+  unconfirmedTransactions$!: Observable<any[]>;
+  // lastBlocks$!: Observable<any>;
+
   constructor(
     private _node: LtoPublicNodeService,
     private _notification: NotificationService,
     private _router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const poller = timer(500, 4000).pipe(share());
+    this.unconfirmedTransactions$ = poller.pipe(switchMapTo(this._node.unconfirmedTransactions()));
+
+    this.lastBlocks$ = poller.pipe(switchMapTo(this._node.getLastBlocks()));
+  }
 
   search(value: string) {
     combineLatest(

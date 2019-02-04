@@ -14,25 +14,15 @@
     <div>
       <mat-form-field floatLabel="always" appearance="outline">
         <mat-label>Your wallet seed</mat-label>
-        <textarea
-          rows="5"
-          matInput
-          ngModel
-          placeholder="Your seed is the 15 words you saved when creating your account"
-          required
-          #seed="ngModel"
-        ></textarea>
+        <textarea rows="5" matInput placeholder="Your seed is the 15 words you saved when creating your account"
+          required [formControl]="seedControl"></textarea>
       </mat-form-field>
+      Address: {{walletAddress$ | async}}
     </div>
   </div>
   <div class="buttons">
     <div class="narrow" fxLayout="row" fxLayoutAlign="center">
-      <button
-        mat-flat-button
-        color="primary"
-        [disabled]="seed.invalid"
-        (click)="restoreWallet(seed.value)"
-      >
+      <button mat-flat-button color="primary" [disabled]="(account$ | async) === null" (click)="gotoStep2()">
         Continue
       </button>
     </div>
@@ -48,12 +38,7 @@
   </div>
   <div class="buttons">
     <div class="narrow" fxLayout="row" fxLayoutAlign="center">
-      <button
-        mat-flat-button
-        [disabled]="credentialsForm.invalid"
-        color="primary"
-        (click)="saveAccount(credentialsForm.value)"
-      >
+      <button mat-flat-button [disabled]="credentialsForm.invalid" color="primary" (click)="saveAccount(credentialsForm.value)">
         Continue
       </button>
     </div>

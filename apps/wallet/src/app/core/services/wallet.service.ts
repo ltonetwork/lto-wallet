@@ -16,7 +16,7 @@ import { Account } from 'lto-api';
 import { TransactionTypes } from '../transaction-types';
 import { BridgeService } from './bridge.service';
 import { transactionsFilter, toPromise } from '../utils';
-import { AMOUNT_DIVIDER } from '../../tokens';
+import { AMOUNT_DIVIDER, DEFAULT_TRANSFER_FEE } from '../../tokens';
 
 export interface IBalance {
   regular: number;
@@ -62,7 +62,8 @@ export class WalletServiceImpl implements WalletService {
     private publicNode: PublicNode,
     private auth: AuthService,
     private bridgeService: BridgeService,
-    @Inject(AMOUNT_DIVIDER) private amountDivider: number
+    @Inject(AMOUNT_DIVIDER) private amountDivider: number,
+    @Inject(DEFAULT_TRANSFER_FEE) private defaultTransferFee: number
   ) {
     this.address$ = auth.wallet$.pipe(
       filter((account): account is Account => !!account),
@@ -240,7 +241,7 @@ export class WalletServiceImpl implements WalletService {
       'cancelLeasing',
       {
         transactionId,
-        fee: 25000000
+        fee: this.defaultTransferFee
       },
       wallet.getSignKeys()
     );

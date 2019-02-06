@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { WalletService } from './wallet.service';
 import { PublicNodeMock, AuthServiceMock, BridgeServiceMock } from './mocks';
-import { AMOUNT_DIVIDER } from '../../tokens';
+import { AMOUNT_DIVIDER, DEFAULT_TRANSFER_FEE } from '../../tokens';
 
 describe('Core/WalletService', () => {
   let wallet: WalletService;
@@ -15,7 +15,11 @@ describe('Core/WalletService', () => {
         BridgeServiceMock.provider,
         {
           provide: AMOUNT_DIVIDER,
-          useValue: 100000
+          useValue: 25000000
+        },
+        {
+          provide: DEFAULT_TRANSFER_FEE,
+          useValue: 25000000
         }
       ]
     });

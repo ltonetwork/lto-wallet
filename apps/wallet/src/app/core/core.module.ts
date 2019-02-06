@@ -10,7 +10,8 @@ import {
   AuthService,
   addresValidatorProvider,
   WavesService,
-  Sidenav
+  Sidenav,
+  wavesAddressValidatorProvider
 } from './services';
 
 @NgModule({
@@ -24,6 +25,7 @@ import {
     WalletService.provider,
     AuthService.provider,
     addresValidatorProvider,
+    wavesAddressValidatorProvider,
     WavesService.provider,
     Sidenav.provider
   ]

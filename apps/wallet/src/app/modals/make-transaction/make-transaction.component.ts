@@ -75,7 +75,7 @@ export class MakeTransactionComponent implements OnInit {
     try {
       await this.wallet.transfer(formValue);
     } catch (error) {
-      this.snackbar.open('Transacition error', 'DISMISS', { duration: 3000 });
+      this.snackbar.open('Transaction error', 'DISMISS', { duration: 3000 });
     }
     this.dialogRef.close();
   }

@@ -1,7 +1,7 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
 import { LTO, Account } from 'lto-api';
 import { Observable, BehaviorSubject, Subscriber } from 'rxjs';
-import { LTO_NETWORK_BYTE } from '../../tokens';
+import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '../../tokens';
 import { map } from 'rxjs/operators';
 
 export interface IUserAccount {
@@ -24,8 +24,11 @@ export class AuthServiceImpl implements AuthService {
   availableAccounts$: Observable<IUserAccount[]>;
   private _availableAccounts$: Subscriber<IUserAccount[]> | null = null;
 
-  constructor(@Inject(LTO_NETWORK_BYTE) networkBye: string) {
-    this.ltoInstance = new LTO(networkBye);
+  constructor(@Inject(LTO_NETWORK_BYTE) networkBye: string, @Inject(LTO_PUBLIC_API) publicApi: string) {
+    this.ltoInstance = new LTO(networkBye, publicApi.replace(/\/$/, ''));
+
+    console.log(`Set public api to: ${publicApi.replace(/\/$/, '')}`);
+    console.log(this.ltoInstance.API.PublicNode.blocks.height());
 
     // Create Observable to give latest data on every subscription
     this.availableAccounts$ = new Observable(subscriber => {

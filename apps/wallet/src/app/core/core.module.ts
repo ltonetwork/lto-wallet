@@ -9,6 +9,7 @@ import {
   WalletService,
   AuthService,
   addresValidatorProvider,
+  WavesService,
   Sidenav
 } from './services';
 
@@ -23,6 +24,7 @@ import {
     WalletService.provider,
     AuthService.provider,
     addresValidatorProvider,
+    WavesService.provider,
     Sidenav.provider
   ]
 })

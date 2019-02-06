@@ -1,8 +1,10 @@
 import { Injectable, Inject, ClassProvider } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, timer } from 'rxjs';
-import { map, switchMap, switchMapTo, distinctUntilChanged } from 'rxjs/operators';
+import { map, switchMap, switchMapTo, distinctUntilChanged, catchError } from 'rxjs/operators';
 import { LTO_PUBLIC_API } from '../../tokens';
+import { transactionsFilter } from '../utils';
+import { TransactionTypes } from '../transaction-types';
 
 /**
  * Provide communication with LTO backend
@@ -75,6 +77,24 @@ export class PublicNodeImpl implements PublicNode {
             total,
             items: response.body || []
           };
+        }),
+        catchError(() => {
+          return this.transactionsOf(address).pipe(
+            map(allTransactions => {
+              let transactionType: TransactionTypes[] = [];
+              if (index === 'anchor') {
+                transactionType = [TransactionTypes.ANCHOR];
+              } else if (index === 'transfer') {
+                transactionType = [TransactionTypes.TRANSFER, TransactionTypes.MASS_TRANSFER];
+              }
+
+              const transactions = transactionsFilter(...transactionType)(allTransactions);
+              return {
+                total: transactions.length,
+                items: transactions
+              };
+            })
+          );
         })
       );
   }

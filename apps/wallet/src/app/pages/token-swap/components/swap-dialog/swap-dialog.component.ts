@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { BridgeService } from '../../../../core';
 import { Observable, zip } from 'rxjs';
 import { shareReplay, switchMap, map, take } from 'rxjs/operators';
-import { WalletService } from '../../../../core';
+import { WalletService, WAVES_ADDRESS_VALIDATOR } from '../../../../core';
+import { FormControl, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'lto-wallet-swap-dialog',
@@ -16,8 +17,16 @@ export class SwapDialogComponent implements OnInit {
 
   bridgeAddress$: Observable<string> | null = null;
 
+  wavesAddressControl: FormControl;
+
   step = 0;
-  constructor(private _bridge: BridgeService, private _wallet: WalletService) {}
+  constructor(
+    private _bridge: BridgeService,
+    private _wallet: WalletService,
+    @Inject(WAVES_ADDRESS_VALIDATOR) wavesAddValidator: ValidatorFn
+  ) {
+    this.wavesAddressControl = new FormControl('', [wavesAddValidator]);
+  }
 
   ngOnInit() {}
 
@@ -42,6 +51,7 @@ export class SwapDialogComponent implements OnInit {
   }
 
   goToStep2(skipFaucet: boolean = false) {
+    this.wavesWallet = this.wavesAddressControl.value;
     if (skipFaucet !== true) {
       this._bridge
         .faucet(this.wavesWallet, this.captcha)

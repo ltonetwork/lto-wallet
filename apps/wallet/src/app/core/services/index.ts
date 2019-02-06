@@ -6,6 +6,9 @@ export { EncoderService } from './encoder.service';
 export { WavesService } from './waves.service';
 export {
   ADDRESS_VALIDATOR,
+  WAVES_ADDRESS_VALIDATOR,
+  wavesAddressValidatorProvider,
+  wavesAddressValidatorFactory,
   addressValidatorFactory,
   addresValidatorProvider
 } from './address-validator';

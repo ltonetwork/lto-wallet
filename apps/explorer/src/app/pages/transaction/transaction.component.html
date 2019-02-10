@@ -58,7 +58,7 @@
                   <table mat-table [dataSource]="anchors">
                     <ng-container matColumnDef="hex">
                       <th mat-header-cell *matHeaderCellDef> Hex </th>
-                      <td mat-cell *matCellDef="let anchor"> {{anchor.hex}} </td>
+                      <td mat-cell *matCellDef="let anchor"> {{shorten(anchor.hex, 40)}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="base64">

@@ -67,7 +67,9 @@ export class TransactionComponent implements OnInit {
       filter(hash => !!hash),
       combineLatest(this.anchors$),
       map(([hash, anchors]) => {
-        const anchor = anchors.find(anchor => anchor.hex === hash || anchor.base58 === hash || anchor.base64 === hash);
+        const anchor = anchors.find(
+          anchor => anchor.hex === hash || anchor.base58 === hash || anchor.base64 === hash
+        );
         return {
           hash,
           invalid: !anchor
@@ -81,5 +83,12 @@ export class TransactionComponent implements OnInit {
   showRecipient(transaction: { type: number }): boolean {
     // Hide recipient for data/anchor transactions
     return transaction.type !== 12 && transaction.type !== 15;
+  }
+
+  shorten(str: string, chunk = 20) {
+    if (str.length < chunk * 2) {
+      return str;
+    }
+    return str.slice(0, chunk) + '...' + str.slice(-chunk);
   }
 }

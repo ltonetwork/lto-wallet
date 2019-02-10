@@ -21,22 +21,24 @@ pre {
 
 .anchors-container {
   color: rgba(0, 0, 0, 0.82);
-  margin-left: -24px;
-  margin-right: -24px;
+
   table {
     width: 100%;
   }
+
   .anchors-list {
     .anchor {
       background: rgba(0, 0, 0, 0.02);
       padding: 8px;
       box-sizing: border-box;
       margin-bottom: 8px;
+
       h3 {
         font-size: 16px;
         margin-top: 0;
         margin-bottom: 6px;
       }
+
       .additional {
         padding-left: 8px;
         box-sizing: border-box;

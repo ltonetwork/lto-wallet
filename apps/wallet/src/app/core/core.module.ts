@@ -11,7 +11,8 @@ import {
   addresValidatorProvider,
   WavesService,
   Sidenav,
-  wavesAddressValidatorProvider
+  wavesAddressValidatorProvider,
+  ScriptsService
 } from './services';
 
 @NgModule({
@@ -27,7 +28,8 @@ import {
     addresValidatorProvider,
     wavesAddressValidatorProvider,
     WavesService.provider,
-    Sidenav.provider
+    Sidenav.provider,
+    ScriptsService.provider
   ]
 })
 export class CoreModule {}

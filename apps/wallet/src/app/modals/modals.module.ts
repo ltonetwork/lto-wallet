@@ -5,6 +5,7 @@ import { WithdrawModalModule } from './withdraw-modal';
 import { DepositModalModule } from './deposit-modal';
 import { StartLeaseModalModule } from './start-lease-modal';
 import { FeeInputModalModule } from './fee-input-modal';
+import { CreateScriptModule } from './create-script';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { FeeInputModalModule } from './fee-input-modal';
     WithdrawModalModule,
     DepositModalModule,
     StartLeaseModalModule,
-    FeeInputModalModule
+    FeeInputModalModule,
+    CreateScriptModule
   ]
 })
 export class ModalsModule {}

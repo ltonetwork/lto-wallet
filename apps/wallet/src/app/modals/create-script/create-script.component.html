@@ -1,0 +1,20 @@
+<div mat-dialog-title>Script transaction</div>
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Script</mat-label>
+    <mat-select [formControl]="scriptTextCtrl">
+      <mat-option *ngFor="let script of predefinedScripts" [value]="script.value">{{script.label}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <pre>{{scriptTextCtrl.value}}</pre>
+  <div class="warning">
+    <h4 class="mat-h4">Warning: actions can lead to loss of access to your account</h4>
+    We do not recommend you submit script transactions unless you are an experienced user. Errors can lead to permanent
+    loss of access to your account.
+  </div>
+  <p class="fee">Fee: 0.01 LTO</p>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" (click)="createScript()">Create</button>
+</mat-dialog-actions>

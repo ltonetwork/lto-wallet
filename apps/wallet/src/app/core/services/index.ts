@@ -13,3 +13,5 @@ export {
   addresValidatorProvider
 } from './address-validator';
 export { Sidenav, SidenavMode } from './sidenav';
+export { ScriptsService, PredefinedScript } from './scripts.service';
+export { FeeService } from './fee.service';

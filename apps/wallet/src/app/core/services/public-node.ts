@@ -6,6 +6,12 @@ import { LTO_PUBLIC_API } from '../../tokens';
 import { transactionsFilter } from '../utils';
 import { TransactionTypes } from '../transaction-types';
 
+interface CompildedScript {
+  script: string;
+  complexity: number;
+  extraFee: number;
+}
+
 /**
  * Provide communication with LTO backend
  */
@@ -114,6 +120,14 @@ export class PublicNodeImpl implements PublicNode {
   activeLease(address: string): Observable<LTO.Transaction[]> {
     return this._http.get<LTO.Transaction[]>(`${this._publicApi}leasing/active/${address}`);
   }
+
+  getScript(address: string): Observable<any> {
+    return this._http.get<any>(`${this._publicApi}addresses/scriptInfo/${address}`);
+  }
+
+  compileScript(code: string): Observable<CompildedScript> {
+    return this._http.post<CompildedScript>(`${this._publicApi}utils/script/compile`, code);
+  }
 }
 
 export abstract class PublicNode {
@@ -137,4 +151,6 @@ export abstract class PublicNode {
   abstract balanceOf(address: string): Observable<any>;
   abstract unconfirmedTransactions(): Observable<any[]>;
   abstract activeLease(address: string): Observable<LTO.Transaction[]>;
+  abstract getScript(address: string): Observable<any>;
+  abstract compileScript(code: string): Observable<CompildedScript>;
 }

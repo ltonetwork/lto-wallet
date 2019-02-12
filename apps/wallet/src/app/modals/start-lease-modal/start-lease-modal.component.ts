@@ -1,9 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { WalletService, IBalance, formControlErrors, ADDRESS_VALIDATOR } from '../../core';
+
+import {
+  WalletService,
+  IBalance,
+  formControlErrors,
+  ADDRESS_VALIDATOR,
+  FeeService,
+} from '../../core';
 import { DEFAULT_TRANSFER_FEE } from '../../tokens';
-import { take } from 'rxjs/operators';
+import { take, withLatestFrom } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
 
@@ -38,30 +45,32 @@ export class StartLeaseModalComponent implements OnInit {
     private confirmDialog: TransactionConfirmDialog,
     @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn,
     @Inject(MAT_DIALOG_DATA) public balance: number,
-    @Inject(DEFAULT_TRANSFER_FEE) public defaultFee: number
+    private _feeService: FeeService
   ) {}
 
   ngOnInit() {
     this.balance$ = this._wallet.balance$;
 
-    this._wallet.balance$.pipe(take(1)).subscribe((balance) => {
-      const maxAmount = balance.available / balance.amountDivider;
-      const minAmount = 1 / balance.amountDivider;
-      const fee = this.defaultFee / balance.amountDivider;
+    this._wallet.balance$
+      .pipe(withLatestFrom(this._feeService.leaseFee$), take(1))
+      .subscribe(([balance, leaseFee]) => {
+        const maxAmount = balance.available / balance.amountDivider;
+        const minAmount = 1 / balance.amountDivider;
+        const fee = leaseFee / balance.amountDivider;
 
-      this.leaseForm = new FormGroup({
-        recipient: new FormControl('', [Validators.required, this._addressValidator]),
-        amount: new FormControl(0, [
-          Validators.required,
-          Validators.min(minAmount),
-          Validators.max(maxAmount),
-        ]),
-        fee: new FormControl({ value: fee, disabled: true }, [
-          Validators.required,
-          Validators.min(minAmount),
-        ]),
+        this.leaseForm = new FormGroup({
+          recipient: new FormControl('', [Validators.required, this._addressValidator]),
+          amount: new FormControl(0, [
+            Validators.required,
+            Validators.min(minAmount),
+            Validators.max(maxAmount),
+          ]),
+          fee: new FormControl({ value: fee, disabled: true }, [
+            Validators.required,
+            Validators.min(minAmount),
+          ]),
+        });
       });
-    });
   }
 
   async lease() {

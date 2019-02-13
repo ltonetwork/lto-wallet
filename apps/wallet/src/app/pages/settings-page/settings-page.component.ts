@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, IUserAccount, ScriptsService } from '../../core';
-import { CreateScriptModal } from '../../modals';
+import { AuthService, IUserAccount, ScriptsService, FeeService, toPromise } from '../../core';
+import { CreateScriptModal, ScriptInfoModal } from '../../modals';
 import { Observable, of } from 'rxjs';
 import { Account } from 'lto-api';
 import { MatSnackBar } from '@angular/material';
@@ -19,7 +19,9 @@ export class SettingsPageComponent implements OnInit {
     private auth: AuthService,
     private _createScriptModal: CreateScriptModal,
     private _scriptService: ScriptsService,
-    private _snackbar: MatSnackBar
+    private _snackbar: MatSnackBar,
+    private _feeService: FeeService,
+    private _scriptInfoModal: ScriptInfoModal
   ) {
     this.userAccount$ = auth.account$;
     this.ltoAccount$ = auth.wallet$;
@@ -44,5 +46,23 @@ export class SettingsPageComponent implements OnInit {
         duration: 3000
       });
     }
+  }
+
+  async disableScript() {
+    const fee = await toPromise(this._feeService.transferFee$);
+    try {
+      this._scriptService.disabeScript(fee);
+      this._snackbar.open('Script removed', 'DISMISS', {
+        duration: 3000
+      });
+    } catch (error) {
+      this._snackbar.open('Cannot remove script', 'DISMISS', {
+        duration: 3000
+      });
+    }
+  }
+
+  showScriptInfo() {
+    this._scriptInfoModal.show();
   }
 }

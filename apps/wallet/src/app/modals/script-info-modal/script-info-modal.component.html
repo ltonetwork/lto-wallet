@@ -1,0 +1,7 @@
+<div mat-dialog-title>Script info</div>
+<mat-dialog-content>
+  <pre>{{info$ | async | json}}</pre>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

@@ -18,7 +18,10 @@
         <mat-list-item [ngSuspense]="scriptEnabled$">
           <div fxLayout="row" fxLayoutAlign="start center" fxFlexFill *ngSuspenseSuccess="let enabled">
             <span fxFlex="1 1 auto">Script</span>
-            <button mat-button *ngIf="enabled">Disable script</button>
+            <ng-container *ngIf="enabled">
+              <button mat-button color="warn" (click)="disableScript()">Disable script</button>
+              <button mat-button (click)="showScriptInfo()">Script info</button>
+            </ng-container>
             <button mat-button *ngIf="!enabled" (click)="createScript()">Set script</button>
           </div>
         </mat-list-item>

@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  width: 500px;
+}
+
+mat-dialog-content {
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+pre {
+  background: rgba(0, 0, 0, 0.02);
+  padding: 8px;
+  box-sizing: border-box;
+  overflow: auto;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}

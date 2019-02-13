@@ -1,6 +1,6 @@
 <div mat-dialog-title>Start lease</div>
 <mat-dialog-content>
-  <form [formGroup]="leaseForm" fxLayout="column" *ngIf="leaseForm">
+  <form [formGroup]="leaseForm" fxLayout="column" *ngIf="leaseForm; else loadingTpl">
     <mat-form-field>
       <mat-label>Balance</mat-label>
       <input matInput disabled value="{{ balance | amountDivide }}" />
@@ -27,3 +27,10 @@
   <button mat-button mat-dialog-close>Cancel</button>
   <button mat-button (click)="lease()" [disabled]="leaseForm?.invalid">Start lease</button>
 </mat-dialog-actions>
+
+
+<ng-template #loadingTpl>
+  <div fxLayout="row" fxLayoutAlign="center center" class="loading">
+    <mat-progress-spinner mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+  </div>
+</ng-template>

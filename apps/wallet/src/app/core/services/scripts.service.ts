@@ -1,6 +1,5 @@
 import { Injectable, ClassProvider, Inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { PublicNode } from './public-node';
 import { AuthService } from './auth.service';
 import { switchMap, filter, map, shareReplay } from 'rxjs/operators';
@@ -97,19 +96,19 @@ const PREDEFINED_SCRIPTS_TEST: PredefinedScript[] = [
 export class ScriptsServiceImpl implements ScriptsService {
   predefinedScripts: PredefinedScript[] = PREDEFINED_SCRIPTS_TEST;
   scriptEnabled$: Observable<boolean>;
+  scriptInfo$: Observable<any>;
 
-  constructor(
-    private _http: HttpClient,
-    private _publicNode: PublicNode,
-    private _auth: AuthService
-  ) {
-    this.scriptEnabled$ = _auth.account$.pipe(
+  constructor(private _publicNode: PublicNode, private _auth: AuthService) {
+    this.scriptInfo$ = _auth.account$.pipe(
       switchMap(account => {
         if (!account) {
-          return of([]);
+          throw new Error('No account');
         }
         return _publicNode.getScript(account.address);
-      }),
+      })
+    );
+
+    this.scriptEnabled$ = this.scriptInfo$.pipe(
       map(scriptInfo => {
         return !!scriptInfo.script;
       })
@@ -134,6 +133,18 @@ export class ScriptsServiceImpl implements ScriptsService {
       )
       .toPromise();
   }
+
+  async disabeScript(fee: number) {
+    const wallet: any = await toPromise(this._auth.wallet$);
+    return this._auth.ltoInstance.API.PublicNode.transactions.broadcast(
+      TRANSACTION_TYPE.SET_SCRIPT,
+      {
+        script: '',
+        fee
+      },
+      wallet.getSignKeys()
+    );
+  }
 }
 
 export abstract class ScriptsService {
@@ -144,6 +155,8 @@ export abstract class ScriptsService {
 
   abstract predefinedScripts: PredefinedScript[];
   abstract scriptEnabled$: Observable<boolean>;
+  abstract scriptInfo$: Observable<any>;
 
   abstract createScript(code: string): any;
+  abstract disabeScript(fee: number): any;
 }

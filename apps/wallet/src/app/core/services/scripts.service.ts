@@ -94,7 +94,7 @@ const PREDEFINED_SCRIPTS_TEST: PredefinedScript[] = [
 
 @Injectable()
 export class ScriptsServiceImpl implements ScriptsService {
-  predefinedScripts: PredefinedScript[] = PREDEFINED_SCRIPTS_TEST;
+  predefinedScripts: PredefinedScript[] = PREDEFINED_SCRIPTS;
   scriptEnabled$: Observable<boolean>;
   scriptInfo$: Observable<any>;
 

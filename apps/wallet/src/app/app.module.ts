@@ -72,7 +72,7 @@ import { environment } from '../environments/environment';
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
-        siteKey: '6LdsIDYUAAAAAPImboJcK6idKlzFXlW_bPFa7mTu'
+        siteKey: '6LebrZMUAAAAAEhsMU6H0QQChao1Ya3buSsBXunu'
       }
     },
     {

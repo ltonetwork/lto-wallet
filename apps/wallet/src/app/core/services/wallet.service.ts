@@ -110,7 +110,7 @@ export class WalletServiceImpl implements WalletService {
     this.transfers$ = this.update$.pipe(
       switchMap(wallet => {
         return zip(
-          publicNode.indexedTransactions(wallet.address, 'transfer'),
+          publicNode.indexedTransactions(wallet.address, 'all_transfers'),
           this.unconfirmed$.pipe(
             map(transactionsFilter(TransactionTypes.TRANSFER, TransactionTypes.MASS_TRANSFER))
           )
@@ -121,7 +121,8 @@ export class WalletServiceImpl implements WalletService {
           total: transferTransactions.total,
           items: [...transferTransactions.items, ...unconfirmed]
         };
-      })
+      }),
+      shareReplay(1)
     );
 
     this.leasingTransactions$ = this.update$.pipe(

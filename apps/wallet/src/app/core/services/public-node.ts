@@ -79,6 +79,10 @@ export class PublicNodeImpl implements PublicNode {
           };
         }),
         catchError(() => {
+          if (index === 'all_transfers') {
+            return this.indexedTransactions(address, 'transfer', limit);
+          }
+
           return this.transactionsOf(address).pipe(
             map(allTransactions => {
               let transactionType: TransactionTypes[] = [];

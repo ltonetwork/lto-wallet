@@ -18,13 +18,14 @@ export class ExampleComponent implements OnInit {
   receiving$!: Observable<number>;
 
   ercDesiting = 1000;
+  bridgeFee = 40;
 
   get ltoReceving(): number {
-    if (this.ercDesiting < 100) {
+    if (this.ercDesiting < this.bridgeFee) {
       return 0;
     }
 
-    return this.ercDesiting - 100;
+    return this.ercDesiting - this.bridgeFee;
   }
 
   ltoWithdrawing = 1000;

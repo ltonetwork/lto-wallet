@@ -8,7 +8,8 @@
 
 <ng-template #ercToMainTpl>
   <p>
-    The bridge will charge a fee for transfering your tokens. This fee is a standard fee of {{ bridgeFee }} LTO, which will withdrawn from your transfered tokens.
+    The bridge will charge a fee for transfering your tokens. This fee is a standard fee of {{ bridgeFee }} LTO, which
+    will withdrawn from your transfered tokens.
   </p>
   <p>
     To help you understand the process of swapping LTO (<span class="blue">ERC-20</span>) to LTO
@@ -32,7 +33,8 @@
 
 <ng-template #mainToErcTpl>
   <p>
-    The bridge will charge a fee for transfering your tokens. This fee will be burned to lower the total amount of tokens in circulating supply.
+    The bridge will charge a fee for transfering your tokens. This fee will be burned to lower the total amount of
+    tokens in circulating supply.
     The height of this bridge fee decreases over time.
   </p>
   <p>
@@ -48,7 +50,7 @@
     </div>
     <div class="row">
       <div class="label">Bridge fee %</div>
-      <div class="value">{{burnRatePct$ | async | number: '1.0-1'}}% (minimum of {{ 0.75 | number }} LTO)</div>
+      <div class="value">{{burnRatePct$ | async | number: '1.0-1'}}% (minimum of {{ 2.25 | number }} LTO)</div>
     </div>
     <div class="row">
       <div class="label">Burned tokens</div>

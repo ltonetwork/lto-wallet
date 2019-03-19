@@ -14,6 +14,7 @@ export class WalletServiceMock implements WalletService {
     effective: 0,
     amountDivider: 1
   });
+  transferFee$ = of(0.75);
 
   address$ = of('test_address');
 

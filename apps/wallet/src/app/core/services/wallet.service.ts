@@ -43,6 +43,7 @@ export interface ITransferPayload {
 @Injectable()
 export class WalletServiceImpl implements WalletService {
   balance$: Observable<IBalance>;
+  transferFee$ = of(1);
 
   transactions$: Observable<LTO.Transaction[]>;
   transfers$: Observable<LTO.Page<LTO.Transaction>>;
@@ -295,6 +296,7 @@ export abstract class WalletService {
 
   abstract balance$: Observable<IBalance>;
   abstract address$: Observable<string>;
+  abstract transferFee$: Observable<number>;
 
   // Transactions history
   abstract transactions$: Observable<any[]>;

@@ -5,6 +5,8 @@ import { BridgeService, WalletService, etheriumAddressValidator } from '../../..
 import { DEFAULT_TRANSFER_FEE } from '../../../../../tokens';
 import { map, withLatestFrom } from 'rxjs/operators';
 
+const BRIDGE_MINIMAL_FEE = 2.25;
+
 @Component({
   selector: 'lto-wallet-withdraw-form',
   templateUrl: './withdraw-form.component.html',
@@ -25,6 +27,8 @@ export class WithdrawFormComponent implements OnInit {
   burnRatePct$!: Observable<number>;
   burnedTokens$!: Observable<number>;
   receiving$!: Observable<number>;
+
+  BRIDGE_MINIMAL_FEE = BRIDGE_MINIMAL_FEE;
 
   get cannotSend(): boolean {
     return !this.confirmed || !this.captchaResponse;
@@ -49,7 +53,7 @@ export class WithdrawFormComponent implements OnInit {
       withLatestFrom(this._bridge.burnRate$),
       map(([amount, burnRate]) => {
         const burned = amount * burnRate;
-        return burned < 0.75 ? 0.75 : burned;
+        return burned < BRIDGE_MINIMAL_FEE ? BRIDGE_MINIMAL_FEE : burned;
       })
     );
 
@@ -63,7 +67,7 @@ export class WithdrawFormComponent implements OnInit {
     /**
      * amount : 1
      * Burn rate: 0.03
-     * Burned tokens: amount * burnRate or 0.75 (whatever is higher)
+     * Burned tokens: amount * burnRate or BRIDGE_MINIMAL_FEE (whatever is higher)
      * Reciving: amount - burndTokens
      */
   }

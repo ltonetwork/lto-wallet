@@ -29,6 +29,9 @@
         <div class="value input"><input type="text" placeholder="ETH ADDRESS" required formControlName="address"></div>
       </div>
     </form>
+    <div class="form-errors" *ngIf="withdrawForm.dirty && withdrawForm.invalid">
+      <div class="form-error" *ngFor="let error of getFormErrors()">{{error}}</div>
+    </div>
     <ng-container *ngIf="step === 'confirm'">
       <div class="confirmation" fxLayout="row" fxLayoutGap="8px">
         <input type="checkbox" name="confirm" id="confirm" (change)="confirm()">
@@ -41,11 +44,11 @@
       </div>
     </ng-container>
   </ng-container>
-
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
   <ng-container *ngIf="!transfer$">
-    <button mat-flat-button color="primary" [disabled]="withdrawForm.invalid" *ngIf="step === 'input'" (click)="goToConfirmation()">Next</button>
+    <button mat-flat-button color="primary" [disabled]="withdrawForm.pristine || withdrawForm.invalid" *ngIf="step === 'input'"
+      (click)="goToConfirmation()">Next</button>
     <ng-container *ngIf="step ==='confirm'">
       <button mat-button (click)="goToInputStep()">Back</button>
       <button mat-flat-button color="primary" [disabled]="cannotSend" (click)="transfer()">Transfer</button>

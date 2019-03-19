@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { BridgeService, WalletService } from '../../../../../core';
+import { BridgeService, WalletService, etheriumAddressValidator } from '../../../../../core';
 import { DEFAULT_TRANSFER_FEE } from '../../../../../tokens';
 import { map, withLatestFrom } from 'rxjs/operators';
 
@@ -41,7 +41,7 @@ export class WithdrawFormComponent implements OnInit {
 
     this.withdrawForm = new FormGroup({
       amount: new FormControl(0, [Validators.min(0), Validators.required]),
-      address: new FormControl('', [Validators.required])
+      address: new FormControl('', [Validators.required, etheriumAddressValidator])
     });
 
     this.burnedTokens$ = this.withdrawForm.valueChanges.pipe(

@@ -203,8 +203,8 @@ export class WalletServiceImpl implements WalletService {
       'transfer',
       {
         ...data,
-        fee: fee * this.amountDivider,
-        amount: amount * this.amountDivider
+        fee: Math.round(fee * this.amountDivider),
+        amount: Math.round(amount * this.amountDivider)
       },
       wallet.getSignKeys()
     );
@@ -229,8 +229,8 @@ export class WalletServiceImpl implements WalletService {
       'lease',
       {
         recipient,
-        fee: fee * this.amountDivider,
-        amount: amount * this.amountDivider
+        fee: Math.round(fee * this.amountDivider),
+        amount: Math.round(amount * this.amountDivider)
       },
       wallet.getSignKeys()
     );
@@ -256,7 +256,7 @@ export class WalletServiceImpl implements WalletService {
     await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
       'anchor',
       {
-        fee: fee * this.amountDivider,
+        fee: Math.round(fee * this.amountDivider),
         anchors: [hash]
       },
       wallet.getSignKeys()

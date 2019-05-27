@@ -7,7 +7,8 @@
     <form class="withdraw-form" [formGroup]="withdrawForm">
       <div class="row" [ngClass]="{invalid: isInvalid('amount')}">
         <div class="label">Sending</div>
-        <div class="value input"><input type="number" formControlName="amount"> LTO (<span class="purple">MAINNET</span>)</div>
+        <div class="value input"><input type="number" formControlName="amount"> LTO (<span
+            class="purple">MAINNET</span>)</div>
       </div>
       <div class="row">
         <div class="label">Bridge %</div>
@@ -47,8 +48,8 @@
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
   <ng-container *ngIf="!transfer$">
-    <button mat-flat-button color="primary" [disabled]="withdrawForm.pristine || withdrawForm.invalid" *ngIf="step === 'input'"
-      (click)="goToConfirmation()">Next</button>
+    <button mat-flat-button color="primary" [disabled]="withdrawForm.pristine || withdrawForm.invalid"
+      *ngIf="step === 'input'" (click)="goToConfirmation()">Next</button>
     <ng-container *ngIf="step ==='confirm'">
       <button mat-button (click)="goToInputStep()">Back</button>
       <button mat-flat-button color="primary" [disabled]="cannotSend" (click)="transfer()">Transfer</button>
@@ -65,7 +66,7 @@
     <lto-loading-spinner *ngSuspensePlaceholder="500"></lto-loading-spinner>
     <div *ngSuspenseSuccess>
       <img class="troll" src="assets/troll.png" alt="">
-      <p>We have send the LTO (<span class="purple">MAINNET</span>) tokens
+      <p>We have sent the LTO (<span class="purple">MAINNET</span>) tokens
         to our Bridge Troll to convert them to LTO (<span class="blue">ERC-20</span>) tokens.</p>
 
       <p>The LTO (<span class="blue">ERC-20</span>) tokens will be sent to:<br>

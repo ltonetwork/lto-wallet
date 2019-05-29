@@ -8,19 +8,42 @@
       <mat-card-content>
         <div class="balance-box" *ngIf="balance$ | async as balance">
           <div class="balance">
-            <div class="label">Regular</div>
+            <div class="label">
+              Regular
+              <mat-icon class="mat-icon-help" matTooltip="The amount of LTO owned, including those who are leased.">
+                help_outline
+              </mat-icon>
+            </div>
             <div class="value">{{balance.regular | lto_amount}}</div>
           </div>
           <div class="balance">
-            <div class="label">Generating</div>
+            <div class="label">
+              Generating
+              <mat-icon class="mat-icon-help"
+                        matTooltip="The minimal amount of Effective LTO for the last 1000 blocks.">
+                help_outline
+              </mat-icon>
+            </div>
             <div class="value">{{balance.generating | lto_amount}}</div>
           </div>
           <div class="balance">
-            <div class="label">Available</div>
+            <div class="label">
+              Available
+              <mat-icon class="mat-icon-help" matTooltip="The amount of LTO own, excluding the amount of tokens leased.
+                                The total amount of LTO which can be spend.">
+                help_outline
+              </mat-icon>
+            </div>
             <div class="value">{{balance.available | lto_amount}}</div>
           </div>
           <div class="balance">
-            <div class="label">Effective</div>
+            <div class="label">
+              Effective
+              <mat-icon class="mat-icon-help"
+                        matTooltip="The amount of LTO owned plus the amount of LTO to the address.">
+                help_outline
+              </mat-icon>
+            </div>
             <div class="value">{{balance.effective | lto_amount}}</div>
           </div>
         </div>

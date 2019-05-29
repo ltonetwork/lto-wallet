@@ -82,7 +82,7 @@ export class TransactionComponent implements OnInit {
 
   showRecipient(transaction: { type: number }): boolean {
     // Hide recipient for data/anchor transactions
-    return transaction.type !== 12 && transaction.type !== 15;
+    return transaction.type === 4 || transaction.type === 7;
   }
 
   shorten(str: string, chunk = 20) {

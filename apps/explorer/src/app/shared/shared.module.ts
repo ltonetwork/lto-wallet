@@ -14,7 +14,8 @@ import {
   MatSidenavModule,
   MatTabsModule,
   MatSnackBarModule,
-  MatListModule
+  MatListModule,
+  MatTooltipModule
 } from '@angular/material';
 
 import { SearchBoxModule, BlocksListModule, KeyvalueListModule } from './components';
@@ -44,6 +45,7 @@ import {
     MatTabsModule,
     MatSnackBarModule,
     MatListModule,
+    MatTooltipModule,
     // Custom components
     SearchBoxModule,
     BlocksListModule,

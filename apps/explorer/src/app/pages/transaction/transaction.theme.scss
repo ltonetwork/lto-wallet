@@ -3,3 +3,7 @@
 @mixin transaction-theme($theme) {
   $primary: map-get($theme, primary);
 }
+
+.mat-icon-help {
+  vertical-align: middle;
+}

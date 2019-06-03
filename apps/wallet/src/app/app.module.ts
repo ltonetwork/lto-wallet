@@ -89,7 +89,7 @@ import { environment } from '../environments/environment';
     },
     {
       provide: LTO_BRIDGE_HOST,
-      useValue: 'https://bridge.lto.network'
+      useValue: environment.bridge_url
     },
     {
       provide: DEFAULT_TRANSFER_FEE,

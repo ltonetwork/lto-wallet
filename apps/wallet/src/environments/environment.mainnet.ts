@@ -5,5 +5,6 @@ export const environment = {
   anchor_fee: 25000000,
   bridge: true,
   swapPageEnabled: true,
-  lto_api_url: 'https://nodes.lto.network/'
+  lto_api_url: 'https://nodes.lto.network/',
+  bridge_url: 'https://bridge.lto.network'
 };

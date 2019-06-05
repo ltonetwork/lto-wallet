@@ -30,10 +30,15 @@ export class BridgeSwapComponent implements OnInit {
   }
 
   goToNextStep() {
-    if (this.swapType === SwapType.ERC20_MAIN) {
-      this.step = 4;
-    } else {
-      this.step = 5;
+    switch (this.swapType) {
+      case SwapType.ERC20_MAIN:
+      case SwapType.BINANCE_MAIN:
+        this.step = 4;
+        break;
+      case SwapType.MAIN_BINANCE:
+      case SwapType.MAIN_ERC20:
+        this.step = 5;
+        break;
     }
   }
 

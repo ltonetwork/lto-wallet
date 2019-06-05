@@ -16,7 +16,6 @@ export class SidenavImpl implements Sidenav {
   constructor(media: ObservableMedia) {
     this.mode$ = media.asObservable().pipe(
       map(mediaChange => {
-        // debugger;
         switch (mediaChange.mqAlias) {
           case 'lg':
           case 'xl':

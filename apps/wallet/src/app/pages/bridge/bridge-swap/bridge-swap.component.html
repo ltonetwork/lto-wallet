@@ -3,9 +3,9 @@
   <lto-wallet-swap-type *ngSwitchCase="2" (selectType)="selectSwapType($event)"></lto-wallet-swap-type>
   <lto-wallet-example *ngSwitchCase="3" [swapType]="swapType" (nextStep)="goToNextStep()"></lto-wallet-example>
   <!-- From here our path splits 4 erc->mainnet part, 5-13 mainnet->erc part -->
-  <lto-wallet-deposit-erc *ngSwitchCase="4" (close)="close()"></lto-wallet-deposit-erc>
+  <lto-wallet-deposit-erc *ngSwitchCase="4" [swapType]="swapType" (close)="close()"></lto-wallet-deposit-erc>
   <!-- mainnet -> erc part -->
-  <lto-wallet-withdraw-form *ngSwitchCase="5" (close)="close()"></lto-wallet-withdraw-form>
+  <lto-wallet-withdraw-form *ngSwitchCase="5" [swapType]="swapType" (close)=" close()"></lto-wallet-withdraw-form>
 </ng-container>
 
 <button mat-icon-button class="close-button" (click)="close()" tabindex="-1">

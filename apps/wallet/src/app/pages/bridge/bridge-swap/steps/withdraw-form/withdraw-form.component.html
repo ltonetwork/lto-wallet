@@ -1,9 +1,12 @@
-<h2 mat-dialog-title>LTO (<span class="purple">MAINNET</span>) to LTO (<span class="blue">ERC-20</span>)</h2>
+<h2 mat-dialog-title>LTO (<span class="purple">MAINNET</span>) to LTO (<span
+    class="{{otherColor}}">{{otherTokenType}}</span>)
+</h2>
 <mat-dialog-content>
   <ng-container *ngIf="!transfer$; else trollTpl">
     <p>Please fill in the amount of <span class="purple">MAINNET</span> tokens you want to transfer and the ETH address
-      where you want to receive the <span class="blue">ERC-20</span> tokens.</p>
-    <p>Please use a wallet which is compatible with the ERC-20 token standard and which private keys you control.</p>
+      where you want to receive the <span class="{{otherColor}}">{{otherTokenType}}</span> tokens.</p>
+    <p>Please use a wallet which is compatible with the {{otherTokenType}} token standard and which private keys you
+      control.</p>
     <form class="withdraw-form" [formGroup]="withdrawForm">
       <div class="row" [ngClass]="{invalid: isInvalid('amount')}">
         <div class="label">Sending</div>
@@ -22,12 +25,15 @@
 
       <div class="row">
         <div class="label">Receiving</div>
-        <div class="value">{{receiving$ | async | number: '1.0-4'}} LTO (<span class="blue">ERC-20</span>)</div>
+        <div class="value">{{receiving$ | async | number: '1.0-4'}} LTO (<span
+            class="{{otherColor}}">{{otherTokenType}}</span>)
+        </div>
       </div>
 
       <div class="row address" [ngClass]="{invalid: isInvalid('address')}">
         <div class="label">To</div>
-        <div class="value input"><input type="text" placeholder="ETH ADDRESS" required formControlName="address"></div>
+        <div class="value input"><input type="text" placeholder="{{addressPlaceholder}} ADDRESS" required
+            formControlName="address"></div>
       </div>
     </form>
     <div class="form-errors" *ngIf="withdrawForm.dirty && withdrawForm.invalid">
@@ -67,10 +73,10 @@
     <div *ngSuspenseSuccess>
       <img class="troll" src="assets/troll.png" alt="">
       <p>We have sent the LTO (<span class="purple">MAINNET</span>) tokens
-        to our Bridge Troll to convert them to LTO (<span class="blue">ERC-20</span>) tokens.</p>
+        to our Bridge Troll to convert them to LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens.</p>
 
-      <p>The LTO (<span class="blue">ERC-20</span>) tokens will be sent to:<br>
-        <b>{{withdrawForm.value.address}}</b> ETH address.
+      <p>The LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens will be sent to:<br>
+        <b>{{withdrawForm.value.address}}</b> {{addressPlaceholder}} address.
       </p>
 
     </div>

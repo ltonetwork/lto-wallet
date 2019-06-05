@@ -14,9 +14,10 @@
     line-height: 24px;
     color: #5a6169;
     cursor: pointer;
+    border-top: 1px solid #becad6;
 
-    &:last-child {
-      border-top: 1px solid #becad6;
+    &:first-child {
+      border-top: none;
     }
 
     &:hover,

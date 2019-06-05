@@ -20,6 +20,28 @@ export class ExampleComponent implements OnInit {
   ercDesiting = 1000;
   bridgeFee = 40;
 
+  get otherTokenType(): string {
+    switch (this.swapType) {
+      case SwapType.ERC20_MAIN:
+      case SwapType.MAIN_ERC20:
+        return 'ERC-20';
+      case SwapType.BINANCE_MAIN:
+      case SwapType.MAIN_BINANCE:
+        return 'BINANCE';
+    }
+  }
+
+  get otherColor(): string {
+    switch (this.swapType) {
+      case SwapType.ERC20_MAIN:
+      case SwapType.MAIN_ERC20:
+        return 'blue';
+      case SwapType.BINANCE_MAIN:
+      case SwapType.MAIN_BINANCE:
+        return 'yellow';
+    }
+  }
+
   get ltoReceving(): number {
     if (this.ercDesiting < this.bridgeFee) {
       return 0;

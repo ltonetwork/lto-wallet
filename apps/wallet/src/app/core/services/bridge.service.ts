@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, tap, shareReplay } from 'rxjs/operators';
 import { LTO_BRIDGE_HOST, BRIDGE_ENABLED } from '../../tokens';
 
-type TokenType = 'LTO' | 'LTO20' | 'WAVES';
+export type TokenType = 'LTO' | 'LTO20' | 'WAVES' | 'BINANCE';
 
 interface BridgeCache {
   deposit: {
@@ -57,14 +57,15 @@ export class BridgeServiceImpl implements BridgeService {
     );
   }
 
-  withdrawTo(recipient: string, captcha: string): Observable<string> {
-    if (this.cache.withdraw[recipient]) {
-      return of(this.cache.withdraw[recipient]);
+  withdrawTo(recipient: string, captcha: string, tokenType: TokenType = 'LTO20'): Observable<string> {
+    const cacheKey = recipient + tokenType;
+    if (this.cache.withdraw[cacheKey]) {
+      return of(this.cache.withdraw[cacheKey]);
     }
 
-    return this.createBridgeAddress('LTO', 'LTO20', recipient, captcha).pipe(
+    return this.createBridgeAddress('LTO', tokenType, recipient, captcha).pipe(
       tap(bridge => {
-        this.cache.withdraw[recipient] = bridge;
+        this.cache.withdraw[cacheKey] = bridge;
         this.saveCache(this.cache);
       })
     );
@@ -134,7 +135,7 @@ export abstract class BridgeService {
    * Generate bridge addres to convert LTO -> LTO20
    * @param address - recipient addres
    */
-  abstract withdrawTo(recipient: string, captcha: string): Observable<string>;
+  abstract withdrawTo(recipient: string, captcha: string, tokenType?: TokenType): Observable<string>;
 
   abstract faucet(recipient: string, captcha: string): Observable<any>;
 }

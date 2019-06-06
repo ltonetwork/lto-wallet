@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SwapType } from '../../swap-type';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -60,7 +60,7 @@ export class ExampleComponent implements OnInit {
   }
 
   get isERC20ToMain(): boolean {
-    return this.swapType === SwapType.ERC20_MAIN;
+    return this.swapType === SwapType.ERC20_MAIN || this.swapType === SwapType.BINANCE_MAIN;
   }
 
   constructor(private _bridge: BridgeService) {}

@@ -5,6 +5,7 @@ import { BridgeService, WalletService, etheriumAddressValidator } from '../../..
 import { DEFAULT_TRANSFER_FEE } from '../../../../../tokens';
 import { map, withLatestFrom, take } from 'rxjs/operators';
 import { SwapType } from '../../swap-type';
+import * as bech32 from 'bech32';
 
 @Component({
   selector: 'lto-wallet-withdraw-form',
@@ -78,7 +79,22 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
       addressValidators.push(etheriumAddressValidator);
     } else {
       addressValidators.push((ctrl: AbstractControl) => {
-        return null;
+        const address = ctrl.value || '';
+          try {
+            const decodeAddress = bech32.decode(address);
+            if (decodeAddress.prefix === 'tbnb' ||
+              decodeAddress.prefix === 'bnb') {
+              return null;
+            }
+
+            return {
+              invalidAddress: true
+            };
+          } catch (err) {
+            return {
+              invalidAddress: true
+            };
+          }
       });
     }
 

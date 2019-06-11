@@ -13,20 +13,20 @@
   </p>
   <p>
     To help you understand the process of swapping LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) to LTO
-    (<span class="purple">MAINNET</span>), we have made an example:
+    (<span class="{{toColor}}">{{toTokenType}}</span>), we have made an example:
   </p>
   <div class="example">
     <div class="row">
       <div class="label">Sending</div>
       <div class="value">1000 LTO <span class="{{otherColor}}">{{otherTokenType}}</span></div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="bridgeFee > 0">
       <div class="label">Fee</div>
-      <div class="value">- {{ bridgeFee }} LTO <span class="purple">MAINNET</span></div>
+      <div class="value">- {{ bridgeFee }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
     </div>
     <div class="row">
       <div class="label">Receiving</div>
-      <div class="value">{{ ltoReceving }} LTO <span class="purple">MAINNET</span></div>
+      <div class="value">{{ ltoReceving }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
     </div>
   </div>
 </ng-template>

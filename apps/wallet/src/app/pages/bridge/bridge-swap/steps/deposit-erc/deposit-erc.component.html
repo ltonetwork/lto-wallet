@@ -6,12 +6,11 @@
   <button mat-flat-button color="primary" (click)="closeClick()">Close</button>
 </mat-dialog-actions>
 
-
 <ng-template #captchaTpl>
   <div class="captcha-box" fxLayout="column" fxLayoutAlign="start center">
     <p>We will now generate an {{otherTokenType}} address to which you should transfer your LTO (<span
         class="{{otherColor}}">{{otherTokenType}}</span>)
-      tokens to receive LTO (<span class="purple">MAINNET</span>) in your LTO wallet.</p>
+      tokens to receive LTO (<span class="{{toColor}}">{{toTokenType}}</span>) in your LTO wallet.</p>
     <re-captcha (resolved)="resolveCaptcha($event)"></re-captcha>
   </div>
 </ng-template>
@@ -31,9 +30,9 @@
       <lto-copyable-text [text]="address"></lto-copyable-text>
       <p></p>
       <p>Once we have received your LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens
-        we will swap them to LTO (<span class="purple">MAINNET</span>) tokens.
+        we will swap them to LTO (<span class="{{toColor}}">{{toTokenType}}</span>) tokens.
       </p>
-      <p>Your LTO (<span class="purple">MAINNET</span>) tokens will be automatically added to your LTO wallet.</p>
+      <p>Your LTO (<span class="{{toColor}}">{{toTokenType}}</span>) tokens will be automatically added to your LTO wallet.</p>
     </div>
   </ng-container>
 </ng-template>

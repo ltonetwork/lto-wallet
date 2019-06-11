@@ -39,6 +39,10 @@ export class SwapTypeComponent {
     this.selectedType = SwapType.MAIN_BINANCE;
   }
 
+  selectERC20ToBinance() {
+    this.selectedType = SwapType.ERC20_BINANCE;
+  }
+
   nextStepClick() {
     if (this.selectedType) {
       this.selectType.next(this.selectedType);

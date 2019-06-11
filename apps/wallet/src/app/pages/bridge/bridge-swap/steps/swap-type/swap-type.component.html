@@ -16,6 +16,9 @@
       <div (click)="selectMainToBinance()" [ngClass]="{active: selectedType === SwapType.MAIN_BINANCE}">
         LTO (<span class="purple">MAINNET</span>) to LTO (<span class="yellow">BINANCE</span>)
       </div>
+      <div (click)="selectERC20ToBinance()" [ngClass]="{active: selectedType === SwapType.ERC20_BINANCE}">
+        LTO (<span class="blue">ERC-20</span>) to LTO (<span class="yellow">BINANCE</span>)
+      </div>
     </div>
   </div>
 </mat-dialog-content>

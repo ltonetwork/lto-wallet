@@ -12,13 +12,13 @@
     will withdrawn from your transfered tokens.
   </p>
   <p>
-    To help you understand the process of swapping LTO (<span class="blue">ERC-20</span>) to LTO
+    To help you understand the process of swapping LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) to LTO
     (<span class="purple">MAINNET</span>), we have made an example:
   </p>
   <div class="example">
     <div class="row">
       <div class="label">Sending</div>
-      <div class="value">1000 LTO <span class="blue">ERC-20</span></div>
+      <div class="value">1000 LTO <span class="{{otherColor}}">{{otherTokenType}}</span></div>
     </div>
     <div class="row">
       <div class="label">Fee</div>
@@ -39,7 +39,8 @@
   </p>
   <p>
     To help you understand the process of swapping LTO (<span class="purple">MAINNET</span>) to LTO
-    (<span class="blue">ERC-20</span>), we have made an example. This example shows the current bridge fee:
+    (<span class="{{otherColor}}">{{otherTokenType}}</span>), we have made an example. This example shows the current
+    bridge fee:
   </p>
   <div class="example">
     <div class="row">
@@ -59,7 +60,9 @@
 
     <div class="row">
       <div class="label">Receiving</div>
-      <div class="value">{{receiving$ | async | number: '1.0-4'}} LTO (<span class="blue">ERC-20</span>)</div>
+      <div class="value">{{receiving$ | async | number: '1.0-4'}} LTO (<span
+          class="{{otherColor}}">{{otherTokenType}}</span>)
+      </div>
     </div>
   </div>
 </ng-template>

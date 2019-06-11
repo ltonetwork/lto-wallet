@@ -14,7 +14,7 @@ import { PublicNode } from './public-node';
 import { AuthService } from './auth.service';
 import { Account } from 'lto-api';
 import { TransactionTypes } from '../transaction-types';
-import { BridgeService } from './bridge.service';
+import { BridgeService, TokenType } from './bridge.service';
 import { transactionsFilter, toPromise } from '../utils';
 import { AMOUNT_DIVIDER, DEFAULT_TRANSFER_FEE } from '../../tokens';
 
@@ -212,9 +212,11 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
-  async withdraw(recipient: string, amount: number, fee: number, captha: string) {
+  async withdraw(recipient: string, amount: number, fee: number, captha: string, tokenType: TokenType = 'LTO20') {
     // Create a bridge
-    const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient, captha));
+    const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient, captha, tokenType));
+
+    console.log(bridgeAddress);
     // Make a transaction
     return this.transfer({
       amount,
@@ -308,7 +310,7 @@ export abstract class WalletService {
   abstract transfer(data: ITransferPayload): Promise<void>;
   abstract lease(recipient: string, amount: number, fee: number): Promise<any>;
   abstract cancelLease(transactionId: string): Promise<any>;
-  abstract withdraw(address: string, ammount: number, fee: number, captha: string): Promise<any>;
+  abstract withdraw(address: string, ammount: number, fee: number, captha: string, tokenType?: TokenType): Promise<any>;
 
   abstract anchor(hash: string, fee: number): Promise<void>;
 }

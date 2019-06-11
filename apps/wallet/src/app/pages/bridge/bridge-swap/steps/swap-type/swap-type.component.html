@@ -1,15 +1,20 @@
 <h2 mat-dialog-title>Choose your swap</h2>
 <mat-dialog-content>
   <div>
-    <p>Choose your swap direction, either (<span class="purple">MAINNET</span> to <span class="blue">ERC-20</span>) or
-      (<span class="blue">ERC-20</span> to <span class="purple">MAINNET</span>) and press next.</p>
+    <p>Choose your swap direction and press next.</p>
 
     <div class="swap-type-picker">
-      <div class="erc-to-main" (click)="selectERC20ToMain()" [ngClass]="{active: ercToMainActive}">
+      <div class="erc-to-main" (click)="selectERC20ToMain()" [ngClass]="{active: selectedType === SwapType.ERC20_MAIN}">
         LTO (<span class="blue">ERC-20</span>) to LTO (<span class="purple">MAINNET</span>)
       </div>
-      <div class="main-to-erc" (click)="selectMainToERC20()" [ngClass]="{active: mainToErcActive}">
+      <div class="main-to-erc" (click)="selectMainToERC20()" [ngClass]="{active: selectedType === SwapType.MAIN_ERC20}">
         LTO (<span class="purple">MAINNET</span>) to LTO (<span class="blue">ERC-20</span>)
+      </div>
+      <div (click)="selectBinanceToMain()" [ngClass]="{active: selectedType === SwapType.BINANCE_MAIN}">
+        LTO (<span class="yellow">BINANCE</span>) to LTO (<span class="purple">MAINNET</span>)
+      </div>
+      <div (click)="selectMainToBinance()" [ngClass]="{active: selectedType === SwapType.MAIN_BINANCE}">
+        LTO (<span class="purple">MAINNET</span>) to LTO (<span class="yellow">BINANCE</span>)
       </div>
     </div>
   </div>

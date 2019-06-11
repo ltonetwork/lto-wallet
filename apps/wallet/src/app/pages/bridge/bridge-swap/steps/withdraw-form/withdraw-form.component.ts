@@ -1,9 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Inject, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, Inject, OnDestroy, Input } from '@angular/core';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Observable, combineLatest, ReplaySubject, Subscription } from 'rxjs';
 import { BridgeService, WalletService, etheriumAddressValidator } from '../../../../../core';
 import { DEFAULT_TRANSFER_FEE } from '../../../../../tokens';
 import { map, withLatestFrom, take } from 'rxjs/operators';
+import { SwapType } from '../../swap-type';
+import * as bech32 from 'bech32';
 
 @Component({
   selector: 'lto-wallet-withdraw-form',
@@ -11,11 +13,12 @@ import { map, withLatestFrom, take } from 'rxjs/operators';
   styleUrls: ['./withdraw-form.component.scss']
 })
 export class WithdrawFormComponent implements OnInit, OnDestroy {
+  @Input() swapType!: SwapType;
   @Output() close = new EventEmitter();
 
   withdrawForm!: FormGroup;
 
-  step: 'input' | 'confirm' | 'done' = 'input';
+  step = 'input';
 
   confirmed = false;
   captchaResponse = '';
@@ -30,6 +33,30 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
 
   maxAmount = 0;
 
+  get otherTokenType(): string {
+    switch (this.swapType) {
+      case SwapType.ERC20_MAIN:
+      case SwapType.MAIN_ERC20:
+        return 'ERC-20';
+      case SwapType.BINANCE_MAIN:
+      case SwapType.MAIN_BINANCE:
+        return 'BINANCE';
+    }
+  }
+
+  get otherColor(): string {
+    switch (this.swapType) {
+      case SwapType.ERC20_MAIN:
+      case SwapType.MAIN_ERC20:
+        return 'blue';
+      case SwapType.BINANCE_MAIN:
+      case SwapType.MAIN_BINANCE:
+        return 'yellow';
+    }
+  }
+
+  addressPlaceholder!: string;
+
   private _subscriptions = new Subscription();
 
   get cannotSend(): boolean {
@@ -43,7 +70,33 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.addressPlaceholder = this.swapType === SwapType.MAIN_ERC20 ? 'ETH' : 'BINANCE';
     this.burnRatePct$ = this._bridge.burnRate$.pipe(map(rate => rate * 100));
+
+    const addressValidators: ValidatorFn[] = [Validators.required];
+
+    if (this.swapType === SwapType.MAIN_ERC20) {
+      addressValidators.push(etheriumAddressValidator);
+    } else {
+      addressValidators.push((ctrl: AbstractControl) => {
+        const address = ctrl.value || '';
+          try {
+            const decodeAddress = bech32.decode(address);
+            if (decodeAddress.prefix === 'tbnb' ||
+              decodeAddress.prefix === 'bnb') {
+              return null;
+            }
+
+            return {
+              invalidAddress: true
+            };
+          } catch (err) {
+            return {
+              invalidAddress: true
+            };
+          }
+      });
+    }
 
     this.withdrawForm = new FormGroup({
       amount: new FormControl(
@@ -51,7 +104,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
         [Validators.min(this.BRIDGE_MINIMAL_FEE), Validators.required],
         this.validateAmount.bind(this)
       ),
-      address: new FormControl('', [Validators.required, etheriumAddressValidator])
+      address: new FormControl('', addressValidators)
     });
 
     this._subscriptions.add(
@@ -111,11 +164,13 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
 
   transfer() {
     const { amount, address } = this.withdrawForm.value;
+    const tokenType = this.swapType === SwapType.MAIN_ERC20 ? 'LTO20' : 'BINANCE';
     this.transfer$ = this._wallet.withdraw(
       address,
       amount,
       this._transferFee,
-      this.captchaResponse
+      this.captchaResponse,
+      tokenType
     );
   }
 

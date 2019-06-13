@@ -18,12 +18,39 @@ export class ExampleComponent implements OnInit {
   receiving$!: Observable<number>;
 
   ercDesiting = 1000;
-  bridgeFee = 40;
+
+  get bridgeFee(): number {
+    switch (this.swapType) {
+      case SwapType.ERC20_BINANCE:
+        return 0;
+      default:
+        return 40;
+    }
+  }
+
+  get toTokenType(): string {
+    switch (this.swapType) {
+      case SwapType.ERC20_BINANCE:
+        return 'BINANCE';
+      default:
+        return 'MAINNET';
+    }
+  }
+
+  get toColor(): string {
+    switch (this.swapType) {
+      case SwapType.ERC20_BINANCE:
+        return 'yellow';
+      default:
+        return 'purple';
+    }
+  }
 
   get otherTokenType(): string {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
       case SwapType.MAIN_ERC20:
+      case SwapType.ERC20_BINANCE:
         return 'ERC-20';
       case SwapType.BINANCE_MAIN:
       case SwapType.MAIN_BINANCE:
@@ -35,6 +62,7 @@ export class ExampleComponent implements OnInit {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
       case SwapType.MAIN_ERC20:
+      case SwapType.ERC20_BINANCE:
         return 'blue';
       case SwapType.BINANCE_MAIN:
       case SwapType.MAIN_BINANCE:
@@ -60,7 +88,7 @@ export class ExampleComponent implements OnInit {
   }
 
   get isERC20ToMain(): boolean {
-    return this.swapType === SwapType.ERC20_MAIN || this.swapType === SwapType.BINANCE_MAIN;
+    return this.swapType === SwapType.ERC20_MAIN || this.swapType === SwapType.BINANCE_MAIN || this.swapType === SwapType.ERC20_BINANCE;
   }
 
   constructor(private _bridge: BridgeService) {}

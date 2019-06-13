@@ -1,23 +1,29 @@
 <h2 mat-dialog-title>Your deposit address</h2>
+
 <mat-dialog-content>
-  <ng-container *ngIf="captchaResponse; then addressTpl; else captchaTpl"></ng-container>
+  <ng-container *ngIf="shouldSpecifyToAddress && !captchaResponse && !shouldShowCaptcha; then specifyToAddressTpl;">
+  </ng-container>
+  <ng-container *ngIf="shouldShowCaptcha && !captchaResponse; then captchaTpl;">
+  </ng-container>
+  <ng-container *ngIf="captchaResponse; then addressTpl;">
+  </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-flat-button color="primary" (click)="closeClick()">Close</button>
+  <button mat-flat-button color="primary" (click)="closeClick()" *ngIf="captchaResponse">Close</button>
+  <button mat-flat-button color="primary" (click)="shouldShowCaptcha = true"
+    *ngIf="shouldSpecifyToAddress && !captchaResponse && !shouldShowCaptcha">Next</button>
 </mat-dialog-actions>
-
 
 <ng-template #captchaTpl>
   <div class="captcha-box" fxLayout="column" fxLayoutAlign="start center">
     <p>We will now generate an {{otherTokenType}} address to which you should transfer your LTO (<span
         class="{{otherColor}}">{{otherTokenType}}</span>)
-      tokens to receive LTO (<span class="purple">MAINNET</span>) in your LTO wallet.</p>
+      tokens to receive LTO (<span class="{{toColor}}">{{toTokenType}}</span>) in your LTO wallet.</p>
     <re-captcha (resolved)="resolveCaptcha($event)"></re-captcha>
   </div>
 </ng-template>
 
 <ng-template #addressTpl>
-
   <ng-container [ngSuspense]="address$">
     <p *ngSuspenseError class="error">Cannot generate bridge</p>
     <lto-loading-spinner *ngSuspensePlaceholder="1000"></lto-loading-spinner>
@@ -31,9 +37,27 @@
       <lto-copyable-text [text]="address"></lto-copyable-text>
       <p></p>
       <p>Once we have received your LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens
-        we will swap them to LTO (<span class="purple">MAINNET</span>) tokens.
+        we will swap them to LTO (<span class="{{toColor}}">{{toTokenType}}</span>) tokens.
       </p>
-      <p>Your LTO (<span class="purple">MAINNET</span>) tokens will be automatically added to your LTO wallet.</p>
+      <p>Your LTO (<span class="{{toColor}}">{{toTokenType}}</span>) tokens will be automatically added to your LTO
+        wallet.</p>
     </div>
   </ng-container>
+</ng-template>
+
+<ng-template #specifyToAddressTpl>
+  <p>Please enter the address on which you want to receive LTO (<span class="{{toColor}}">{{toTokenType}}</span>)
+    tokens.</p>
+
+  <form class="deposit-form" [formGroup]="depositForm">
+    <div class="row address" [ngClass]="{invalid: isInvalid('address')}">
+      <div class="label">To</div>
+      <div class="value input">
+        <input type="text" placeholder="{{addressPlaceholder}} ADDRESS" required formControlName="address">
+      </div>
+    </div>
+  </form>
+  <div class="form-errors" *ngIf="depositForm.dirty && depositForm.invalid">
+    <div class="form-error" *ngFor="let error of getFormErrors()">{{error}}</div>
+  </div>
 </ng-template>

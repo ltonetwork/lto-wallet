@@ -19,6 +19,17 @@ interface BridgeCache {
 interface BridgeStats {
   burn_rate: number;
   burned: number;
+  volume: {
+    lto: any;
+    lto20: any;
+    binance: any;
+  };
+}
+
+interface BurnFees {
+  lto: number;
+  lto20: number;
+  binance: number;
 }
 
 @Injectable()
@@ -27,6 +38,7 @@ export class BridgeServiceImpl implements BridgeService {
 
   burnRate$: Observable<number>;
   burnedTokens$: Observable<number>;
+  burnFees$: Observable<BurnFees>;
 
   bridgeStats$: Observable<BridgeStats>;
   private cache: BridgeCache;
@@ -38,6 +50,11 @@ export class BridgeServiceImpl implements BridgeService {
     this.bridgeStats$ = http.get<BridgeStats>(`${this.ltoBridgeHost}/stats`).pipe(shareReplay(1));
     this.burnRate$ = this.bridgeStats$.pipe(map(stats => stats.burn_rate));
     this.burnedTokens$ = this.bridgeStats$.pipe(map(stats => stats.burned));
+    this.burnFees$ = this.bridgeStats$.pipe(map(stats => ({
+      lto: Math.round(stats.volume.lto.burn_fee / 100000000),
+      lto20: Math.round(stats.volume.lto20.burn_fee / 100000000),
+      binance: Math.round(stats.volume.binance.burn_fee / 100000000)
+    })));
 
     // Make it hot
     this.bridgeStats$.subscribe();
@@ -122,6 +139,7 @@ export abstract class BridgeService {
 
   abstract burnRate$: Observable<number>;
   abstract burnedTokens$: Observable<number>;
+  abstract burnFees$: Observable<BurnFees>;
 
   /**
    * Generates bridge addres to convert LTO24 -> LTO and transfer on your account

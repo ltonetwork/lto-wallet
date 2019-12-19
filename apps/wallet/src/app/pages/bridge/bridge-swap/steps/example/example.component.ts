@@ -82,6 +82,8 @@ export class ExampleComponent implements OnInit {
     }
   }
 
+  ltoWithdrawing = 1000;
+
   receiving(fee: number): number {
     if (this.ercDesiting < fee) {
       return 0;
@@ -90,7 +92,6 @@ export class ExampleComponent implements OnInit {
     return this.ercDesiting - fee;
   }
 
-  ltoWithdrawing = 1000;
   get burnedTokens(): number {
     return this.ltoWithdrawing / 2;
   }
@@ -100,7 +101,11 @@ export class ExampleComponent implements OnInit {
   }
 
   get isERC20ToMain(): boolean {
-    return this.swapType === SwapType.ERC20_MAIN || this.swapType === SwapType.BINANCE_MAIN || this.swapType === SwapType.ERC20_BINANCE;
+    return (
+      this.swapType === SwapType.ERC20_MAIN ||
+      this.swapType === SwapType.BINANCE_MAIN ||
+      this.swapType === SwapType.ERC20_BINANCE
+    );
   }
 
   constructor(private _bridge: BridgeService) {}

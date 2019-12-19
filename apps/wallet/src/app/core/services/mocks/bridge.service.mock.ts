@@ -9,6 +9,7 @@ export class BridgeServiceMock implements BridgeService {
 
   burnRate$ = of(1);
   burnedTokens$ = of(1);
+  burnFees$ = of({lto: 1, lto20: 1, binance: 1});
 
   depositTo() {
     return of('test_deposit_address');

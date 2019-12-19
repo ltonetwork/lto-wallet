@@ -106,8 +106,6 @@ export class ExampleComponent implements OnInit {
   constructor(private _bridge: BridgeService) {}
 
   ngOnInit() {
-    console.log(this.swapType);
-
     this.burnRatePct$ = this._bridge.burnRate$.pipe(map(rate => rate * 100));
     this.burnedTokens$ = this._bridge.burnRate$.pipe(map(rate => rate * 1000));
     this.receiving$ = this.burnedTokens$.pipe(map(burned => 1000 - burned));

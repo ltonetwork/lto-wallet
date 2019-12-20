@@ -23,7 +23,7 @@ export class DepositErcComponent implements OnInit {
   get toTokenType(): string {
     switch (this.swapType) {
       case SwapType.ERC20_BINANCE:
-        return 'BINANCE';
+        return 'BEP-2';
       default:
         return 'MAINNET';
     }
@@ -46,7 +46,7 @@ export class DepositErcComponent implements OnInit {
         return 'ERC-20';
       case SwapType.BINANCE_MAIN:
       case SwapType.MAIN_BINANCE:
-        return 'BINANCE';
+        return 'BEP-2';
     }
   }
 
@@ -76,7 +76,7 @@ export class DepositErcComponent implements OnInit {
   constructor(private _bridge: BridgeService, private _wallet: WalletService) {}
 
   ngOnInit() {
-    this.addressPlaceholder = this.swapType === SwapType.ERC20_BINANCE ? 'BINANCE' : 'LTO20';
+    this.addressPlaceholder = this.swapType === SwapType.ERC20_BINANCE ? 'BEP-2' : 'LTO20';
     const addressValidators: ValidatorFn[] = [Validators.required];
 
     this.shouldShowCaptcha = !this.shouldSpecifyToAddress;

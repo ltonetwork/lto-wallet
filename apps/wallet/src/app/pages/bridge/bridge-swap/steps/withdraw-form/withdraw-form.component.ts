@@ -46,7 +46,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
         return 'MAINNET';
       case SwapType.ERC20_BINANCE:
       case SwapType.MAIN_BINANCE:
-        return 'BINANCE';
+        return 'BEP-2';
       case SwapType.MAIN_ERC20:
         return 'ERC-20';
     }
@@ -77,7 +77,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
       case SwapType.BINANCE_MAIN:
       case SwapType.MAIN_BINANCE:
       case SwapType.ERC20_BINANCE:
-        return 'BINANCE';
+        return 'BEP-2';
     }
   }
 
@@ -111,7 +111,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.addressPlaceholder = this.swapType === SwapType.MAIN_ERC20 ? 'ETH' : 'BINANCE';
+    this.addressPlaceholder = this.swapType === SwapType.MAIN_ERC20 ? 'ETH' : 'BEP-2';
 
     const addressValidators: ValidatorFn[] = [Validators.required];
 

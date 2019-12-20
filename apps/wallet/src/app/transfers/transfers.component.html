@@ -10,22 +10,22 @@
       <div class="balance" fxLayout="row" fxLayout.lt-md="column" *ngIf="(balance$ | async) as balance" fxLayoutGap="24px">
         <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
           <div class="label">Regular</div>
-          <div class="value">{{ balance.regular | amountDivide }}</div>
+          <div class="value" matTooltip="{{ balance.generating | amountDivide }}">{{ balance.regular | amountDivide| number: '1.0-3' }}</div>
         </mat-card>
 
         <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
           <div class="label">Generating</div>
-          <div class="value">{{ balance.generating | amountDivide }}</div>
+          <div class="value" matTooltip="{{ balance.generating | amountDivide }}">{{ balance.generating | amountDivide | number: '1.0-3' }}</div>
         </mat-card>
 
         <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
           <div class="label">Available</div>
-          <div class="value">{{ balance.available | amountDivide }}</div>
+          <div class="value" matTooltip="{{ balance.generating | amountDivide }}">{{ balance.available | amountDivide | number: '1.0-3' }}</div>
         </mat-card>
 
         <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
           <div class="label">Effective</div>
-          <div class="value">{{ balance.effective | amountDivide }}</div>
+          <div class="value" matTooltip="{{ balance.generating | amountDivide }}">{{ balance.effective | amountDivide | number: '1.0-3' }}</div>
         </mat-card>
 
         <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">

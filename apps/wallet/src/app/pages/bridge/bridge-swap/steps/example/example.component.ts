@@ -36,7 +36,7 @@ export class ExampleComponent implements OnInit {
       case SwapType.ERC20_BINANCE:
         return 'ERC-20';
       case SwapType.BINANCE_MAIN:
-        return 'BINANCE';
+        return 'BEP-2';
       case SwapType.MAIN_ERC20:
       case SwapType.MAIN_BINANCE:
         return 'MAINNET';
@@ -63,7 +63,7 @@ export class ExampleComponent implements OnInit {
         return 'MAINNET';
       case SwapType.ERC20_BINANCE:
       case SwapType.MAIN_BINANCE:
-        return 'BINANCE';
+        return 'BEP-2';
       case SwapType.MAIN_ERC20:
         return 'ERC-20';
     }

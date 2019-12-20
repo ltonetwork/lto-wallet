@@ -14,13 +14,8 @@
             class="purple">MAINNET</span>)</div>
       </div>
       <div class="row">
-        <div class="label">Bridge %</div>
-        <div class="value">{{burnRatePct$ | async | number: '1.0-1'}}% (minimum of {{ BRIDGE_MINIMAL_FEE | number }}
-          LTO)</div>
-      </div>
-      <div class="row">
-        <div class="label">Burned tokens</div>
-        <div class="value">{{burnedTokens$ | async | number: '1.0-4'}} LTO (<span class="purple">MAINNET</span>)</div>
+        <div class="label">Fee</div>
+        <div class="value">- {{ bridgeFee$ | async }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
       </div>
 
       <div class="row">

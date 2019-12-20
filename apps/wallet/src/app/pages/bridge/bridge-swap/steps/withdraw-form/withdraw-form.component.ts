@@ -25,11 +25,47 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
 
   transfer$: Promise<any> | null = null;
 
-  burnRatePct$!: Observable<number>;
-  burnedTokens$ = new ReplaySubject<number>(1);
   receiving$!: Observable<number>;
 
-  BRIDGE_MINIMAL_FEE = 2.25;
+  burnFeeERC$: Observable<number>;
+  burnFeeMain$: Observable<number>;
+
+  get bridgeFee$(): Observable<number> {
+    switch (this.swapType) {
+      case SwapType.ERC20_BINANCE:
+        return this.burnFeeERC$;
+      default:
+        return this.burnFeeMain$;
+    }
+  }
+
+  get toTokenType(): string {
+    switch (this.swapType) {
+      case SwapType.ERC20_MAIN:
+      case SwapType.BINANCE_MAIN:
+        return 'MAINNET';
+      case SwapType.ERC20_BINANCE:
+      case SwapType.MAIN_BINANCE:
+        return 'BINANCE';
+      case SwapType.MAIN_ERC20:
+        return 'ERC-20';
+    }
+  }
+
+  get toColor(): string {
+    switch (this.swapType) {
+      case SwapType.ERC20_MAIN:
+      case SwapType.BINANCE_MAIN:
+        return 'purple';
+      case SwapType.ERC20_BINANCE:
+      case SwapType.MAIN_BINANCE:
+        return 'yellow';
+      case SwapType.MAIN_ERC20:
+        return 'blue';
+    }
+  }
+
+  BRIDGE_MINIMAL_FEE = 0;
 
   maxAmount = 0;
 
@@ -69,34 +105,37 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
     private _wallet: WalletService,
     private _bridge: BridgeService,
     @Inject(DEFAULT_TRANSFER_FEE) private _transferFee: number
-  ) {}
+  ) {
+    this.burnFeeERC$ = this._bridge.burnFees$.pipe(map(fees => fees.lto20));
+    this.burnFeeMain$ = this._bridge.burnFees$.pipe(map(fees => fees.lto));
+  }
 
   ngOnInit() {
     this.addressPlaceholder = this.swapType === SwapType.MAIN_ERC20 ? 'ETH' : 'BINANCE';
-    this.burnRatePct$ = this._bridge.burnRate$.pipe(map(rate => rate * 100));
 
     const addressValidators: ValidatorFn[] = [Validators.required];
+
+    this.bridgeFee$.pipe(take(1)).subscribe(fee => (this.BRIDGE_MINIMAL_FEE = fee));
 
     if (this.swapType === SwapType.MAIN_ERC20) {
       addressValidators.push(etheriumAddressValidator);
     } else {
       addressValidators.push((ctrl: AbstractControl) => {
         const address = ctrl.value || '';
-          try {
-            const decodeAddress = bech32.decode(address);
-            if (decodeAddress.prefix === 'tbnb' ||
-              decodeAddress.prefix === 'bnb') {
-              return null;
-            }
-
-            return {
-              invalidAddress: true
-            };
-          } catch (err) {
-            return {
-              invalidAddress: true
-            };
+        try {
+          const decodeAddress = bech32.decode(address);
+          if (decodeAddress.prefix === 'tbnb' || decodeAddress.prefix === 'bnb') {
+            return null;
           }
+
+          return {
+            invalidAddress: true
+          };
+        } catch (err) {
+          return {
+            invalidAddress: true
+          };
+        }
       });
     }
 
@@ -109,23 +148,13 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
       address: new FormControl('', addressValidators)
     });
 
-    this._subscriptions.add(
-      this.withdrawForm.valueChanges
-        .pipe(
-          map(value => value.amount),
-          withLatestFrom(this._bridge.burnRate$),
-          map(([amount, burnRate]) => {
-            const burned = amount * burnRate;
-            return burned < this.BRIDGE_MINIMAL_FEE ? this.BRIDGE_MINIMAL_FEE : burned;
-          })
-        )
-        .subscribe(this.burnedTokens$)
-    );
-
     this.receiving$ = this.withdrawForm.valueChanges.pipe(
       map(value => value.amount),
-      withLatestFrom(this.burnedTokens$),
+      withLatestFrom(this.bridgeFee$),
       map(([amount, burned]) => {
+        if (amount < burned) {
+          return 0;
+        }
         return amount - burned;
       })
     );

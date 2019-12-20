@@ -1,68 +1,30 @@
 <h2 mat-dialog-title>How does it work?</h2>
 <mat-dialog-content>
-  <ng-container *ngIf="isERC20ToMain; then ercToMainTpl; else mainToErcTpl"></ng-container>
+  <ng-container *ngIf="(bridgeFee$ | async) as bridgeFee">
+    <p>
+      The bridge will charge a fee for transfering your tokens. This fee is a standard fee of {{ bridgeFee }} LTO, which
+      will withdrawn from your transfered tokens.
+    </p>
+    <p>
+      To help you understand the process of swapping LTO (<span class="{{fromColor}}">{{fromTokenType}}</span>) to LTO
+      (<span class="{{toColor}}">{{toTokenType}}</span>), we have made an example:
+    </p>
+    <div class="example">
+      <div class="row">
+        <div class="label">Sending</div>
+        <div class="value">1000 LTO <span class="{{fromColor}}">{{fromTokenType}}</span></div>
+      </div>
+      <div class="row" *ngIf="bridgeFee > 0">
+        <div class="label">Fee</div>
+        <div class="value">- {{ bridgeFee }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
+      </div>
+      <div class="row">
+        <div class="label">Receiving</div>
+        <div class="value">{{ receiving(bridgeFee) }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
+      </div>
+    </div>
+  </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-flat-button color="primary" (click)="nextStepClick()">Next</button>
 </mat-dialog-actions>
-
-<ng-template #ercToMainTpl>
-  <p>
-    The bridge will charge a fee for transfering your tokens. This fee is a standard fee of {{ bridgeFee }} LTO, which
-    will withdrawn from your transfered tokens.
-  </p>
-  <p>
-    To help you understand the process of swapping LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) to LTO
-    (<span class="{{toColor}}">{{toTokenType}}</span>), we have made an example:
-  </p>
-  <div class="example">
-    <div class="row">
-      <div class="label">Sending</div>
-      <div class="value">1000 LTO <span class="{{otherColor}}">{{otherTokenType}}</span></div>
-    </div>
-    <div class="row" *ngIf="bridgeFee > 0">
-      <div class="label">Fee</div>
-      <div class="value">- {{ bridgeFee }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
-    </div>
-    <div class="row">
-      <div class="label">Receiving</div>
-      <div class="value">{{ ltoReceving }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #mainToErcTpl>
-  <p>
-    The bridge will charge a fee for transfering your tokens. This fee will be burned to lower the total amount of
-    tokens in circulating supply.
-    The height of this bridge fee decreases over time.
-  </p>
-  <p>
-    To help you understand the process of swapping LTO (<span class="purple">MAINNET</span>) to LTO
-    (<span class="{{otherColor}}">{{otherTokenType}}</span>), we have made an example. This example shows the current
-    bridge fee:
-  </p>
-  <div class="example">
-    <div class="row">
-      <div class="label">Sending</div>
-      <div class="value input">
-        <input type="number" disabled [(ngModel)]="ltoWithdrawing" /> LTO (<span class="purple">MAINNET</span>)
-      </div>
-    </div>
-    <div class="row">
-      <div class="label">Bridge fee %</div>
-      <div class="value">{{burnRatePct$ | async | number: '1.0-1'}}% (minimum of {{ 2.25 | number }} LTO)</div>
-    </div>
-    <div class="row">
-      <div class="label">Burned tokens</div>
-      <div class="value">{{burnedTokens$ | async | number: '1.0-4'}} LTO (<span class="purple">MAINNET</span>)</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Receiving</div>
-      <div class="value">{{receiving$ | async | number: '1.0-4'}} LTO (<span
-          class="{{otherColor}}">{{otherTokenType}}</span>)
-      </div>
-    </div>
-  </div>
-</ng-template>

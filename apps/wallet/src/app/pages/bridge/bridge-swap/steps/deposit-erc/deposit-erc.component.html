@@ -10,7 +10,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-flat-button color="primary" (click)="closeClick()" *ngIf="captchaResponse">Close</button>
-  <button mat-flat-button color="primary" (click)="shouldShowCaptcha = true"
+  <button mat-flat-button color="primary" (click)="shouldShowCaptcha = true" [disabled]="depositForm.invalid"
     *ngIf="shouldSpecifyToAddress && !captchaResponse && !shouldShowCaptcha">Next</button>
 </mat-dialog-actions>
 

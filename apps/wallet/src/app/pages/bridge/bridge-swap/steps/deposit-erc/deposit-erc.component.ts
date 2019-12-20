@@ -73,19 +73,20 @@ export class DepositErcComponent implements OnInit {
 
   addressPlaceholder!: string;
 
-  constructor(private _bridge: BridgeService, private _wallet: WalletService) { }
+  constructor(private _bridge: BridgeService, private _wallet: WalletService) {}
 
   ngOnInit() {
     this.addressPlaceholder = this.swapType === SwapType.ERC20_BINANCE ? 'BINANCE' : 'LTO20';
     const addressValidators: ValidatorFn[] = [Validators.required];
+
+    this.shouldShowCaptcha = !this.shouldSpecifyToAddress;
 
     if (this.swapType === SwapType.ERC20_BINANCE) {
       addressValidators.push((ctrl: AbstractControl) => {
         const address = ctrl.value || '';
         try {
           const decodeAddress = bech32.decode(address);
-          if (decodeAddress.prefix === 'tbnb' ||
-            decodeAddress.prefix === 'bnb') {
+          if (decodeAddress.prefix === 'tbnb' || decodeAddress.prefix === 'bnb') {
             return null;
           }
 
@@ -107,10 +108,18 @@ export class DepositErcComponent implements OnInit {
 
   resolveCaptcha(response: string) {
     this.captchaResponse = response;
-    const tokenType = this.swapType === SwapType.ERC20_MAIN || this.swapType === SwapType.ERC20_BINANCE ? 'LTO20' : 'BINANCE';
+    const tokenType =
+      this.swapType === SwapType.ERC20_MAIN || this.swapType === SwapType.ERC20_BINANCE
+        ? 'LTO20'
+        : 'BINANCE';
     const toTokenType = this.swapType === SwapType.ERC20_BINANCE ? 'BINANCE' : 'LTO';
     if (this.swapType === SwapType.ERC20_BINANCE) {
-      this.address$ = this._bridge.depositTo(this.depositForm.value.address, response, tokenType, toTokenType);
+      this.address$ = this._bridge.depositTo(
+        this.depositForm.value.address,
+        response,
+        tokenType,
+        toTokenType
+      );
     } else {
       this.address$ = this._wallet.address$.pipe(
         switchMap(address => this._bridge.depositTo(address, response, tokenType, toTokenType))

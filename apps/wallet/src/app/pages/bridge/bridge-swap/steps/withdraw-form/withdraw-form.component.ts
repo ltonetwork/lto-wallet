@@ -65,7 +65,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  BRIDGE_MINIMAL_FEE = 2.25;
+  BRIDGE_MINIMAL_FEE = 0;
 
   maxAmount = 0;
 
@@ -114,6 +114,8 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
     this.addressPlaceholder = this.swapType === SwapType.MAIN_ERC20 ? 'ETH' : 'BINANCE';
 
     const addressValidators: ValidatorFn[] = [Validators.required];
+
+    this.bridgeFee$.pipe(take(1)).subscribe(fee => (this.BRIDGE_MINIMAL_FEE = fee));
 
     if (this.swapType === SwapType.MAIN_ERC20) {
       addressValidators.push(etheriumAddressValidator);

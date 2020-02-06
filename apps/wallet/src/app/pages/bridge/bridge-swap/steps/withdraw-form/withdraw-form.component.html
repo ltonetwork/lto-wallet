@@ -7,6 +7,7 @@
       where you want to receive the <span class="{{otherColor}}">{{otherTokenType}}</span> tokens.</p>
     <p>Please use a wallet which is compatible with the {{otherTokenType}} token standard and which private keys you
       control.</p>
+    <p *ngIf="toTokenType === 'BEP-2'"><span class="red">Do not use this to send to Binance CEX. If you are depositing to Binance CEX, use the ERC20 swap option instead. The BEP2 requires additional memo settings, which is currently not supported.</span></p>
     <form class="withdraw-form" [formGroup]="withdrawForm">
       <div class="row" [ngClass]="{invalid: isInvalid('amount')}">
         <div class="label">Sending</div>

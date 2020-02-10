@@ -212,17 +212,22 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
-  async withdraw(recipient: string, amount: number, fee: number, captha: string, tokenType: TokenType = 'LTO20') {
+  async withdraw(recipient: string, amount: number, fee: number, captha: string, tokenType: TokenType = 'LTO20', attachment?: string) {
     // Create a bridge
     const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient, captha, tokenType));
 
-    console.log(bridgeAddress);
-    // Make a transaction
-    return this.transfer({
+    const data: any = {
       amount,
       recipient: bridgeAddress,
       fee: fee / this.amountDivider
-    });
+    };
+
+    if (attachment) {
+      data.attachment = attachment;
+    }
+
+    // Make a transaction
+    return this.transfer(data);
   }
 
   async lease(recipient: string, amount: number, fee: number): Promise<any> {
@@ -310,7 +315,7 @@ export abstract class WalletService {
   abstract transfer(data: ITransferPayload): Promise<void>;
   abstract lease(recipient: string, amount: number, fee: number): Promise<any>;
   abstract cancelLease(transactionId: string): Promise<any>;
-  abstract withdraw(address: string, ammount: number, fee: number, captha: string, tokenType?: TokenType): Promise<any>;
+  abstract withdraw(address: string, ammount: number, fee: number, captha: string, tokenType?: TokenType, attachment?: string): Promise<any>;
 
   abstract anchor(hash: string, fee: number): Promise<void>;
 }

@@ -145,7 +145,8 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
         [Validators.min(this.BRIDGE_MINIMAL_FEE), Validators.required],
         this.validateAmount.bind(this)
       ),
-      address: new FormControl('', addressValidators)
+      address: new FormControl('', addressValidators),
+      memo: new FormControl('')
     });
 
     this.receiving$ = this.withdrawForm.valueChanges.pipe(
@@ -194,14 +195,15 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
   }
 
   transfer() {
-    const { amount, address } = this.withdrawForm.value;
+    const { amount, address, memo } = this.withdrawForm.value;
     const tokenType = this.swapType === SwapType.MAIN_ERC20 ? 'LTO20' : 'BINANCE';
     this.transfer$ = this._wallet.withdraw(
       address,
       amount,
       this._transferFee,
       this.captchaResponse,
-      tokenType
+      tokenType,
+      memo
     );
   }
 

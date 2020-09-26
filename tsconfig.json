@@ -1,19 +1,18 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "importHelpers": true,
-    "strict": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": ["es2018", "dom"],
     "paths": {
       "@legalthings-one/component-kit": ["libs/component-kit/src"],
       "@legalthings-one/platform": ["libs/platform/src"],
@@ -23,3 +22,29 @@
     }
   }
 }
+
+// {
+//   "compileOnSave": false,
+//   "compilerOptions": {
+//     "importHelpers": true,
+//     "strict": true,
+//     "baseUrl": "./",
+//     "outDir": "./dist/out-tsc",
+//     "sourceMap": true,
+//     "declaration": false,
+//     "module": "es2015",
+//     "moduleResolution": "node",
+//     "emitDecoratorMetadata": true,
+//     "experimentalDecorators": true,
+//     "target": "es5",
+//     "typeRoots": ["node_modules/@types"],
+//     "lib": ["es2017", "dom"],
+//     "paths": {
+//       "@legalthings-one/component-kit": ["libs/component-kit/src"],
+//       "@legalthings-one/platform": ["libs/platform/src"],
+//       "@explorer": ["apps/explorer/src/app"],
+//       "@explorer/*": ["apps/explorer/src/app/*"],
+//       "@wallet/*": ["apps/wallet/src/app/*"]
+//     }
+//   }
+// }

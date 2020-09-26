@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ObservableMedia } from '@angular/flex-layout';
+import { MediaObserver } from '@angular/flex-layout';
 import { Observable, Subject, merge } from 'rxjs';
 import { shareReplay, map, take } from 'rxjs/operators';
 
-export type SidenavMode = 'over' | 'side';
+export enum SidenavMode {
+  over = 'over',
+  side = 'side',
+}
 
 @Injectable()
 export class SidenavImpl implements Sidenav {
@@ -13,25 +16,27 @@ export class SidenavImpl implements Sidenav {
 
   private _opened$: Subject<boolean> = new Subject();
 
-  constructor(media: ObservableMedia) {
+  constructor(media: MediaObserver) {
     this.mode$ = media.asObservable().pipe(
-      map(mediaChange => {
+      map((mediaChanges) => {
+        const mediaChange = mediaChanges[0];
         switch (mediaChange.mqAlias) {
           case 'lg':
           case 'xl':
-            return 'side';
+            return SidenavMode.side;
           default:
-            return 'over';
+            return SidenavMode.over;
         }
       }),
       shareReplay(1)
     );
 
-    this.opened$ = merge(this._opened$, this.mode$.pipe(map(mode => mode === 'side'))).pipe(
-      shareReplay(1)
-    );
+    this.opened$ = merge(
+      this._opened$,
+      this.mode$.pipe(map((mode) => mode === SidenavMode.side))
+    ).pipe(shareReplay(1));
 
-    this.hasBackdrop$ = this.mode$.pipe(map(mode => mode === 'over'));
+    this.hasBackdrop$ = this.mode$.pipe(map((mode) => mode === SidenavMode.over));
   }
 
   open() {
@@ -39,8 +44,8 @@ export class SidenavImpl implements Sidenav {
   }
 
   close() {
-    this.mode$.pipe(take(1)).subscribe(mode => {
-      if (mode === 'over') {
+    this.mode$.pipe(take(1)).subscribe((mode) => {
+      if (mode === SidenavMode.over) {
         this._opened$.next(false);
       }
     });
@@ -50,7 +55,7 @@ export class SidenavImpl implements Sidenav {
 export abstract class Sidenav {
   static provider = {
     provide: Sidenav,
-    useClass: SidenavImpl
+    useClass: SidenavImpl,
   };
 
   abstract mode$: Observable<SidenavMode>;

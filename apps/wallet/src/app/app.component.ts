@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ObservableMedia } from '@angular/flex-layout';
 import { AuthService, Sidenav, SidenavMode } from './core';
-import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'lto-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   authenticated$!: Observable<boolean>;

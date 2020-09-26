@@ -4,9 +4,11 @@ import {
   PageContentModule,
   AmountPipeModule,
   TransactionsSectionModule,
-  AMOUNT_DIVIDER
+  AMOUNT_DIVIDER,
 } from '@legalthings-one/component-kit';
-import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { AddressComponent } from './address.component';
 import { of } from 'rxjs';
@@ -20,7 +22,7 @@ describe('AddressComponent', () => {
     publicNodeMock = {
       transaction: () => of({}),
       balanceOf: () => of({}),
-      transactionsOf: () => of([])
+      transactionsOf: () => of([]),
     };
 
     TestBed.configureTestingModule({
@@ -30,19 +32,19 @@ describe('AddressComponent', () => {
         MatCardModule,
         MatProgressSpinnerModule,
         AmountPipeModule,
-        TransactionsSectionModule
+        TransactionsSectionModule,
       ],
       declarations: [AddressComponent],
       providers: [
         {
           provide: LtoPublicNodeService,
-          useValue: publicNodeMock
+          useValue: publicNodeMock,
         },
         {
           provide: AMOUNT_DIVIDER,
-          useValue: 10000000
-        }
-      ]
+          useValue: 10000000,
+        },
+      ],
     }).compileComponents();
   }));
 

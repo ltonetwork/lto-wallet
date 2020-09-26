@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { AppbarComponent } from './appbar.component';
 import { BrandModule } from '../brand';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -16,8 +19,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    BrandModule
+    BrandModule,
   ],
-  exports: [AppbarComponent]
+  exports: [AppbarComponent],
 })
 export class AppbarModule {}

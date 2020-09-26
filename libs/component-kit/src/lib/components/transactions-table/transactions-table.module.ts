@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MatTableModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
 import { AmountPipeModule, LinksOutletModule } from '../../pipes';
 import { TransactionsTableComponent } from './transactions-table.component';
 
@@ -11,9 +11,9 @@ import { TransactionsTableComponent } from './transactions-table.component';
     MatTableModule,
     RouterModule.forChild([]),
     AmountPipeModule,
-    LinksOutletModule
+    LinksOutletModule,
   ],
   declarations: [TransactionsTableComponent],
-  exports: [TransactionsTableComponent]
+  exports: [TransactionsTableComponent],
 })
 export class TransactionTableModule {}

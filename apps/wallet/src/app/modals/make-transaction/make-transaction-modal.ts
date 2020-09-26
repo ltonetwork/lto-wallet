@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { MakeTransactionComponent } from './make-transaction.component';
 import { toPromise } from '../../core';
 
@@ -9,7 +9,7 @@ export class MakeTransactionModal {
 
   show(): Promise<void> {
     const dialog = this._dialog.open(MakeTransactionComponent, {
-      width: '500px'
+      width: '500px',
     });
 
     return toPromise(dialog.afterClosed());

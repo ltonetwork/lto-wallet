@@ -3,12 +3,12 @@ import { Observable, combineLatest } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { WalletService, TransactionTypes, transactionsFilter, toPromise } from '../core';
 import { StartLeaseModal } from '../modals';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'lto-leasing',
   templateUrl: './leasing.component.html',
-  styleUrls: ['./leasing.component.scss']
+  styleUrls: ['./leasing.component.scss'],
 })
 export class LeasingComponent implements OnInit {
   transactions$: Observable<any[]>;
@@ -27,11 +27,11 @@ export class LeasingComponent implements OnInit {
   ) {
     this.address$ = wallet.address$;
     this.transactions$ = wallet.leasingTransactions$.pipe(
-      map(transactions => {
+      map((transactions) => {
         // Now we need to mark canceling transactions
         // First - get all canceling transactions
         const canceling = transactionsFilter(TransactionTypes.CANCEL_LEASING)(transactions).map(
-          transaction => transaction.lease.id
+          (transaction) => transaction.lease.id
         );
 
         // Get our leasing transactions
@@ -39,10 +39,10 @@ export class LeasingComponent implements OnInit {
 
         // Now we need to go through active leasing and if it is in process of canceling
         // mark it
-        return leasing.map(transaction => {
+        return leasing.map((transaction) => {
           return {
             ...transaction,
-            isCanceling: canceling.indexOf(transaction.id) !== -1
+            isCanceling: canceling.indexOf(transaction.id) !== -1,
           };
         });
       })
@@ -85,7 +85,7 @@ export class LeasingComponent implements OnInit {
 
   private notify(message: string) {
     this.snackbar.open(message, 'DISMISS', {
-      duration: 3000
+      duration: 3000,
     });
   }
 }

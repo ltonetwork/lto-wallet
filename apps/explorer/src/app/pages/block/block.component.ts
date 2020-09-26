@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Observable, combineLatest } from 'rxjs';
-import { switchMap, shareReplay, map, retry, retryWhen, delay, catchError } from 'rxjs/operators';
+import { switchMap, shareReplay, map, retryWhen, delay, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'poe-block',
   templateUrl: './block.component.html',
-  styleUrls: ['./block.component.scss']
+  styleUrls: ['./block.component.scss'],
 })
 export class BlockComponent implements OnInit {
   blockHeight$: Observable<number>;
@@ -21,7 +21,7 @@ export class BlockComponent implements OnInit {
     snackbar: MatSnackBar,
     router: Router
   ) {
-    this.blockHeight$ = _activatedRote.params.pipe(map(params => params['height']));
+    this.blockHeight$ = _activatedRote.params.pipe(map((params) => params['height']));
 
     this.block$ = combineLatest(publicNode.height(), this.blockHeight$).pipe(
       switchMap(([nodeHeight, blockHeight]) => {
@@ -30,16 +30,16 @@ export class BlockComponent implements OnInit {
         }
 
         return publicNode.block(blockHeight).pipe(
-          map(block => {
+          map((block) => {
             if (block.status === 'error') {
               throw block;
             }
             return block;
           }),
-          retryWhen(errors => errors.pipe(delay(1000)))
+          retryWhen((errors) => errors.pipe(delay(1000)))
         );
       }),
-      catchError(err => {
+      catchError((err) => {
         snackbar.open('Block load error', 'DISMISS', { duration: 3000 });
         router.navigate(['/']);
         throw err;

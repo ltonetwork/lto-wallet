@@ -3,12 +3,12 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { WalletService, groupByDate, TransactionsGroup, EncoderService } from '../core';
 import { FeeInputModal } from '../modals';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'lto-anchors',
   templateUrl: './anchors.component.html',
-  styleUrls: ['./anchors.component.scss']
+  styleUrls: ['./anchors.component.scss'],
 })
 export class AnchorsComponent implements OnInit {
   groupedAcnhors$: Observable<TransactionsGroup[]>;
@@ -26,8 +26,8 @@ export class AnchorsComponent implements OnInit {
     private encoder: EncoderService
   ) {
     this.groupedAcnhors$ = wallet.anchors$.pipe(
-      map(anchors => {
-        const withHash = anchors.items.map(anchorTransaction => {
+      map((anchors) => {
+        const withHash = anchors.items.map((anchorTransaction) => {
           // We need to show HASH in table and this HASH should be HEX-HASH
           const hash =
             anchorTransaction.anchors.length === 1
@@ -36,7 +36,7 @@ export class AnchorsComponent implements OnInit {
 
           return {
             ...anchorTransaction,
-            hash
+            hash,
           };
         });
 
@@ -55,11 +55,11 @@ export class AnchorsComponent implements OnInit {
       try {
         await this.wallet.anchor(fileDropevent.base58, fee);
         this.snackbar.open('Anchor created', 'Dismiss', {
-          duration: 3000
+          duration: 3000,
         });
       } catch (error) {
         this.snackbar.open('Anchor creation error', 'Dismiss', {
-          duration: 3000
+          duration: 3000,
         });
       }
     }

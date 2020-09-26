@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { WithdrawModalComponent } from './withdraw-modal.component';
 import { toPromise } from '../../core';
 
@@ -10,7 +10,7 @@ export class WithdrawModal {
   show(): Promise<void> {
     const dialog = this.matDialog.open(WithdrawModalComponent, {
       maxWidth: '100%',
-      width: '500px'
+      width: '500px',
     });
     return toPromise(dialog.afterClosed());
   }

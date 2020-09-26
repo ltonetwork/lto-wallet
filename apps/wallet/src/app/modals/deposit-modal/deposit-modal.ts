@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { DepositModalComponent } from './deposit-modal.component';
 import { toPromise } from '../../core';
 
@@ -10,7 +10,7 @@ export class DepositModal {
   show(): Promise<boolean> {
     const dialog = this.matDialog.open(DepositModalComponent, {
       width: '500px',
-      maxWidth: '100%'
+      maxWidth: '100%',
     });
     return toPromise(dialog.afterClosed());
   }

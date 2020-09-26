@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WalletService, IBalance, formControlErrors, ADDRESS_VALIDATOR } from '../../core';
 import { DEFAULT_TRANSFER_FEE } from '../../tokens';
 import { take } from 'rxjs/operators';
@@ -22,7 +22,7 @@ interface LeaseFormData {
 @Component({
   selector: 'lto-wallet-start-lease-modal',
   templateUrl: './start-lease-modal.component.html',
-  styleUrls: ['./start-lease-modal.component.scss']
+  styleUrls: ['./start-lease-modal.component.scss'],
 })
 export class StartLeaseModalComponent implements OnInit {
   leaseForm: FormGroup | null = null;
@@ -44,7 +44,7 @@ export class StartLeaseModalComponent implements OnInit {
   ngOnInit() {
     this.balance$ = this._wallet.balance$;
 
-    this._wallet.balance$.pipe(take(1)).subscribe(balance => {
+    this._wallet.balance$.pipe(take(1)).subscribe((balance) => {
       const maxAmount = balance.available / balance.amountDivider;
       const minAmount = 1 / balance.amountDivider;
       const fee = this.defaultFee / balance.amountDivider;
@@ -54,12 +54,12 @@ export class StartLeaseModalComponent implements OnInit {
         amount: new FormControl(0, [
           Validators.required,
           Validators.min(minAmount),
-          Validators.max(maxAmount)
+          Validators.max(maxAmount),
         ]),
         fee: new FormControl({ value: fee, disabled: true }, [
           Validators.required,
-          Validators.min(minAmount)
-        ])
+          Validators.min(minAmount),
+        ]),
       });
     });
   }
@@ -86,17 +86,17 @@ export class StartLeaseModalComponent implements OnInit {
       transactionData: [
         {
           label: 'To',
-          value: formData.recipient
+          value: formData.recipient,
         },
         {
           label: 'Amount',
-          value: formData.amount
+          value: formData.amount,
         },
         {
           label: 'Fee',
-          value: formData.fee
-        }
-      ]
+          value: formData.fee,
+        },
+      ],
     });
   }
 }

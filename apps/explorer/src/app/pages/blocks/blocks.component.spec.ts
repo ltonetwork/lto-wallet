@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BlocksListModule } from '@explorer/shared';
 import { PageContentModule } from '@legalthings-one/component-kit';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { of } from 'rxjs';
 
@@ -15,7 +15,7 @@ describe('BlocksComponent', () => {
   beforeEach(async(() => {
     publicNodeMock = {
       lastBlocks: () => of([]),
-      transaction: () => of({})
+      transaction: () => of({}),
     };
 
     TestBed.configureTestingModule({
@@ -24,9 +24,9 @@ describe('BlocksComponent', () => {
       providers: [
         {
           provide: LtoPublicNodeService,
-          useValue: publicNodeMock
-        }
-      ]
+          useValue: publicNodeMock,
+        },
+      ],
     }).compileComponents();
   }));
 

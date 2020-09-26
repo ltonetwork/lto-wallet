@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { KeyvalueListModule } from '@explorer/shared';
-import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import {
   PageContentModule,
   TransactionsSectionModule,
-  AMOUNT_DIVIDER
+  AMOUNT_DIVIDER,
 } from '@legalthings-one/component-kit';
-import { MatSnackBarModule } from '@angular/material';
 
 import { BlockComponent } from './block.component';
 import { of } from 'rxjs';
@@ -23,7 +25,7 @@ describe('BlockComponent', () => {
       block: () => of({}),
       height: () => of(100),
       transaction: () => of({}),
-      balanceOf: () => of({})
+      balanceOf: () => of({}),
     };
 
     TestBed.configureTestingModule({
@@ -34,19 +36,19 @@ describe('BlockComponent', () => {
         KeyvalueListModule,
         MatCardModule,
         MatProgressSpinnerModule,
-        MatSnackBarModule
+        MatSnackBarModule,
       ],
       declarations: [BlockComponent],
       providers: [
         {
           provide: LtoPublicNodeService,
-          useValue: publicNodeMock
+          useValue: publicNodeMock,
         },
         {
           provide: AMOUNT_DIVIDER,
-          useValue: 1000000000
-        }
-      ]
+          useValue: 1000000000,
+        },
+      ],
     }).compileComponents();
   }));
 

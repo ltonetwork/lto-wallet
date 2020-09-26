@@ -7,7 +7,9 @@ import { BridgeSwapComponent } from './bridge-swap.component';
 import { InstructionsComponent } from './steps/instructions/instructions.component';
 import { SwapTypeComponent } from './steps/swap-type/swap-type.component';
 import { ExampleComponent } from './steps/example/example.component';
-import { MatDialogModule, MatButtonModule, MatIconModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { DepositErcComponent } from './steps/deposit-erc/deposit-erc.component';
 import { CopyableTextModule, LoadingSpinnerModule } from '../../../shared/components';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -21,7 +23,7 @@ import { WithdrawFormComponent } from './steps/withdraw-form/withdraw-form.compo
     SwapTypeComponent,
     ExampleComponent,
     DepositErcComponent,
-    WithdrawFormComponent
+    WithdrawFormComponent,
   ],
   imports: [
     CommonModule,
@@ -35,9 +37,9 @@ import { WithdrawFormComponent } from './steps/withdraw-form/withdraw-form.compo
     LoadingSpinnerModule,
     ReactiveFormsModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
   ],
   exports: [BridgeSwapComponent],
-  entryComponents: [BridgeSwapComponent]
+  entryComponents: [BridgeSwapComponent],
 })
 export class BridgeSwapModule {}

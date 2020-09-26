@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { FeeInputModalComponent } from './fee-input-modal.component';
 
 @Injectable()
@@ -9,7 +9,7 @@ export class FeeInputModal {
   show(hash: string): Promise<number | void> {
     const dialog = this.matDialog.open(FeeInputModalComponent, {
       width: '640px',
-      data: hash
+      data: hash,
     });
 
     return dialog.afterClosed().toPromise();

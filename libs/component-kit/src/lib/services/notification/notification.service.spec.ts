@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { NotificationService } from './notification.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('NotificationService', () => {
   let matSnackbarMock: Partial<MatSnackBar>;
@@ -10,7 +10,7 @@ describe('NotificationService', () => {
     matSnackbarMock = {};
 
     TestBed.configureTestingModule({
-      providers: [NotificationService, { provide: MatSnackBar, useValue: matSnackbarMock }]
+      providers: [NotificationService, { provide: MatSnackBar, useValue: matSnackbarMock }],
     });
   });
 

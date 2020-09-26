@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService, IUserAccount, Sidenav } from '../../services';
 
 @Component({
   selector: 'lto-appbar',
   templateUrl: './appbar.component.html',
-  styleUrls: ['./appbar.component.scss']
+  styleUrls: ['./appbar.component.scss'],
 })
 export class AppbarComponent implements OnInit {
   authenticated$: Observable<boolean>;

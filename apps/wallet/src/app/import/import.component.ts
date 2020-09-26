@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../core';
 import { Account } from 'lto-api';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { map, take, shareReplay } from 'rxjs/operators';
 @Component({
   selector: 'lto-import',
   templateUrl: './import.component.html',
-  styleUrls: ['./import.component.scss']
+  styleUrls: ['./import.component.scss'],
 })
 export class ImportComponent implements OnInit {
   @ViewChild('step1Tpl') step1!: TemplateRef<any>;
@@ -37,7 +37,7 @@ export class ImportComponent implements OnInit {
     );
 
     this.walletAddress$ = this.account$.pipe(
-      map(account => {
+      map((account) => {
         return account ? account.address : '';
       })
     );
@@ -48,7 +48,7 @@ export class ImportComponent implements OnInit {
   }
 
   gotoStep2() {
-    this.account$.pipe(take(1)).subscribe(account => {
+    this.account$.pipe(take(1)).subscribe((account) => {
       if (account) {
         this.wallet = account;
         this.stepTemplate = this.step2;
@@ -72,7 +72,7 @@ export class ImportComponent implements OnInit {
 
   private notify(message: string) {
     this.snackbar.open(message, 'Dismiss', {
-      duration: 3000
+      duration: 3000,
     });
   }
 }

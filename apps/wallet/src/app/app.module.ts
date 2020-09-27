@@ -35,7 +35,7 @@ import { environment } from '../environments/environment';
     SharedModule,
     CoreModule,
     ModalsModule,
-    RecaptchaModule.forRoot(),
+    RecaptchaModule,
     WalletComponentsModule,
   ],
   providers: [

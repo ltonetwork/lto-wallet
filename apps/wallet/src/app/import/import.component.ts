@@ -13,8 +13,8 @@ import { map, take, shareReplay } from 'rxjs/operators';
   styleUrls: ['./import.component.scss'],
 })
 export class ImportComponent implements OnInit {
-  @ViewChild('step1Tpl') step1!: TemplateRef<any>;
-  @ViewChild('step2Tpl') step2!: TemplateRef<any>;
+  @ViewChild('step1Tpl', { static: true }) step1!: TemplateRef<any>;
+  @ViewChild('step2Tpl', { static: true }) step2!: TemplateRef<any>;
 
   stepTemplate!: TemplateRef<any>;
   wallet!: Account;

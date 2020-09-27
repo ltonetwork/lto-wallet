@@ -35,17 +35,19 @@ img {
   margin-top: 16px;
 }
 
-file-drop {
+ngx-file-drop {
   display: block;
   height: 290px;
   width: 400px;
 }
 
 :host::ng-deep {
-  file-drop {
-    .content,
+  ngx-file-drop {
+    .ngx-file-drop__content,
+    .ngx-file-drop__drop-zone,
     #dropZone {
       height: 100% !important;
+      border: none;
     }
   }
 }

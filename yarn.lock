@@ -1553,12 +1553,13 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-angularx-qrcode@^1.5.1:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/angularx-qrcode/-/angularx-qrcode-1.6.4.tgz#923919d3bb2ac324fec46da7a021bd055916dd42"
-  integrity sha512-B0w/2+0V6G1yTOfknq7NQJ2iVQBN81aZkQ5nNYjjukVxDRshPQkah0hijxmgMyweXrlqr29qxNPcyRiKvLFebg==
+angularx-qrcode@^10.0.10:
+  version "10.0.10"
+  resolved "https://registry.yarnpkg.com/angularx-qrcode/-/angularx-qrcode-10.0.10.tgz#3de28fd72c4f8bd9dd4c1e732c83ab8e70876c24"
+  integrity sha512-e6cgh5QL6hma4FfEy4WMlmdIIg21d69UsyVGOQ0nValy0jeWWu2WhNmlXZbDM2AcVOecOW4ODJDTKUlpQpS43w==
   dependencies:
-    qrcodejs2 "0.0.2"
+    qrcode "1.4.2"
+    tslib "^2.0.0"
 
 ansi-colors@4.1.1:
   version "4.1.1"
@@ -3233,6 +3234,11 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
+dijkstrajs@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/dijkstrajs/-/dijkstrajs-1.0.1.tgz#d3cd81221e3ea40742cfcde556d4e99e98ddc71b"
+  integrity sha1-082BIh4+pAdCz83lVtTpnpjdxxs=
+
 dir-glob@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/dir-glob/-/dir-glob-3.0.1.tgz#56dbf73d992a4a93ba1584f4534063fd2e41717f"
@@ -4883,6 +4889,11 @@ isarray@2.0.1:
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-2.0.1.tgz#a37d94ed9cda2d59865c9f76fe596ee1f338741e"
   integrity sha1-o32U7ZzaLVmGXJ92/llu4fM4dB4=
 
+isarray@^2.0.1:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/isarray/-/isarray-2.0.5.tgz#8af1e4c1221244cc62459faf38940d4e644a5723"
+  integrity sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==
+
 isbinaryfile@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/isbinaryfile/-/isbinaryfile-4.0.6.tgz#edcb62b224e2b4710830b67498c8e4e5a4d2610b"
@@ -5796,10 +5807,12 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-ng-recaptcha@^4.2.1:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/ng-recaptcha/-/ng-recaptcha-4.3.0.tgz#f5ce3c1ea94edbf308967cc17043eb36ec1e5a34"
-  integrity sha512-p9v+4qjPJIrhKeddGHNtYaoeB9prZ893dsLzRMtYpREYZdRIcflRg5xcZ8GFacAnViPlFgjaJvQ/VmZoMKqn5Q==
+ng-recaptcha@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/ng-recaptcha/-/ng-recaptcha-6.0.2.tgz#03beb2bf906fc42aff2df41ae84ae220e20d48fd"
+  integrity sha512-m5nxRTugID+N7/3pMbpAXuwid5Q64DZobkTZyA+Zci5h6ynU+MH58aSmbZoG0J07108/F8Oy2RQDklcxw1u32A==
+  dependencies:
+    tslib "^1.9.0 || ^2.0.0"
   optionalDependencies:
     "@types/grecaptcha" "^2.0.33"
 
@@ -5810,12 +5823,10 @@ ng-suspense@0.0.4:
   dependencies:
     tslib "^1.9.0"
 
-ngx-file-drop@^5.0.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/ngx-file-drop/-/ngx-file-drop-5.1.0.tgz#930661162f443f79da4dfc902564abe06fe67c83"
-  integrity sha512-9ea2LeNjq4/Ez12VooB2jKHDubpL0UV32xXPJ4Rf68LR9YX+x90dwmE5Hwzlhe+cJyoNDC/dxPQjrzqArG/u0g==
-  dependencies:
-    tslib "^1.9.0"
+ngx-file-drop@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-file-drop/-/ngx-file-drop-9.0.1.tgz#ef84df9c9254f87c829ea47d2657cb49b0790254"
+  integrity sha512-xtUUjGMr9c8wwSfA4Cyy0iZMPLnBOg9i32A3tHOPfEivRrn9evULvxriCM45Qz6HpuuqA7vZGxGZZTCUIj/h3A==
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -6472,6 +6483,11 @@ pkg-dir@^4.1.0:
   dependencies:
     find-up "^4.0.0"
 
+pngjs@^3.3.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-3.4.0.tgz#99ca7d725965fb655814eaf65f38f12bbdbf555f"
+  integrity sha512-NCrCHhWmnQklfH4MtJMRjZ2a8c80qXeMlQMv2uVp9ISJMTt562SbGd6n2oq0PaPgKm7Z6pL9E2UlLIhC+SHL3w==
+
 pnp-webpack-plugin@1.6.4:
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/pnp-webpack-plugin/-/pnp-webpack-plugin-1.6.4.tgz#c9711ac4dc48a685dabafc86f8b6dd9f8df84149"
@@ -6998,10 +7014,15 @@ qjobs@^1.2.0:
   resolved "https://registry.yarnpkg.com/qjobs/-/qjobs-1.2.0.tgz#c45e9c61800bd087ef88d7e256423bdd49e5d071"
   integrity sha512-8YOJEHtxpySA3fFDyCRxA+UUV+fA+rTWnuWvylOK/NCjhY+b4ocCtmu8TtsWb+mYeU+GCHf/S66KZF/AsteKHg==
 
-qrcodejs2@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/qrcodejs2/-/qrcodejs2-0.0.2.tgz#465afe5e39f19facecb932c11f7a186109146ae1"
-  integrity sha1-Rlr+Xjnxn6zsuTLBH3oYYQkUauE=
+qrcode@1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/qrcode/-/qrcode-1.4.2.tgz#e7c82a60140916d666541043bd2b0b72ee4e38a6"
+  integrity sha512-eR6RgxFYPDFH+zFLTJKtoNP/RlsHANQb52AUmQ2bGDPMuUw7jJb0F+DNEgx7qQGIElrbFxWYMc0/B91zLZPF9Q==
+  dependencies:
+    dijkstrajs "^1.0.1"
+    isarray "^2.0.1"
+    pngjs "^3.3.0"
+    yargs "^13.2.4"
 
 qs@6.7.0:
   version "6.7.0"
@@ -8450,7 +8471,7 @@ ts-utils@^6.0.2, ts-utils@^6.0.4:
   resolved "https://registry.yarnpkg.com/ts-utils/-/ts-utils-6.1.0.tgz#0bb3f29ff5605cb5ee31fffc5af84a2379554985"
   integrity sha512-9KF44uW1AVr9IjkohFmVPDKo9kLeNdpAKUF0q8uuHxrI6jusJbk6Zbx3MJAMh9v32HOwOvNGm7pAm84VAP7bAg==
 
-tslib@2.0.1, tslib@^2.0.0:
+tslib@2.0.1, "tslib@^1.9.0 || ^2.0.0", tslib@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.1.tgz#410eb0d113e5b6356490eec749603725b021b43e"
   integrity sha512-SgIkNheinmEBgx1IUNirK0TUD4X9yjjBRTqqjggWCU3pUEqIk3/Uwl3yRixYKT6WjQuGiwDv4NomL3wqRCj+CQ==
@@ -9123,7 +9144,7 @@ yargs@15.3.0:
     y18n "^4.0.0"
     yargs-parser "^18.1.0"
 
-yargs@^13.3.2:
+yargs@^13.2.4, yargs@^13.3.2:
   version "13.3.2"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-13.3.2.tgz#ad7ffefec1aa59565ac915f82dccb38a9c31a2dd"
   integrity sha512-AX3Zw5iPruN5ie6xGRIDgqkT+ZhnRlZMLMHAs8tg7nRruy2Nb+i5o9bwghAogtM08q1dpr2LVoS8KSTMYpWXUw==

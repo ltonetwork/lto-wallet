@@ -19,6 +19,8 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     publicNodeMock = {
       lastBlocks: () => of([]),
+      unconfirmedTransactions: () => of([]),
+      getLastBlocks: () => of([]),
     };
     notificationsMock = {};
 

@@ -8,7 +8,7 @@ import { take, delay, catchError, map, switchMapTo, share } from 'rxjs/operators
 @Component({
   selector: 'poe-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   lastBlocks$: Observable<any[]> = this._node.lastBlocks(20, true).pipe(
@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
   );
 
   unconfirmedTransactions$!: Observable<any[]>;
-  // lastBlocks$!: Observable<any>;
 
   constructor(
     private _node: LtoPublicNodeService,
@@ -32,14 +31,14 @@ export class HomeComponent implements OnInit {
   }
 
   search(value: string) {
-    combineLatest(
+    combineLatest([
       this._node.block(value).pipe(
-        map(block => (block.status === 'error' ? null : block)),
+        map((block) => (block.status === 'error' ? null : block)),
         catchError(() => of(null))
       ),
       this._node.transaction(value).pipe(catchError(() => of(null))),
-      this._node.balanceOf(value).pipe(catchError(() => of(null)))
-    )
+      this._node.balanceOf(value).pipe(catchError(() => of(null))),
+    ])
       .pipe(take(1))
       .subscribe(([isBlock, isTransaction, isAddress]) => {
         if (isBlock) {

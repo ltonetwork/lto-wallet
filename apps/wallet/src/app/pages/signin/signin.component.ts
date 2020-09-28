@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
 import { AuthService, IUserAccount, toPromise } from '../../core';
 import { Router } from '@angular/router';
@@ -9,7 +10,7 @@ import { DeleteAccountDialogComponent } from '../../components/delete-account-di
 @Component({
   selector: 'lto-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss']
+  styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
   availableAccounts$: Observable<IUserAccount[]>;
@@ -25,7 +26,7 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.availableAccounts$.pipe(take(1)).subscribe(accounts => {
+    this.availableAccounts$.pipe(take(1)).subscribe((accounts) => {
       this.selected$.next(accounts[0]);
     });
   }

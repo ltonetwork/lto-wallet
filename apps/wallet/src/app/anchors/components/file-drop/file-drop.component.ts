@@ -1,12 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { UploadEvent, FileSystemFileEntry } from 'ngx-file-drop';
+import { FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { sha256 } from 'js-sha256';
 import { EncoderService } from '../../../core';
 
 @Component({
   selector: 'lto-wallet-file-drop',
   templateUrl: './file-drop.component.html',
-  styleUrls: ['./file-drop.component.scss']
+  styleUrls: ['./file-drop.component.scss'],
 })
 export class FileDropComponent implements OnInit {
   @Output() fileHash = new EventEmitter<{
@@ -18,8 +18,8 @@ export class FileDropComponent implements OnInit {
 
   ngOnInit() {}
 
-  dropped(event: UploadEvent) {
-    const file = event.files[0].fileEntry as FileSystemFileEntry;
+  dropped(entries: NgxFileDropEntry[]) {
+    const file = entries[0].fileEntry as FileSystemFileEntry;
     file.file((file: File) => {
       this.readFile(file);
     });
@@ -45,7 +45,7 @@ export class FileDropComponent implements OnInit {
 
     this.fileHash.next({
       hex,
-      base58: this.encoder.base58Encode(shaBuffer)
+      base58: this.encoder.base58Encode(shaBuffer),
     });
   }
 }

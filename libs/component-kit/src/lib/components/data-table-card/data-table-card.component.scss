@@ -19,7 +19,7 @@
   }
 }
 
-.data-table-card-table-container /deep/ {
+.data-table-card-table-container::ng-deep {
   table {
     width: 100%;
 

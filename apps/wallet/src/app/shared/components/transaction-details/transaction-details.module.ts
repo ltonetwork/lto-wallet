@@ -2,13 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TransactionDetailsComponent } from './transaction-details.component';
-import {
-  MatIconModule,
-  MatButtonModule,
-  MatRippleModule,
-  MatDividerModule
-} from '@angular/material';
+
 import { AmountDividePipeModule, TypeLabelPipeModule } from '../../pipes';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -19,9 +18,9 @@ import { AmountDividePipeModule, TypeLabelPipeModule } from '../../pipes';
     MatRippleModule,
     AmountDividePipeModule,
     MatDividerModule,
-    TypeLabelPipeModule
+    TypeLabelPipeModule,
   ],
   declarations: [TransactionDetailsComponent],
-  exports: [TransactionDetailsComponent]
+  exports: [TransactionDetailsComponent],
 })
 export class TransactionDetailsModule {}

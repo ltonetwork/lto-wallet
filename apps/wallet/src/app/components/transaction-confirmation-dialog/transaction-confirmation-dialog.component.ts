@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface TransactionConfirmDialogData {
   title?: string;
@@ -17,7 +17,7 @@ interface TransactionDataField {
   templateUrl: './transaction-confirmation-dialog.component.html',
   styleUrls: ['./transaction-confirmation-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [DecimalPipe]
+  providers: [DecimalPipe],
 })
 export class TransactionConfirmationDialogComponent implements OnInit {
   dialogTitle!: string;

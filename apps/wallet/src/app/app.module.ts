@@ -17,7 +17,7 @@ import {
   DEFAULT_TRANSFER_FEE,
   ANCHOR_FEE,
   BRIDGE_ENABLED,
-  SWAP_PAGE_ENABLED
+  SWAP_PAGE_ENABLED,
 } from './tokens';
 import { ModalsModule } from './modals/modals.module';
 import { WalletComponentsModule } from './components/wallet-components.module';
@@ -35,8 +35,8 @@ import { environment } from '../environments/environment';
     SharedModule,
     CoreModule,
     ModalsModule,
-    RecaptchaModule.forRoot(),
-    WalletComponentsModule
+    RecaptchaModule,
+    WalletComponentsModule,
   ],
   providers: [
     {
@@ -46,69 +46,69 @@ import { environment } from '../environments/environment';
           alias: 'md',
           suffix: 'Md',
           mediaQuery: 'screen and (min-width: 960px) and (max-width: 1499px)',
-          overlapping: false
+          overlapping: false,
         },
         {
           alias: 'lg',
           suffix: 'Lg',
           mediaQuery: 'screen and (min-width: 1500px) and (max-width: 1919px)',
-          overlapping: false
+          overlapping: false,
         },
         {
           alias: 'gt-md',
           suffix: 'GtMd',
           mediaQuery: 'screen and (min-width: 1500px)',
-          overlapping: false
+          overlapping: false,
         },
         {
           alias: 'lt-lg',
           suffix: 'LtLg',
           mediaQuery: 'screen and (max-width: 1499px)',
-          overlapping: false
-        }
+          overlapping: false,
+        },
       ],
-      multi: true
+      multi: true,
     },
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
-        siteKey: '6LebrZMUAAAAAEhsMU6H0QQChao1Ya3buSsBXunu'
-      }
+        siteKey: '6LebrZMUAAAAAEhsMU6H0QQChao1Ya3buSsBXunu',
+      },
     },
     {
       provide: LTO_NETWORK_BYTE,
-      useValue: environment.networkByte
+      useValue: environment.networkByte,
     },
     {
       provide: LTO_PUBLIC_API,
-      useValue: environment.lto_api_url
+      useValue: environment.lto_api_url,
     },
     {
       provide: AMOUNT_DIVIDER,
-      useValue: 100000000
+      useValue: 100000000,
     },
     {
       provide: LTO_BRIDGE_HOST,
-      useValue: environment.bridge_url
+      useValue: environment.bridge_url,
     },
     {
       provide: DEFAULT_TRANSFER_FEE,
-      useValue: environment.transfer_fee
+      useValue: environment.transfer_fee,
     },
     {
       provide: ANCHOR_FEE,
-      useValue: environment.anchor_fee
+      useValue: environment.anchor_fee,
     },
     {
       provide: BRIDGE_ENABLED,
-      useValue: environment.bridge
+      useValue: environment.bridge,
     },
     {
       provide: SWAP_PAGE_ENABLED,
-      useValue: environment.swapPageEnabled
-    }
+      useValue: environment.swapPageEnabled,
+    },
   ],
   bootstrap: [AppComponent],
-  entryComponents: []
+  entryComponents: [],
 })
 export class AppModule {}

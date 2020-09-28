@@ -1,13 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { MatDialogRef, MAT_DIALOG_DATA, throwMatDuplicatedDrawerError } from '@angular/material';
+import { Observable } from 'rxjs';
+import { MatDialogRef } from '@angular/material/dialog';
 import { WalletService, IBalance } from '../../core';
 
 @Component({
   selector: 'lto-withdraw-modal',
   templateUrl: './withdraw-modal.component.html',
-  styleUrls: ['./withdraw-modal.component.scss']
+  styleUrls: ['./withdraw-modal.component.scss'],
 })
 export class WithdrawModalComponent implements OnInit {
   withdrawForm: FormGroup;
@@ -22,10 +22,10 @@ export class WithdrawModalComponent implements OnInit {
       fee: new FormControl(
         {
           value: 0.001,
-          disabled: true
+          disabled: true,
         },
         []
-      )
+      ),
     });
   }
 

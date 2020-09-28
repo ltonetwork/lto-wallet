@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CrendetialsFormComponent } from './credentials-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   imports: [
@@ -11,9 +12,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
-    CommonModule
+    CommonModule,
   ],
   declarations: [CrendetialsFormComponent],
-  exports: [CrendetialsFormComponent]
+  exports: [CrendetialsFormComponent],
 })
 export class CredentialsFormModule {}

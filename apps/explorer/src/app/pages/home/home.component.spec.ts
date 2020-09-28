@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BlocksListModule, SearchBoxModule } from '@explorer/shared';
-import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 import { LtoPublicNodeService } from '@legalthings-one/platform';
 import { NotificationService, PageContentModule } from '@legalthings-one/component-kit';
 import { of } from 'rxjs';
@@ -16,7 +18,9 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     publicNodeMock = {
-      lastBlocks: () => of([])
+      lastBlocks: () => of([]),
+      unconfirmedTransactions: () => of([]),
+      getLastBlocks: () => of([]),
     };
     notificationsMock = {};
 
@@ -27,19 +31,19 @@ describe('HomeComponent', () => {
         BlocksListModule,
         MatIconModule,
         MatProgressSpinnerModule,
-        SearchBoxModule
+        SearchBoxModule,
       ],
       declarations: [HomeComponent],
       providers: [
         {
           provide: LtoPublicNodeService,
-          useValue: publicNodeMock
+          useValue: publicNodeMock,
         },
         {
           provide: NotificationService,
-          useValue: notificationsMock
-        }
-      ]
+          useValue: notificationsMock,
+        },
+      ],
     }).compileComponents();
   }));
 

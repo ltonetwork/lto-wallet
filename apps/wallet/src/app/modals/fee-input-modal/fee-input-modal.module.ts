@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FeeInputModalComponent } from './fee-input-modal.component';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-  MatDialogModule,
-  MatButtonModule,
-  MatInputModule,
-  MatFormFieldModule
-} from '@angular/material';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { FeeInputModal } from './fee-input.modal';
 
 @NgModule({
@@ -20,9 +19,9 @@ import { FeeInputModal } from './fee-input.modal';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   entryComponents: [FeeInputModalComponent],
-  providers: [FeeInputModal]
+  providers: [FeeInputModal],
 })
 export class FeeInputModalModule {}

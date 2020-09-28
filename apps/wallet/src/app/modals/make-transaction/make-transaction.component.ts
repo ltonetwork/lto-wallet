@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
-import { MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { WalletService, IBalance, formControlErrors, ADDRESS_VALIDATOR } from '../../core';
 import { take } from 'rxjs/operators';
@@ -17,7 +18,7 @@ interface FormValue {
 @Component({
   selector: 'lto-wallet-make-transaction',
   templateUrl: './make-transaction.component.html',
-  styleUrls: ['./make-transaction.component.scss']
+  styleUrls: ['./make-transaction.component.scss'],
 })
 export class MakeTransactionComponent implements OnInit {
   sendForm: FormGroup | null = null;
@@ -41,7 +42,7 @@ export class MakeTransactionComponent implements OnInit {
   ngOnInit() {
     this.balance$ = this.wallet.balance$;
 
-    this.balance$.pipe(take(1)).subscribe(balance => {
+    this.balance$.pipe(take(1)).subscribe((balance) => {
       const maxTransactionValue = balance.available / balance.amountDivider;
       const minTransactionValue = 1 / balance.amountDivider;
       const fee = this._defaultFee / balance.amountDivider;
@@ -51,13 +52,13 @@ export class MakeTransactionComponent implements OnInit {
         amount: new FormControl(0, [
           Validators.required,
           Validators.min(minTransactionValue),
-          Validators.max(maxTransactionValue)
+          Validators.max(maxTransactionValue),
         ]),
         attachment: new FormControl('', []),
         fee: new FormControl({ value: fee, disabled: true }, [
           Validators.required,
-          Validators.min(minTransactionValue)
-        ])
+          Validators.min(minTransactionValue),
+        ]),
       });
     });
   }
@@ -85,21 +86,21 @@ export class MakeTransactionComponent implements OnInit {
       transactionData: [
         {
           label: 'To',
-          value: formValue.recipient
+          value: formValue.recipient,
         },
         {
           label: 'Amount',
-          value: formValue.amount
+          value: formValue.amount,
         },
         {
           label: 'Fee',
-          value: formValue.fee
+          value: formValue.fee,
         },
         {
           label: 'Attachment',
-          value: formValue.attachment
-        }
-      ]
+          value: formValue.attachment,
+        },
+      ],
     });
   }
 }

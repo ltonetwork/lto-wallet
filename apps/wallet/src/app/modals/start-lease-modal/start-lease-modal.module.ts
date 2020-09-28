@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 import { StartLeaseModalComponent } from './start-lease-modal.component';
 import { StartLeaseModal } from './start-lease-modal';
 
@@ -9,6 +9,6 @@ import { StartLeaseModal } from './start-lease-modal';
   imports: [SharedModule, ReactiveFormsModule, MatDialogModule],
   declarations: [StartLeaseModalComponent],
   entryComponents: [StartLeaseModalComponent],
-  providers: [StartLeaseModal]
+  providers: [StartLeaseModal],
 })
 export class StartLeaseModalModule {}

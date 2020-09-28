@@ -80,31 +80,6 @@
         }
       }
     },
-    "explorer-e2e": {
-      "root": "apps/explorer-e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "apps/explorer-e2e/protractor.conf.js",
-            "devServerTarget": "explorer:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "explorer:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "apps/explorer-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
-          }
-        }
-      }
-    },
     "wallet": {
       "root": "apps/wallet/",
       "sourceRoot": "apps/wallet/src",
@@ -223,31 +198,6 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/wallet/tsconfig.app.json", "apps/wallet/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        }
-      }
-    },
-    "wallet-e2e": {
-      "root": "apps/wallet-e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "apps/wallet-e2e/protractor.conf.js",
-            "devServerTarget": "wallet:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "wallet:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "apps/wallet-e2e/tsconfig.e2e.json",
             "exclude": ["**/node_modules/**"]
           }
         }

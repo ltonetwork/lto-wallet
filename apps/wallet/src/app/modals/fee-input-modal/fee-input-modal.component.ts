@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AMOUNT_DIVIDER, ANCHOR_FEE } from '../../tokens';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
 
 @Component({
   selector: 'lto-wallet-fee-input-modal',
   templateUrl: './fee-input-modal.component.html',
-  styleUrls: ['./fee-input-modal.component.scss']
+  styleUrls: ['./fee-input-modal.component.scss'],
 })
 export class FeeInputModalComponent {
   fee: number;
@@ -37,13 +37,13 @@ export class FeeInputModalComponent {
         transactionData: [
           {
             label: 'Hash',
-            value: this.hash
+            value: this.hash,
           },
           {
             label: 'Fee',
-            value: fee
-          }
-        ]
+            value: fee,
+          },
+        ],
       },
       700
     );

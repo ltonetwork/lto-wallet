@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { toPromise } from '../../core/utils';
 import { AuthService, BridgeService } from '../../core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'lto-deposit-modal',
   templateUrl: './deposit-modal.component.html',
-  styleUrls: ['./deposit-modal.component.scss']
+  styleUrls: ['./deposit-modal.component.scss'],
 })
 export class DepositModalComponent implements OnInit {
   bridgeAddress = '';

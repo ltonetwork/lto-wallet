@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import {
   TransactionConfirmationDialogComponent,
-  TransactionConfirmDialogData
+  TransactionConfirmDialogData,
 } from './transaction-confirmation-dialog.component';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class TransactionConfirmDialog {
     return this.matDialog
       .open(TransactionConfirmationDialogComponent, {
         width: `${width}px`,
-        data: dialogData
+        data: dialogData,
       })
       .afterClosed()
       .toPromise();

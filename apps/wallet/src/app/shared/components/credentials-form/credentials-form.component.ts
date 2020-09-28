@@ -5,9 +5,9 @@ import {
   Validators,
   FormGroupDirective,
   NgForm,
-  AbstractControl
+  AbstractControl,
 } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 export interface IAccountCredentials {
   accountName: string;
@@ -27,7 +27,7 @@ export class CustomErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'lto-credentials-form',
   templateUrl: './credentials-form.component.html',
-  styleUrls: ['./credentials-form.component.scss']
+  styleUrls: ['./credentials-form.component.scss'],
 })
 export class CrendetialsFormComponent implements OnInit {
   form: FormGroup;
@@ -54,10 +54,10 @@ export class CrendetialsFormComponent implements OnInit {
       {
         accountName: new FormControl('', [Validators.required]),
         password: new FormControl('', [Validators.required]),
-        confirmation: new FormControl('', [Validators.required])
+        confirmation: new FormControl('', [Validators.required]),
       },
       {
-        validators: this.checkPasswords as any // Some wierd TS error with 'undefined'
+        validators: this.checkPasswords as any, // Some wierd TS error with 'undefined'
       }
     );
   }

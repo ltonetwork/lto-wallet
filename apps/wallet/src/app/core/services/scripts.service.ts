@@ -22,33 +22,14 @@ export interface PredefinedScript {
 
 const PREDEFINED_SCRIPTS: PredefinedScript[] = [
   {
-    label: 'Advisor lock',
+    label: 'Restrict account',
     value: `
-    let expireTime = 1565992800000
-    let transactionType = match tx {
-      case t:TransferTransaction => false
-      case t:MassTransferTransaction => false
-      case t:SetScriptTransaction => false
-      case _ => true
-    }
-
-    if (expireTime < tx.timestamp) then transactionType
-    else true
-    `
-  },
-  {
-    label: 'Team lock',
-    value: `
-    let expireTime = 1579215600000
-    let transactionType = match tx {
-      case t:TransferTransaction => false
-      case t:MassTransferTransaction => false
-      case t:SetScriptTransaction => false
-      case _ => true
-    }
-
-    if (expireTime < tx.timestamp) then transactionType
-    else true
+match tx {
+  case t:  TransferTransaction => false
+  case mt: MassTransferTransaction => false
+  case ss: SetScriptTransaction => false
+  case _ => sigVerify(tx.bodyBytes, tx.proofs[0], tx.senderPublicKey)
+}
     `
   },
   {
@@ -59,31 +40,14 @@ const PREDEFINED_SCRIPTS: PredefinedScript[] = [
 
 const PREDEFINED_SCRIPTS_TEST: PredefinedScript[] = [
   {
-    label: 'Advisor lock',
+    label: 'Restrict account',
     value: `
-    let expireTime = 1565992800000
-    let transactionType = match tx {
-      case t:TransferTransaction => false
-      case t:MassTransferTransaction => false
-      case _ => true
-    }
-
-    if (expireTime < tx.timestamp) then transactionType
-    else true
-    `
-  },
-  {
-    label: 'Team lock',
-    value: `
-    let expireTime = 1579215600000
-    let transactionType = match tx {
-      case t:TransferTransaction => false
-      case t:MassTransferTransaction => false
-      case _ => true
-    }
-
-    if (expireTime < tx.timestamp) then transactionType
-    else true
+match tx {
+  case t:  TransferTransaction => false
+  case mt: MassTransferTransaction => false
+  case ss: SetScriptTransaction => false
+  case _ => sigVerify(tx.bodyBytes, tx.proofs[0], tx.senderPublicKey)
+}
     `
   },
   {
@@ -125,7 +89,7 @@ export class ScriptsServiceImpl implements ScriptsService {
             TRANSACTION_TYPE.SET_SCRIPT,
             {
               script: script.script,
-              fee: 1000000
+              fee: 500000000
             },
             wallet.getSignKeys()
           );

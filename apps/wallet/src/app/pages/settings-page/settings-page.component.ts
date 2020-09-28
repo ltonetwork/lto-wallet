@@ -3,12 +3,12 @@ import { AuthService, IUserAccount, ScriptsService, FeeService, toPromise } from
 import { CreateScriptModal, ScriptInfoModal, DisableScriptModal } from '../../modals';
 import { Observable, of } from 'rxjs';
 import { Account } from 'lto-api';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'lto-wallet-settings-page',
   templateUrl: './settings-page.component.html',
-  styleUrls: ['./settings-page.component.scss']
+  styleUrls: ['./settings-page.component.scss'],
 })
 export class SettingsPageComponent implements OnInit {
   userAccount$: Observable<IUserAccount | null>;
@@ -40,11 +40,11 @@ export class SettingsPageComponent implements OnInit {
     try {
       await this._scriptService.createScript(scriptText.trim());
       this._snackbar.open('Script created', 'DISMISS', {
-        duration: 3000
+        duration: 3000,
       });
     } catch (error) {
       this._snackbar.open('Cannot create script', 'DISMISS', {
-        duration: 3000
+        duration: 3000,
       });
     }
   }
@@ -58,11 +58,11 @@ export class SettingsPageComponent implements OnInit {
     try {
       this._scriptService.disabeScript(fee);
       this._snackbar.open('Script removed', 'DISMISS', {
-        duration: 3000
+        duration: 3000,
       });
     } catch (error) {
       this._snackbar.open('Cannot remove script', 'DISMISS', {
-        duration: 3000
+        duration: 3000,
       });
     }
   }

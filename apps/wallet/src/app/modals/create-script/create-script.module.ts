@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  MatDialogModule,
-  MatButtonModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSelectModule
-} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CreateScriptComponent } from './create-script.component';
 import { CreateScriptModal } from './create-script-modal';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [CreateScriptComponent],
@@ -22,9 +20,9 @@ import { CreateScriptModal } from './create-script-modal';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   entryComponents: [CreateScriptComponent],
-  providers: [CreateScriptModal]
+  providers: [CreateScriptModal],
 })
 export class CreateScriptModule {}

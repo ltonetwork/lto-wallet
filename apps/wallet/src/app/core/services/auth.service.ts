@@ -1,8 +1,10 @@
-import { Injectable, Inject, ClassProvider } from '@angular/core';
+import { Injectable, Inject, ClassProvider, Injector } from '@angular/core';
 import { LTO, Account } from 'lto-api';
 import { Observable, BehaviorSubject, Subscriber } from 'rxjs';
 import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '../../tokens';
 import { map } from 'rxjs/operators';
+
+import { ScriptsService } from './scripts.service';
 
 export interface IUserAccount {
   name: string;
@@ -26,7 +28,8 @@ export class AuthServiceImpl implements AuthService {
 
   constructor(
     @Inject(LTO_NETWORK_BYTE) networkBye: string,
-    @Inject(LTO_PUBLIC_API) publicApi: string
+    @Inject(LTO_PUBLIC_API) publicApi: string,
+    private _injector: Injector
   ) {
     this.ltoInstance = new LTO(networkBye, publicApi.replace(/\/$/, ''));
 

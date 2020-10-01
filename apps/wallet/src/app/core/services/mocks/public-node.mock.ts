@@ -53,4 +53,12 @@ export class PublicNodeMock implements PublicNode {
   activeLease() {
     return of([]);
   }
+
+  getScript() {
+    return of({});
+  }
+
+  compileScript() {
+    return of(null as any);
+  }
 }

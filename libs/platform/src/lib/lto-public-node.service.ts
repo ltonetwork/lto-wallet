@@ -26,7 +26,7 @@ export class LtoPublicNodeService {
     poll: boolean = false,
     pollInterval: number = 5000
   ): Observable<any> {
-    let pollTimer = poll ? timer(0, pollInterval) : timer(0);
+    const pollTimer = poll ? timer(0, pollInterval) : timer(0);
     return pollTimer.pipe(
       switchMapTo(this.height()),
       distinctUntilChanged(),

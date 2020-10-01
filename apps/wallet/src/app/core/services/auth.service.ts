@@ -1,8 +1,10 @@
-import { Injectable, Inject, ClassProvider } from '@angular/core';
+import { Injectable, Inject, ClassProvider, Injector } from '@angular/core';
 import { LTO, Account } from 'lto-api';
 import { Observable, BehaviorSubject, Subscriber } from 'rxjs';
 import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '../../tokens';
 import { map } from 'rxjs/operators';
+
+import { ScriptsService } from './scripts.service';
 
 export interface IUserAccount {
   name: string;
@@ -11,7 +13,7 @@ export interface IUserAccount {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthServiceImpl implements AuthService {
   readonly STORAGE_KEY: string = '_USERS_ACCOUNTS_';
@@ -24,19 +26,20 @@ export class AuthServiceImpl implements AuthService {
   availableAccounts$: Observable<IUserAccount[]>;
   private _availableAccounts$: Subscriber<IUserAccount[]> | null = null;
 
-  constructor(@Inject(LTO_NETWORK_BYTE) networkBye: string, @Inject(LTO_PUBLIC_API) publicApi: string) {
+  constructor(
+    @Inject(LTO_NETWORK_BYTE) networkBye: string,
+    @Inject(LTO_PUBLIC_API) publicApi: string,
+    private _injector: Injector
+  ) {
     this.ltoInstance = new LTO(networkBye, publicApi.replace(/\/$/, ''));
 
-    console.log(`Set public api to: ${publicApi.replace(/\/$/, '')}`);
-    console.log(this.ltoInstance.API.PublicNode.blocks.height());
-
     // Create Observable to give latest data on every subscription
-    this.availableAccounts$ = new Observable(subscriber => {
+    this.availableAccounts$ = new Observable((subscriber) => {
       this._availableAccounts$ = subscriber;
       subscriber.next(this.readFromLocalStorage());
     });
 
-    this.authenticated$ = this.wallet$.pipe(map(wallet => !!wallet));
+    this.authenticated$ = this.wallet$.pipe(map((wallet) => !!wallet));
   }
 
   saveAccount(name: string, password: string, wallet: Account): IUserAccount {
@@ -44,7 +47,7 @@ export class AuthServiceImpl implements AuthService {
     const newAccount: IUserAccount = {
       name,
       encryptedSeed,
-      address: wallet.address
+      address: wallet.address,
     };
 
     // Save this account in local storage
@@ -93,7 +96,7 @@ export class AuthServiceImpl implements AuthService {
 
   private deleteFromLocalStorage(account: IUserAccount): IUserAccount[] {
     const accounts = this.readFromLocalStorage();
-    const newAccounts = accounts.filter(a => a.address !== account.address);
+    const newAccounts = accounts.filter((a) => a.address !== account.address);
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(newAccounts));
     return newAccounts;
   }
@@ -102,7 +105,7 @@ export class AuthServiceImpl implements AuthService {
 export abstract class AuthService {
   static provider: ClassProvider = {
     provide: AuthService,
-    useClass: AuthServiceImpl
+    useClass: AuthServiceImpl,
   };
 
   abstract readonly STORAGE_KEY: string;

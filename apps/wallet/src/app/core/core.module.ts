@@ -11,8 +11,11 @@ import {
   addresValidatorProvider,
   WavesService,
   Sidenav,
-  wavesAddressValidatorProvider
+  wavesAddressValidatorProvider,
+  ScriptsService,
 } from './services';
+
+import { ScriptsServiceImpl } from './services/scripts.service.impl';
 
 @NgModule({
   declarations: [],
@@ -27,7 +30,11 @@ import {
     addresValidatorProvider,
     wavesAddressValidatorProvider,
     WavesService.provider,
-    Sidenav.provider
-  ]
+    Sidenav.provider,
+    {
+      provide: ScriptsService,
+      useClass: ScriptsServiceImpl,
+    },
+  ],
 })
 export class CoreModule {}

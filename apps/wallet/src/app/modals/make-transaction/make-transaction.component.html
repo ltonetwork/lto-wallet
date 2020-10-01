@@ -1,12 +1,10 @@
 <div mat-dialog-title>New transaction</div>
 <mat-dialog-content *ngIf="(balance$ | async) as balance">
-  <form [formGroup]="sendForm" fxLayout="column" *ngIf="sendForm">
+  <form [formGroup]="sendForm" fxLayout="column" *ngIf="sendForm; else emptyTpl">
     <mat-form-field>
       <mat-label>Recipient</mat-label>
       <input matInput formControlName="recipient" required />
-      <mat-error *ngIf="recipientErrors && recipientErrors.invalidAddress"
-        >Invalid address</mat-error
-      >
+      <mat-error *ngIf="recipientErrors && recipientErrors.invalidAddress">Invalid address</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Amount</mat-label>
@@ -30,3 +28,9 @@
   <button mat-button matDialogClose>Cancel</button>
   <button mat-button (click)="send()" [disabled]="sendForm?.invalid">Send</button>
 </mat-dialog-actions>
+
+<ng-template #emptyTpl>
+  <div fxLayout="row" fxLayoutAlign="center center" class="loading">
+    <mat-progress-spinner mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+  </div>
+</ng-template>

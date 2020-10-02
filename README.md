@@ -19,7 +19,10 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build APP` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build APP` to build the project. The build artifacts will be stored in the `dist/` directory. Use `--configuration` to build for testnet or mainnet production env.
+
+* [Testnet](https://testnet-wallet.ltonetwork.com/) - `ng build wallet --configuration testnet`
+* [Mainnet](https://wallet.lto.network/) - `ng build wallet --configuration mainnet`
 
 ## Running unit tests
 

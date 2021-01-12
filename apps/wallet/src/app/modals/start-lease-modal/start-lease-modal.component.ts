@@ -14,6 +14,8 @@ import { take, withLatestFrom } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
 
+import * as communityNodes from './communityNodes.json';
+
 export interface LeaseData {
   amount: number;
   recipient: string;
@@ -25,6 +27,17 @@ interface LeaseFormData {
   amount: number;
   fee: number;
 }
+interface communityNode {
+  address?: string;
+  sharing?: string;
+  name: string;
+  website?: string;
+  payoutSchedule?: string;
+  tgContact?: string;
+  comment?: string;
+
+}
+
 
 @Component({
   selector: 'lto-wallet-start-lease-modal',
@@ -34,7 +47,11 @@ interface LeaseFormData {
 export class StartLeaseModalComponent implements OnInit {
   leaseForm: FormGroup | null = null;
   balance$!: Observable<IBalance>;
-
+  isNodeSelected = false;
+  communityNodesLoaded: communityNode[] = [];
+  communityNodesCustom: communityNode[] = [];
+  displayedColumns: string[] = ['name', 'address'];
+  displayedColumnsCustom: string[] = ['name'];
   get recipientErrors() {
     return formControlErrors(this.leaseForm, 'recipient');
   }
@@ -45,12 +62,25 @@ export class StartLeaseModalComponent implements OnInit {
     private confirmDialog: TransactionConfirmDialog,
     @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn,
     @Inject(MAT_DIALOG_DATA) public balance: number,
-    private _feeService: FeeService
-  ) {}
+    private _feeService: FeeService,
+  ) {
+    // Shuffling array
+    this.communityNodesLoaded = communityNodes.nodes.sort(() => Math.random() - 0.5);
+    this.communityNodesCustom.unshift({
+      'name': 'Custom',
+      'address': '',
+      'comment': 'Lease to an unlist node by entering the node address',
+      'payoutSchedule': ''
+    });
+  }
 
   ngOnInit() {
     this.balance$ = this._wallet.balance$;
 
+
+  }
+  selectNode(element: communityNode) {
+    this.isNodeSelected = true;
     this._wallet.balance$
       .pipe(withLatestFrom(this._feeService.leaseFee$), take(1))
       .subscribe(([balance, leaseFee]) => {
@@ -58,9 +88,11 @@ export class StartLeaseModalComponent implements OnInit {
         const minAmount = 1 / balance.amountDivider;
         const fee = leaseFee / balance.amountDivider;
 
+        const maxLeased = (balance.available / balance.amountDivider) > 1 ?
+          (balance.available / balance.amountDivider) - 1 : 0;
         this.leaseForm = new FormGroup({
-          recipient: new FormControl('', [Validators.required, this._addressValidator]),
-          amount: new FormControl(0, [
+          recipient: new FormControl(element.address, [Validators.required, this._addressValidator]),
+          amount: new FormControl(maxLeased, [
             Validators.required,
             Validators.min(minAmount),
             Validators.max(maxAmount),
@@ -72,7 +104,6 @@ export class StartLeaseModalComponent implements OnInit {
         });
       });
   }
-
   async lease() {
     if (!this.leaseForm) {
       return;

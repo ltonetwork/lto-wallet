@@ -2,3 +2,33 @@
   padding: 16px;
   box-sizing: border-box;
 }
+
+.text-right {
+  text-align: right;
+}
+
+.nodeAdr {
+  font-size: 14px;
+  color: lightgrey;
+}
+
+.imgLink {
+  width: 15px;
+  cursor: pointer;
+}
+
+.noPaddingLeft {
+  padding-left: 0 !important;
+}
+
+.noPaddingRight {
+  padding-right: 0 !important;
+}
+
+td.mat-cell {
+  border-bottom-style: none;
+}
+
+.mat-row:hover {
+  background-color: rgba(243, 229, 245, 0.5);
+}

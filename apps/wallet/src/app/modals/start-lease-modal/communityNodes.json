@@ -6,7 +6,8 @@
          "name":"PJSmit79",
          "website":"https://t.me/LTOnaut",
          "payoutSchedule":"End of month",
-         "tgContact":"@PatrickS79"
+         "tgContact":"@PatrickS79",
+         "hide":false
       },
       {
          "address":"3JtBYdoHJoQbgf8hYvEz1pyp7jj9URWvvbB",
@@ -14,7 +15,8 @@
          "name":"Cryptobieb",
          "website":"https://cryptobieb.nl/cryptocurrency/ico/lto-leasing-network/",
          "payoutSchedule":"After 10.000 blocks",
-         "tgContact":"@JellevanderSteen"
+         "tgContact":"@JellevanderSteen",
+         "hide":false
       },
       {
          "address":"3Jn6jpPBVmi1RLRpUtQGKVibNZpeTRACK2P",
@@ -22,7 +24,8 @@
          "name":"Kruptos Nomisma",
          "website":"https://t.me/joinchat/FWHS41c5dkPila-gl60f7A",
          "payoutSchedule":"End of month",
-         "tgContact":"@PitBullCH"
+         "tgContact":"@PitBullCH",
+         "hide":false
       },
       {
          "address":"3JfWZRLvCSjMGNMNtNUWPa6BiQXiJgvKj7k",
@@ -30,7 +33,8 @@
          "name":"ICODOGGIO",
          "website":"https://t.me/ICO_DOG_POOL",
          "payoutSchedule":"Monthly",
-         "tgContact":"@ICODOGGIO"
+         "tgContact":"@ICODOGGIO",
+         "hide":false
       },
       {
          "address":"3JnYB1TzHYS3gYDvczYtNUnmEbJsgmsdWY3",
@@ -38,7 +42,8 @@
          "name":"LunarWhale",
          "website":"https://t.me/LunarWhale",
          "payoutSchedule":"Every weekend",
-         "tgContact":"@floydvet"
+         "tgContact":"@floydvet",
+         "hide":false
       },
       {
          "address":"3Ju1azb5ZuMExDPBFLsJ33hPpCNL4sRKYjT",
@@ -46,7 +51,8 @@
          "name":"NodeMN",
          "website":"http://nodemn.com/",
          "payoutSchedule":"Every weekend",
-         "tgContact":"@nodemn"
+         "tgContact":"@nodemn",
+         "hide":false
       },
       {
          "address":"3JjtGYPannaVDMvbjdyLrmo39LohZ8KESdL",
@@ -54,15 +60,17 @@
          "name":"Node-853073",
          "website":"https://t.me/lto_tr",
          "payoutSchedule":"End of month",
-         "tgContact":"@eceler"
+         "tgContact":"@eceler",
+         "hide":false
       },
       {
          "address":"3JmcAJMQhdLKj296xoDkng9r1McCmBSFiEX",
          "sharing":"95.0%",
          "name":"ltoleasing.com",
          "website":"http://www.ltoleasing.com",
-         "payoutSchedule":"Weekly (every 10200 blocks)",
-         "tgContact":"@NUT65"
+         "payoutSchedule":"Every monday (every 10200 blocks)",
+         "tgContact":"@NUT65",
+         "hide":false
       },
       {
          "address":"3JqGGBMvkMtQQqNhGVD6knEzhncb55Y7JJ5",
@@ -70,7 +78,8 @@
          "name":"Liquid Leasing Network",
          "website":"https://t.me/liquidleasingnetwork",
          "payoutSchedule":"Every second Monday",
-         "tgContact":"@jayjayy"
+         "tgContact":"@jayjayy",
+         "hide":false
       },
       {
          "address":"3Jq3F3njrrR1ZvM3JhwLX2Sh56LQDtuEyu9",
@@ -78,15 +87,17 @@
          "name":"Smart Workflow",
          "website":"https://stakely.io/lto-network/",
          "payoutSchedule":"Compounding | Automatic & On demand",
-         "tgContact":"@Smart_Workflow_Node_for_LTO"
+         "tgContact":"@Smart_Workflow_Node_for_LTO",
+         "hide":false
       },
       {
          "address":"3JnN8psLjuEyiPbH2bYcEFKUFpcamxzwFiv",
          "sharing":"95.0%",
          "name":"LTO Node",
          "website":"https://ltonode.com",
-         "payoutSchedule":"Weekly",
-         "tgContact":"@G1zm0NL"
+         "payoutSchedule":"Every monday",
+         "tgContact":"@G1zm0NL",
+         "hide":false
       },
       {
          "address":"3JsZN7TwprVdXr9CbQ9EUvLSBG2YSZgdPGB",
@@ -94,7 +105,8 @@
          "name":"BlackTurtleNode",
          "website":"https://www.turtlenetwork.eu/insight/",
          "payoutSchedule":"Every Sunday",
-         "tgContact":"@Black_Turtle"
+         "tgContact":"@Black_Turtle",
+         "hide":false
       },
       {
          "address":"3Jweg1cE1zWioXcMV1YngufjNjKdp4umUp8",
@@ -102,15 +114,17 @@
          "name":"Millenium Club",
          "website":"http://millenniumclub.ca",
          "payoutSchedule":"Manual Payouts | Monthly",
-         "tgContact":"@fierydev"
+         "tgContact":"@fierydev",
+         "hide":false
       },
       {
          "address":"3JzWiVi5ngetgzZiS1RW1VXmmghVKKPPjU3",
          "sharing":"97.0%",
          "name":"Aratos_Node",
          "website":"http://blockchain2050.io",
-         "payoutSchedule":"Weekly",
-         "tgContact":"@kontsi"
+         "payoutSchedule":"Every monday",
+         "tgContact":"@kontsi",
+         "hide":false
       },
       {
          "address":"3Jm6xTW3n9qNYRfZ7LzpenweeYVkdDk7m7F",
@@ -118,7 +132,8 @@
          "name":"LogMaker Mining",
          "website":"http://www.logmaker360.eu/",
          "payoutSchedule":"Monthly",
-         "tgContact":"@logMaker"
+         "tgContact":"@logMaker",
+         "hide":false
       },
       {
          "address":"3JsyNRBHaU97DUVKMJKMARVHnJiGjAxMsCV",
@@ -126,15 +141,17 @@
          "name":"LTO Stream node",
          "website":"https://t.me/ltostreamnode",
          "payoutSchedule":"Every 25.000 blocks",
-         "tgContact":"@Beekmeister"
+         "tgContact":"@Beekmeister",
+         "hide":false
       },
       {
          "address":"3JgmLfWZXs1g36V8zFugxw7dHbDREuzSUAm",
          "sharing":"97.5%",
          "name":"VIDT Community Node",
          "website":"https://t.me/VIDTokenCommunity",
-         "payoutSchedule":"Weekly",
-         "tgContact":"@Wayne031"
+         "payoutSchedule":"Every monday",
+         "tgContact":"@Wayne031",
+         "hide":false
       },
       {
          "address":"3JexCgRXGFUiuNoJTkkWucSumteRWdb8kKU",
@@ -142,7 +159,8 @@
          "name":"LTO Services",
          "website":"https://lto.services",
          "payoutSchedule":"Daily | min 100 LTO in pool",
-         "tgContact":"@bbjansen"
+         "tgContact":"@bbjansen",
+         "hide":false
       },
       {
          "address":"3JbXLTSZoU5os2JsTkMorhvvna6Z2dvhBUC",
@@ -150,7 +168,8 @@
          "name":"Binnostake",
          "website":"http://www.binnostake.com/",
          "payoutSchedule":"Every weekend",
-         "tgContact":"@binnostake"
+         "tgContact":"@binnostake",
+         "hide":false
       },
       {
          "address":"3JqTwkbDFbtCPo9z5bFa9WfLmjEr7PXNode",
@@ -158,7 +177,8 @@
          "name":"Edge Node",
          "website":"https://edge.x06.nl/",
          "payoutSchedule":"Every 25.000 blocks",
-         "tgContact":"@michaelvg"
+         "tgContact":"@michaelvg",
+         "hide":false
       },
       {
          "address":"3JffJmwV2G158V6N27ouzkoRTgEVPLFqxPy",
@@ -166,15 +186,17 @@
          "name":"ThePhoenixNest",
          "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
          "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
-         "tgContact":"@RedPhoenix7"
+         "tgContact":"@RedPhoenix7",
+         "hide":false
       },
       {
          "address":"3Jhkp3Xtg2wyT6NoEtJB2VQPAHiYuqYUVBp",
          "sharing":"97.5%",
          "name":"ablock.io",
          "website":"https://ablock.io",
-         "payoutSchedule":"Weekly | Lottery",
-         "tgContact":"@aorfevrebr"
+         "payoutSchedule":"Every monday | Lottery",
+         "tgContact":"@aorfevrebr",
+         "hide":false
       },
       {
          "address":"3JnZLvmVBXsc2XMug4e6yjyvPehr1Fjx9oM",
@@ -182,7 +204,8 @@
          "name":"LowSea Leasing",
          "website":"https://t.me/joinchat/ALw70hNg64IIUx2vd3qU8g",
          "payoutSchedule":"1st and 15th of each month",
-         "tgContact":"@N0rthstar"
+         "tgContact":"@N0rthstar",
+         "hide":false
       }
    ]
 }

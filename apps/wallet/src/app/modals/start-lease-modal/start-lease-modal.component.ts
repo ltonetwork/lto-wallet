@@ -35,6 +35,7 @@ interface communityNode {
   payoutSchedule?: string;
   tgContact?: string;
   comment?: string;
+  hide?: boolean;
 
 }
 
@@ -65,7 +66,8 @@ export class StartLeaseModalComponent implements OnInit {
     private _feeService: FeeService,
   ) {
     // Shuffling array
-    this.communityNodesLoaded = communityNodes.nodes.sort(() => Math.random() - 0.5);
+    this.communityNodesLoaded = communityNodes.nodes.sort(() => Math.random() - 0.5)
+      .filter((o: communityNode) => (!o.hide));
     this.communityNodesCustom.unshift({
       'name': 'Custom',
       'address': '',

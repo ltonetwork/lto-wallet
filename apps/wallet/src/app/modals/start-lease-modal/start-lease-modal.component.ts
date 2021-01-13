@@ -69,7 +69,7 @@ export class StartLeaseModalComponent implements OnInit {
     this.communityNodesCustom.unshift({
       'name': 'Custom',
       'address': '',
-      'comment': 'Lease to an unlist node by entering the node address',
+      'comment': 'Lease to an unlisted node by entering the node address',
       'payoutSchedule': ''
     });
   }

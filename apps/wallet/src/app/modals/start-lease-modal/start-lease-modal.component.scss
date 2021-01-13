@@ -8,13 +8,19 @@
 }
 
 .nodeAdr {
-  font-size: 14px;
+  font-size: 0.8em;
   color: lightgrey;
 }
 
 .imgLink {
-  width: 15px;
+  width: 12px;
   cursor: pointer;
+  opacity: 60%;
+  margin-left: 5px;
+
+  &:hover {
+    opacity: 100%;
+  }
 }
 
 .noPaddingLeft {
@@ -25,10 +31,27 @@
   padding-right: 0 !important;
 }
 
+table.mat-table {
+  width: 100%;
+}
+
 td.mat-cell {
   border-bottom-style: none;
 }
 
 .mat-row:hover {
   background-color: rgba(243, 229, 245, 0.5);
+  cursor: pointer;
+}
+
+.mat-column-name strong {
+  font-weight: 500;
+}
+
+.mat-column-address {
+  width: 246px;
+}
+
+th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+  padding: 0;
 }

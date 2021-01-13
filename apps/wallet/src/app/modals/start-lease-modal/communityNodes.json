@@ -2,7 +2,7 @@
    "nodes":[
       {
          "address":"3Jw2JvjSYcYyKFExHaYFGKyZnHDhJ9TimvJ",
-         "sharing":"0%",
+         "sharing":"variable",
          "name":"PJSmit79",
          "website":"https://t.me/LTOnaut",
          "payoutSchedule":"End of month",
@@ -77,7 +77,7 @@
          "sharing":"94.0%",
          "name":"Smart Workflow",
          "website":"https://stakely.io/lto-network/",
-         "payoutSchedule":"Automatic compounding of the rewards | Automatic withdrawals | On demand withdraw",
+         "payoutSchedule":"Compounding | Automatic & On demand",
          "tgContact":"@Smart_Workflow_Node_for_LTO"
       },
       {
@@ -101,7 +101,7 @@
          "sharing":"95.0%",
          "name":"Millenium Club",
          "website":"http://millenniumclub.ca",
-         "payoutSchedule":"Manual Payouts / Monthly",
+         "payoutSchedule":"Manual Payouts | Monthly",
          "tgContact":"@fierydev"
       },
       {
@@ -141,7 +141,7 @@
          "sharing":"97.0%",
          "name":"LTO Services",
          "website":"https://lto.services",
-         "payoutSchedule":"Daily, min 100 lto in pool",
+         "payoutSchedule":"Daily | min 100 LTO in pool",
          "tgContact":"@bbjansen"
       },
       {
@@ -165,7 +165,7 @@
          "sharing":"98.0%",
          "name":"ThePhoenixNest",
          "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
-         "payoutSchedule":"Only for stakers with over 100k LTO. Loyalty discounts.",
+         "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
          "tgContact":"@RedPhoenix7"
       },
       {
@@ -173,7 +173,7 @@
          "sharing":"97.5%",
          "name":"ablock.io",
          "website":"https://ablock.io",
-         "payoutSchedule":"Automatic Payout: Weekly at 12am UTC+0, Lottery",
+         "payoutSchedule":"Weekly | Lottery",
          "tgContact":"@aorfevrebr"
       },
       {

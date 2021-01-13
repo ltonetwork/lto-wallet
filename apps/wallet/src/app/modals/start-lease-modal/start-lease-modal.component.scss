@@ -15,11 +15,11 @@
 .imgLink {
   width: 12px;
   cursor: pointer;
-  opacity: 60%;
+  opacity: 0.6;
   margin-left: 5px;
 
   &:hover {
-    opacity: 100%;
+    opacity: 1;
   }
 }
 

@@ -187,7 +187,7 @@
          "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
          "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
          "tgContact":"@RedPhoenix7",
-         "hide":false
+         "hide":true
       },
       {
          "address":"3Jhkp3Xtg2wyT6NoEtJB2VQPAHiYuqYUVBp",
@@ -196,7 +196,7 @@
          "website":"https://ablock.io",
          "payoutSchedule":"Every monday | Lottery",
          "tgContact":"@aorfevrebr",
-         "hide":false
+         "hide":true
       },
       {
          "address":"3JnZLvmVBXsc2XMug4e6yjyvPehr1Fjx9oM",

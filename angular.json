@@ -18,7 +18,7 @@
             "main": "apps/explorer/src/main.ts",
             "polyfills": "apps/explorer/src/polyfills.ts",
             "tsConfig": "apps/explorer/tsconfig.app.json",
-            "assets": ["apps/explorer/src/favicon.ico", "apps/explorer/src/assets"],
+            "assets": ["apps/explorer/src/favicon.png", "apps/explorer/src/assets"],
             "styles": ["apps/explorer/src/styles.scss"],
             "scripts": []
           },
@@ -68,7 +68,7 @@
             "karmaConfig": "apps/explorer/karma.conf.js",
             "styles": ["apps/explorer/src/styles.scss"],
             "scripts": [],
-            "assets": ["apps/explorer/src/favicon.ico", "apps/explorer/src/assets"]
+            "assets": ["apps/explorer/src/favicon.png", "apps/explorer/src/assets"]
           }
         },
         "lint": {
@@ -99,7 +99,7 @@
             "main": "apps/wallet/src/main.ts",
             "polyfills": "apps/wallet/src/polyfills.ts",
             "tsConfig": "apps/wallet/tsconfig.app.json",
-            "assets": ["apps/wallet/src/favicon.ico", "apps/wallet/src/assets"],
+            "assets": ["apps/wallet/src/favicon.png", "apps/wallet/src/assets"],
             "styles": ["apps/wallet/src/styles.scss"],
             "scripts": []
           },
@@ -191,7 +191,7 @@
             "karmaConfig": "apps/wallet/karma.conf.js",
             "styles": ["apps/wallet/src/styles.scss"],
             "scripts": [],
-            "assets": ["apps/wallet/src/favicon.ico", "apps/wallet/src/assets"]
+            "assets": ["apps/wallet/src/favicon.png", "apps/wallet/src/assets"]
           }
         },
         "lint": {

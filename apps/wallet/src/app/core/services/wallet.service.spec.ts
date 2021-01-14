@@ -15,11 +15,11 @@ describe('Core/WalletService', () => {
         BridgeServiceMock.provider,
         {
           provide: AMOUNT_DIVIDER,
-          useValue: 25000000
+          useValue: 35000000
         },
         {
           provide: DEFAULT_TRANSFER_FEE,
-          useValue: 25000000
+          useValue: 35000000
         }
       ]
     });

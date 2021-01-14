@@ -1,4 +1,4 @@
-<mat-toolbar class="mat-elevation-z1" fxLayout="row">
+<mat-toolbar fxLayout="row">
   <lto-brand *ngIf="(authenticated$ | async) !== true"></lto-brand>
   <ng-container *ngIf="authenticated$ | async">
     <button mat-icon-button fxHide fxShow.lt-lg (click)="openSidenav()" class="menu-button">

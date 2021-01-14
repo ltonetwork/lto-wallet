@@ -3,7 +3,7 @@
 
 @include mat-core();
 
-$lto-wallet-primary: mat-palette($mat-purple);
+$lto-wallet-primary: mat-palette($mat-deep-purple);
 $lto-wallet-accent: mat-palette($mat-pink, A200, A100, A400);
 
 $lto-wallet-warn: mat-palette($mat-red);

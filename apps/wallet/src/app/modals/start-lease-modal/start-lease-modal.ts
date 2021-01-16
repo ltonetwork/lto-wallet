@@ -4,12 +4,15 @@ import { StartLeaseModalComponent, LeaseData } from './start-lease-modal.compone
 
 @Injectable()
 export class StartLeaseModal {
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) { }
 
   show(balance: number): Promise<LeaseData | void> {
     return this.dialog
       .open(StartLeaseModalComponent, {
-        width: '500px',
+        minWidth: '400px',
+        maxWidth: '75%',
+        width: '75%',
+
         data: balance,
       })
       .afterClosed()

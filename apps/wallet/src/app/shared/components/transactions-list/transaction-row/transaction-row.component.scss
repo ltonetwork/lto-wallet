@@ -10,7 +10,7 @@
 
   .icon {
     padding: 8px;
-    padding-right: 16px;
+
     .income-icon {
       color: #17c671;
     }
@@ -23,6 +23,12 @@
 
   .addresses {
     margin-bottom: 8px;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    white-space: pre;
   }
 
   .misc {
@@ -30,15 +36,15 @@
       // width: 33%;
     }
     .fee,
-    .type {
-      text-align: right;
-    }
-
+    // .type {
+    //   text-align: right;
+    // }
     .status {
       text-transform: uppercase;
 
       .value {
         color: #818ea3;
+
         &.active {
           color: green;
         }
@@ -57,5 +63,31 @@
 
   .type {
     text-transform: uppercase;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .smallTxt {
+    font-size: 14px;
+  }
+
+  .info {
+    max-width: max(200px, 100% - 150px);
+  }
+
+  .isWideScreen {
+    display: none !important;
+  }
+
+  .isSmallScreen {}
+}
+@media only screen and (min-width: 550px) {
+  .info {
+    max-width: min(354px, 100% - 120px);
+  }
+
+  .isWideScreen {}
+
+  .isSmallScreen {
+    display: none !important;
   }
 }

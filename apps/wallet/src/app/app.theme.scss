@@ -1,10 +1,8 @@
 @import './core/components/components.theme.scss';
 @import './shared//components/components.theme.scss';
 @import './pages/pages.theme.scss';
-
 @mixin app-theme($theme) {
   @include signin-theme($theme);
-
   @include core-components-theme($theme);
   @include shared-components-theme($theme);
   @include pages-theme($theme);

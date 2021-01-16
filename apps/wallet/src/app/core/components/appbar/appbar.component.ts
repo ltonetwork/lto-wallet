@@ -12,7 +12,7 @@ import { AuthService, IUserAccount, Sidenav } from '../../services';
 export class AppbarComponent implements OnInit {
   authenticated$: Observable<boolean>;
   userAccount$: Observable<IUserAccount | null>;
-
+  availableAccounts$: Observable<any>;
   constructor(
     private _auth: AuthService,
     private _router: Router,
@@ -21,9 +21,10 @@ export class AppbarComponent implements OnInit {
   ) {
     this.authenticated$ = _auth.authenticated$;
     this.userAccount$ = _auth.account$;
+    this.availableAccounts$ = _auth.availableAccounts$;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   signout() {
     this._auth.logout();

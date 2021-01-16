@@ -1,36 +1,21 @@
 <lto-content-section>
   <mat-card>
-    <mat-card-content>
+    <mat-card-content class="m-10">
       <div class="login-form">
         <h1>Sign in</h1>
         <p>Accounts found on this device</p>
         <mat-list>
-          <mat-list-item
-            matRipple
-            *ngFor="let account of (availableAccounts$ | async)"
-            [ngClass]="{ selected: account.address === (selected$ | async)?.address }"
-            (click)="select(account)"
-          >
+          <mat-list-item matRipple *ngFor="let account of (availableAccounts$ | async)" [ngClass]="{ selected: account.address === (selected$ | async)?.address }" (click)="select(account)">
             <h4 matLine>{{ account.name }}</h4>
             <p matLine>{{ account.address }}</p>
             <mat-icon mat-list-icon color="primary">account_circle</mat-icon>
-            <mat-icon class="delete-account" (click)="deleteAccount(account, $event)"
-              >close</mat-icon
-            >
+            <mat-icon class="delete-account" (click)="deleteAccount(account, $event)">close</mat-icon>
           </mat-list-item>
         </mat-list>
         <div class="password-input">
           <form (submit)="signin(password.value)">
             <mat-form-field appearance="outline">
-              <input
-                type="password"
-                matInput
-                placeholder="Password"
-                required
-                name="password"
-                ngModel
-                #password="ngModel"
-              />
+              <input type="password" matInput placeholder="Password" required name="password" ngModel #password="ngModel" />
             </mat-form-field>
           </form>
         </div>
@@ -38,13 +23,7 @@
       <div class="buttons">
         <div class="inner" fxLayout="row" fxLayoutGap="16px">
           <a fxFlex="1 1 50" mat-button routerLink="/create-account">Create Account</a>
-          <button
-            fxFlex="1 1 50"
-            mat-flat-button
-            color="primary"
-            [disabled]="password.invalid"
-            (click)="signin(password.value)"
-          >
+          <button fxFlex="1 1 50" mat-flat-button color="primary" [disabled]="password.invalid" (click)="signin(password.value)">
             Sign in
           </button>
         </div>

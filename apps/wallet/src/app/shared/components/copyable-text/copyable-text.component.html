@@ -1,11 +1,9 @@
 <div class="text-box">
   <div class="label" *ngIf="label">{{ label }}</div>
   <div class="address" fxLayout="row" fxLayoutAlign="start center">
-    <div class="text" fxFlex="1 1 auto">{{ text }}</div>
+    <div class="text no-overflow" fxFlex="1 1 auto">{{ text }}</div>
     <div class="copy-button" matRipple (click)="copy()">
-      <mat-icon color="accent" matTooltip="Copy to clipboard" matTooltipPosition="above"
-        >file_copy</mat-icon
-      >
+      <mat-icon color="accent" matTooltip="Copy to clipboard" matTooltipPosition="above">file_copy</mat-icon>
     </div>
   </div>
 </div>

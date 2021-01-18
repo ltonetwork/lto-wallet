@@ -1,23 +1,18 @@
 @import '~@angular/material/theming';
 @import './app/app.theme';
-
 @include mat-core();
-
 $lto-wallet-primary: mat-palette($mat-deep-purple);
 $lto-wallet-accent: mat-palette($mat-pink, A200, A100, A400);
-
 $lto-wallet-warn: mat-palette($mat-red);
-
 $lto-wallet-theme: mat-light-theme($lto-wallet-primary, $lto-wallet-accent, $lto-wallet-warn);
-
 @include angular-material-theme($lto-wallet-theme);
-
 @include app-theme($lto-wallet-theme);
 
-html,
-body {
+body,
+html {
   height: 100%;
 }
+
 body {
   margin: 0;
   background: #f5f6f8;

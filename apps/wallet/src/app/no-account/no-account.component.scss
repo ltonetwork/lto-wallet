@@ -2,6 +2,10 @@ mat-card-content {
   text-align: center;
 }
 
+.message {
+  padding: 0 10px;
+}
+
 img {
   max-width: 350px;
   width: 100%;
@@ -10,12 +14,12 @@ img {
 }
 
 .narrow {
-  width: 400px;
-  margin: 0 auto;
+   max-width: 400px;
+   margin: 0 auto;
 }
 
 .buttons {
   border-top: 1px solid #becad6;
-  padding: 32px;
+  padding: 32px 0;
   margin-top: 48px;
 }

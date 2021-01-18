@@ -5,11 +5,10 @@
       <mat-icon>menu</mat-icon>
     </button>
   </ng-container>
-  <div class="address" *ngIf="userAccount$ | async as account" (click)="copyAddressToClipboard(account.address)"><span
-      fxHide.xs>Address:</span>
+  <div class="address" *ngIf="userAccount$ | async as account" (click)="copyAddressToClipboard(account.address)"><span fxHide.xs>Address:</span>
     {{account.address}}</div>
   <span fxFlex="1 1 auto"></span>
-  <div fxLayout="row" fxLayoutGap="8px" *ngIf="(authenticated$ | async) !== true">
+  <div fxLayout="row" fxLayoutGap="8px" class="hide-small-screen" *ngIf="(authenticated$ | async) !== true">
     <a mat-button routerLink="/signin">Sign in</a>
     <a mat-button routerLink="create-account">Create Account</a>
     <a mat-button routerLink="import-account">Import Account</a>
@@ -17,7 +16,7 @@
   <div *ngIf="(userAccount$ | async) as account" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
     <button mat-button fxLayout="row" fxLayoutAlign="start center" class="account-button" [matMenuTriggerFor]="appMenu">
       <mat-icon class="user-icon">account_box</mat-icon>
-      <span>{{ account.name }}</span>
+      <span class="hide-small-screen">{{ account.name }}</span>
       <mat-icon>arrow_drop_down</mat-icon>
     </button>
     <mat-menu #appMenu="matMenu">

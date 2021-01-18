@@ -8,9 +8,9 @@ import { BridgeSwapComponent } from './bridge-swap';
   styleUrls: ['./bridge.component.scss'],
 })
 export class BridgeComponent implements OnInit {
-  constructor(private _matDialog: MatDialog) {}
+  constructor(private _matDialog: MatDialog) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   showSwpaDialog() {
     const dialog = this._matDialog.open(BridgeSwapComponent);

@@ -21,6 +21,9 @@ mat-toolbar {
 .address {
   font-size: 16px;
   font-weight: 300;
+  max-width: calc(100vw - 200px);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 @media only screen and (max-width: 550px) {
   .hide-small-screen {

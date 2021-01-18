@@ -66,12 +66,31 @@
   }
 }
 @media only screen and (max-width: 550px) {
-  .smallTxt {
+  .transaction {
     font-size: 14px;
+
+    .icon {
+      padding-left: 0;
+
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .amount {
+      font-size: 16px;
+    }
+  }
+
+  .smallTxt {
+    font-size: 12px;
   }
 
   .info {
     max-width: max(200px, 100% - 150px);
+    font-size: 14px;
   }
 
   .isWideScreen {
@@ -82,7 +101,7 @@
 }
 @media only screen and (min-width: 550px) {
   .info {
-    max-width: min(354px, 100% - 120px);
+    max-width: calc(100% - 160px);
   }
 
   .isWideScreen {}

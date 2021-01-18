@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="buttons">
-        <div class="inner" fxLayout="row" fxLayoutGap="16px">
+        <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
           <a fxFlex="1 1 50" mat-button routerLink="/create-account">Create Account</a>
           <button fxFlex="1 1 50" mat-flat-button color="primary" [disabled]="password.invalid" (click)="signin(password.value)">
             Sign in

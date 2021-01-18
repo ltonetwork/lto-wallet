@@ -9,7 +9,7 @@ The projects contains 2 applications;
 
 _In the commands in this README replace `APP` with either ~~`explorer`~~ or `wallet`._
 
-The new wallet is project is [ltonetwork/lto-network-explorer](https://github.com/ltonetwork/lto-network-explorer).
+The new explorer project is [ltonetwork/lto-network-explorer](https://github.com/ltonetwork/lto-network-explorer).
 
 ## Development server
 

@@ -18,7 +18,7 @@ p {
 
 .narrow {
   width: 100%;
-  max-width: 430px;
+  max-width: 436px;
   margin: 0 auto;
 }
 
@@ -48,10 +48,16 @@ p {
 
 .buttons {
   border-top: 1px solid #becad6;
-  padding: 32px;
+  padding: 32px 0;
   margin-top: 48px;
   button {
     margin: 0 4px;
+  }
+
+  .inner {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 436px;
   }
 }
 

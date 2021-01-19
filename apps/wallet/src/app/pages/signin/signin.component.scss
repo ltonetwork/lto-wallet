@@ -32,7 +32,6 @@ mat-list {
     }
 
     h4 {
-      font-size: 16px;
       font-size: 18px;
     }
 
@@ -61,7 +60,7 @@ mat-list {
 
 .buttons {
   border-top: 1px solid #becad6;
-  padding: 32px;
+  padding: 32px 0;
 
   .inner {
     margin: 0 auto;
@@ -70,6 +69,3 @@ mat-list {
   }
 }
 
-.m-10 {
-  margin: 10px;
-}

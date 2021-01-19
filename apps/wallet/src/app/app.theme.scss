@@ -7,10 +7,6 @@
   @include shared-components-theme($theme);
   @include pages-theme($theme);
 
-  form {
-    margin: 10px;
-  }
-
   .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,
   .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap,
   .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start {
@@ -44,5 +40,9 @@
 
   .mat-toolbar {
     color: #fff;
+  }
+
+  .mat-card-content {
+    margin: 0 15px;
   }
 }

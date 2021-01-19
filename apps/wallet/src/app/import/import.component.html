@@ -22,7 +22,7 @@
   </div>
   <div class="buttons">
     <div class="narrow" fxLayout="row" fxLayoutAlign="center">
-      <button mat-flat-button color="primary" [disabled]="(account$ | async) === null" (click)="gotoStep2()">
+      <button fxFlex="1 1 100" mat-flat-button color="primary" [disabled]="(account$ | async) === null" (click)="gotoStep2()">
         Continue
       </button>
     </div>
@@ -38,7 +38,7 @@
   </div>
   <div class="buttons">
     <div class="narrow" fxLayout="row" fxLayoutAlign="center">
-      <button mat-flat-button [disabled]="credentialsForm.invalid" color="primary" (click)="saveAccount(credentialsForm.value)">
+      <button fxFlex="1 1 100" mat-flat-button [disabled]="credentialsForm.invalid" color="primary" (click)="saveAccount(credentialsForm.value)">
         Continue
       </button>
     </div>

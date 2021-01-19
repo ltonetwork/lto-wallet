@@ -16,9 +16,9 @@
     <p>We will generate a random account address for you</p>
   </div>
   <div class="buttons">
-    <div class="narrow">
-      <button mat-flat-button color="primary" (click)="goToStep(2)">Continue</button>
-      <a mat-button color="primary" routerLink="/import-account">Import account</a>
+    <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
+      <button fxFlex="1 1 50" mat-flat-button color="primary" (click)="goToStep(2)">Continue</button>
+      <a fxFlex="1 1 50" mat-button color="primary" routerLink="/import-account">Import account</a>
     </div>
   </div>
 </ng-template>
@@ -31,8 +31,8 @@
     </div>
   </div>
   <div class="buttons">
-    <div class="narrow">
-      <button mat-flat-button [disabled]="credentialsForm.invalid" (click)="saveAccount(credentialsForm.value)" color="primary">
+    <div class="inner">
+      <button fxFlex="1 1 100" mat-flat-button [disabled]="credentialsForm.invalid" (click)="saveAccount(credentialsForm.value)" color="primary">
         Continue
       </button>
     </div>
@@ -45,11 +45,11 @@
     <lto-wallet-seed [seed]="seedWords"></lto-wallet-seed>
   </div>
   <div class="buttons">
-    <div class="narrow">
-      <button mat-flat-button color="primary" (click)="toConfirmationStep()">
+    <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
+      <button fxFlex="1 1 50" mat-flat-button color="primary" (click)="toConfirmationStep()">
         I&apos;ve written it down
       </button>
-      <button mat-button color="warn" (click)="loginAndGoHome()">Do it later</button>
+      <button fxFlex="1 1 50" mat-button color="warn" (click)="loginAndGoHome()">Do it later</button>
     </div>
   </div>
 </ng-template>
@@ -74,9 +74,9 @@
     </ng-container>
   </div>
   <div class="buttons">
-    <div class="narrow">
-      <button mat-flat-button (click)="goToStep(3)">Back</button>
-      <button mat-flat-button color="primary" [disabled]="!finished || (finished && invalid)" (click)="loginAndGoHome()">
+    <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
+      <button fxFlex="1 1 50" mat-flat-button (click)="goToStep(3)">Back</button>
+      <button fxFlex="1 1 50" mat-flat-button color="primary" [disabled]="!finished || (finished && invalid)" (click)="loginAndGoHome()">
         Confirm
       </button>
     </div>

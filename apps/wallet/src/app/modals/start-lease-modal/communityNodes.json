@@ -187,7 +187,7 @@
          "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
          "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
          "tgContact":"@RedPhoenix7",
-         "hide":true
+         "hide":false
       },
       {
          "address":"3Jhkp3Xtg2wyT6NoEtJB2VQPAHiYuqYUVBp",
@@ -209,7 +209,7 @@
       },
       {
          "address":"3JgZdq3LgP2qdB8cPFbuhdDV61u3qdqx2MP",
-         "sharing":"96.5%",
+         "sharing":"98.5%",
          "name":"LTO Elites Leasing",
          "website":"https://t.me/joinchat/ALw70hNg64IIUx2vd3qU8g",
          "payoutSchedule":"1st and 15th of each month",

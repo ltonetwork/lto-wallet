@@ -15,7 +15,7 @@
     <ng-container *ngIf="isLease; then leaseMiscTpl; else defaultMiscTpl"></ng-container>
   </div>
   <span fxFlex="1 1 auto"></span>
-  <div class="amount" fxLayout="column" fxLayoutAlign="start center">
+  <div class="amount" fxLayout="column" fxLayoutAlign="start end">
     <div>
       <span class="label">{{ transaction.amount | amountDivide | number: '1.0-3' }}</span> <span>LTO</span>
     </div>

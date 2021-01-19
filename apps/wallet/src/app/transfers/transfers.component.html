@@ -13,17 +13,17 @@
           <div class="value" matTooltip="{{ balance.generating | amountDivide }}">{{ balance.regular | amountDivide| number: '1.0-3' }}</div>
         </mat-card>
 
-        <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
+        <mat-card fxFlex="1 1 20" fxLayout="column" fxHide.lt-md fxLayoutAlign="center center">
           <div class="label">Generating</div>
           <div class="value" matTooltip="{{ balance.generating | amountDivide }}">{{ balance.generating | amountDivide | number: '1.0-3' }}</div>
         </mat-card>
 
-        <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
+        <mat-card fxFlex="1 1 20" fxLayout="column" fxHide.lt-md fxLayoutAlign="center center">
           <div class="label">Available</div>
           <div class="value" matTooltip="{{ balance.generating | amountDivide }}">{{ balance.available | amountDivide | number: '1.0-3' }}</div>
         </mat-card>
 
-        <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
+        <mat-card fxFlex="1 1 20" fxLayout="column" fxHide.lt-md fxLayoutAlign="center center">
           <div class="label">Effective</div>
           <div class="value" matTooltip="{{ balance.generating | amountDivide }}">{{ balance.effective | amountDivide | number: '1.0-3' }}</div>
         </mat-card>

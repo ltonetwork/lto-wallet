@@ -61,3 +61,12 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
     display: none;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .nodeAdr {
+    width: 160px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

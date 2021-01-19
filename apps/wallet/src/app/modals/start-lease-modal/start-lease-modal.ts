@@ -9,9 +9,9 @@ export class StartLeaseModal {
   show(balance: number): Promise<LeaseData | void> {
     return this.dialog
       .open(StartLeaseModalComponent, {
-        minWidth: '400px',
+        minWidth: 'min(400px, 95vw)',
         maxWidth: '75%',
-        width: '75%',
+        width: '500px',
 
         data: balance,
       })

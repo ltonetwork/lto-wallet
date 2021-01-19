@@ -67,6 +67,7 @@
 }
 @media only screen and (max-width: 550px) {
   .transaction {
+    padding: 16px 0;
     font-size: 14px;
 
     .icon {
@@ -89,7 +90,7 @@
   }
 
   .info {
-    max-width: max(200px, 100% - 150px);
+    max-width: calc(100% - 130px);
     font-size: 14px;
   }
 

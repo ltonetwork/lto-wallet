@@ -49,3 +49,10 @@
     // min-width: 185px;
   }
 }
+
+@media screen and (max-width: 550px) {
+  .date,
+  .transaction {
+    padding: 16px 0;
+  }
+}

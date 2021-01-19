@@ -160,7 +160,8 @@
          "website":"https://lto.services",
          "payoutSchedule":"Daily | min 100 LTO in pool",
          "tgContact":"@bbjansen",
-         "hide":false
+         "hide":true,
+         "_comment": "Hidden because of compromised server"
       },
       {
          "address":"3JbXLTSZoU5os2JsTkMorhvvna6Z2dvhBUC",
@@ -196,7 +197,8 @@
          "website":"https://ablock.io",
          "payoutSchedule":"Every monday | Lottery",
          "tgContact":"@aorfevrebr",
-         "hide":true
+         "hide":true,
+         "_comment": "Hidden because node controls ~15% of the total stake"
       },
       {
          "address":"3JnZLvmVBXsc2XMug4e6yjyvPehr1Fjx9oM",
@@ -211,9 +213,9 @@
          "address":"3JgZdq3LgP2qdB8cPFbuhdDV61u3qdqx2MP",
          "sharing":"98.5%",
          "name":"LTO Elites Leasing",
-         "website":"https://t.me/joinchat/ALw70hNg64IIUx2vd3qU8g",
-         "payoutSchedule":"1st and 15th of each month",
-         "tgContact":"@N0rthstar",
+         "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
+         "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
+         "tgContact":"@RedPhoenix7",
          "hide":false
       }
    ]

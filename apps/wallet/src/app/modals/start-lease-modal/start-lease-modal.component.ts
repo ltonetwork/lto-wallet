@@ -14,7 +14,7 @@ import { take, withLatestFrom } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
 
-import * as communityNodes from './communityNodes.json';
+import * as communityNodes from '../../../communityNodes.json';
 
 export interface LeaseData {
   amount: number;

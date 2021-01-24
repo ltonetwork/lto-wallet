@@ -217,6 +217,15 @@
          "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
          "tgContact":"@RedPhoenix7",
          "hide":false
+      },
+      {
+         "address":"3JkihPXS5iPs8xDKcFQmhR8TVcAmDRUZpyx",
+         "sharing":"99%",
+         "name": "Xeno",
+         "website":"https://xeno.finance",
+         "payoutScedule":"weekly",
+         "tgContact":"@stinkypinky",
+         "hide":false
       }
    ]
 }

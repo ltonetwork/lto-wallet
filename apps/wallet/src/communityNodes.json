@@ -227,6 +227,15 @@
          "payoutScedule":"weekly",
          "tgContact":"@stinkypinky",
          "hide":false
+      },
+	  {
+         "address":"3Jt1mBoziZmoGDaYe1UbGygGMsGS493vkgN",
+         "sharing":"97%",
+         "name": "Knights' Bay Leasing",
+         "website":"https://knightsbayleasing.com",
+         "payoutScedule":"Every Friday",
+         "tgContact":"@murmeelKBL",
+         "hide":false
       }
    ]
 }

@@ -223,16 +223,16 @@
          "sharing":"99%",
          "name": "Xeno",
          "website":"https://xeno.finance",
-         "payoutScedule":"weekly",
+         "payoutSchedule":"weekly",
          "tgContact":"@stinkypinky",
-         "hide":false
+         "hide":true
       },
 	  {
          "address":"3Jt1mBoziZmoGDaYe1UbGygGMsGS493vkgN",
          "sharing":"97%",
          "name": "Knights' Bay Leasing",
          "website":"https://knightsbayleasing.com",
-         "payoutScedule":"Every Friday",
+         "payoutSchedule":"Every Friday",
          "tgContact":"@murmeelKBL",
          "hide":false
       }

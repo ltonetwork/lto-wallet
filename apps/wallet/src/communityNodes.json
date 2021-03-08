@@ -236,5 +236,14 @@
          "tgContact":"@murmeelKBL",
          "hide":false
       }
+     	  {
+         "address":"3Jg3DZyhBnNacHiY13624NQDsxBmnwnqNRQ",
+         "sharing":"97%",
+         "name": "LTO Blockchain Node",
+         "website":"https://ltoblockchainnode.com",
+         "payoutSchedule":"Every Monday",
+         "tgContact":"@sjoerdvdpol",
+         "hide":false
+      }
    ]
 }

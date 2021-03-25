@@ -248,9 +248,9 @@
       {
          "address":"3JwDJx9poWx84v1ffkATRUCSQJnxW4WUcgb",
          "sharing":"99%",
-         "name": "Our /biz node",
+         "name": "Our /biz/ node",
          "website":"https://ourbiznode.com",
-         "payoutSchedule":"weekly",
+         "payoutSchedule":"Every Saturday",
          "tgContact":"@fractalwalkr",
          "hide":false
       }

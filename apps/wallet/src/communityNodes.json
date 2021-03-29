@@ -197,8 +197,8 @@
          "website":"https://ablock.io",
          "payoutSchedule":"Every monday | Lottery",
          "tgContact":"@aorfevrebr",
-         "hide":true,
-         "_comment": "Hidden because node controls ~15% of the total stake"
+         "hide":false,
+         "_comment": "node controls < 10% of the total stake"
       },
       {
          "address":"3JnZLvmVBXsc2XMug4e6yjyvPehr1Fjx9oM",

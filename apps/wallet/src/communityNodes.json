@@ -197,8 +197,7 @@
          "website":"https://ablock.io",
          "payoutSchedule":"Every monday | Lottery",
          "tgContact":"@aorfevrebr",
-         "hide":true,
-         "_comment": "Hidden because node controls ~15% of the total stake"
+         "hide":false
       },
       {
          "address":"3JnZLvmVBXsc2XMug4e6yjyvPehr1Fjx9oM",
@@ -225,7 +224,7 @@
          "website":"https://xeno.finance",
          "payoutSchedule":"weekly",
          "tgContact":"@stinkypinky",
-         "hide":true
+         "hide":false
       },
 	  {
          "address":"3Jt1mBoziZmoGDaYe1UbGygGMsGS493vkgN",
@@ -245,7 +244,16 @@
          "tgContact":"@sjoerdvdpol",
          "hide":false
       },
-     {
+      {
+         "address":"3JwDJx9poWx84v1ffkATRUCSQJnxW4WUcgb",
+         "sharing":"99%",
+         "name": "Our /biz/ node",
+         "website":"https://ourbiznode.com",
+         "payoutSchedule":"Every Saturday",
+         "tgContact":"@fractalwalkr",
+         "hide":false
+      },
+      {
          "address":"3Jp9rSY8BCk8DbfDRcqeULNrecWRRP7ShLr",
          "sharing":"98%",
          "name": "LTO MoonBase Node",

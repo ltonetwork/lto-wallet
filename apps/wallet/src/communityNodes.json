@@ -252,6 +252,15 @@
          "payoutSchedule":"Every Saturday",
          "tgContact":"@fractalwalkr",
          "hide":false
+      },
+       {
+         "address":"3Jr2yFjdb1Tia6ppjYs4p8fxWaAasqLrsiW",
+         "sharing":"95%",
+         "name": "Access24.io",
+         "website":"https://access24.io",
+         "payoutSchedule":"Every Saturday",
+         "tgContact":"@a24io",
+         "hide":false
       }
    ]
 }

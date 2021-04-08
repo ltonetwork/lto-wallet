@@ -252,6 +252,15 @@
          "payoutSchedule":"Every Saturday",
          "tgContact":"@fractalwalkr",
          "hide":false
+      },
+      {
+         "address":"3Jp9rSY8BCk8DbfDRcqeULNrecWRRP7ShLr",
+         "sharing":"98%",
+         "name": "LTO MoonBase Node",
+         "website":"https://ltomoonbase.club",
+         "payoutSchedule":"Every Saturday",
+         "tgContact":"@lebarb0",
+         "hide":false
       }
    ]
 }

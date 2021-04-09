@@ -270,6 +270,15 @@
          "payoutSchedule":"Every Saturday",
          "tgContact":"@lebarb0",
          "hide":false
+      },
+      {
+         "address":"3JwUPNbGzguXqvZoAyPYsVDjqURMFVXp9WX",
+         "sharing":"98%",
+         "name": "StockholmBlockBuilders",
+         "website":"https://stockholmblockbuilders.se",
+         "payoutSchedule":"Every weekend",
+         "tgContact":"@StockholmBlockBuilder",
+         "hide":false
       }
    ]
 }

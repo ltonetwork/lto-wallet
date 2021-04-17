@@ -4,6 +4,9 @@
     <p>Choose your swap direction and press next.</p>
 
     <div class="swap-type-picker">
+      <div class="main-to-binance-exchange" (click)="selectMainToBinanceExchange()" [ngClass]="{active: selectedType === SwapType.MAIN_BINANCEEXCHANGE}">
+        LTO (<span class="purple">MAINNET</span>) to <span class="yellow">BINANCE CEX</span>
+      </div>
       <div class="erc-to-main" (click)="selectERC20ToMain()" [ngClass]="{active: selectedType === SwapType.ERC20_MAIN}">
         LTO (<span class="blue">ERC-20</span>) to LTO (<span class="purple">MAINNET</span>)
       </div>

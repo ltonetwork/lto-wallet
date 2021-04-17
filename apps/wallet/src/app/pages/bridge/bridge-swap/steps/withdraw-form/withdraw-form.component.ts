@@ -238,7 +238,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
       }
 
       if (amountCtrl.errors.max) {
-        errors.push('Maxumum amount is ' + this.maxAmount);
+        errors.push('Maximum amount is ' + this.maxAmount);
       }
 
       if (amountCtrl.errors.required) {

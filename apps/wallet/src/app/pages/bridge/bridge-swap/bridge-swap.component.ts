@@ -33,7 +33,6 @@ export class BridgeSwapComponent implements OnInit {
   selectSwapType(type: SwapType) {
     this.swapType = type;
     if (this.swapType === SwapType.MAIN_BINANCEEXCHANGE) {
-      // this.toBinanceCEX()
       this.step = 100;
     } else {
       this.step = 3;

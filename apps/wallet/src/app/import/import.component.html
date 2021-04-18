@@ -18,7 +18,7 @@
           required formControlName="seed"></textarea>
       </mat-form-field>
       <div id="legacy" class="narrow" fxLayout="row" fxLayoutAlign="end">
-        <mat-checkbox class="example-margin" matTooltip="In legacy mode, the seed differentiate uppercase characters, the number and type of spaces" formControlName="legacy">Legacy</mat-checkbox>
+        <mat-checkbox class="example-margin" matTooltip="Legacy mode is case sensitive, and space sensitive" formControlName="legacy">Legacy</mat-checkbox>
       </div>
       Address: {{walletAddress$ | async}}
     </form>

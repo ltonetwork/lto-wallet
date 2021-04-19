@@ -3,9 +3,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../core';
 import { Account } from 'lto-api';
 import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, take, shareReplay } from 'rxjs/operators';
+import { map, take, shareReplay, filter } from 'rxjs/operators';
+import { trimSeed } from './trim-seed.rxjs-pipe';
 
 @Component({
   selector: 'lto-import',
@@ -19,16 +20,21 @@ export class ImportComponent implements OnInit {
   stepTemplate!: TemplateRef<any>;
   wallet!: Account;
 
-  seedControl = new FormControl('');
+  seedForm = new FormGroup({
+    'seed': new FormControl(''),
+    'legacy': new FormControl(false)
+  });
 
   walletAddress$: Observable<string>;
   account$: Observable<Account | null>;
 
   constructor(private auth: AuthService, private snackbar: MatSnackBar, private router: Router) {
-    this.account$ = this.seedControl.valueChanges.pipe(
-      map((seed: string) => {
+    this.account$ = this.seedForm.valueChanges.pipe(
+      filter(value => value.seed.length > 0),
+      trimSeed(),
+      map((formValue: any) => {
         try {
-          return this.auth.generateWallet(seed.trim());
+          return this.auth.generateWallet(formValue.seed);
         } catch (err) {
           return null;
         }

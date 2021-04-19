@@ -6,6 +6,7 @@
   <lto-wallet-deposit-erc *ngSwitchCase="4" [swapType]="swapType" (close)="close()"></lto-wallet-deposit-erc>
   <!-- mainnet -> erc part -->
   <lto-wallet-withdraw-form *ngSwitchCase="5" [swapType]="swapType" (close)=" close()"></lto-wallet-withdraw-form>
+  <lto-wallet-withdraw-cex *ngSwitchCase="100" (nextStep)="toBinanceCEX()" (close)="close()"></lto-wallet-withdraw-cex>
 </ng-container>
 
 <button mat-icon-button class="close-button" (click)="close()" tabindex="-1">

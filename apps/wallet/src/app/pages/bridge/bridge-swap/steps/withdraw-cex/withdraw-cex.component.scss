@@ -1,0 +1,47 @@
+.example {
+  border: 1px solid #becad6;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 32px;
+  opacity: 0.5;
+
+  >div {
+    font-size: 16px;
+    padding: 16px 8px;
+    line-height: 16px;
+    color: #5a6169;
+    cursor: pointer;
+    border-bottom: 1px solid #becad6;
+    display: flex;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      flex: 1 1 auto;
+      text-align-last: left;
+    }
+
+    .value.input {
+      border-bottom: dotted 1px #888585;
+
+      input {
+        border: none;
+        font-size: 16px;
+        text-align: right;
+        max-width: 100px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+
+  }
+}

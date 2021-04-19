@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 
 import { SwapType } from '../../swap-type';
 
+
 @Component({
   selector: 'lto-wallet-swap-type',
   templateUrl: './swap-type.component.html',
@@ -41,6 +42,10 @@ export class SwapTypeComponent {
 
   selectERC20ToBinance() {
     this.selectedType = SwapType.ERC20_BINANCE;
+  }
+
+  selectMainToBinanceExchange() {
+    this.selectedType = SwapType.MAIN_BINANCEEXCHANGE;
   }
 
   nextStepClick() {

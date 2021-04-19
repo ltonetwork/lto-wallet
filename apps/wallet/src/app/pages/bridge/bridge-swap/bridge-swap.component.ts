@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { SwapType } from './swap-type';
+import { MakeTransactionModal } from '../../../modals';
 
 @Component({
   selector: 'lto-wallet-bridge-swap',
@@ -12,12 +13,17 @@ export class BridgeSwapComponent implements OnInit {
   step = 2;
   swapType!: SwapType;
 
-  constructor(private _dialogRef: MatDialogRef<any>) {}
+  constructor(private _dialogRef: MatDialogRef<any>, private makeTransactionModal: MakeTransactionModal) {}
 
   ngOnInit() {}
 
   setSwapType(type: SwapType) {
     this.swapType = type;
+  }
+
+  toBinanceCEX() {
+    this._dialogRef.close();
+    this.makeTransactionModal.show();
   }
 
   gotoStep2() {
@@ -26,7 +32,11 @@ export class BridgeSwapComponent implements OnInit {
 
   selectSwapType(type: SwapType) {
     this.swapType = type;
-    this.step = 3;
+    if (this.swapType === SwapType.MAIN_BINANCEEXCHANGE) {
+      this.step = 100;
+    } else {
+      this.step = 3;
+    }
   }
 
   goToNextStep() {

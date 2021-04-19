@@ -23,6 +23,7 @@ export class ExampleComponent implements OnInit {
 
   get bridgeFee$(): Observable<number> {
     switch (this.swapType) {
+      case SwapType.MAIN_ERC20:
       case SwapType.ERC20_BINANCE:
         return this.burnFeeERC$;
       default:

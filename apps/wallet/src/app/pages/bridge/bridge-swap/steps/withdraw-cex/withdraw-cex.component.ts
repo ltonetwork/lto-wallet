@@ -22,12 +22,7 @@ export class WithdrawCexComponent implements OnInit {
   ercDesiting = 1000;
 
   get bridgeFee$(): Observable<number> {
-    switch (this.swapType) {
-      case SwapType.ERC20_BINANCE:
-        return this.burnFeeERC$;
-      default:
-        return this.burnFeeMain$;
-    }
+      return this.burnFeeMain$;
   }
 
   get fromTokenType(): string {

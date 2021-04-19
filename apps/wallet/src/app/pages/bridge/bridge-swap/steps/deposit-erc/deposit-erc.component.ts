@@ -1,9 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { BridgeService, etheriumAddressValidator, WalletService } from '../../../../../core';
-import { map, switchMap } from 'rxjs/operators';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BridgeService, WalletService } from '../../../../../core';
+import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SwapType } from '../../swap-type';
-import { AbstractControl, ValidatorFn, Validators, FormGroup, FormControl } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import * as bech32 from 'bech32';
 
 @Component({
@@ -47,6 +47,8 @@ export class DepositErcComponent implements OnInit {
       case SwapType.BINANCE_MAIN:
       case SwapType.MAIN_BINANCE:
         return 'BEP-2';
+      case SwapType.MAIN_BINANCEEXCHANGE:
+        return 'MAINNET';
     }
   }
 
@@ -58,6 +60,7 @@ export class DepositErcComponent implements OnInit {
         return 'blue';
       case SwapType.BINANCE_MAIN:
       case SwapType.MAIN_BINANCE:
+      case SwapType.MAIN_BINANCEEXCHANGE:
         return 'yellow';
     }
   }

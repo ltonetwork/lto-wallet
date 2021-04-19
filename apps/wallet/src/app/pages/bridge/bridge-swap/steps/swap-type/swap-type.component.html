@@ -5,24 +5,26 @@
 
     <div class="swap-type-picker">
       <div class="main-to-binance-exchange" (click)="selectMainToBinanceExchange()" [ngClass]="{active: selectedType === SwapType.MAIN_BINANCEEXCHANGE}">
-        LTO (<span class="purple">MAINNET</span>) to <span class="yellow">BINANCE CEX</span>
+        <span class="purple">MAINNET</span> to <span class="yellow">BINANCE Exchange</span>
       </div>
       <div class="erc-to-main" (click)="selectERC20ToMain()" [ngClass]="{active: selectedType === SwapType.ERC20_MAIN}">
-        LTO (<span class="blue">ERC-20</span>) to LTO (<span class="purple">MAINNET</span>)
+        <span class="blue">ERC-20</span> to <span class="purple">MAINNET</span>
       </div>
       <div class="main-to-erc" (click)="selectMainToERC20()" [ngClass]="{active: selectedType === SwapType.MAIN_ERC20}">
-        LTO (<span class="purple">MAINNET</span>) to LTO (<span class="blue">ERC-20</span>)
+        <span class="purple">MAINNET</span> to <span class="blue">ERC-20</span>
       </div>
       <div (click)="selectBinanceToMain()" [ngClass]="{active: selectedType === SwapType.BINANCE_MAIN}">
-        LTO (<span class="yellow">BEP-2</span>) to LTO (<span class="purple">MAINNET</span>)
+        <span class="yellow">BEP-2</span> to <span class="purple">MAINNET</span>
       </div>
       <div (click)="selectMainToBinance()" [ngClass]="{active: selectedType === SwapType.MAIN_BINANCE}">
-        LTO (<span class="purple">MAINNET</span>) to LTO (<span class="yellow">BEP-2</span>)
+        <span class="purple">MAINNET</span> to <span class="yellow">BEP-2</span>
       </div>
       <div (click)="selectERC20ToBinance()" [ngClass]="{active: selectedType === SwapType.ERC20_BINANCE}">
-        LTO (<span class="blue">ERC-20</span>) to LTO (<span class="yellow">BEP-2</span>)
+        <span class="blue">ERC-20</span> to <span class="yellow">BEP-2</span>
       </div>
     </div>
+
+    <p class="muted"><small><strong>BEP-20</strong> (Binance Smart Chain) is not supported by the bridge. Instead, please follow the <a href="https://blog.ltonetwork.com/how-to-swap-lto-bep2-to-lto-bep20/" target="_blank" title="BEP-2 to BEP-20 instructions">instructions in this article</a>.</small></p>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>

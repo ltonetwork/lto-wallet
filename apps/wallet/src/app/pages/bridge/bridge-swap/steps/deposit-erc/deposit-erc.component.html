@@ -29,9 +29,8 @@
     <lto-loading-spinner *ngSuspensePlaceholder="1000"></lto-loading-spinner>
     <div class="address-box" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px"
       *ngSuspenseSuccess="let address;">
-      <p *ngIf="toTokenType === 'BEP-2'"><span class="red">Do not use this to send to Binance CEX. If you are depositing to Binance CEX, directly deposit your ERC-20 tokens. The BEP2 requires additional memo settings, which is currently not supported.</span></p>
-      <p>Please send the LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens
-        to the following wallet address:</p>
+      <p *ngIf="toTokenType === 'BEP-2'"><span class="red">Do not use this to send to Binance Exchange. If you are depositing to Binance Exchange, directly deposit your mainnet tokens. The BEP2 requires additional memo settings, which is currently not supported.</span></p>
+      <p>Please send the LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens to the following wallet address:</p>
       <p></p>
       <qrcode [qrdata]="address" [size]="120"></qrcode>
       <span>or</span>

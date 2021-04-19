@@ -4,7 +4,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { QRCodeModule } from 'angularx-qrcode';
 import { BridgeSwapComponent } from './bridge-swap.component';
-import { InstructionsComponent } from './steps/instructions/instructions.component';
 import { SwapTypeComponent } from './steps/swap-type/swap-type.component';
 import { ExampleComponent } from './steps/example/example.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -20,7 +19,6 @@ import { WithdrawCexComponent } from './steps/withdraw-cex/withdraw-cex.componen
 @NgModule({
   declarations: [
     BridgeSwapComponent,
-    InstructionsComponent,
     SwapTypeComponent,
     ExampleComponent,
     DepositErcComponent,

@@ -39,6 +39,7 @@ export class WithdrawCexComponent implements OnInit {
         return 'BEP-2';
       case SwapType.MAIN_ERC20:
       case SwapType.MAIN_BINANCE:
+      case SwapType.MAIN_BINANCEEXCHANGE:
         return 'MAINNET';
     }
   }
@@ -52,6 +53,7 @@ export class WithdrawCexComponent implements OnInit {
         return 'yellow';
       case SwapType.MAIN_ERC20:
       case SwapType.MAIN_BINANCE:
+      case SwapType.MAIN_BINANCEEXCHANGE:
         return 'purple';
     }
   }
@@ -60,6 +62,7 @@ export class WithdrawCexComponent implements OnInit {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
       case SwapType.BINANCE_MAIN:
+      case SwapType.MAIN_BINANCEEXCHANGE:
         return 'MAINNET';
       case SwapType.ERC20_BINANCE:
       case SwapType.MAIN_BINANCE:
@@ -76,6 +79,7 @@ export class WithdrawCexComponent implements OnInit {
         return 'purple';
       case SwapType.ERC20_BINANCE:
       case SwapType.MAIN_BINANCE:
+      case SwapType.MAIN_BINANCEEXCHANGE:
         return 'yellow';
       case SwapType.MAIN_ERC20:
         return 'blue';

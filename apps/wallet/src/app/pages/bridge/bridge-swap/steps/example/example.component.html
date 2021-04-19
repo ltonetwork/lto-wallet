@@ -23,7 +23,7 @@
         <div class="value">{{ receiving(bridgeFee) }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
       </div>
     </div>
-    <p *ngIf="toTokenType === 'BEP-2' && fromTokenType === 'ERC-20'"><span class="red">Do not use this to send to Binance CEX. The BEP2 requires additional memo settings, which is currently not supported.</span></p>
+    <p *ngIf="toTokenType === 'BEP-2' && fromTokenType === 'ERC-20'"><span class="red">Do not use this to send to Binance Exchange.</span></p>
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions>

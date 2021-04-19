@@ -270,6 +270,15 @@
          "payoutSchedule":"Every Saturday",
          "tgContact":"@lebarb0",
          "hide":false
+      },
+      {
+         "address":"3Ju8dmBqNzqNN57czAznmoFzmu6Pk3Yyoej",
+         "sharing":"variable",
+         "name": "Kahion",
+         "website":"https://node.kahion.com/lto",
+         "payoutSchedule":"Auto-Compounding",
+         "tgContact":"@armaelll",
+         "hide":false
       }
    ]
 }

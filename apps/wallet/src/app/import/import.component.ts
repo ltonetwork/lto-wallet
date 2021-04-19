@@ -22,7 +22,7 @@ export class ImportComponent implements OnInit {
 
   seedForm = new FormGroup({
     'seed': new FormControl(''),
-    'legacy': new FormControl(false)
+    'tidy': new FormControl(true)
   });
 
   walletAddress$: Observable<string>;

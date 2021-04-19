@@ -17,8 +17,8 @@
         <textarea rows="5" matInput placeholder="Your seed is the 15 words you saved when creating your account"
           required formControlName="seed"></textarea>
       </mat-form-field>
-      <div id="legacy" class="narrow" fxLayout="row" fxLayoutAlign="end">
-        <mat-checkbox class="example-margin" matTooltip="Legacy mode is case sensitive, and space sensitive" formControlName="legacy">Legacy</mat-checkbox>
+      <div id="tidy" class="narrow" fxLayout="row">
+        <mat-checkbox class="example-margin" formControlName="tidy" matTooltip="Case and space insensitive">Tidy seed phrase <small>(recommended)</small></mat-checkbox>
       </div>
       Address: {{walletAddress$ | async}}
     </form>

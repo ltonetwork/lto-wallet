@@ -10,8 +10,10 @@ export function trimSeed() {
     return new Observable(subscriber => {
       source.subscribe({
         next(value) {
-          value.seed = value.seed.trim()
-          if (!value.legacy) value.seed = value.seed.toLowerCase().replace(/\s{2,}/gm, ' ');
+          value.seed = value.seed.trim();
+          if (value.tidy) {
+            value.seed = value.seed.toLowerCase().replace(/\s{2,}/gm, ' ');
+          }
           subscriber.next(value);
         },
         error(error) {

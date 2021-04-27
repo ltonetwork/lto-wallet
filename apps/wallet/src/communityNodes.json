@@ -288,6 +288,15 @@
          "payoutSchedule":"Auto-Compounding",
          "tgContact":"@armaelll",
          "hide":false
+      },
+      {
+         "address":"3JcKu8FaXTmy1hwVEX9KYpwYHVt8RYrqNrF",
+         "sharing":"99%",
+         "name": "samurainode.cloud",
+         "website":"https://samurainode.cloud",
+         "payoutSchedule":"Every Saturday",
+         "tgContact":"@ux37owir",
+         "hide":false
       }
    ]
 }

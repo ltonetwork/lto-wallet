@@ -1,0 +1,62 @@
+mat-dialog-actions {
+  margin-bottom: 0.5rem;
+}
+
+.transfer-row {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  button {
+    display: none;
+  }
+}
+
+/**
+  For mass tx on big screens, show transfers as a table
+*/
+@media screen and (min-width: 801px) {
+  .mass-transaction {
+    .transfers {
+      gap: 20px;
+    }
+
+    .transfer-row {
+      flex-direction: row;
+      gap: 10px;
+
+      mat-form-field.recipient {
+        flex-grow: 10;
+      }
+
+      mat-form-field.amount {
+        flex-grow: 1;
+      }
+
+      button {
+        display: inline-block;
+      }
+    }
+
+    /** Hide controls used for small screens */
+    .small-screen-control {
+      display: none !important;
+    }
+
+    /** Show current balance only when focusing on a input to avoid duplicating information */
+    .balance {
+      display: none;
+    }
+    .mat-focused .balance {
+      display: block;
+    }
+  }
+}
+
+/** For mass tx on small screens, show one transfer at a time */
+@media screen and (max-width: 800px) {
+  .transfer-row {
+    display: none;
+    &.visible { display: flex; }
+  }
+}

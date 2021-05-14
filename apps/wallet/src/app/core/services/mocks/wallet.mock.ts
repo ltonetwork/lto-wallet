@@ -31,6 +31,7 @@ export class WalletServiceMock implements WalletService {
   });
 
   async transfer() {}
+  async massTransfer() {}
   async lease() {}
   async cancelLease() {}
   async withdraw() {}

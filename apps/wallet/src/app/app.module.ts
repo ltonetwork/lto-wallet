@@ -15,6 +15,7 @@ import {
   AMOUNT_DIVIDER,
   LTO_BRIDGE_HOST,
   DEFAULT_TRANSFER_FEE,
+  MASS_TRANSFER_FEE,
   ANCHOR_FEE,
   BRIDGE_ENABLED,
   SWAP_PAGE_ENABLED,
@@ -94,6 +95,10 @@ import { environment } from '../environments/environment';
     {
       provide: DEFAULT_TRANSFER_FEE,
       useValue: environment.transfer_fee,
+    },
+    {
+      provide: MASS_TRANSFER_FEE,
+      useValue: environment.mass_transfer_fee,
     },
     {
       provide: ANCHOR_FEE,

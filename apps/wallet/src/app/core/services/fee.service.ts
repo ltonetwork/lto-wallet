@@ -3,7 +3,7 @@ import { Observable, of, combineLatest } from 'rxjs';
 import { AuthService } from './auth.service';
 import { PublicNode } from './public-node';
 import { switchMap, filter, map, shareReplay } from 'rxjs/operators';
-import { DEFAULT_TRANSFER_FEE } from '@wallet/tokens';
+import { DEFAULT_TRANSFER_FEE, MASS_TRANSFER_FEE } from '@wallet/tokens';
 
 @Injectable({ providedIn: 'root' })
 export class FeeService {
@@ -11,13 +11,15 @@ export class FeeService {
   regularFee$: Observable<number>;
 
   transferFee$: Observable<number>;
+  massTransferFee$: Observable<number>;
   leaseFee$: Observable<number>;
   anchorFee$: Observable<number>;
 
   constructor(
     private _auth: AuthService,
     private _publicNode: PublicNode,
-    @Inject(DEFAULT_TRANSFER_FEE) transferFee: number
+    @Inject(DEFAULT_TRANSFER_FEE) transferFee: number,
+    @Inject(MASS_TRANSFER_FEE) massTransferFee: number
   ) {
     this.scriptFee$ = _auth.account$.pipe(
       switchMap(account => {
@@ -32,6 +34,7 @@ export class FeeService {
     );
 
     this.regularFee$ = of(transferFee);
+    this.massTransferFee$ = of(massTransferFee);
 
     this.transferFee$ = combineLatest(this.scriptFee$, this.regularFee$).pipe(
       map(([scriptFee, regularFee]) => {

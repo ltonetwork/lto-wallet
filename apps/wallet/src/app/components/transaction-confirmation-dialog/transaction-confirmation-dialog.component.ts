@@ -10,6 +10,10 @@ export interface TransactionConfirmDialogData {
 interface TransactionDataField {
   label: string;
   value: string | number;
+  /**
+   * Field to only be shown in the detail view
+   */
+  detailOnly?: boolean;
 }
 
 @Component({
@@ -22,6 +26,7 @@ interface TransactionDataField {
 export class TransactionConfirmationDialogComponent implements OnInit {
   dialogTitle!: string;
   transactionData!: TransactionDataField[];
+  showDetails = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private _dialogData: TransactionConfirmDialogData,
@@ -44,4 +49,9 @@ export class TransactionConfirmationDialogComponent implements OnInit {
 
     return value;
   }
+
+  /**
+   * Return true if there is fields to show only in the detail view
+   */
+  get haveDetails () { return this.transactionData.some(field => field.detailOnly); }
 }

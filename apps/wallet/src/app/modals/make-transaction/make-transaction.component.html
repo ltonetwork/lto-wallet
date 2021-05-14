@@ -1,19 +1,7 @@
-<div mat-dialog-title>New transaction</div>
+<div mat-dialog-title>New <span *ngIf="this.sendForm?.controls.transfers.length > 1">mass</span> transaction</div>
 <mat-dialog-content *ngIf="(balance$ | async) as balance">
   <form [formGroup]="sendForm" fxLayout="column" *ngIf="sendForm; else emptyTpl">
-    <mat-form-field>
-      <mat-label>Recipient</mat-label>
-      <input matInput formControlName="recipient" required />
-      <mat-error *ngIf="recipientErrors && recipientErrors.invalidAddress">Invalid address</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Amount</mat-label>
-      <input matInput type="number" formControlName="amount" required />
-      <mat-hint>Balance: {{ (balance$ | async).available | amountDivide }}</mat-hint>
-      <mat-error *ngIf="sendForm.get('amount').hasError('max')">
-        Max value: {{ (balance$ | async).available | amountDivide }}
-      </mat-error>
-    </mat-form-field>
+    <lto-wallet-make-transaction-transfers [sendForm]="sendForm"></lto-wallet-make-transaction-transfers>
     <mat-form-field>
       <mat-label>Attachment</mat-label>
       <input matInput formControlName="attachment" />

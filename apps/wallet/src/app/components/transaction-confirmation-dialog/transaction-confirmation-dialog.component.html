@@ -4,7 +4,7 @@
     <mat-icon>arrow_upward</mat-icon>
   </div>
   <div class="transaction-data-list">
-    <div class="transaction-data-row" *ngFor="let field of transactionData" fxLayout="row">
+    <div class="transaction-data-row" *ngFor="let field of transactionData" fxLayout="row" [ngClass]="{detail: field.detailOnly, hidden: field.detailOnly && !showDetails}">
       <div class="label">{{ field.label }}</div>
       <div class="value" fxFlex="1 1 auto">
         {{ prettify(field.value) }}
@@ -13,6 +13,8 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
+  <button mat-button (click)="showDetails = true" *ngIf="!showDetails && haveDetails">Show details</button>
+  <button mat-button (click)="showDetails = false" *ngIf="showDetails && haveDetails">Hide details</button>
   <button mat-button [mat-dialog-close]="false">Go back</button>
   <button color="primary" mat-flat-button [mat-dialog-close]="true">Confirm</button>
 </mat-dialog-actions>

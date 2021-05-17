@@ -297,6 +297,15 @@
          "payoutSchedule":"Every Saturday",
          "tgContact":"@ux37owir",
          "hide":false
+      },
+      {
+         "address":"3JiNi1B3LVdF9Aa2P3cBA2NNwLP7XNaV9A5",
+         "sharing":"98%",
+         "name": "LTO Lease",
+         "website":"https://lto.lease/lto",
+         "payoutSchedule":"Auto-Compounding",
+         "tgContact":"@sysrex",
+         "hide":false
       }
    ]
 }

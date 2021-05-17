@@ -37,6 +37,17 @@ export interface ITransferPayload {
   recipient: string;
 }
 
+export interface IMassTransferPayload {
+  fee: number;
+  attachment?: string;
+  transfers: IMassTransfer[];
+}
+
+export interface IMassTransfer {
+  amount: number;
+  recipient: string;
+}
+
 /**
  * TODO: Refactor Wallet to handle situations when auth.wallet is null
  */
@@ -212,6 +223,26 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
+  async massTransfer(data: IMassTransferPayload) {
+    const { fee, attachment } = data;
+    const transfers = data.transfers.map(transfer => ({
+      recipient: transfer.recipient,
+      amount: transfer.amount * this.amountDivider
+    }));
+    const wallet: any = await toPromise(this.auth.wallet$);
+    await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
+      'massTransfer',
+      {
+        transfers,
+        fee: Math.round(fee * this.amountDivider),
+        attachment
+      },
+      wallet.getSignKeys()
+    );
+    // Trigger update
+    this.manualUpdate$.next();
+  }
+
   async withdraw(recipient: string, amount: number, fee: number, captha: string, tokenType: TokenType = 'LTO20', attachment?: string) {
     // Create a bridge
     const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient, captha, tokenType));
@@ -313,6 +344,7 @@ export abstract class WalletService {
   abstract anchors$: Observable<LTO.Page<LTO.Transaction>>;
 
   abstract transfer(data: ITransferPayload): Promise<void>;
+  abstract massTransfer(data: IMassTransferPayload): Promise<void>;
   abstract lease(recipient: string, amount: number, fee: number): Promise<any>;
   abstract cancelLease(transactionId: string): Promise<any>;
   abstract withdraw(address: string, ammount: number, fee: number, captha: string, tokenType?: TokenType, attachment?: string): Promise<any>;

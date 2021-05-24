@@ -299,6 +299,15 @@
          "hide":false
       },
       {
+        "address":"3JuTF9p8BmKPeGBPNizyCtYvY3eJkLY9fRK",
+        "sharing":"98%",
+        "name": "MyCointainer.com",
+        "website":"https://mycointainer.com/",
+        "payoutSchedule":"Weekly",
+        "tgContact":"@BartoszPozniak",
+        "hide":false
+      },
+      {
          "address":"3JiNi1B3LVdF9Aa2P3cBA2NNwLP7XNaV9A5",
          "sharing":"98%",
          "name": "LTO Lease",

@@ -249,7 +249,7 @@
          "sharing":"99%",
          "name": "Our /biz/ node",
          "website":"https://ourbiznode.com",
-         "payoutSchedule":"Every Saturday",
+         "payoutSchedule":"Every second Saturday",
          "tgContact":"@fractalwalkr",
          "hide":false
       },

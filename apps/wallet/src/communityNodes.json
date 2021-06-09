@@ -315,6 +315,15 @@
          "payoutSchedule":"Auto-Compounding",
          "tgContact":"@sysrex",
          "hide":false
+      },
+      {
+         "address":"3JxqWZaikeEW9m9d2MCPh1KNHjo6Ty2YxUJ",
+         "sharing":"97%",
+         "name": "twitch.tv/brokenchairmedia",
+         "website":"http://brokenchairmedia.nl",
+         "payoutSchedule":"Beginning of every even month",
+         "tgContact":"@fr1ts",
+         "hide":false
       }
    ]
 }

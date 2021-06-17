@@ -324,6 +324,15 @@
          "payoutSchedule":"Beginning of every even month",
          "tgContact":"@fr1ts",
          "hide":false
+      },
+      {
+         "address":"3JyXXG6zMKrVkeNdcg3cTRBLRJcbDZcf6RR",
+         "sharing":"100%",
+         "name":"zolnode",
+         "website":"https://t.me/LTO_zolnode",
+         "payoutSchedule":"Monthly",
+         "tgContact":"@zolnode",
+         "hide":false
       }
    ]
 }

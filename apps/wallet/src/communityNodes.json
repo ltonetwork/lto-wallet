@@ -224,7 +224,8 @@
          "website":"https://xeno.finance",
          "payoutSchedule":"weekly",
          "tgContact":"@stinkypinky",
-         "hide":false
+         "hide":true,
+         "comment":"Not paying out to leasers"
       },
 	  {
          "address":"3Jt1mBoziZmoGDaYe1UbGygGMsGS493vkgN",

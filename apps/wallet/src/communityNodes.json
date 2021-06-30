@@ -318,10 +318,10 @@
       },
       {
          "address":"3JxqWZaikeEW9m9d2MCPh1KNHjo6Ty2YxUJ",
-         "sharing":"97%",
-         "name": "twitch.tv/brokenchairmedia",
+         "sharing":"99.9%",
+         "name": "BrokenChairMedia",
          "website":"http://brokenchairmedia.nl",
-         "payoutSchedule":"Beginning of every even month",
+         "payoutSchedule":"Beginning of every month",
          "tgContact":"@fr1ts",
          "hide":false
       },

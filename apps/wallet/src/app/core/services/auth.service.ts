@@ -10,6 +10,7 @@ export interface IUserAccount {
   name: string;
   encryptedSeed: string;
   address: string;
+  privateKey?: string;
 }
 
 @Injectable({
@@ -63,8 +64,16 @@ export class AuthServiceImpl implements AuthService {
   }
 
   login(userAccount: IUserAccount, password: string): string {
-    const seed = this.ltoInstance.decryptSeedPhrase(userAccount.encryptedSeed, password);
-    const wallet = this.ltoInstance.createAccountFromExistingPhrase(seed);
+    let wallet: Account;
+
+    if (userAccount.encryptedSeed) {
+      const seed = this.ltoInstance.decryptSeedPhrase(userAccount.encryptedSeed, password);
+      wallet = this.ltoInstance.createAccountFromExistingPhrase(seed);
+    } else if (userAccount.privateKey) {
+      wallet = this.ltoInstance.createAccountFromPrivateKey(userAccount.privateKey);
+    } else {
+      throw new Error('Seed missing');
+    }
 
     this.account$.next(userAccount);
     this.wallet$.next(wallet);

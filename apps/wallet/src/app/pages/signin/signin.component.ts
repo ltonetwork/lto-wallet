@@ -3,7 +3,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
-import { AuthService, IUserAccount, toPromise } from '../../core';
+import { AuthService, IUserAccount, toPromise, LedgerService } from '../../core';
 import { Router } from '@angular/router';
 import { DeleteAccountDialogComponent } from '../../components/delete-account-dialog/delete-account-dialog.component';
 
@@ -20,7 +20,8 @@ export class SigninComponent implements OnInit {
     private auth: AuthService,
     private snackbar: MatSnackBar,
     private router: Router,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private ledger: LedgerService,
   ) {
     this.availableAccounts$ = auth.availableAccounts$;
   }
@@ -56,5 +57,10 @@ export class SigninComponent implements OnInit {
     if (confirmDelete) {
       this.auth.deleteAccount(account);
     }
+  }
+
+  // @todo: temporary for testing with Ledger
+  async testLedger() {
+    await this.ledger.connect(0).catch(error => console.error(error));
   }
 }

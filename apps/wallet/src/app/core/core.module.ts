@@ -13,6 +13,7 @@ import {
   Sidenav,
   wavesAddressValidatorProvider,
   ScriptsService,
+  LedgerService,
 } from './services';
 
 import { ScriptsServiceImpl } from './services/scripts.service.impl';
@@ -31,6 +32,7 @@ import { ScriptsServiceImpl } from './services/scripts.service.impl';
     wavesAddressValidatorProvider,
     WavesService.provider,
     Sidenav.provider,
+    LedgerService.provider,
     {
       provide: ScriptsService,
       useClass: ScriptsServiceImpl,

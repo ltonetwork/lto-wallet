@@ -14,6 +14,7 @@
     "target": "es2015",
     "module": "es2020",
     "lib": ["es2018", "dom"],
+    "skipLibCheck": true,
     "paths": {
       "@legalthings-one/component-kit": ["libs/component-kit/src"],
       "@legalthings-one/platform": ["libs/platform/src"],

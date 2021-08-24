@@ -4,13 +4,16 @@ import { Observable, BehaviorSubject, Subscriber } from 'rxjs';
 import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '../../tokens';
 import { map } from 'rxjs/operators';
 
-import { ScriptsService } from './scripts.service';
-
 export interface IUserAccount {
   name: string;
   encryptedSeed: string;
   address: string;
   privateKey?: string;
+}
+
+export interface ILedgerAccount {
+  id: number;
+  address: string;
 }
 
 @Injectable({
@@ -20,7 +23,8 @@ export class AuthServiceImpl implements AuthService {
   readonly STORAGE_KEY: string = '_USERS_ACCOUNTS_';
 
   authenticated$: Observable<boolean>;
-  account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(null);
+  // @todo: adapt account for using ILedgerAccount as well? or create a new ledgerAccount$ subject?
+  account$: BehaviorSubject<IUserAccount | ILedgerAccount | null> = new BehaviorSubject<IUserAccount | ILedgerAccount | null>(null);
   wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
 
   ltoInstance: LTO;
@@ -120,7 +124,7 @@ export abstract class AuthService {
   abstract readonly STORAGE_KEY: string;
 
   abstract authenticated$: Observable<boolean>;
-  abstract account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(
+  abstract account$: BehaviorSubject<IUserAccount | ILedgerAccount | null> = new BehaviorSubject<IUserAccount | ILedgerAccount | null>(
     null
   );
   abstract wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);

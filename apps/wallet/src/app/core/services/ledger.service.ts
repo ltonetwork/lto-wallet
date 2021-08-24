@@ -4,6 +4,7 @@ import { Injectable, ClassProvider, Inject } from '@angular/core';
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 import { WavesLedger } from 'lto-ledger-js-unofficial-test';
+import { BehaviorSubject } from 'rxjs';
 
 import { LTO_NETWORK_BYTE } from '../../tokens';
 
@@ -25,11 +26,12 @@ export interface LedgerOptions {
   providedIn: 'root',
 })
 export class LedgerServiceImpl implements LedgerService {
-  ledger!: WavesLedger;
-  ledgerOptions: LedgerOptions;
+  private ledger!: WavesLedger;
+  private networkCode: NetworkCode;
+  private ledgerOptions: LedgerOptions;
+  private transport: typeof TransportU2F | TransportWebUSB;
 
-  networkCode: NetworkCode;
-  transport: typeof TransportU2F | TransportWebUSB;
+  public connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     @Inject(LTO_NETWORK_BYTE) networkByte: string,
@@ -53,20 +55,29 @@ export class LedgerServiceImpl implements LedgerService {
     };
   }
   
-  async connect(addressId: number): Promise<void> {
+  public async connect(addressId: number): Promise<void> {
     this.ledger = new WavesLedger(this.ledgerOptions);
 
-    // @todo: store the user info in a session
+    // @todo: store the user info in a session?
     const userInfo = await this.ledger.getUserDataById(addressId, false);
+    this.connected$.next(!!this.ledger.ready);
     console.log(userInfo);
+  }
+
+  public async disconnect(): Promise<void> {
+    await this.ledger.disconnect();
+    this.connected$.next(!!this.ledger.ready);
   }
 }
 
 export abstract class LedgerService {
-  static provider: ClassProvider = {
+  public static provider: ClassProvider = {
     provide: LedgerService,
     useClass: LedgerServiceImpl,
   };
 
-  abstract connect(addressId: number): Promise<void>
+  public abstract connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  public abstract connect(addressId: number): Promise<void>
+  public abstract disconnect(): Promise<void>
 }

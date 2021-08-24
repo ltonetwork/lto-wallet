@@ -1,4 +1,4 @@
-import { AuthService, IUserAccount } from '../auth.service';
+import { AuthService, ILedgerAccount, IUserAccount } from '../auth.service';
 import { of, BehaviorSubject, Observable } from 'rxjs';
 import { LTO, Account } from 'lto-api';
 
@@ -11,7 +11,7 @@ export class AuthServiceMock implements AuthService {
   readonly STORAGE_KEY: string = 'TEST_KEY';
 
   authenticated$: Observable<boolean> = of(true);
-  account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(null);
+  account$: BehaviorSubject<IUserAccount | ILedgerAccount | null> = new BehaviorSubject<IUserAccount | ILedgerAccount | null>(null);
   wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
 
   ltoInstance: LTO = {} as any;

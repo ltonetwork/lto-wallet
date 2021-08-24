@@ -101,7 +101,14 @@
             "tsConfig": "apps/wallet/tsconfig.app.json",
             "assets": ["apps/wallet/src/favicon.png", "apps/wallet/src/assets"],
             "styles": ["apps/wallet/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "crypto-js",
+              "qrcode",
+              "lto-ledger-js-unofficial-test",
+              "lto-api/raw/libs/blake2b",
+              "js-sha256"
+           ]
           },
           "configurations": {
             "production": {

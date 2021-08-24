@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, IUserAccount, ScriptsService, FeeService, toPromise } from '../../core';
-import { CreateScriptModal, ScriptInfoModal, DisableScriptModal } from '../../modals';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Account } from 'lto-api';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { ILedgerAccount } from '@wallet/core/services/auth.service';
+import { CreateScriptModal, ScriptInfoModal, DisableScriptModal } from '@wallet/modals';
+import { AuthService, IUserAccount, ScriptsService, FeeService, toPromise } from '@wallet/core';
 
 @Component({
   selector: 'lto-wallet-settings-page',
@@ -11,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./settings-page.component.scss'],
 })
 export class SettingsPageComponent implements OnInit {
-  userAccount$: Observable<IUserAccount | null>;
+  userAccount$: Observable<IUserAccount | ILedgerAccount | null>;
   ltoAccount$: Observable<Account | null>;
   scriptEnabled$: Observable<boolean>;
 

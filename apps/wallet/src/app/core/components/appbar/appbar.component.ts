@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService, IUserAccount, Sidenav } from '../../services';
+
+import { ILedgerAccount } from '@wallet/core/services/auth.service';
+import { AuthService, IUserAccount, Sidenav } from '@wallet/core/services';
 
 @Component({
   selector: 'lto-appbar',
@@ -11,7 +13,7 @@ import { AuthService, IUserAccount, Sidenav } from '../../services';
 })
 export class AppbarComponent implements OnInit {
   authenticated$: Observable<boolean>;
-  userAccount$: Observable<IUserAccount | null>;
+  userAccount$: Observable<IUserAccount | ILedgerAccount | null>;
   availableAccounts$: Observable<any>;
   constructor(
     private _auth: AuthService,

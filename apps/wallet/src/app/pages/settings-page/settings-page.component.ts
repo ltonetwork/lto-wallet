@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Account } from 'lto-api';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ILedgerAccount } from '@wallet/core/services/auth.service';
+import {  } from '@wallet/core/services/ledger.service';
 import { CreateScriptModal, ScriptInfoModal, DisableScriptModal } from '@wallet/modals';
-import { AuthService, IUserAccount, ScriptsService, FeeService, toPromise } from '@wallet/core';
+import { AuthService, ILedgerAccount, IUserAccount, ScriptsService, FeeService, toPromise } from '@wallet/core';
 
 @Component({
   selector: 'lto-wallet-settings-page',
   templateUrl: './settings-page.component.html',
   styleUrls: ['./settings-page.component.scss'],
 })
-export class SettingsPageComponent implements OnInit {
-  userAccount$: Observable<IUserAccount | ILedgerAccount | null>;
-  ltoAccount$: Observable<Account | null>;
+export class SettingsPageComponent implements OnInit, OnDestroy {
+  ledger$!: Subscription;
+  ledgerAccount!: ILedgerAccount | null;
+
+  user$!: Subscription;
+  userAccount!: IUserAccount | null;
+
+  lto$!: Subscription;
+  ltoAccount!: Account | null;
+
   scriptEnabled$: Observable<boolean>;
 
   constructor(
@@ -26,12 +33,20 @@ export class SettingsPageComponent implements OnInit {
     private _scriptInfoModal: ScriptInfoModal,
     private _disableScriptModal: DisableScriptModal
   ) {
-    this.userAccount$ = auth.account$;
-    this.ltoAccount$ = auth.wallet$;
     this.scriptEnabled$ = _scriptService.scriptEnabled$;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.lto$ = this.auth.wallet$.subscribe(ltoAccount => this.ltoAccount = ltoAccount); 
+    this.user$ = this.auth.account$.subscribe(userAccount => this.userAccount = userAccount);
+    this.ledger$ = this.auth.ledgerAccount$.subscribe(ledgerAccount => this.ledgerAccount = ledgerAccount);
+  }
+
+  ngOnDestroy() {
+    this.lto$.unsubscribe();
+    this.user$.unsubscribe();
+    this.ledger$.unsubscribe();
+  }
 
   async createScript() {
     const scriptText = await this._createScriptModal.show();

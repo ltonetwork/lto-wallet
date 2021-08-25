@@ -1,12 +1,12 @@
 import { Platform } from '@angular/cdk/platform';
 import { Injectable, ClassProvider, Inject } from '@angular/core';
 
+import { BehaviorSubject } from 'rxjs';
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 import { WavesLedger } from 'lto-ledger-js-unofficial-test';
-import { BehaviorSubject } from 'rxjs';
 
-import { LTO_NETWORK_BYTE } from '../../tokens';
+import { LTO_NETWORK_BYTE } from '@wallet/tokens';
 
 enum NetworkCode {
   MAINNET = 76,
@@ -20,6 +20,13 @@ export interface LedgerOptions {
   exchangeTimeout: number;
   networkCode: NetworkCode; 
   transport: typeof TransportU2F | TransportWebUSB
+}
+
+export interface ILedgerAccount {
+  id: number;
+  name: string;
+  address: string;
+  publicKey: string;
 }
 
 @Injectable({
@@ -55,18 +62,27 @@ export class LedgerServiceImpl implements LedgerService {
     };
   }
   
-  public async connect(addressId: number): Promise<void> {
+  public async connect(): Promise<void> {
     this.ledger = new WavesLedger(this.ledgerOptions);
 
-    // @todo: store the user info in a session?
-    const userInfo = await this.ledger.getUserDataById(addressId, false);
-    this.connected$.next(!!this.ledger.ready);
-    console.log(userInfo);
+    // wait until device is connected
+    await this.ledger.getUserDataById(0, false);
+    this.connected$.next(true);
   }
 
   public async disconnect(): Promise<void> {
     await this.ledger.disconnect();
-    this.connected$.next(!!this.ledger.ready);
+    this.connected$.next(false);
+  }
+
+  public async getUserDataById(addressId: number = 0): Promise<ILedgerAccount> {
+    const ledgerData = await this.ledger.getUserDataById(addressId, false);
+    return {
+      id: ledgerData.id,
+      name: 'Ledger Wallet',
+      address: ledgerData.address,
+      publicKey: ledgerData.publicKey,
+    };
   }
 }
 
@@ -78,6 +94,7 @@ export abstract class LedgerService {
 
   public abstract connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  public abstract connect(addressId: number): Promise<void>
+  public abstract connect(): Promise<void>
   public abstract disconnect(): Promise<void>
+  public abstract getUserDataById(addressId: number): Promise<ILedgerAccount>
 }

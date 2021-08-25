@@ -15,4 +15,4 @@ export {
 export { Sidenav, SidenavMode } from './sidenav';
 export { ScriptsService, PredefinedScript } from './scripts.service';
 export { FeeService } from './fee.service';
-export { LedgerService } from './ledger.service';
+export { LedgerService, ILedgerAccount } from './ledger.service';

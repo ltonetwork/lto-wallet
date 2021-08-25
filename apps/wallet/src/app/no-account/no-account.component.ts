@@ -19,13 +19,18 @@ export class NoAccountComponent {
 
   async connectLedger() {
     try {
-      // @todo: add possibility for choosing account id (0-10)
-      await this.ledger.connect(0);
+      await this.ledger.connect();
 
       this.snackbar.open('Logged in via Ledger', 'Dismiss', { duration: 3000 });
       this.router.navigate(['/']);
     } catch (error) {
       console.error('Error while connecting to ledger: ', error);
+
+      if (error.statusCode === 26628) {
+        this.snackbar.open('Ledger device: Transport error, unlock device and try again (0x6804)', 'Dismiss', { duration: 6000 });
+        return;
+      }
+
       this.snackbar.open(error.message, 'Dismiss', { duration: 6000 });
     }
   }

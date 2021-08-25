@@ -1,22 +1,23 @@
 <mat-toolbar fxLayout="row">
-  <lto-brand *ngIf="(authenticated$ | async) !== true"></lto-brand>
-  <ng-container *ngIf="authenticated$ | async">
+  <lto-brand *ngIf="authenticated !== true"></lto-brand>
+  <ng-container *ngIf="authenticated">
     <button mat-icon-button fxHide fxShow.lt-lg (click)="openSidenav()" class="menu-button">
       <mat-icon>menu</mat-icon>
     </button>
   </ng-container>
-  <div class="address" *ngIf="userAccount$ | async as account" (click)="copyAddressToClipboard(account.address)"><span fxHide.xs>Address:</span>
-    {{account.address}}</div>
+  <div class="address" *ngIf="authenticated" (click)="copyAddressToClipboard(userAccount?.address || ledgerAccount?.address)">
+    <span fxHide.xs>Address:</span> {{userAccount?.address || ledgerAccount?.address}}
+  </div>
   <span fxFlex="1 1 auto"></span>
-  <div fxLayout="row" fxLayoutGap="8px" class="hide-small-screen" *ngIf="(authenticated$ | async) !== true">
+  <div fxLayout="row" fxLayoutGap="8px" class="hide-small-screen" *ngIf="authenticated !== true">
     <a mat-button routerLink="/signin">Sign in</a>
     <a mat-button routerLink="create-account">Create Account</a>
     <a mat-button routerLink="import-account">Import Account</a>
   </div>
-  <div *ngIf="(userAccount$ | async) as account" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
+  <div *ngIf="authenticated" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
     <button mat-button fxLayout="row" fxLayoutAlign="start center" class="account-button" [matMenuTriggerFor]="appMenu">
       <mat-icon class="user-icon">account_box</mat-icon>
-      <span class="hide-small-screen">{{ account.name }}</span>
+      <span class="hide-small-screen">{{ userAccount?.name || ledgerAccount?.name }}</span>
       <mat-icon>arrow_drop_down</mat-icon>
     </button>
     <mat-menu #appMenu="matMenu">

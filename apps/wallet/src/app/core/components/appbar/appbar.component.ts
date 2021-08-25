@@ -1,32 +1,48 @@
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ILedgerAccount } from '@wallet/core/services/auth.service';
-import { AuthService, IUserAccount, Sidenav } from '@wallet/core/services';
+import { AuthService, ILedgerAccount, IUserAccount, Sidenav } from '@wallet/core/services';
 
 @Component({
   selector: 'lto-appbar',
   templateUrl: './appbar.component.html',
   styleUrls: ['./appbar.component.scss'],
 })
-export class AppbarComponent implements OnInit {
-  authenticated$: Observable<boolean>;
-  userAccount$: Observable<IUserAccount | ILedgerAccount | null>;
-  availableAccounts$: Observable<any>;
+export class AppbarComponent implements OnInit, OnDestroy {
+  authenticated$!: Subscription;
+  authenticated!: boolean;
+
+  user$!: Subscription;
+  userAccount!: IUserAccount | null;
+
+  ledger$!: Subscription;
+  ledgerAccount!: ILedgerAccount | null;
+
+  accounts$!: Subscription;
+  availableAccounts!: any;
+
   constructor(
     private _auth: AuthService,
     private _router: Router,
     private _sidenav: Sidenav,
     private _snackbar: MatSnackBar
-  ) {
-    this.authenticated$ = _auth.authenticated$;
-    this.userAccount$ = _auth.account$;
-    this.availableAccounts$ = _auth.availableAccounts$;
+  ) { }
+
+  ngOnInit() {
+    this.user$ = this._auth.account$.subscribe(userAccount => this.userAccount = userAccount);
+    this.ledger$ = this._auth.ledgerAccount$.subscribe(ledgerAccount => this.ledgerAccount = ledgerAccount);
+    this.authenticated$ = this._auth.authenticated$.subscribe(authenticated => this.authenticated = authenticated);
+    this.accounts$ = this._auth.availableAccounts$.subscribe(availableAccounts => this.availableAccounts = availableAccounts);
   }
 
-  ngOnInit() { }
+  ngOnDestroy() {
+    this.user$.unsubscribe();
+    this.ledger$.unsubscribe();
+    this.accounts$.unsubscribe();
+    this.authenticated$.unsubscribe();
+  }
 
   signout() {
     this._auth.logout();

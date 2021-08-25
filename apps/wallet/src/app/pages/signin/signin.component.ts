@@ -3,7 +3,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { take } from 'rxjs/operators';
-import { AuthService, IUserAccount, toPromise } from '../../core';
+import { AuthService, IUserAccount, toPromise, LedgerService } from '../../core';
 import { Router } from '@angular/router';
 import { DeleteAccountDialogComponent } from '../../components/delete-account-dialog/delete-account-dialog.component';
 
@@ -18,6 +18,7 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private ledger: LedgerService,
     private snackbar: MatSnackBar,
     private router: Router,
     private matDialog: MatDialog,
@@ -55,6 +56,24 @@ export class SigninComponent implements OnInit {
 
     if (confirmDelete) {
       this.auth.deleteAccount(account);
+    }
+  }
+
+  async ledgerLogin() {
+    try {
+      await this.ledger.connect();
+
+      this.snackbar.open('Logged in via Ledger', 'Dismiss', { duration: 3000 });
+      this.router.navigate(['/']);
+    } catch (error) {
+      console.error('Error while connecting to ledger: ', error);
+
+      if (error.statusCode === 26628) {
+        this.snackbar.open('Ledger device: Transport error, unlock device and try again (0x6804)', 'Dismiss', { duration: 6000 });
+        return;
+      }
+
+      this.snackbar.open(error.message, 'Dismiss', { duration: 6000 });
     }
   }
 }

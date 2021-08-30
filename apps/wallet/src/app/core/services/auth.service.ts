@@ -48,10 +48,11 @@ export class AuthServiceImpl implements AuthService {
 
     this.ledger.connected$.subscribe(async connected => {
       if (connected) {
+        // @todo: get accounts from differenty IDs (0-10)
         const ledgerData = await this.ledger.getUserDataById(0);
         this.ledgerAccount$.next(ledgerData);
       }
-    })
+    });
   }
 
   saveAccount(name: string, password: string, wallet: Account): IUserAccount {

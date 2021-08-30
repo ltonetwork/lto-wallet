@@ -7,7 +7,6 @@ import {
   switchMap,
   map,
   filter,
-  withLatestFrom,
   catchError
 } from 'rxjs/operators';
 import { PublicNode } from './public-node';
@@ -17,6 +16,7 @@ import { TransactionTypes } from '../transaction-types';
 import { BridgeService, TokenType } from './bridge.service';
 import { transactionsFilter, toPromise } from '../utils';
 import { AMOUNT_DIVIDER, DEFAULT_TRANSFER_FEE } from '../../tokens';
+import { ILedgerAccount } from './ledger.service';
 
 export interface IBalance {
   regular: number;
@@ -67,7 +67,7 @@ export class WalletServiceImpl implements WalletService {
   private polling$: Observable<number> = timer(0, 5000).pipe(share());
   private manualUpdate$ = new Subject<any>();
 
-  private update$: Observable<Account>;
+  private update$: Observable<string>;
   private unconfirmed$: Observable<LTO.Transaction[]>;
 
   constructor(
@@ -77,19 +77,28 @@ export class WalletServiceImpl implements WalletService {
     @Inject(AMOUNT_DIVIDER) private amountDivider: number,
     @Inject(DEFAULT_TRANSFER_FEE) private defaultTransferFee: number
   ) {
-    this.address$ = auth.wallet$.pipe(
-      filter((account): account is Account => !!account),
-      map(account => account.address)
+    // @todo: make wallet work with ledger account as well
+    this.address$ = auth.ledgerAccount$.pipe(
+      filter((ledger): ledger is ILedgerAccount => !!ledger),
+      map(ledger => ledger.address),
+      switchMapTo(auth.wallet$),
+      filter((wallet): wallet is Account => !!wallet),
+      map(wallet => wallet.address)
     );
 
+    // @todo: this seems complicated. test and see if can improve
     this.update$ = merge(this.polling$, this.manualUpdate$).pipe(
+      switchMapTo(auth.ledgerAccount$),
+      filter((ledger): ledger is ILedgerAccount => !!ledger),
+      map(ledger => ledger.address),
       switchMapTo(auth.wallet$),
-      filter((account): account is Account => !!account),
+      filter((wallet): wallet is Account => !!wallet),
+      map(wallet => wallet.address),
       shareReplay(1)
     );
 
     this.balance$ = this.update$.pipe(
-      switchMap(wallet => publicNode.balanceOf(wallet.address)),
+      switchMap(address => publicNode.balanceOf(address)),
       map(rawBalance => {
         return {
           ...rawBalance,
@@ -110,8 +119,8 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.transactions$ = this.update$.pipe(
-      switchMap(wallet => {
-        return zip(this.unconfirmed$, publicNode.transactionsOf(wallet.address));
+      switchMap(address => {
+        return zip(this.unconfirmed$, publicNode.transactionsOf(address));
       }),
       map(([unconfirmed, confirmed]) => {
         return [...unconfirmed, ...confirmed];
@@ -120,9 +129,9 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.transfers$ = this.update$.pipe(
-      switchMap(wallet => {
+      switchMap(address => {
         return zip(
-          publicNode.indexedTransactions(wallet.address, 'all_transfers'),
+          publicNode.indexedTransactions(address, 'all_transfers'),
           this.unconfirmed$.pipe(
             map(transactionsFilter(TransactionTypes.TRANSFER, TransactionTypes.MASS_TRANSFER))
           )
@@ -138,10 +147,10 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.leasingTransactions$ = this.update$.pipe(
-      switchMap(wallet => {
+      switchMap(address => {
         return combineLatest(
           publicNode
-            .activeLease(wallet.address)
+            .activeLease(address)
             .pipe(catchError(err => of([] as LTO.Transaction[]))),
           this.transactions$
         );
@@ -187,9 +196,9 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.anchors$ = this.update$.pipe(
-      switchMap(wallet => {
+      switchMap(address => {
         return zip(
-          publicNode.indexedTransactions(wallet.address, 'anchor'),
+          publicNode.indexedTransactions(address, 'anchor'),
           this.unconfirmed$.pipe(
             map(transactionsFilter(TransactionTypes.ANCHOR, TransactionTypes.ANCHOR_NEW))
           )

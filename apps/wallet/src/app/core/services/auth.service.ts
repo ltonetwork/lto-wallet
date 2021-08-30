@@ -1,4 +1,4 @@
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { LTO, Account } from 'lto-api';
 import { Injectable, Inject, ClassProvider, Injector } from '@angular/core';
 import { Observable, BehaviorSubject, Subscriber, combineLatest } from 'rxjs';

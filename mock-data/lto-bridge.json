@@ -1,0 +1,32 @@
+{
+  "stats": {
+    "burn_rate": 0,
+    "burned": 7484063.94869641,
+    "volume": {
+      "lto": {
+        "address": "3JugjxT51cTjWAsgnQK4SpmMqK6qua1VpXH",
+        "total": 500000000,
+        "supply": 188328175.29530147,
+        "burned": 7484063.94869641,
+        "remaining": 304187760.7560021,
+        "burn_fee": 1000000000
+      },
+      "lto20": {
+        "address": "0x35C666DDeFEdFA19Ea433f3b8e5e34428B223fC3",
+        "total": 410732102.47333676,
+        "supply": 80103049.46430518,
+        "bridge": 330629053.0090316,
+        "initial": 500000000,
+        "burned": 89267897.52666323,
+        "burn_fee": 10000000000
+      },
+      "binance": {
+        "address": "bnb1esdfkkddv0sa5w7njk080rwuda47k3me3nxk75",
+        "total": 500000000,
+        "bridge": 467664120.75583875,
+        "supply": 32335879.24416125,
+        "burn_fee": 1000000000
+      }
+    }
+  }
+}

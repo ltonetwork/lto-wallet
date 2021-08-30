@@ -77,23 +77,15 @@ export class WalletServiceImpl implements WalletService {
     @Inject(AMOUNT_DIVIDER) private amountDivider: number,
     @Inject(DEFAULT_TRANSFER_FEE) private defaultTransferFee: number
   ) {
-    // @todo: make wallet work with ledger account as well
-    this.address$ = auth.ledgerAccount$.pipe(
-      filter((ledger): ledger is ILedgerAccount => !!ledger),
-      map(ledger => ledger.address),
-      switchMapTo(auth.wallet$),
-      filter((wallet): wallet is Account => !!wallet),
-      map(wallet => wallet.address)
+    this.address$ = merge(auth.wallet$, auth.ledgerAccount$).pipe(
+      filter((account): account is Account | ILedgerAccount => !!account),
+      map(account => account.address)
     );
 
-    // @todo: this seems complicated. test and see if can improve
     this.update$ = merge(this.polling$, this.manualUpdate$).pipe(
-      switchMapTo(auth.ledgerAccount$),
-      filter((ledger): ledger is ILedgerAccount => !!ledger),
-      map(ledger => ledger.address),
-      switchMapTo(auth.wallet$),
-      filter((wallet): wallet is Account => !!wallet),
-      map(wallet => wallet.address),
+      switchMapTo(merge(auth.wallet$, auth.ledgerAccount$)),
+      filter((account): account is Account | ILedgerAccount => !!account),
+      map(account => account.address),
       shareReplay(1)
     );
 
@@ -218,16 +210,34 @@ export class WalletServiceImpl implements WalletService {
 
   async transfer(data: ITransferPayload) {
     const { fee, amount } = data;
-    const wallet: any = await toPromise(this.auth.wallet$);
-    await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
-      'transfer',
-      {
-        ...data,
-        fee: Math.round(fee * this.amountDivider),
-        amount: Math.round(amount * this.amountDivider)
-      },
-      wallet.getSignKeys()
-    );
+    const ledger = await toPromise(this.auth.ledgerAccount$);
+
+    if (ledger) {
+      // @todo: broadcast transfer with ledger signature
+      // await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
+      //   'transfer',
+      //   {
+      //     ...data,
+      //     fee: Math.round(fee * this.amountDivider),
+      //     amount: Math.round(amount * this.amountDivider)
+      //   },
+      //   {}
+      // );
+    }
+    else {
+      // @todo: broadcast transfer with wallet signature
+      const wallet: any = await toPromise(this.auth.wallet$);
+      await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
+        'transfer',
+        {
+          ...data,
+          fee: Math.round(fee * this.amountDivider),
+          amount: Math.round(amount * this.amountDivider)
+        },
+        wallet.getSignKeys()
+      );
+    }
+
     // Trigger update
     this.manualUpdate$.next();
   }

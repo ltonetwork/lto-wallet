@@ -107,6 +107,7 @@
               "qrcode",
               "lto-ledger-js-unofficial-test",
               "lto-api/raw/libs/blake2b",
+              "@lto-network/lto-transactions",
               "js-sha256"
            ]
           },

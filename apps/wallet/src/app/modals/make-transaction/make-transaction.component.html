@@ -11,10 +11,14 @@
       <input matInput formControlName="fee" />
     </mat-form-field>
   </form>
+  <div fxLayout="row" fxLayoutAlign="center center" class="loading" *ngIf="(ledgerConnected$ | async) && loading">
+    <h3>Please review the transaction on Ledger device</h3>
+    <mat-progress-spinner mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
-  <button mat-button matDialogClose>Cancel</button>
-  <button mat-button (click)="send()" [disabled]="sendForm?.invalid">Send</button>
+  <button mat-button [disabled]="loading" matDialogClose>Cancel</button>
+  <button mat-button (click)="send()" [disabled]="sendForm?.invalid || loading">Send</button>
 </mat-dialog-actions>
 
 <ng-template #emptyTpl>

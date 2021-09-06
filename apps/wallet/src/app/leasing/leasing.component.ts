@@ -62,7 +62,7 @@ export class LeasingComponent implements OnInit {
       return;
     }
     try {
-      await this.wallet.lease(leaseData.recipient, leaseData.amount, leaseData.fee);
+      await this.wallet.lease({ ...leaseData });
       this.notify('New lease created');
     } catch (Err) {
       this.notify('Cannot lease');

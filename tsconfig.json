@@ -20,7 +20,8 @@
       "@legalthings-one/platform": ["libs/platform/src"],
       "@explorer": ["apps/explorer/src/app"],
       "@explorer/*": ["apps/explorer/src/app/*"],
-      "@wallet/*": ["apps/wallet/src/app/*"]
+      "@wallet/*": ["apps/wallet/src/app/*"],
+      "crypto": [ "node_modules/crypto-js" ]
     }
   }
 }

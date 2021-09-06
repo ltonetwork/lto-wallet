@@ -47,10 +47,8 @@ export class AuthServiceImpl implements AuthService {
     );
 
     this.ledger.connected$.subscribe(async connected => {
-      if (connected) {
-        // @todo: get accounts from differenty IDs (0-10)
-        const ledgerData = await this.ledger.getUserDataById(0);
-        this.ledgerAccount$.next(ledgerData);
+      if (connected && this.ledger.userData) {
+        this.ledgerAccount$.next(this.ledger.userData);
       }
     });
   }

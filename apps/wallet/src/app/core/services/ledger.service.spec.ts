@@ -13,6 +13,7 @@ describe('Core/LedgerService', () => {
     ledger = TestBed.get(LedgerService);
   });
 
+  // @todo: make useful tests
   it('should create', () => {
     expect(ledger).toBeTruthy();
   });

@@ -6,12 +6,12 @@ import { Observable, Subscription } from 'rxjs';
 import {
   WalletService,
   IBalance,
-  formControlErrors,
   FeeService,
 } from '../../core';
 import { take, withLatestFrom } from 'rxjs/operators';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
 import { MakeTransactionService } from '@wallet/core/services/make-transaction.service';
+import { LedgerService } from '@wallet/core/services/ledger.service';
 
 interface FormValue {
   transfers: FormTransfersValue[];
@@ -31,10 +31,13 @@ interface FormTransfersValue {
 })
 export class MakeTransactionComponent implements OnInit {
 
+  loading: boolean = false;
+  
   sendForm: FormGroup | null = null;
   private _recipientsCountSubscription: Subscription;
 
   balance$!: Observable<IBalance>;
+  ledgerConnected$: Observable<boolean>;
 
   constructor(
     public dialogRef: MatDialogRef<any>,
@@ -43,7 +46,9 @@ export class MakeTransactionComponent implements OnInit {
     private transactionConfirmDialog: TransactionConfirmDialog,
     private _feeService: FeeService,
     private _transactionService: MakeTransactionService,
+    private _ledgerService: LedgerService,
   ) {
+    this.ledgerConnected$ = this._ledgerService.connected$;
     this._recipientsCountSubscription = this._transactionService.transfersCount$.subscribe(transfers => this.updateDialogSize(transfers));
   }
 
@@ -71,6 +76,8 @@ export class MakeTransactionComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     try {
       if (formValue.transfers.length === 1) {
         // Send simple transaction
@@ -86,6 +93,8 @@ export class MakeTransactionComponent implements OnInit {
     } catch (error) {
       this.snackbar.open('Transaction error', 'DISMISS', { duration: 3000 });
     }
+
+    this.loading = false;
     this.dialogRef.close();
   }
 

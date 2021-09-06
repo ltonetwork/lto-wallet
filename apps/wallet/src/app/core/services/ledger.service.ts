@@ -6,20 +6,24 @@ import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 import { WavesLedger } from 'lto-ledger-js-unofficial-test';
 
-import { LTO_NETWORK_BYTE } from '@wallet/tokens';
+import { TransactionTypes } from '@wallet/core/transaction-types';
+import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '@wallet/tokens';
+
+import { transferSchemaV2 } from '@lto-network/lto-transactions/dist/parseSerialize/schemas';
+import { transfer, broadcast, ITransferTransaction, WithId, ITransaction, parseSerialize, TTx } from '@lto-network/lto-transactions';
 
 enum NetworkCode {
   MAINNET = 76,
-  TESTNET = 84
+  TESTNET = 84,
 }
 
 export interface LedgerOptions {
-  debug: boolean | undefined;
+  debug?: boolean;
   openTimeout: number;
   listenTimeout: number;
   exchangeTimeout: number;
-  networkCode: NetworkCode; 
-  transport: typeof TransportU2F | TransportWebUSB
+  networkCode: NetworkCode;
+  transport: typeof TransportU2F | TransportWebUSB;
 }
 
 export interface ILedgerAccount {
@@ -29,20 +33,32 @@ export interface ILedgerAccount {
   publicKey: string;
 }
 
+export interface IUnsignedTransaction {
+  fee: number;
+  type: number;
+  amount: number;
+  recipient: string;
+  timestamp: number;
+  attachment: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class LedgerServiceImpl implements LedgerService {
-  private ledger!: WavesLedger;
+  private ledger?: WavesLedger;
   private networkCode: NetworkCode;
   private ledgerOptions: LedgerOptions;
   private transport: typeof TransportU2F | TransportWebUSB;
 
+  public userId: number = 0;
+  public userData?: ILedgerAccount;
   public connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
-    @Inject(LTO_NETWORK_BYTE) networkByte: string,
     private platform: Platform,
+    @Inject(LTO_NETWORK_BYTE) networkByte: string,
+    @Inject(LTO_PUBLIC_API) private nodeUrl: string,
   ) {
     this.transport = TransportWebUSB;
     this.networkCode = networkByte.charCodeAt(0);
@@ -61,28 +77,71 @@ export class LedgerServiceImpl implements LedgerService {
       transport: this.transport,
     };
   }
-  
+
   public async connect(): Promise<void> {
     this.ledger = new WavesLedger(this.ledgerOptions);
 
     // wait until device is connected
-    await this.ledger.getUserDataById(0, false);
+    const ledgerData = await this.ledger.getUserDataById(this.userId, false);
+    this.userData = {
+      ...ledgerData,
+      name: `Ledger Wallet ${this.userId}`,
+    };
+
     this.connected$.next(true);
   }
 
   public async disconnect(): Promise<void> {
+    if (!this.ledger) throw new Error('Ledger not connected');
+
     await this.ledger.disconnect();
     this.connected$.next(false);
   }
 
-  public async getUserDataById(addressId: number = 0): Promise<ILedgerAccount> {
-    const ledgerData = await this.ledger.getUserDataById(addressId, false);
-    return {
-      id: ledgerData.id,
-      name: 'Ledger Wallet',
-      address: ledgerData.address,
-      publicKey: ledgerData.publicKey,
+  // @todo: remove any
+  public async signAndBroadcast(data: IUnsignedTransaction): Promise<any> {
+    if (!this.ledger) throw new Error('Ledger not connected');
+    if (!this.userData) throw new Error('Error with Ledger address data');
+
+    let serializer;
+    let version: number = 2;
+    let unsignedTransaction: ITransaction & WithId;
+
+    // @todo: add the rest of transaction types
+    switch (data.type) {
+      case TransactionTypes.TRANSFER:
+        unsignedTransaction = transfer({
+          ...data,
+          version,
+          senderPublicKey: this.userData.publicKey,
+        } as ITransferTransaction);
+
+        console.log('unsignedTransaction: ', unsignedTransaction)
+  
+        serializer = parseSerialize.binary.serializerFromSchema(transferSchemaV2);
+        break;
+      default:
+        throw new Error('Unknown transaction type');
+    }
+
+    const byteTransaction = serializer(unsignedTransaction);
+
+    console.log('byteTransaction: ', byteTransaction);
+
+    // @todo: this is not working for some reason...
+    const signature = await this.ledger.signTransaction(this.userId, { precision: 1 }, byteTransaction, 1);
+
+    console.log('signature: ', signature);
+
+    const signedTransaction = {
+      ...data,
+      version,
+      proofs: [signature],
+      senderPublicKey: this.userData.publicKey,
     };
+
+    // const result = await broadcast(signedTransaction, this.nodeUrl);
+    // console.log('result: ', result);
   }
 }
 
@@ -92,9 +151,11 @@ export abstract class LedgerService {
     useClass: LedgerServiceImpl,
   };
 
+  public userId: number = 0;
+  public userData?: ILedgerAccount;
   public abstract connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  public abstract connect(): Promise<void>
-  public abstract disconnect(): Promise<void>
-  public abstract getUserDataById(addressId: number): Promise<ILedgerAccount>
+  public abstract connect(): Promise<void>;
+  public abstract disconnect(): Promise<void>;
+  public abstract signAndBroadcast(data: IUnsignedTransaction): Promise<any>;
 }

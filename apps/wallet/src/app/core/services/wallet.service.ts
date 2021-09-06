@@ -16,7 +16,7 @@ import { TransactionTypes } from '../transaction-types';
 import { BridgeService, TokenType } from './bridge.service';
 import { transactionsFilter, toPromise } from '../utils';
 import { AMOUNT_DIVIDER, DEFAULT_TRANSFER_FEE } from '../../tokens';
-import { ILedgerAccount } from './ledger.service';
+import { LedgerService, ILedgerAccount } from './ledger.service';
 
 export interface IBalance {
   regular: number;
@@ -41,6 +41,17 @@ export interface IMassTransferPayload {
   fee: number;
   attachment?: string;
   transfers: IMassTransfer[];
+}
+
+export interface ILeasePayload {
+  recipient: string;
+  amount: number;
+  fee: number;
+}
+
+export interface IAnchorPayload {
+  hash: string;
+  fee: number;
 }
 
 export interface IMassTransfer {
@@ -74,6 +85,7 @@ export class WalletServiceImpl implements WalletService {
     private publicNode: PublicNode,
     private auth: AuthService,
     private bridgeService: BridgeService,
+    private ledgerService: LedgerService,
     @Inject(AMOUNT_DIVIDER) private amountDivider: number,
     @Inject(DEFAULT_TRANSFER_FEE) private defaultTransferFee: number
   ) {
@@ -209,24 +221,28 @@ export class WalletServiceImpl implements WalletService {
   }
 
   async transfer(data: ITransferPayload) {
-    const { fee, amount } = data;
+    const { fee, amount, recipient } = data;
+
+    const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
+    if (!wallet && !ledger) throw new Error('No account connected');
+
     if (ledger) {
-      // @todo: broadcast transfer with ledger signature
-      // await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
-      //   'transfer',
-      //   {
-      //     ...data,
-      //     fee: Math.round(fee * this.amountDivider),
-      //     amount: Math.round(amount * this.amountDivider)
-      //   },
-      //   {}
-      // );
-    }
-    else {
-      // @todo: broadcast transfer with wallet signature
-      const wallet: any = await toPromise(this.auth.wallet$);
+      try {
+        await this.ledgerService.signAndBroadcast({
+          recipient,
+          attachment: '',
+          timestamp: Date.now(),
+          type: TransactionTypes.TRANSFER,
+          fee: Math.round(fee * this.amountDivider),
+          amount: Math.round(amount * this.amountDivider),
+        });
+      } catch (error) {
+        console.error(error);
+      }
+
+    } else if (wallet) {
       await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
         'transfer',
         {
@@ -280,12 +296,13 @@ export class WalletServiceImpl implements WalletService {
     return this.transfer(data);
   }
 
-  async lease(recipient: string, amount: number, fee: number): Promise<any> {
+  async lease(data: ILeasePayload): Promise<any> {
+    const { fee, amount } = data;
     const wallet: any = await toPromise(this.auth.wallet$);
     await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
       'lease',
       {
-        recipient,
+        ...data,
         fee: Math.round(fee * this.amountDivider),
         amount: Math.round(amount * this.amountDivider)
       },
@@ -307,7 +324,8 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
-  async anchor(hash: string, fee: number) {
+  async anchor(data: IAnchorPayload) {
+    const { fee, hash } = data;
     const wallet: any = await toPromise(this.auth.wallet$);
 
     await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
@@ -364,9 +382,8 @@ export abstract class WalletService {
 
   abstract transfer(data: ITransferPayload): Promise<void>;
   abstract massTransfer(data: IMassTransferPayload): Promise<void>;
-  abstract lease(recipient: string, amount: number, fee: number): Promise<any>;
+  abstract lease(data: ILeasePayload): Promise<any>;
   abstract cancelLease(transactionId: string): Promise<any>;
   abstract withdraw(address: string, ammount: number, fee: number, captha: string, tokenType?: TokenType, attachment?: string): Promise<any>;
-
-  abstract anchor(hash: string, fee: number): Promise<void>;
+  abstract anchor(data: IAnchorPayload): Promise<void>;
 }

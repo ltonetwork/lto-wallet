@@ -9,8 +9,7 @@ import { WavesLedger } from 'lto-ledger-js-unofficial-test';
 import { TransactionTypes } from '@wallet/core/transaction-types';
 import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '@wallet/tokens';
 
-import { transferSchemaV2 } from '@lto-network/lto-transactions/dist/parseSerialize/schemas';
-import { transfer, broadcast, ITransferTransaction, WithId, ITransaction, parseSerialize, TTx } from '@lto-network/lto-transactions';
+import { transfer, broadcast, ITransferTransaction, WithId, ITransaction, parseSerialize } from '@lto-network/lto-transactions';
 
 enum NetworkCode {
   MAINNET = 76,
@@ -98,13 +97,14 @@ export class LedgerServiceImpl implements LedgerService {
     this.connected$.next(false);
   }
 
-  // @todo: remove any
-  public async signAndBroadcast(data: IUnsignedTransaction): Promise<any> {
+  public async signAndBroadcast(data: IUnsignedTransaction): Promise<void> {
     if (!this.ledger) throw new Error('Ledger not connected');
     if (!this.userData) throw new Error('Error with Ledger address data');
 
     let serializer;
-    let version: number = 2;
+    // @todo: for now, ledger signing only works with v1, need to add more recent versions to it (v2, v3)
+    // https://github.com/iicc1/ledger-app-lto/issues/3
+    let version: number = 1;
     let unsignedTransaction: ITransaction & WithId;
 
     // @todo: add the rest of transaction types
@@ -116,22 +116,19 @@ export class LedgerServiceImpl implements LedgerService {
           senderPublicKey: this.userData.publicKey,
         } as ITransferTransaction);
 
-        console.log('unsignedTransaction: ', unsignedTransaction)
-  
-        serializer = parseSerialize.binary.serializerFromSchema(transferSchemaV2);
+        let schema;
+
+        if (version === 1) schema = parseSerialize.schemas.transferSchemaV1;
+        else schema = parseSerialize.schemas.transferSchemaV2;
+
+        serializer = parseSerialize.binary.serializerFromSchema(schema);
         break;
       default:
         throw new Error('Unknown transaction type');
     }
 
     const byteTransaction = serializer(unsignedTransaction);
-
-    console.log('byteTransaction: ', byteTransaction);
-
-    // @todo: this is not working for some reason...
-    const signature = await this.ledger.signTransaction(this.userId, { precision: 1 }, byteTransaction, 1);
-
-    console.log('signature: ', signature);
+    const signature = await this.ledger.signTransaction(this.userId, { precision: 1 }, byteTransaction);
 
     const signedTransaction = {
       ...data,
@@ -140,8 +137,7 @@ export class LedgerServiceImpl implements LedgerService {
       senderPublicKey: this.userData.publicKey,
     };
 
-    // const result = await broadcast(signedTransaction, this.nodeUrl);
-    // console.log('result: ', result);
+    await broadcast(signedTransaction, this.nodeUrl);
   }
 }
 

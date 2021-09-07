@@ -221,7 +221,7 @@ export class WalletServiceImpl implements WalletService {
   }
 
   async transfer(data: ITransferPayload) {
-    const { fee, amount, recipient } = data;
+    const { fee, amount } = data;
 
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
@@ -229,19 +229,15 @@ export class WalletServiceImpl implements WalletService {
     if (!wallet && !ledger) throw new Error('No account connected');
 
     if (ledger) {
-      try {
-        await this.ledgerService.signAndBroadcast({
-          recipient,
-          attachment: '',
-          timestamp: Date.now(),
-          type: TransactionTypes.TRANSFER,
-          fee: Math.round(fee * this.amountDivider),
-          amount: Math.round(amount * this.amountDivider),
-        });
-      } catch (error) {
-        console.error(error);
-      }
-
+      // @todo: check for attachment
+      await this.ledgerService.signAndBroadcast({
+        ...data,
+        timestamp: Date.now(),
+        type: TransactionTypes.TRANSFER,
+        attachment: data.attachment || '',
+        fee: Math.round(fee * this.amountDivider),
+        amount: Math.round(amount * this.amountDivider),
+      });
     } else if (wallet) {
       await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
         'transfer',
@@ -258,6 +254,7 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
+  // @todo: make it work with ledger
   async massTransfer(data: IMassTransferPayload) {
     const { fee, attachment } = data;
     const transfers = data.transfers.map(transfer => ({
@@ -278,6 +275,7 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
+  // @todo: test with ledger?
   async withdraw(recipient: string, amount: number, fee: number, captha: string, tokenType: TokenType = 'LTO20', attachment?: string) {
     // Create a bridge
     const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient, captha, tokenType));
@@ -296,6 +294,7 @@ export class WalletServiceImpl implements WalletService {
     return this.transfer(data);
   }
 
+  // @todo: make it work with ledger
   async lease(data: ILeasePayload): Promise<any> {
     const { fee, amount } = data;
     const wallet: any = await toPromise(this.auth.wallet$);
@@ -311,6 +310,7 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
+  // @todo: make it work with ledger
   async cancelLease(transactionId: string): Promise<any> {
     const wallet: any = await toPromise(this.auth.wallet$);
     await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
@@ -324,6 +324,7 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
+  // @todo: make it work with ledger
   async anchor(data: IAnchorPayload) {
     const { fee, hash } = data;
     const wallet: any = await toPromise(this.auth.wallet$);

@@ -1200,9 +1200,9 @@
     "u2f-api" "0.2.7"
 
 "@ledgerhq/hw-transport-webusb@^6.1.0":
-  "integrity" "sha512-zDwQ6JZOvZYdxxPvwqbG21A4JWEV5XGmhwBIGA/DmZ50mdZ/Tq4q+Eo9GJxoU3+j0UHidKhfmPzbnJfOjfYADQ=="
-  "resolved" "https://registry.npmjs.org/@ledgerhq/hw-transport-webusb/-/hw-transport-webusb-6.3.0.tgz"
-  "version" "6.3.0"
+  "integrity" "sha512-ovY2IzbmAFsVgym7ftLU4c36Me5DHuM41rdI7XipMRd1COvnYNiutqAMym2RLk5IS2LRPAqTWiWgt86Oy6DGvQ=="
+  "resolved" "https://registry.npmjs.org/@ledgerhq/hw-transport-webusb/-/hw-transport-webusb-6.6.0.tgz"
+  "version" "6.6.0"
   dependencies:
     "@ledgerhq/devices" "^6.3.0"
     "@ledgerhq/errors" "^6.2.0"
@@ -1955,9 +1955,9 @@
   "version" "1.10.1"
 
 "axios@^0.21.1":
-  "integrity" "sha512-JtoZ3Ndke/+Iwt5n+BgSli/3idTvpt5OjKyoCmz4LX5+lPiY5l7C1colYezhlxThjNa/NhngCUWZSZFypIFuaA=="
-  "resolved" "https://registry.npmjs.org/axios/-/axios-0.21.3.tgz"
-  "version" "0.21.3"
+  "integrity" "sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.21.4.tgz"
+  "version" "0.21.4"
   dependencies:
     "follow-redirects" "^1.14.0"
 

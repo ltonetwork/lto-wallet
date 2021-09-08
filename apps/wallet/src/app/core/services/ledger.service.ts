@@ -153,5 +153,5 @@ export abstract class LedgerService {
 
   public abstract connect(): Promise<void>;
   public abstract disconnect(): Promise<void>;
-  public abstract signAndBroadcast(data: IUnsignedTransaction): Promise<any>;
+  public abstract signAndBroadcast(data: IUnsignedTransaction): Promise<void>;
 }

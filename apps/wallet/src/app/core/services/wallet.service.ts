@@ -221,63 +221,78 @@ export class WalletServiceImpl implements WalletService {
   }
 
   async transfer(data: ITransferPayload) {
-    const { fee, amount } = data;
-
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
     if (!wallet && !ledger) throw new Error('No account connected');
 
+    const fee = Math.round(data.fee * this.amountDivider);
+    const amount = Math.round(data.amount * this.amountDivider);
+
     if (ledger) {
-      // @todo: check for attachment
       await this.ledgerService.signAndBroadcast({
         ...data,
         timestamp: Date.now(),
         type: TransactionTypes.TRANSFER,
         attachment: data.attachment || '',
-        fee: Math.round(fee * this.amountDivider),
-        amount: Math.round(amount * this.amountDivider),
+        fee,
+        amount,
       });
     } else if (wallet) {
       await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
         'transfer',
         {
           ...data,
-          fee: Math.round(fee * this.amountDivider),
-          amount: Math.round(amount * this.amountDivider)
+          fee,
+          amount,
         },
         wallet.getSignKeys()
       );
     }
 
-    // Trigger update
     this.manualUpdate$.next();
   }
 
-  // @todo: make it work with ledger
   async massTransfer(data: IMassTransferPayload) {
-    const { fee, attachment } = data;
+    const wallet = await toPromise(this.auth.wallet$);
+    const ledger = await toPromise(this.auth.ledgerAccount$);
+    
+    if (!wallet && !ledger) throw new Error('No account connected');
+    
+    const { attachment } = data;
+
+    const fee = Math.round(data.fee * this.amountDivider);
     const transfers = data.transfers.map(transfer => ({
       recipient: transfer.recipient,
       amount: transfer.amount * this.amountDivider
     }));
-    const wallet: any = await toPromise(this.auth.wallet$);
-    await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
-      'massTransfer',
-      {
+
+    if (ledger) {
+      await this.ledgerService.signAndBroadcast({
+        ...data,
         transfers,
-        fee: Math.round(fee * this.amountDivider),
-        attachment
-      },
-      wallet.getSignKeys()
-    );
-    // Trigger update
+        timestamp: Date.now(),
+        type: TransactionTypes.MASS_TRANSFER,
+        attachment: data.attachment || '',
+        fee,
+      });
+    } else if (wallet) {
+      await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
+        'massTransfer',
+        {
+          transfers,
+          fee,
+          attachment
+        },
+        wallet.getSignKeys()
+      );
+    }
+
     this.manualUpdate$.next();
   }
 
   // @todo: test with ledger?
   async withdraw(recipient: string, amount: number, fee: number, captha: string, tokenType: TokenType = 'LTO20', attachment?: string) {
-    // Create a bridge
     const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient, captha, tokenType));
 
     const data: any = {
@@ -290,54 +305,97 @@ export class WalletServiceImpl implements WalletService {
       data.attachment = attachment;
     }
 
-    // Make a transaction
     return this.transfer(data);
   }
 
-  // @todo: make it work with ledger
   async lease(data: ILeasePayload): Promise<any> {
-    const { fee, amount } = data;
-    const wallet: any = await toPromise(this.auth.wallet$);
-    await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
-      'lease',
-      {
+    const wallet = await toPromise(this.auth.wallet$);
+    const ledger = await toPromise(this.auth.ledgerAccount$);
+
+    if (!wallet && !ledger) throw new Error('No account connected');
+
+    const fee = Math.round(data.fee * this.amountDivider);
+    const amount = Math.round(data.amount * this.amountDivider);
+
+    if (ledger) {
+      await this.ledgerService.signAndBroadcast({
         ...data,
-        fee: Math.round(fee * this.amountDivider),
-        amount: Math.round(amount * this.amountDivider)
-      },
-      wallet.getSignKeys()
-    );
+        timestamp: Date.now(),
+        type: TransactionTypes.LEASING,
+        fee,
+        amount,
+      });
+    } else if (wallet) {
+      await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
+        'lease',
+        {
+          ...data,
+          fee,
+          amount,
+        },
+        wallet.getSignKeys()
+      );
+    }
+
     this.manualUpdate$.next();
   }
 
-  // @todo: make it work with ledger
   async cancelLease(transactionId: string): Promise<any> {
-    const wallet: any = await toPromise(this.auth.wallet$);
-    await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
-      'cancelLeasing',
-      {
+    const wallet = await toPromise(this.auth.wallet$);
+    const ledger = await toPromise(this.auth.ledgerAccount$);
+
+    if (!wallet && !ledger) throw new Error('No account connected');
+
+    if (ledger) {
+      await this.ledgerService.signAndBroadcast({
         transactionId,
-        fee: this.defaultTransferFee
-      },
-      wallet.getSignKeys()
-    );
+        timestamp: Date.now(),
+        type: TransactionTypes.CANCEL_LEASING,
+        fee: this.defaultTransferFee,
+      });
+    } else if (wallet) {
+      await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
+        'cancelLeasing',
+        {
+          transactionId,
+          fee: this.defaultTransferFee
+        },
+        wallet.getSignKeys()
+      );
+    }
+
     this.manualUpdate$.next();
   }
 
-  // @todo: make it work with ledger
   async anchor(data: IAnchorPayload) {
-    const { fee, hash } = data;
-    const wallet: any = await toPromise(this.auth.wallet$);
+    const wallet = await toPromise(this.auth.wallet$);
+    const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
-      'anchor',
-      {
-        fee: Math.round(fee * this.amountDivider),
-        anchors: [hash]
-      },
-      wallet.getSignKeys()
-    );
-    // Trigger update
+    if (!wallet && !ledger) throw new Error('No account connected');
+
+    const fee = Math.round(data.fee * this.amountDivider);
+    const anchors = [data.hash];
+
+    if (ledger) {
+      await this.ledgerService.signAndBroadcast({
+        ...data,
+        timestamp: Date.now(),
+        type: TransactionTypes.ANCHOR,
+        fee,
+        anchors,
+      });
+    } else if (wallet) {
+      await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
+        'anchor',
+        {
+          ...data,
+          fee,
+          anchors,
+        },
+        wallet.getSignKeys()
+      );
+    }
+
     this.manualUpdate$.next();
   }
 

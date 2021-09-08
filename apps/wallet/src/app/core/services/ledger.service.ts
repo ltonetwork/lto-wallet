@@ -9,7 +9,23 @@ import { WavesLedger } from 'lto-ledger-js-unofficial-test';
 import { TransactionTypes } from '@wallet/core/transaction-types';
 import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '@wallet/tokens';
 
-import { transfer, broadcast, ITransferTransaction, WithId, ITransaction, parseSerialize } from '@lto-network/lto-transactions';
+import {
+  anchor,
+  lease,
+  transfer,
+  broadcast,
+  cancelLease,
+  massTransfer,
+  parseSerialize,
+  ITransaction,
+  ILeaseTransaction,
+  IAnchorTransaction,
+  ICancelLeaseTransaction,
+  IMassTransferTransaction,
+  ITransferTransaction,
+  TTx,
+  WithId,
+} from '@lto-network/lto-transactions';
 
 enum NetworkCode {
   MAINNET = 76,
@@ -35,10 +51,13 @@ export interface ILedgerAccount {
 export interface IUnsignedTransaction {
   fee: number;
   type: number;
-  amount: number;
-  recipient: string;
+  amount?: number;
+  recipient?: string;
   timestamp: number;
-  attachment: string;
+  attachment?: string;
+  transactionId?: string;
+  anchors?: string[];
+  transfers?: { recipient: string, amount: number }[]
 }
 
 @Injectable({
@@ -101,43 +120,93 @@ export class LedgerServiceImpl implements LedgerService {
     if (!this.ledger) throw new Error('Ledger not connected');
     if (!this.userData) throw new Error('Error with Ledger address data');
 
-    let serializer;
-    // @todo: for now, ledger signing only works with v1, need to add more recent versions to it (v2, v3)
-    // https://github.com/iicc1/ledger-app-lto/issues/3
-    let version: number = 1;
+    let schema, version;
     let unsignedTransaction: ITransaction & WithId;
+    const senderPublicKey = this.userData.publicKey;
 
-    // @todo: add the rest of transaction types
+    // @todo: Test all transaction types
     switch (data.type) {
       case TransactionTypes.TRANSFER:
+        if (!data.recipient) throw new Error('Property "recipient" is undefined');
+        if (!data.amount) throw new Error('Property "amount" is undefined');
+        if (!data.attachment) data.attachment = '';
+
+        // @todo: for now, ledger signing only works with transfer v1, need to add more recent versions to it (v2, v3)
+        // https://github.com/iicc1/ledger-app-lto/issues/3
+        version = 1;
         unsignedTransaction = transfer({
           ...data,
           version,
-          senderPublicKey: this.userData.publicKey,
+          senderPublicKey,
         } as ITransferTransaction);
-
-        let schema;
 
         if (version === 1) schema = parseSerialize.schemas.transferSchemaV1;
         else schema = parseSerialize.schemas.transferSchemaV2;
+        break;
+      case TransactionTypes.MASS_TRANSFER:
+        if (!data.transfers) throw new Error('Transfers property is undefined');
 
-        serializer = parseSerialize.binary.serializerFromSchema(schema);
+        version = 1;
+        unsignedTransaction = massTransfer({
+          ...data,
+          version,
+          senderPublicKey,
+        } as IMassTransferTransaction);
+
+        schema = parseSerialize.schemas.massTransferSchemaV1;
+        break;
+      case TransactionTypes.LEASING:
+        if (!data.recipient) throw new Error('Property "recipient" is undefined');
+        if (!data.amount) throw new Error('Property "amount" is undefined');
+
+        version = 2;
+        unsignedTransaction = lease({
+          ...data,
+          version,
+          senderPublicKey,
+        } as ILeaseTransaction);
+
+        schema = parseSerialize.schemas.leaseSchemaV2;
+        break;
+      case TransactionTypes.CANCEL_LEASING:
+        if (!data.transactionId) throw new Error('Property "transactionId" is undefined');
+
+        version = 2;
+        unsignedTransaction = cancelLease({
+          ...data,
+          version,
+          senderPublicKey
+        } as ICancelLeaseTransaction);
+
+        schema = parseSerialize.schemas.cancelLeaseSchemaV2;
+      case TransactionTypes.ANCHOR:
+        if (!data.anchors) throw new Error('Property "anchors" is undefined');
+
+        version = 1;
+        unsignedTransaction = anchor({
+          ...data,
+          version,
+          senderPublicKey
+        } as IAnchorTransaction);
+
+        schema = parseSerialize.schemas.anchorSchemaV1;
         break;
       default:
         throw new Error('Unknown transaction type');
     }
 
+    const serializer = parseSerialize.binary.serializerFromSchema(schema);
     const byteTransaction = serializer(unsignedTransaction);
     const signature = await this.ledger.signTransaction(this.userId, { precision: 1 }, byteTransaction);
 
     const signedTransaction = {
       ...data,
       version,
+      senderPublicKey,
       proofs: [signature],
-      senderPublicKey: this.userData.publicKey,
     };
 
-    await broadcast(signedTransaction, this.nodeUrl);
+    await broadcast(signedTransaction as TTx<string | number>, this.nodeUrl);
   }
 }
 

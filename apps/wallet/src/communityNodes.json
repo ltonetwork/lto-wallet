@@ -40,9 +40,9 @@
          "address":"3JnYB1TzHYS3gYDvczYtNUnmEbJsgmsdWY3",
          "sharing":"97.5%",
          "name":"LunarWhale",
-         "website":"https://t.me/LunarWhale",
+         "website":"https://t.me/LunarWhale_LTO_Node",
          "payoutSchedule":"Every weekend",
-         "tgContact":"@floydvet",
+         "tgContact":"@floydvulcan",
          "hide":false
       },
       {
@@ -142,14 +142,15 @@
          "website":"https://t.me/ltostreamnode",
          "payoutSchedule":"Every 25.000 blocks",
          "tgContact":"@Beekmeister",
-         "hide":false
+         "hide":true,
+         "comment": "Hidden because node quits service"
       },
       {
          "address":"3JgmLfWZXs1g36V8zFugxw7dHbDREuzSUAm",
          "sharing":"97.5%",
          "name":"VIDT Community Node",
          "website":"https://t.me/VIDTokenCommunity",
-         "payoutSchedule":"Every monday",
+         "payoutSchedule":"Every 10.000 blocks",
          "tgContact":"@Wayne031",
          "hide":false
       },
@@ -161,7 +162,7 @@
          "payoutSchedule":"Daily | min 100 LTO in pool",
          "tgContact":"@bbjansen",
          "hide":true,
-         "_comment": "Hidden because of compromised server"
+         "comment": "Hidden because of compromised server"
       },
       {
          "address":"3JbXLTSZoU5os2JsTkMorhvvna6Z2dvhBUC",
@@ -215,7 +216,8 @@
          "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
          "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
          "tgContact":"@RedPhoenix7",
-         "hide":false
+         "hide":true,
+         "comment": "Hidden because node merged to Phoenixnest node"
       },
       {
          "address":"3JkihPXS5iPs8xDKcFQmhR8TVcAmDRUZpyx",

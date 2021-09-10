@@ -11,7 +11,7 @@
     </mat-card-content>
   </mat-card>
   <mat-card *ngIf="ledgerAccount">
-    <mat-card-title>Account: {{ ledgerAccount?.name }} {{ ledgerAccount?.id }}</mat-card-title>
+    <mat-card-title>Account: {{ ledgerAccount?.name }}</mat-card-title>
     <mat-card-content>
       <div class="items" fxLayout="column" fxLayoutGap="16px">
         <lto-copyable-text label="Your address" [text]="ledgerAccount?.address"></lto-copyable-text>

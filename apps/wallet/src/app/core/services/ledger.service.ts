@@ -18,14 +18,10 @@ import {
   massTransfer,
   parseSerialize,
   ITransaction,
-  ILeaseTransaction,
-  IAnchorTransaction,
-  ICancelLeaseTransaction,
-  IMassTransferTransaction,
-  ITransferTransaction,
   TTx,
   WithId,
 } from '@lto-network/lto-transactions';
+import { TRANSACTION_TYPE } from '@lto-network/lto-transactions/dist/transactions';
 
 enum NetworkCode {
   MAINNET = 76,
@@ -120,11 +116,10 @@ export class LedgerServiceImpl implements LedgerService {
     if (!this.ledger) throw new Error('Ledger not connected');
     if (!this.userData) throw new Error('Error with Ledger address data');
 
-    let schema, version;
+    let schema, version, rawTransaction;
     let unsignedTransaction: ITransaction & WithId;
     const senderPublicKey = this.userData.publicKey;
 
-    // @todo: Test all transaction types
     switch (data.type) {
       case TransactionTypes.TRANSFER:
         if (!data.recipient) throw new Error('Property "recipient" is undefined');
@@ -134,24 +129,42 @@ export class LedgerServiceImpl implements LedgerService {
         // @todo: for now, ledger signing only works with transfer v1, need to add more recent versions to it (v2, v3)
         // https://github.com/iicc1/ledger-app-lto/issues/3
         version = 1;
-        unsignedTransaction = transfer({
-          ...data,
-          version,
-          senderPublicKey,
-        } as ITransferTransaction);
 
-        if (version === 1) schema = parseSerialize.schemas.transferSchemaV1;
-        else schema = parseSerialize.schemas.transferSchemaV2;
+        rawTransaction = {
+          version,
+          fee: data.fee,
+          senderPublicKey,
+          amount: data.amount,
+          recipient: data.recipient,
+          timestamp: data.timestamp,
+          attachment: data.attachment,
+          type: data.type as unknown as TRANSACTION_TYPE.TRANSFER,
+        };
+
+        unsignedTransaction = transfer(rawTransaction);
+
+        // @todo: update schema once lto-transactions PR is merged
+        schema = parseSerialize.schemas.transferSchemaV1;
+        // schema = parseSerialize.schemas.transferSchemaLedger;
         break;
       case TransactionTypes.MASS_TRANSFER:
+        // @todo: signs but errors on broadcast (incorrect proof) - possibly mismatched params?
         if (!data.transfers) throw new Error('Transfers property is undefined');
+        if (!data.attachment) data.attachment = '';
 
         version = 1;
-        unsignedTransaction = massTransfer({
-          ...data,
+
+        rawTransaction = {
           version,
           senderPublicKey,
-        } as IMassTransferTransaction);
+          fee: data.fee,
+          transfers: data.transfers,
+          timestamp: data.timestamp,
+          attachment: data.attachment,
+          type: data.type as unknown as TRANSACTION_TYPE.MASS_TRANSFER,
+        };
+
+        unsignedTransaction = massTransfer(rawTransaction);
 
         schema = parseSerialize.schemas.massTransferSchemaV1;
         break;
@@ -159,35 +172,65 @@ export class LedgerServiceImpl implements LedgerService {
         if (!data.recipient) throw new Error('Property "recipient" is undefined');
         if (!data.amount) throw new Error('Property "amount" is undefined');
 
-        version = 2;
-        unsignedTransaction = lease({
-          ...data,
+        // @todo: for now, ledger signing only works with leasing v1, need to add more recent versions to it (v2, v3)
+        // https://github.com/iicc1/ledger-app-lto/issues/3
+        version = 1;
+
+        rawTransaction = {
           version,
           senderPublicKey,
-        } as ILeaseTransaction);
+          fee: data.fee,
+          amount: data.amount,
+          recipient: data.recipient,
+          timestamp: data.timestamp,
+          type: data.type as unknown as TRANSACTION_TYPE.LEASE,
+        };
 
+        unsignedTransaction = lease(rawTransaction);
+
+        // @todo: update schema once lto-transactions PR is merged
         schema = parseSerialize.schemas.leaseSchemaV2;
+        // schema = parseSerialize.schemas.leaseSchemaLedger;
         break;
       case TransactionTypes.CANCEL_LEASING:
+        // @todo: signs but errors on broadcast (incorrect proof) - possibly mismatched params?
         if (!data.transactionId) throw new Error('Property "transactionId" is undefined');
 
         version = 2;
-        unsignedTransaction = cancelLease({
-          ...data,
+
+        rawTransaction = {
           version,
-          senderPublicKey
-        } as ICancelLeaseTransaction);
+          senderPublicKey,
+          fee: data.fee,
+          chainId: this.networkCode,
+          timestamp: data.timestamp,
+          leaseId: data.transactionId,
+          type: data.type as unknown as TRANSACTION_TYPE.CANCEL_LEASE,
+        };
+
+        unsignedTransaction = cancelLease(rawTransaction);
 
         schema = parseSerialize.schemas.cancelLeaseSchemaV2;
+        break;
       case TransactionTypes.ANCHOR:
+        // @todo: signs but errors on broadcast (incorrect proof) - possibly mismatched params?
         if (!data.anchors) throw new Error('Property "anchors" is undefined');
 
+        // fixing old anchor type (old = 12; new = 15)
+        data.type = TransactionTypes.ANCHOR_NEW;
+
         version = 1;
-        unsignedTransaction = anchor({
-          ...data,
+
+        rawTransaction = {
           version,
-          senderPublicKey
-        } as IAnchorTransaction);
+          senderPublicKey,
+          fee: data.fee,
+          anchors: data.anchors,
+          timestamp: data.timestamp,
+          type: data.type as unknown as TRANSACTION_TYPE.ANCHOR,
+        };
+
+        unsignedTransaction = anchor(rawTransaction);
 
         schema = parseSerialize.schemas.anchorSchemaV1;
         break;
@@ -200,11 +243,15 @@ export class LedgerServiceImpl implements LedgerService {
     const signature = await this.ledger.signTransaction(this.userId, { precision: 1 }, byteTransaction);
 
     const signedTransaction = {
-      ...data,
+      ...rawTransaction,
       version,
-      senderPublicKey,
       proofs: [signature],
     };
+
+    // @todo: remove debugging console.logs
+    console.log('Byte Transaction: ', byteTransaction);
+    console.log('Signed Transaction: ', signedTransaction);
+    console.log('Unsigned Transaction: ', unsignedTransaction);
 
     await broadcast(signedTransaction as TTx<string | number>, this.nodeUrl);
   }

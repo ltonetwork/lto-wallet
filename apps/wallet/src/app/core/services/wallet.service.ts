@@ -234,7 +234,6 @@ export class WalletServiceImpl implements WalletService {
         ...data,
         timestamp: Date.now(),
         type: TransactionTypes.TRANSFER,
-        attachment: data.attachment || '',
         fee,
         amount,
       });
@@ -273,7 +272,6 @@ export class WalletServiceImpl implements WalletService {
         transfers,
         timestamp: Date.now(),
         type: TransactionTypes.MASS_TRANSFER,
-        attachment: data.attachment || '',
         fee,
       });
     } else if (wallet) {

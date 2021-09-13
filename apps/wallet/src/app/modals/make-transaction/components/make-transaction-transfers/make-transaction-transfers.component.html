@@ -32,6 +32,6 @@
             </button>
             <button mat-button ngClass="small-screen-control" (click)="delTransfer()">Remove recipient</button>
         </ng-container>
-        <button mat-button (click)="addTransfer()" [disabled]="transfersCount >= 99">Add recipient</button>
+        <button *ngIf="!ledger$ | async" mat-button (click)="addTransfer()" [disabled]="transfersCount >= 99">Add recipient</button>
     </mat-dialog-actions>
 </form>

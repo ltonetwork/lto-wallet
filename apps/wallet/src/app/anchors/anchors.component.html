@@ -7,12 +7,14 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <lto-content-section title="Anchors" subtitle="">
-      <mat-card>
-        <mat-card-title>Create anchor</mat-card-title>
-        <mat-card-content>
-          <lto-wallet-file-drop (fileHash)="createAnchor($event)"></lto-wallet-file-drop>
-        </mat-card-content>
-      </mat-card>
+        <mat-card>
+          <mat-card-title>Create anchor</mat-card-title>
+          <mat-card-content>
+            <ng-container *ngIf="!ledger$ | async; else ledger">
+              <lto-wallet-file-drop (fileHash)="createAnchor($event)"></lto-wallet-file-drop>
+            </ng-container>
+          </mat-card-content>
+        </mat-card>
     </lto-content-section>
 
     <lto-content-section>
@@ -36,6 +38,7 @@
 
 <ng-template #loadingTpl> <lto-loading-spinner></lto-loading-spinner> </ng-template>
 <ng-template #emptyTpl> <h2 class="empty">There is no anchor transactions</h2> </ng-template>
+<ng-template #ledger> <h2 class="empty">Signing an anchor transaction using Ledger isn't supported yet</h2> </ng-template>
 
 <ng-template #hashTable let-groupedAcnhors="groupedAcnhors">
   <div class="anchors">

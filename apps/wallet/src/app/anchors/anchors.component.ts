@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { WalletService, groupByDate, TransactionsGroup, EncoderService } from '../core';
+import { WalletService, groupByDate, TransactionsGroup, EncoderService, LedgerService } from '../core';
 import { FeeInputModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./anchors.component.scss'],
 })
 export class AnchorsComponent implements OnInit {
+  ledger$: Observable<boolean>;
   groupedAcnhors$: Observable<TransactionsGroup[]>;
 
   selectedTransaction: any = null;
@@ -23,8 +24,10 @@ export class AnchorsComponent implements OnInit {
     private wallet: WalletService,
     private feeInputModal: FeeInputModal,
     private snackbar: MatSnackBar,
-    private encoder: EncoderService
+    private encoder: EncoderService,
+    private ledgerService: LedgerService,
   ) {
+    this.ledger$ = this.ledgerService.connected$;
     this.groupedAcnhors$ = wallet.anchors$.pipe(
       map((anchors) => {
         const withHash = anchors.items.map((anchorTransaction) => {

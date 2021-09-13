@@ -49,7 +49,6 @@ export interface IUnsignedTransaction {
   type: number;
   amount?: number;
   recipient?: string;
-  timestamp: number;
   attachment?: string;
   transactionId?: string;
   anchors?: string[];
@@ -136,19 +135,17 @@ export class LedgerServiceImpl implements LedgerService {
           senderPublicKey,
           amount: data.amount,
           recipient: data.recipient,
-          timestamp: data.timestamp,
           attachment: data.attachment,
           type: data.type as unknown as TRANSACTION_TYPE.TRANSFER,
         };
 
         unsignedTransaction = transfer(rawTransaction);
 
-        // @todo: update schema once lto-transactions PR is merged
         schema = parseSerialize.schemas.transferSchemaV1;
-        // schema = parseSerialize.schemas.transferSchemaLedger;
         break;
       case TransactionTypes.MASS_TRANSFER:
-        // @todo: signs but errors on broadcast (incorrect proof) - possibly mismatched params?
+        // @todo: signs but errors on broadcast (incorrect proof)
+        // https://github.com/iicc1/ledger-app-lto/issues/4
         if (!data.transfers) throw new Error('Transfers property is undefined');
         if (!data.attachment) data.attachment = '';
 
@@ -159,7 +156,6 @@ export class LedgerServiceImpl implements LedgerService {
           senderPublicKey,
           fee: data.fee,
           transfers: data.transfers,
-          timestamp: data.timestamp,
           attachment: data.attachment,
           type: data.type as unknown as TRANSACTION_TYPE.MASS_TRANSFER,
         };
@@ -182,18 +178,16 @@ export class LedgerServiceImpl implements LedgerService {
           fee: data.fee,
           amount: data.amount,
           recipient: data.recipient,
-          timestamp: data.timestamp,
           type: data.type as unknown as TRANSACTION_TYPE.LEASE,
         };
 
         unsignedTransaction = lease(rawTransaction);
 
-        // @todo: update schema once lto-transactions PR is merged
-        schema = parseSerialize.schemas.leaseSchemaV2;
-        // schema = parseSerialize.schemas.leaseSchemaLedger;
+        schema = parseSerialize.schemas.leaseSchemaV1;
         break;
       case TransactionTypes.CANCEL_LEASING:
-        // @todo: signs but errors on broadcast (incorrect proof) - possibly mismatched params?
+        // @todo: signs but errors on broadcast (incorrect proof)
+        // https://github.com/iicc1/ledger-app-lto/issues/4
         if (!data.transactionId) throw new Error('Property "transactionId" is undefined');
 
         version = 2;
@@ -203,7 +197,6 @@ export class LedgerServiceImpl implements LedgerService {
           senderPublicKey,
           fee: data.fee,
           chainId: this.networkCode,
-          timestamp: data.timestamp,
           leaseId: data.transactionId,
           type: data.type as unknown as TRANSACTION_TYPE.CANCEL_LEASE,
         };
@@ -213,7 +206,8 @@ export class LedgerServiceImpl implements LedgerService {
         schema = parseSerialize.schemas.cancelLeaseSchemaV2;
         break;
       case TransactionTypes.ANCHOR:
-        // @todo: signs but errors on broadcast (incorrect proof) - possibly mismatched params?
+        // @todo: signs but errors on broadcast (incorrect proof)
+        // https://github.com/iicc1/ledger-app-lto/issues/4
         if (!data.anchors) throw new Error('Property "anchors" is undefined');
 
         // fixing old anchor type (old = 12; new = 15)
@@ -226,7 +220,6 @@ export class LedgerServiceImpl implements LedgerService {
           senderPublicKey,
           fee: data.fee,
           anchors: data.anchors,
-          timestamp: data.timestamp,
           type: data.type as unknown as TRANSACTION_TYPE.ANCHOR,
         };
 
@@ -243,17 +236,11 @@ export class LedgerServiceImpl implements LedgerService {
     const signature = await this.ledger.signTransaction(this.userId, { precision: 1 }, byteTransaction);
 
     const signedTransaction = {
-      ...rawTransaction,
-      version,
+      ...unsignedTransaction,
       proofs: [signature],
     };
 
-    // @todo: remove debugging console.logs
-    console.log('Byte Transaction: ', byteTransaction);
-    console.log('Signed Transaction: ', signedTransaction);
-    console.log('Unsigned Transaction: ', unsignedTransaction);
-
-    await broadcast(signedTransaction as TTx<string | number>, this.nodeUrl);
+    await broadcast(signedTransaction as unknown as TTx<string | number>, this.nodeUrl);
   }
 }
 

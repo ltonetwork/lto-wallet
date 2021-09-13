@@ -232,7 +232,6 @@ export class WalletServiceImpl implements WalletService {
     if (ledger) {
       await this.ledgerService.signAndBroadcast({
         ...data,
-        timestamp: Date.now(),
         type: TransactionTypes.TRANSFER,
         fee,
         amount,
@@ -270,9 +269,9 @@ export class WalletServiceImpl implements WalletService {
       await this.ledgerService.signAndBroadcast({
         ...data,
         transfers,
-        timestamp: Date.now(),
-        type: TransactionTypes.MASS_TRANSFER,
         fee,
+        attachment,
+        type: TransactionTypes.MASS_TRANSFER,
       });
     } else if (wallet) {
       await this.auth.ltoInstance.API.PublicNode.transactions.broadcast(
@@ -289,7 +288,6 @@ export class WalletServiceImpl implements WalletService {
     this.manualUpdate$.next();
   }
 
-  // @todo: test with ledger?
   async withdraw(recipient: string, amount: number, fee: number, captha: string, tokenType: TokenType = 'LTO20', attachment?: string) {
     const bridgeAddress = await toPromise(this.bridgeService.withdrawTo(recipient, captha, tokenType));
 
@@ -318,7 +316,6 @@ export class WalletServiceImpl implements WalletService {
     if (ledger) {
       await this.ledgerService.signAndBroadcast({
         ...data,
-        timestamp: Date.now(),
         type: TransactionTypes.LEASING,
         fee,
         amount,
@@ -347,7 +344,6 @@ export class WalletServiceImpl implements WalletService {
     if (ledger) {
       await this.ledgerService.signAndBroadcast({
         transactionId,
-        timestamp: Date.now(),
         type: TransactionTypes.CANCEL_LEASING,
         fee: this.defaultTransferFee,
       });
@@ -377,7 +373,6 @@ export class WalletServiceImpl implements WalletService {
     if (ledger) {
       await this.ledgerService.signAndBroadcast({
         ...data,
-        timestamp: Date.now(),
         type: TransactionTypes.ANCHOR,
         fee,
         anchors,

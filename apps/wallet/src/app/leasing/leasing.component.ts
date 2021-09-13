@@ -1,18 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { WalletService, TransactionTypes, transactionsFilter, toPromise } from '../core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { WalletService, TransactionTypes, transactionsFilter, toPromise, LedgerService } from '../core';
 import { StartLeaseModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ContentDialogComponent } from '@wallet/components/content-dialog';
 
 @Component({
   selector: 'lto-leasing',
   templateUrl: './leasing.component.html',
   styleUrls: ['./leasing.component.scss'],
 })
-export class LeasingComponent implements OnInit {
+export class LeasingComponent implements OnInit, OnDestroy {
   transactions$: Observable<any[]>;
   address$: Observable<string>;
+
+  ledger$: Subscription;
+  ledgerConnected: boolean = false;
 
   selectedTransaction: any = null;
 
@@ -21,10 +26,13 @@ export class LeasingComponent implements OnInit {
   }
 
   constructor(
+    private matDialog: MatDialog,
     private wallet: WalletService,
     private startLeaseModal: StartLeaseModal,
+    private _ledgerService: LedgerService,
     private snackbar: MatSnackBar
   ) {
+    this.ledger$ = this._ledgerService.connected$.subscribe(connected => this.ledgerConnected = connected);
     this.address$ = wallet.address$;
     this.transactions$ = wallet.leasingTransactions$.pipe(
       map((transactions) => {
@@ -51,11 +59,24 @@ export class LeasingComponent implements OnInit {
 
   ngOnInit() {}
 
+  ngOnDestroy() {
+    this.ledger$.unsubscribe();
+  }
+
   select(transaction: any) {
     this.selectedTransaction = transaction;
   }
 
   async startLease() {
+    if (this.ledgerConnected) {
+      return this.matDialog.open(ContentDialogComponent, {
+        data: {
+          title: 'Unable to sign with Ledger',
+          content: `Signing a lease transaction using Ledger isn't supported yet`
+        }
+      });
+    }
+
     const balance = await toPromise(this.wallet.balance$);
     const leaseData = await this.startLeaseModal.show(balance.available);
     if (!leaseData) {
@@ -71,6 +92,15 @@ export class LeasingComponent implements OnInit {
   }
 
   async cancelLease(leaseTransaction: any) {
+    if (this.ledgerConnected) {
+      return this.matDialog.open(ContentDialogComponent, {
+        data: {
+          title: 'Unable to sign with Ledger',
+          content: `Signing a cancel lease transaction using Ledger isn't supported yet`
+        }
+      });
+    }
+
     try {
       await this.wallet.cancelLease(leaseTransaction.id);
       this.notify('Lease has been canceled');

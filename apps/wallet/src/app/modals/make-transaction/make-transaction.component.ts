@@ -11,7 +11,6 @@ import {
 import { take, withLatestFrom } from 'rxjs/operators';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
 import { MakeTransactionService } from '@wallet/core/services/make-transaction.service';
-import { LedgerService } from '@wallet/core/services/ledger.service';
 
 interface FormValue {
   transfers: FormTransfersValue[];
@@ -37,7 +36,6 @@ export class MakeTransactionComponent implements OnInit {
   private _recipientsCountSubscription: Subscription;
 
   balance$!: Observable<IBalance>;
-  ledgerConnected$: Observable<boolean>;
 
   constructor(
     public dialogRef: MatDialogRef<any>,
@@ -46,9 +44,7 @@ export class MakeTransactionComponent implements OnInit {
     private transactionConfirmDialog: TransactionConfirmDialog,
     private _feeService: FeeService,
     private _transactionService: MakeTransactionService,
-    private _ledgerService: LedgerService,
   ) {
-    this.ledgerConnected$ = this._ledgerService.connected$;
     this._recipientsCountSubscription = this._transactionService.transfersCount$.subscribe(transfers => this.updateDialogSize(transfers));
   }
 

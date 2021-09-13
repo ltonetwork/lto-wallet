@@ -22,6 +22,8 @@ import {
   WithId,
 } from '@lto-network/lto-transactions';
 import { TRANSACTION_TYPE } from '@lto-network/lto-transactions/dist/transactions';
+import { MatDialog } from '@angular/material/dialog';
+import { ContentDialogComponent } from '@wallet/components/content-dialog';
 
 enum NetworkCode {
   MAINNET = 76,
@@ -70,6 +72,7 @@ export class LedgerServiceImpl implements LedgerService {
 
   constructor(
     private platform: Platform,
+    private matDialog: MatDialog,
     @Inject(LTO_NETWORK_BYTE) networkByte: string,
     @Inject(LTO_PUBLIC_API) private nodeUrl: string,
   ) {
@@ -115,7 +118,7 @@ export class LedgerServiceImpl implements LedgerService {
     if (!this.ledger) throw new Error('Ledger not connected');
     if (!this.userData) throw new Error('Error with Ledger address data');
 
-    let schema, version, rawTransaction;
+    let schema, version, rawTransaction, prefixBytes;
     let unsignedTransaction: ITransaction & WithId;
     const senderPublicKey = this.userData.publicKey;
 
@@ -141,11 +144,11 @@ export class LedgerServiceImpl implements LedgerService {
 
         unsignedTransaction = transfer(rawTransaction);
 
+        prefixBytes = new Uint8Array();
         schema = parseSerialize.schemas.transferSchemaV1;
         break;
       case TransactionTypes.MASS_TRANSFER:
-        // @todo: signs but errors on broadcast (incorrect proof)
-        // https://github.com/iicc1/ledger-app-lto/issues/4
+        // @todo: mass transfer is not supported on Ledger app yet
         if (!data.transfers) throw new Error('Transfers property is undefined');
         if (!data.attachment) data.attachment = '';
 
@@ -162,6 +165,7 @@ export class LedgerServiceImpl implements LedgerService {
 
         unsignedTransaction = massTransfer(rawTransaction);
 
+        prefixBytes = new Uint8Array();
         schema = parseSerialize.schemas.massTransferSchemaV1;
         break;
       case TransactionTypes.LEASING:
@@ -183,14 +187,15 @@ export class LedgerServiceImpl implements LedgerService {
 
         unsignedTransaction = lease(rawTransaction);
 
+        prefixBytes = new Uint8Array();
         schema = parseSerialize.schemas.leaseSchemaV1;
         break;
       case TransactionTypes.CANCEL_LEASING:
-        // @todo: signs but errors on broadcast (incorrect proof)
-        // https://github.com/iicc1/ledger-app-lto/issues/4
         if (!data.transactionId) throw new Error('Property "transactionId" is undefined');
 
-        version = 2;
+        // @todo: for now, ledger signing only works with cancel leasing v1, need to add more recent versions to it (v2, v3)
+        // https://github.com/iicc1/ledger-app-lto/issues/3
+        version = 1;
 
         rawTransaction = {
           version,
@@ -203,11 +208,10 @@ export class LedgerServiceImpl implements LedgerService {
 
         unsignedTransaction = cancelLease(rawTransaction);
 
-        schema = parseSerialize.schemas.cancelLeaseSchemaV2;
+        prefixBytes = new Uint8Array();
+        schema = parseSerialize.schemas.cancelLeaseSchemaV1;
         break;
       case TransactionTypes.ANCHOR:
-        // @todo: signs but errors on broadcast (incorrect proof)
-        // https://github.com/iicc1/ledger-app-lto/issues/4
         if (!data.anchors) throw new Error('Property "anchors" is undefined');
 
         // fixing old anchor type (old = 12; new = 15)
@@ -225,15 +229,37 @@ export class LedgerServiceImpl implements LedgerService {
 
         unsignedTransaction = anchor(rawTransaction);
 
+        // on Ledger, anchor tx bytes start with 
+        // `type + version + type + version`
+        // see https://github.com/Stakely/lto-network-ledger-wallet-ui/blob/master/scripts/transactions.js#L94
+        prefixBytes = new Uint8Array([15, 1]);
         schema = parseSerialize.schemas.anchorSchemaV1;
         break;
       default:
         throw new Error('Unknown transaction type');
     }
 
+    const contentDialog = this.matDialog.open(ContentDialogComponent, {
+      disableClose: true,
+      data: {
+        title: 'Awaiting input from device',
+        content: 'Please review the transaction on your Ledger device',
+      }
+    });
+
     const serializer = parseSerialize.binary.serializerFromSchema(schema);
     const byteTransaction = serializer(unsignedTransaction);
-    const signature = await this.ledger.signTransaction(this.userId, { precision: 1 }, byteTransaction);
+
+    // `prefixBytes` is used to assemble the data properly before sending to Ledger app
+    // Ledger app doesn't sign properly if data is not correct,
+    // and it's slightly different from proper schema sometimes
+    const finalBytes = new Uint8Array(prefixBytes.length + byteTransaction.length);
+    finalBytes.set(prefixBytes);
+    finalBytes.set(byteTransaction, prefixBytes.length);
+
+    const signature = await this.ledger.signTransaction(this.userId, { precision: 1 }, finalBytes);
+
+    contentDialog.close();
 
     const signedTransaction = {
       ...unsignedTransaction,

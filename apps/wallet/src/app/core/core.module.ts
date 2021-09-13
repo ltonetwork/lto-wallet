@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { AppbarModule, SidenavModule } from './components';
 
 import {
@@ -20,7 +22,7 @@ import { ScriptsServiceImpl } from './services/scripts.service.impl';
 
 @NgModule({
   declarations: [],
-  imports: [HttpClientModule],
+  imports: [HttpClientModule, MatDialogModule],
   exports: [AppbarModule, SidenavModule],
   providers: [
     PublicNode.provider,

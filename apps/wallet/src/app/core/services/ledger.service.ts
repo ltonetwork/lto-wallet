@@ -266,6 +266,10 @@ export class LedgerServiceImpl implements LedgerService {
       signature,
     };
 
+    // workaround for nodes running v1.3 - signature is used instead of proofs
+    // @ts-ignore
+    delete signedTransaction.proofs;
+
     await broadcast(signedTransaction as unknown as TTx<string | number>, this.nodeUrl);
   }
 }

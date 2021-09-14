@@ -6,6 +6,7 @@
     "server": "json-server ./mock-data/lto-bridge.json --read-only --port 3000",
     "start": "concurrently --kill-others-on-fail \"npm:server\" \"ng serve --configuration=local\" -n \"server|app\" --name-separator \"|\"",
     "build": "ng build",
+    "build:wallet": "ng build \"wallet\" \"--configuration=testnet\"",
     "test": "./all-tests.bash",
     "lint": "ng lint",
     "e2e": "ng e2e"

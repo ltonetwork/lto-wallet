@@ -23,7 +23,7 @@ export class AnchorsComponent implements OnInit {
     private wallet: WalletService,
     private feeInputModal: FeeInputModal,
     private snackbar: MatSnackBar,
-    private encoder: EncoderService
+    private encoder: EncoderService,
   ) {
     this.groupedAcnhors$ = wallet.anchors$.pipe(
       map((anchors) => {
@@ -53,7 +53,7 @@ export class AnchorsComponent implements OnInit {
     const fee = await this.feeInputModal.show(fileDropevent.hex);
     if (fee) {
       try {
-        await this.wallet.anchor(fileDropevent.base58, fee);
+        await this.wallet.anchor({ fee, hash: fileDropevent.base58 });
         this.snackbar.open('Anchor created', 'Dismiss', {
           duration: 3000,
         });

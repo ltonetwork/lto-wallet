@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { formControlErrors, IBalance, WalletService } from '@wallet/core';
+import { formControlErrors, IBalance, LedgerService, WalletService } from '@wallet/core';
 import { MakeTransactionService } from '@wallet/core/services/make-transaction.service';
 import { Observable } from 'rxjs';
 @Component({
@@ -12,16 +12,19 @@ export class MakeTransactionTransfersComponent implements OnInit {
 
     @Input() sendForm: FormGroup | undefined;
 
+    ledger$!: Observable<boolean>;
     balance$!: Observable<IBalance>;
     transferVisible = 0;
 
     constructor (
         private wallet: WalletService,
+        private _ledgerService: LedgerService,
         private _transactionService: MakeTransactionService) {
     }
 
     ngOnInit () {
         this.balance$ = this.wallet.balance$;
+        this.ledger$ = this._ledgerService.connected$;
     }
 
     get recipientErrors() {

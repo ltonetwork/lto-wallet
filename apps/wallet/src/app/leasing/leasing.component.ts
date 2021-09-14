@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { WalletService, TransactionTypes, transactionsFilter, toPromise } from '../core';
 import { StartLeaseModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -62,7 +62,7 @@ export class LeasingComponent implements OnInit {
       return;
     }
     try {
-      await this.wallet.lease(leaseData.recipient, leaseData.amount, leaseData.fee);
+      await this.wallet.lease({ ...leaseData });
       this.notify('New lease created');
     } catch (Err) {
       this.notify('Cannot lease');

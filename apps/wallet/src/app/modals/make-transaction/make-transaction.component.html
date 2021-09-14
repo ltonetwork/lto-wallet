@@ -13,8 +13,8 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">
-  <button mat-button matDialogClose>Cancel</button>
-  <button mat-button (click)="send()" [disabled]="sendForm?.invalid">Send</button>
+  <button mat-button [disabled]="loading" matDialogClose>Cancel</button>
+  <button mat-button (click)="send()" [disabled]="sendForm?.invalid || loading">Send</button>
 </mat-dialog-actions>
 
 <ng-template #emptyTpl>

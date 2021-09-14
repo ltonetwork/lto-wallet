@@ -6,7 +6,6 @@ import { Observable, Subscription } from 'rxjs';
 import {
   WalletService,
   IBalance,
-  formControlErrors,
   FeeService,
 } from '../../core';
 import { take, withLatestFrom } from 'rxjs/operators';
@@ -31,6 +30,8 @@ interface FormTransfersValue {
 })
 export class MakeTransactionComponent implements OnInit {
 
+  loading: boolean = false;
+  
   sendForm: FormGroup | null = null;
   private _recipientsCountSubscription: Subscription;
 
@@ -71,6 +72,8 @@ export class MakeTransactionComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     try {
       if (formValue.transfers.length === 1) {
         // Send simple transaction
@@ -86,6 +89,8 @@ export class MakeTransactionComponent implements OnInit {
     } catch (error) {
       this.snackbar.open('Transaction error', 'DISMISS', { duration: 3000 });
     }
+
+    this.loading = false;
     this.dialogRef.close();
   }
 

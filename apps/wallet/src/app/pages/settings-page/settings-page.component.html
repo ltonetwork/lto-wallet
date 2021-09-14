@@ -1,12 +1,21 @@
 <lto-content-section title="Settings" subtitle="" fxLayout="column" fxLayoutGap="32px">
-  <mat-card>
-    <mat-card-title>Account {{ (userAccount$ | async)?.name }}</mat-card-title>
+  <mat-card *ngIf="ltoAccount">
+    <mat-card-title>Account: {{ userAccount?.name }}</mat-card-title>
     <mat-card-content>
       <div class="items" fxLayout="column" fxLayoutGap="16px">
-        <lto-copyable-text label="Your address" [text]="(ltoAccount$ | async)?.address"></lto-copyable-text>
-        <lto-copyable-text label="Public key" [text]="(ltoAccount$ | async)?.getPublicSignKey()"></lto-copyable-text>
-        <lto-wallet-hidden-text label="Backup phrase" [text]="(ltoAccount$ | async)?.seed"></lto-wallet-hidden-text>
-        <lto-wallet-hidden-text label="Private key" [text]="(ltoAccount$ | async)?.getPrivateSignKey()"></lto-wallet-hidden-text>
+        <lto-copyable-text label="Your address" [text]="ltoAccount?.address"></lto-copyable-text>
+        <lto-copyable-text label="Public key" [text]="ltoAccount?.getPublicSignKey()"></lto-copyable-text>
+        <lto-wallet-hidden-text label="Backup phrase" [text]="ltoAccount?.seed"></lto-wallet-hidden-text>
+        <lto-wallet-hidden-text label="Private key" [text]="ltoAccount?.getPrivateSignKey()"></lto-wallet-hidden-text>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="ledgerAccount">
+    <mat-card-title>Account: {{ ledgerAccount?.name }}</mat-card-title>
+    <mat-card-content>
+      <div class="items" fxLayout="column" fxLayoutGap="16px">
+        <lto-copyable-text label="Your address" [text]="ledgerAccount?.address"></lto-copyable-text>
+        <lto-copyable-text label="Public key" [text]="ledgerAccount?.publicKey"></lto-copyable-text>
       </div>
     </mat-card-content>
   </mat-card>

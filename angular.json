@@ -101,7 +101,15 @@
             "tsConfig": "apps/wallet/tsconfig.app.json",
             "assets": ["apps/wallet/src/favicon.png", "apps/wallet/src/assets"],
             "styles": ["apps/wallet/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "crypto-js",
+              "qrcode",
+              "lto-ledger-js-unofficial-test",
+              "lto-api/raw/libs/blake2b",
+              "@lto-network/lto-transactions",
+              "js-sha256"
+           ]
           },
           "configurations": {
             "production": {
@@ -154,6 +162,14 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/wallet/src/environments/environment.ts",
+                  "with": "apps/wallet/src/environments/environment.local.ts"
+                }
+              ]
             }
           }
         },
@@ -166,13 +182,8 @@
             "production": {
               "browserTarget": "wallet:build:production"
             },
-            "testnet": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/wallet/src/environments/environment.ts",
-                  "with": "apps/wallet/src/environments/environment.testnet.ts"
-                }
-              ]
+            "local": {
+              "browserTarget": "wallet:build:local"
             }
           }
         },

@@ -1,10 +1,10 @@
-import { Injectable, Inject, ClassProvider, Injector } from '@angular/core';
-import { LTO, Account } from 'lto-api';
-import { Observable, BehaviorSubject, Subscriber } from 'rxjs';
-import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '../../tokens';
 import { map } from 'rxjs/operators';
+import { LTO, Account } from 'lto-api';
+import { Injectable, Inject, ClassProvider, Injector } from '@angular/core';
+import { Observable, BehaviorSubject, Subscriber, combineLatest } from 'rxjs';
 
-import { ScriptsService } from './scripts.service';
+import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '@wallet/tokens';
+import { ILedgerAccount, LedgerService } from '@wallet/core/services/ledger.service';
 
 export interface IUserAccount {
   name: string;
@@ -20,19 +20,21 @@ export class AuthServiceImpl implements AuthService {
   readonly STORAGE_KEY: string = '_USERS_ACCOUNTS_';
 
   authenticated$: Observable<boolean>;
-  account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(null);
   wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
+  account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(null);
+  ledgerAccount$: BehaviorSubject<ILedgerAccount | null> = new BehaviorSubject<ILedgerAccount | null>(null);
 
   ltoInstance: LTO;
   availableAccounts$: Observable<IUserAccount[]>;
   private _availableAccounts$: Subscriber<IUserAccount[]> | null = null;
 
   constructor(
-    @Inject(LTO_NETWORK_BYTE) networkBye: string,
+    @Inject(LTO_NETWORK_BYTE) networkByte: string,
     @Inject(LTO_PUBLIC_API) publicApi: string,
-    private _injector: Injector
+    private _injector: Injector,
+    private ledger: LedgerService,
   ) {
-    this.ltoInstance = new LTO(networkBye, publicApi.replace(/\/$/, ''));
+    this.ltoInstance = new LTO(networkByte, publicApi.replace(/\/$/, ''));
 
     // Create Observable to give latest data on every subscription
     this.availableAccounts$ = new Observable((subscriber) => {
@@ -40,7 +42,15 @@ export class AuthServiceImpl implements AuthService {
       subscriber.next(this.readFromLocalStorage());
     });
 
-    this.authenticated$ = this.wallet$.pipe(map((wallet) => !!wallet));
+    this.authenticated$ = combineLatest(this.wallet$, this.ledger.connected$).pipe(
+      map(([wallet, ledgerConnected]) => !!wallet || !!ledgerConnected)
+    );
+
+    this.ledger.connected$.subscribe(async connected => {
+      if (connected && this.ledger.userData) {
+        this.ledgerAccount$.next(this.ledger.userData);
+      }
+    });
   }
 
   saveAccount(name: string, password: string, wallet: Account): IUserAccount {
@@ -84,6 +94,8 @@ export class AuthServiceImpl implements AuthService {
   logout() {
     this.account$.next(null);
     this.wallet$.next(null);
+    this.ledgerAccount$.next(null);
+    this.ledger.disconnect();
   }
 
   deleteAccount(account: IUserAccount) {
@@ -120,10 +132,9 @@ export abstract class AuthService {
   abstract readonly STORAGE_KEY: string;
 
   abstract authenticated$: Observable<boolean>;
-  abstract account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(
-    null
-  );
   abstract wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
+  abstract account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(null);
+  abstract ledgerAccount$: BehaviorSubject<ILedgerAccount | null> = new BehaviorSubject<ILedgerAccount | null>(null);
 
   abstract ltoInstance: LTO;
   abstract availableAccounts$: Observable<IUserAccount[]>;

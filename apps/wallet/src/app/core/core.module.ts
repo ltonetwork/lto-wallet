@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+
 import { AppbarModule, SidenavModule } from './components';
 
 import {
@@ -13,13 +15,14 @@ import {
   Sidenav,
   wavesAddressValidatorProvider,
   ScriptsService,
+  LedgerService,
 } from './services';
 
 import { ScriptsServiceImpl } from './services/scripts.service.impl';
 
 @NgModule({
   declarations: [],
-  imports: [HttpClientModule],
+  imports: [HttpClientModule, MatDialogModule],
   exports: [AppbarModule, SidenavModule],
   providers: [
     PublicNode.provider,
@@ -31,6 +34,7 @@ import { ScriptsServiceImpl } from './services/scripts.service.impl';
     wavesAddressValidatorProvider,
     WavesService.provider,
     Sidenav.provider,
+    LedgerService.provider,
     {
       provide: ScriptsService,
       useClass: ScriptsServiceImpl,

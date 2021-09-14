@@ -1260,10 +1260,10 @@
     crypto-js "^3.1.9-1"
     tweetnacl "^1.0.1"
 
-"@lto-network/lto-transactions@^1.2.10":
-  version "1.2.10"
-  resolved "https://registry.yarnpkg.com/@lto-network/lto-transactions/-/lto-transactions-1.2.10.tgz#6cf49bf5bdb0f8138c36185c1dbed6ebdb21b106"
-  integrity sha512-vbuK//306u3pOuHwofXEDsIIw0wLLopSowT6xzZ9wRed9Cc526IhPe5gyCKRvamMVwjjPNteEv7BCE1qzOkUPA==
+"@lto-network/lto-transactions@^1.2.11":
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@lto-network/lto-transactions/-/lto-transactions-1.2.11.tgz#3e44b8bfc306e8589b9d584c012c8fa8a7435673"
+  integrity sha512-wz4pN1pLpKGlhssSrK7ouLJbmQKjYmVs/yOj7wwCcGiePkCPXI/mGWdeSMqesetRXyrvVJmbYAJ1PyFSo00/og==
   dependencies:
     "@lto-network/lto-crypto" "^1.1.1"
     ajv "^6.5.5"

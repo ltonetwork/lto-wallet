@@ -11,7 +11,9 @@
 
           <a fxFlex="1 1 50" mat-flat-button color="primary" routerLink="../create-account">Create account</a>
           <a fxFlex="1 1 50" mat-flat-button color="primary" routerLink="../import-account">Import account</a>
-          <a fxFlex="1 1 50" mat-flat-button color="primary" (click)="connectLedger()">Ledger device</a>
+        </div>
+        <div class="narrow" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
+          <a fxFlex="1 1 100" mat-button (click)="connectLedger()">Sign in with Ledger</a>
         </div>
       </div>
     </mat-card-content>

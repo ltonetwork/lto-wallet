@@ -26,8 +26,10 @@
           <button fxFlex="1 1 50" mat-flat-button color="primary" [disabled]="password.invalid" (click)="signin(password.value)">
             Sign in
           </button>
-          <button fxFlex="1 1 50" mat-flat-button color="primary" (click)="ledgerLogin()">
-            Ledger device
+        </div>
+        <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
+          <button fxFlex="1 1 100" mat-button (click)="ledgerLogin()">
+            Sign in with Ledger
           </button>
         </div>
       </div>

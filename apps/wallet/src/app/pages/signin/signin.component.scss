@@ -67,5 +67,9 @@ mat-list {
     width: 100%;
     max-width: 436px;
   }
+  
+  .inner + .inner {
+    margin-top: 16px;
+  }
 }
 

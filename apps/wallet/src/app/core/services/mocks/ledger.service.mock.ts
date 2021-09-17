@@ -7,13 +7,15 @@ export class LedgerServiceMock implements LedgerService {
     useClass: LedgerServiceMock
   };
 
-  userId: number = 0;
-  userData?: ILedgerAccount;
+  ledgerId: number = 0;
   connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  ledgerAccount$: BehaviorSubject<ILedgerAccount | null> = new BehaviorSubject<ILedgerAccount | null>(null);
 
   async connect(): Promise<void> {};
 
   async disconnect(): Promise<void> {};
+
+  async updateUserData(): Promise<void> {};
 
   async signAndBroadcast(data: IUnsignedTransaction): Promise<void> {};
 }

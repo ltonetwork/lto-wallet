@@ -1,7 +1,7 @@
 import { Platform } from '@angular/cdk/platform';
 import { Injectable, ClassProvider, Inject } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import TransportWebUSB from '@ledgerhq/hw-transport-webusb';
 import { WavesLedger } from 'lto-ledger-js-unofficial-test';
@@ -24,6 +24,7 @@ import {
 import { TRANSACTION_TYPE } from '@lto-network/lto-transactions/dist/transactions';
 import { MatDialog } from '@angular/material/dialog';
 import { ContentDialogComponent } from '@wallet/components/content-dialog';
+import { toPromise } from '../utils';
 
 enum NetworkCode {
   MAINNET = 76,
@@ -66,9 +67,9 @@ export class LedgerServiceImpl implements LedgerService {
   private ledgerOptions: LedgerOptions;
   private transport: typeof TransportU2F | TransportWebUSB;
 
-  public userId: number = 0;
-  public userData?: ILedgerAccount;
+  public ledgerId: number = 0;
   public connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public ledgerAccount$: BehaviorSubject<ILedgerAccount | null> = new BehaviorSubject<ILedgerAccount | null>(null);
 
   constructor(
     private platform: Platform,
@@ -97,12 +98,7 @@ export class LedgerServiceImpl implements LedgerService {
   public async connect(): Promise<void> {
     this.ledger = new WavesLedger(this.ledgerOptions);
 
-    // wait until device is connected
-    const ledgerData = await this.ledger.getUserDataById(this.userId, false);
-    this.userData = {
-      ...ledgerData,
-      name: `Ledger Wallet ${this.userId}`,
-    };
+    await this.updateUserData();
 
     this.connected$.next(true);
   }
@@ -112,15 +108,29 @@ export class LedgerServiceImpl implements LedgerService {
 
     await this.ledger.disconnect();
     this.connected$.next(false);
+    this.ledgerAccount$.next(null);
+  }
+
+  public async updateUserData(): Promise<void> {
+    if (!this.ledger) throw new Error('Ledger not connected');
+
+    // wait until device is connected
+    const ledgerData = await this.ledger.getUserDataById(this.ledgerId, false);
+    this.ledgerAccount$.next({
+      ...ledgerData,
+      name: `Ledger Wallet ${this.ledgerId}`,
+    });
   }
 
   public async signAndBroadcast(data: IUnsignedTransaction): Promise<void> {
     if (!this.ledger) throw new Error('Ledger not connected');
-    if (!this.userData) throw new Error('Error with Ledger address data');
+
+    const ledgerAccount = await toPromise(this.ledgerAccount$);
+    if (!ledgerAccount) throw new Error('Error with Ledger address data');
 
     let schema, version, rawTransaction, prefixBytes;
     let unsignedTransaction: ITransaction & WithId;
-    const senderPublicKey = this.userData.publicKey;
+    const senderPublicKey = ledgerAccount.publicKey;
 
     switch (data.type) {
       case TransactionTypes.TRANSFER:
@@ -257,7 +267,7 @@ export class LedgerServiceImpl implements LedgerService {
     finalBytes.set(prefixBytes);
     finalBytes.set(byteTransaction, prefixBytes.length);
 
-    const signature = await this.ledger.signTransaction(this.userId, { precision: 1 }, finalBytes);
+    const signature = await this.ledger.signTransaction(this.ledgerId, { precision: 1 }, finalBytes);
 
     contentDialog.close();
 
@@ -280,11 +290,13 @@ export abstract class LedgerService {
     useClass: LedgerServiceImpl,
   };
 
-  public userId: number = 0;
-  public userData?: ILedgerAccount;
+  public ledgerId: number = 0;
+  
   public abstract connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public abstract ledgerAccount$: BehaviorSubject<ILedgerAccount | null> = new BehaviorSubject<ILedgerAccount | null>(null);
 
   public abstract connect(): Promise<void>;
   public abstract disconnect(): Promise<void>;
+  public abstract updateUserData(): Promise<void>;
   public abstract signAndBroadcast(data: IUnsignedTransaction): Promise<void>;
 }

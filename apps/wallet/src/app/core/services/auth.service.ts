@@ -46,11 +46,7 @@ export class AuthServiceImpl implements AuthService {
       map(([wallet, ledgerConnected]) => !!wallet || !!ledgerConnected)
     );
 
-    this.ledger.connected$.subscribe(async connected => {
-      if (connected && this.ledger.userData) {
-        this.ledgerAccount$.next(this.ledger.userData);
-      }
-    });
+    this.ledgerAccount$ = this.ledger.ledgerAccount$;
   }
 
   saveAccount(name: string, password: string, wallet: Account): IUserAccount {
@@ -94,7 +90,6 @@ export class AuthServiceImpl implements AuthService {
   logout() {
     this.account$.next(null);
     this.wallet$.next(null);
-    this.ledgerAccount$.next(null);
     this.ledger.disconnect();
   }
 

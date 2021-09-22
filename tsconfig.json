@@ -16,12 +16,8 @@
     "lib": ["es2018", "dom"],
     "skipLibCheck": true,
     "paths": {
-      "@legalthings-one/component-kit": ["libs/component-kit/src"],
-      "@legalthings-one/platform": ["libs/platform/src"],
-      "@explorer": ["apps/explorer/src/app"],
-      "@explorer/*": ["apps/explorer/src/app/*"],
-      "@wallet/*": ["apps/wallet/src/app/*"],
-      "crypto": [ "node_modules/crypto-js" ]
+      "@app/*": ["src/app/*"],
+      "crypto": ["node_modules/crypto-js"]
     }
   }
 }

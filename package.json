@@ -1,12 +1,13 @@
 {
-  "name": "legalthings-one",
-  "version": "0.0.0",
+  "name": "lto-wallet-ui",
+  "version": "1.0.0",
   "scripts": {
     "server": "json-server ./mock-data/lto-bridge.json --read-only --port 3000",
     "start": "concurrently --kill-others-on-fail \"npm:server\" \"ng serve --configuration=local\" -n \"server|app\" --name-separator \"|\"",
     "build": "ng build",
     "build:testnet": "ng build \"--configuration=testnet\"",
-    "test": "ng test",
+    "test": "ng test --watch=false",
+    "test:watch": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

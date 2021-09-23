@@ -1,4 +1,4 @@
-# LTO Network - Public Blockchain UI
+# LTO Network - Public Blockchain Wallet UI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
@@ -10,7 +10,7 @@ This repository contains only the `wallet` project, the `explorer` project has b
 
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-@todo: add stuff about the mock data server
+This will also run a mock server (with [json-server](https://www.npmjs.com/package/json-server)) for local development. Currently it mocks the data from LTO bridge, because that is not maintained on testnet environment. See the `mock-data` folder to change the data from this server.
 
 ## Build
 
@@ -21,4 +21,4 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 
 ## Running unit tests
 
-Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io). You can also run `npm run test:watch` to watch for changes on the test files.

@@ -101,10 +101,10 @@
       },
       {
          "address":"3JsZN7TwprVdXr9CbQ9EUvLSBG2YSZgdPGB",
-         "sharing":"97.5%",
+         "sharing":"95%",
          "name":"BlackTurtleNode",
          "website":"https://www.turtlenetwork.eu/insight/",
-         "payoutSchedule":"Every Wednesday and Sunday",
+         "payoutSchedule":"Every Sunday",
          "tgContact":"@Black_Turtle",
          "hide":false
       },
@@ -290,15 +290,6 @@
          "website":"https://node.kahion.com/lto",
          "payoutSchedule":"Auto-Compounding",
          "tgContact":"@armaelll",
-         "hide":false
-      },
-      {
-         "address":"3JcKu8FaXTmy1hwVEX9KYpwYHVt8RYrqNrF",
-         "sharing":"99%",
-         "name": "samurainode.cloud",
-         "website":"https://samurainode.cloud",
-         "payoutSchedule":"Every Saturday",
-         "tgContact":"@ux37owir",
          "hide":false
       },
       {

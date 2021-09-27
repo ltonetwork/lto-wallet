@@ -194,10 +194,10 @@
       {
          "address":"3Jhkp3Xtg2wyT6NoEtJB2VQPAHiYuqYUVBp",
          "sharing":"97.5%",
-         "name":"ablock.io",
-         "website":"https://ablock.io",
-         "payoutSchedule":"Every monday | Lottery",
-         "tgContact":"@aorfevrebr",
+         "name":"lto.lease | Odin",
+         "website":"https://lto.lease/lto",
+         "payoutSchedule":"Every monday",
+         "tgContact":"@sysrex",
          "hide":false
       },
       {
@@ -304,9 +304,9 @@
       {
          "address":"3JiNi1B3LVdF9Aa2P3cBA2NNwLP7XNaV9A5",
          "sharing":"98%",
-         "name": "LTO Lease",
+         "name": "lto.lease | Thors",
          "website":"https://lto.lease/lto",
-         "payoutSchedule":"Auto-Compounding",
+         "payoutSchedule":"Every Monday",
          "tgContact":"@sysrex",
          "hide":false
       },

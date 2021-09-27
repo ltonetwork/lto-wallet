@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [],
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "./**/*.spec.ts",
+    "./src/test.ts",
+    "./src/app/core/mocks.ts",
+    "./src/environments/environment.*.ts",
+    "./src/app/core/services/mocks/**/*.ts"
+  ]
+}

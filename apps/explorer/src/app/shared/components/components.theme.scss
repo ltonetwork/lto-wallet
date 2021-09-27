@@ -1,5 +1,0 @@
-@import './search-box/search-box.theme';
-
-@mixin shared-components($theme) {
-  @include search-box($theme);
-}

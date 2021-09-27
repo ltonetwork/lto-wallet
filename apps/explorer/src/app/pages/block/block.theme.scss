@@ -1,5 +1,0 @@
-@import '~@angular/material/theming';
-
-@mixin block-theme($theme) {
-  $primary: map-get($theme, primary);
-}

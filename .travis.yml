@@ -1,27 +1,27 @@
 language: node_js
 node_js:
-- "10"
+  - '10'
 
 cache:
   directories:
-  - node_modules
+    - node_modules
 
 branches:
   only:
-  - master
+    - master
 
 script:
-- npm run build -- wallet
-- npm test
+  - npm run build
+  - npm test
 
 before_deploy:
-- npm run build -- wallet --configuration=testnet
+  - npm run build --configuration=testnet
 
 deploy:
-- provider: s3
-  skip_cleanup: true
-  region: eu-west-1
-  bucket: tn-lto-wallet
-  local_dir: dist/wallet
-  on:
-    branch: master
+  - provider: s3
+    skip_cleanup: true
+    region: eu-west-1
+    bucket: tn-lto-wallet
+    local_dir: dist
+    on:
+      branch: master

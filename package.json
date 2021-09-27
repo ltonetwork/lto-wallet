@@ -1,5 +1,5 @@
 {
-  "name": "lto-wallet-ui",
+  "name": "lto-wallet",
   "version": "1.0.0",
   "scripts": {
     "server": "json-server ./mock-data/lto-bridge.json --read-only --port 3000",

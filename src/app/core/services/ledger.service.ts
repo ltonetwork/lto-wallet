@@ -268,11 +268,12 @@ export class LedgerServiceImpl implements LedgerService {
     finalBytes.set(prefixBytes);
     finalBytes.set(byteTransaction, prefixBytes.length);
 
-    const signature = await this.ledger.signTransaction(
-      this.ledgerId,
-      { precision: 1 },
-      finalBytes
-    );
+    const signature = await this.ledger
+      .signTransaction(this.ledgerId, { precision: 1 }, finalBytes)
+      .catch((error) => {
+        contentDialog.close();
+        return Promise.reject(error);
+      });
 
     contentDialog.close();
 

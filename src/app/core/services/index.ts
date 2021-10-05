@@ -1,6 +1,6 @@
 export { AuthService, IUserAccount } from './auth.service';
 export { WalletService, IBalance, ITransferPayload } from './wallet.service';
-export { PublicNode } from './public-node';
+export { PublicNodeService } from './public-node.service';
 export { BridgeService } from './bridge.service';
 export { EncoderService } from './encoder.service';
 export { WavesService } from './waves.service';

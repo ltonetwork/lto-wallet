@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LTO_PUBLIC_API } from '../../tokens';
-import { PublicNode } from './public-node';
+import { PublicNodeService } from './public-node.service';
 
-describe('Core/PublicNode', () => {
-  let publicNode: PublicNode;
+describe('Core/PublicNodeService', () => {
+  let publicNode: PublicNodeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
-        PublicNode.provider,
+        PublicNodeService.provider,
         {
           provide: LTO_PUBLIC_API,
           useValue: 'http://test_endpoint'
@@ -18,7 +18,7 @@ describe('Core/PublicNode', () => {
       ]
     });
 
-    publicNode = TestBed.get(PublicNode);
+    publicNode = TestBed.get(PublicNodeService);
   });
 
   it('should create', () => {

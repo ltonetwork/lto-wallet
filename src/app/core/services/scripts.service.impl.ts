@@ -1,6 +1,6 @@
 import { Injectable, ClassProvider, Inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { PublicNode } from './public-node';
+import { PublicNodeService } from './public-node.service';
 import { AuthService } from './auth.service';
 import { switchMap, filter, map, shareReplay } from 'rxjs/operators';
 import { toPromise } from '../utils';
@@ -58,7 +58,7 @@ export class ScriptsServiceImpl implements ScriptsService {
   scriptEnabled$: Observable<boolean>;
   scriptInfo$: Observable<any>;
 
-  constructor(private _publicNode: PublicNode, private _auth: AuthService) {
+  constructor(private _publicNode: PublicNodeService, private _auth: AuthService) {
     this.scriptInfo$ = _auth.account$.pipe(
       switchMap((account) => {
         if (!account) {

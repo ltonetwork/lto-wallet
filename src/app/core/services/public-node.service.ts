@@ -16,7 +16,7 @@ interface CompildedScript {
  * Provide communication with LTO backend
  */
 @Injectable()
-export class PublicNodeImpl implements PublicNode {
+export class PublicNodeServiceImpl implements PublicNodeService {
   constructor(private _http: HttpClient, @Inject(LTO_PUBLIC_API) private _publicApi: string) {}
 
   version(): Observable<string> {
@@ -133,10 +133,10 @@ export class PublicNodeImpl implements PublicNode {
   }
 }
 
-export abstract class PublicNode {
+export abstract class PublicNodeService {
   static provider: ClassProvider = {
-    provide: PublicNode,
-    useClass: PublicNodeImpl
+    provide: PublicNodeService,
+    useClass: PublicNodeServiceImpl
   };
 
   abstract version(): Observable<string>;

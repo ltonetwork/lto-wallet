@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable, of, combineLatest } from 'rxjs';
 import { AuthService } from './auth.service';
-import { PublicNode } from './public-node';
+import { PublicNodeService } from './public-node.service';
 import { switchMap, filter, map, shareReplay } from 'rxjs/operators';
 import { DEFAULT_TRANSFER_FEE, MASS_TRANSFER_FEE } from '@app/tokens';
 
@@ -17,7 +17,7 @@ export class FeeService {
 
   constructor(
     private _auth: AuthService,
-    private _publicNode: PublicNode,
+    private _publicNode: PublicNodeService,
     @Inject(DEFAULT_TRANSFER_FEE) transferFee: number,
     @Inject(MASS_TRANSFER_FEE) massTransferFee: number
   ) {

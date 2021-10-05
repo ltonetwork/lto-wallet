@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '../../tokens';
 
-import { LedgerServiceMock } from './mocks';
+import { createLedgerServiceSpy } from '@app/core/spies';
 
 import { AuthService } from './auth.service';
 
@@ -12,7 +12,7 @@ describe('core/AuthServiceImpl', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthService.provider,
-        LedgerServiceMock.provider,
+        createLedgerServiceSpy(),
         {
           provide: LTO_NETWORK_BYTE,
           useValue: 'T'

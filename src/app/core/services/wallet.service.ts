@@ -9,7 +9,7 @@ import {
   filter,
   catchError
 } from 'rxjs/operators';
-import { PublicNode } from './public-node';
+import { PublicNodeService } from './public-node.service';
 import { AuthService } from './auth.service';
 import { Account } from 'lto-api';
 import { TransactionTypes } from '../transaction-types';
@@ -82,7 +82,7 @@ export class WalletServiceImpl implements WalletService {
   private unconfirmed$: Observable<LTO.Transaction[]>;
 
   constructor(
-    private publicNode: PublicNode,
+    private publicNode: PublicNodeService,
     private auth: AuthService,
     private bridgeService: BridgeService,
     private ledgerService: LedgerService,
@@ -262,7 +262,7 @@ export class WalletServiceImpl implements WalletService {
     const fee = Math.round(data.fee * this.amountDivider);
     const transfers = data.transfers.map(transfer => ({
       recipient: transfer.recipient,
-      amount: transfer.amount * this.amountDivider
+      amount: Math.round(transfer.amount * this.amountDivider)
     }));
 
     if (ledger) {

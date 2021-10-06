@@ -256,13 +256,13 @@ export class WalletServiceImpl implements WalletService {
     const ledger = await toPromise(this.auth.ledgerAccount$);
     
     if (!wallet && !ledger) throw new Error('No account connected');
-    
+
     const { attachment } = data;
 
     const fee = Math.round(data.fee * this.amountDivider);
     const transfers = data.transfers.map(transfer => ({
       recipient: transfer.recipient,
-      amount: transfer.amount * this.amountDivider
+      amount: Math.round(transfer.amount * this.amountDivider)
     }));
 
     if (ledger) {

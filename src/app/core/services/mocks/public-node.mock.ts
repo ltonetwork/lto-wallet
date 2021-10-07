@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 export class PublicNodeMock implements PublicNode {
   static provider = {
     provide: PublicNode,
-    useClass: PublicNode
+    useClass: PublicNodeMock
   };
 
   version() {

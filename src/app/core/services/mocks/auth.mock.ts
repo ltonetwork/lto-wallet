@@ -15,10 +15,17 @@ export class AuthServiceMock implements AuthService {
   authenticated$: Observable<boolean> = of(true);
   wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
   account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(null);
-  ledgerAccount$: BehaviorSubject<ILedgerAccount | null> =
-    new BehaviorSubject<ILedgerAccount | null>(null);
+  ledgerAccount$: BehaviorSubject<ILedgerAccount | null> = new BehaviorSubject<ILedgerAccount | null>(null);
 
-  ltoInstance: LTO = {} as any;
+  ltoInstance: LTO = {
+    API: {
+      PublicNode: {
+        transactions: {
+          broadcast: () => {}
+        }
+      }
+    }
+  } as any;
   availableAccounts$: Observable<IUserAccount[]> = of([]);
 
   saveAccount(name: string, password: string, wallet: Account): IUserAccount {

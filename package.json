@@ -6,6 +6,7 @@
     "start": "concurrently --kill-others-on-fail \"npm:server\" \"ng serve --configuration=local\" -n \"server|app\" --name-separator \"|\"",
     "build": "ng build",
     "build:testnet": "ng build \"--configuration=testnet\"",
+    "build:mainnet": "ng build \"--configuration=mainnet\"",
     "test": "ng test --watch=false",
     "test:watch": "ng test",
     "lint": "ng lint",

@@ -52,7 +52,7 @@
          "website":"http://nodemn.com/",
          "payoutSchedule":"Every weekend",
          "tgContact":"@nodemn",
-         "hide":false
+         "hide":true
       },
       {
          "address":"3JjtGYPannaVDMvbjdyLrmo39LohZ8KESdL",

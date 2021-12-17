@@ -327,6 +327,15 @@
          "payoutSchedule":"Monthly",
          "tgContact":"@zolnode",
          "hide":false
+      },
+     {
+         "address":"3Jh4bTtzNvwbQKBLJUiT6XUZMFayyvVpYFB",
+         "sharing":"97.5%",
+         "name":"kcoin",
+         "website":"https://t.me/koloboi",
+         "payoutSchedule":"Weekly",
+         "tgContact":"@koloboi",
+         "hide":false
       }
    ]
 }

@@ -328,6 +328,15 @@
          "tgContact":"@zolnode",
          "hide":false
       },
+      {
+         "address":"3Ji11kn7hUryLguBSpe7fgcGEGWzVUTeZYh",
+         "sharing":"98%",
+         "name":"LTO node CryptoFLY",
+         "website":"https://t.me/grafffu",
+         "payoutSchedule":"Monthly",
+         "tgContact":"@grafffu",
+         "hide":false
+      },
      {
          "address":"3Jh4bTtzNvwbQKBLJUiT6XUZMFayyvVpYFB",
          "sharing":"97.5%",

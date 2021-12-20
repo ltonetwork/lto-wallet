@@ -345,6 +345,15 @@
          "payoutSchedule":"Weekly",
          "tgContact":"@koloboi",
          "hide":false
+      },
+     {
+         "address":"3JeGLLH3ybAdYgJ92Naj6wrDbzaEdfMfpJz",
+         "sharing":"98.1%",
+         "name":"Finocrat.io",
+         "website":"https://finocrat.io",
+         "payoutSchedule":"Weekly",
+         "tgContact":"@finocrat",
+         "hide":false
       }
    ]
 }

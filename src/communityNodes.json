@@ -345,6 +345,15 @@
          "payoutSchedule":"Weekly",
          "tgContact":"@koloboi",
          "hide":false
+      },
+      {
+         "address":"3JpyziZiGFNJ8JG6Y2r4CvhrpSoVQ3MCrHv",
+         "sharing":"98%",
+         "name":"LTO node CryptoBEE",
+         "website":"https://t.me/grafffu",
+         "payoutSchedule":"Monthly",
+         "tgContact":"@grafffu",
+         "hide":false
       }
    ]
 }

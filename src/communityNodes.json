@@ -337,7 +337,7 @@
          "tgContact":"@grafffu",
          "hide":false
       },
-     {
+      {
          "address":"3Jh4bTtzNvwbQKBLJUiT6XUZMFayyvVpYFB",
          "sharing":"97.5%",
          "name":"kcoin",
@@ -346,13 +346,21 @@
          "tgContact":"@koloboi",
          "hide":false
       },
-     {
+      {
          "address":"3JeGLLH3ybAdYgJ92Naj6wrDbzaEdfMfpJz",
          "sharing":"98%",
          "name":"Finocrat.io",
          "website":"https://finocrat.io",
          "payoutSchedule":"Weekly",
          "tgContact":"@finocrat",
+      },
+      {
+         "address":"3JpyziZiGFNJ8JG6Y2r4CvhrpSoVQ3MCrHv",
+         "sharing":"98%",
+         "name":"LTO node CryptoBEE",
+         "website":"https://t.me/grafffu",
+         "payoutSchedule":"Monthly",
+         "tgContact":"@grafffu",
          "hide":false
       }
    ]

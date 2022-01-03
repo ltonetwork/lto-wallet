@@ -52,7 +52,7 @@
          "website":"http://nodemn.com/",
          "payoutSchedule":"Every weekend",
          "tgContact":"@nodemn",
-         "hide":false
+         "hide":true
       },
       {
          "address":"3JjtGYPannaVDMvbjdyLrmo39LohZ8KESdL",
@@ -326,6 +326,41 @@
          "website":"https://t.me/LTO_zolnode",
          "payoutSchedule":"Monthly",
          "tgContact":"@zolnode",
+         "hide":false
+      },
+      {
+         "address":"3Ji11kn7hUryLguBSpe7fgcGEGWzVUTeZYh",
+         "sharing":"98%",
+         "name":"LTO node CryptoFLY",
+         "website":"https://t.me/grafffu",
+         "payoutSchedule":"Monthly",
+         "tgContact":"@grafffu",
+         "hide":false
+      },
+      {
+         "address":"3Jh4bTtzNvwbQKBLJUiT6XUZMFayyvVpYFB",
+         "sharing":"97.5%",
+         "name":"kcoin",
+         "website":"https://t.me/koloboi",
+         "payoutSchedule":"Weekly",
+         "tgContact":"@koloboi",
+         "hide":false
+      },
+      {
+         "address":"3JeGLLH3ybAdYgJ92Naj6wrDbzaEdfMfpJz",
+         "sharing":"98%",
+         "name":"Finocrat.io",
+         "website":"https://finocrat.io",
+         "payoutSchedule":"Weekly",
+         "tgContact":"@finocrat",
+      },
+      {
+         "address":"3JpyziZiGFNJ8JG6Y2r4CvhrpSoVQ3MCrHv",
+         "sharing":"98%",
+         "name":"LTO node CryptoBEE",
+         "website":"https://t.me/grafffu",
+         "payoutSchedule":"Monthly",
+         "tgContact":"@grafffu",
          "hide":false
       }
    ]

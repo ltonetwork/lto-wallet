@@ -353,6 +353,7 @@
          "website":"https://finocrat.io",
          "payoutSchedule":"Weekly",
          "tgContact":"@finocrat",
+         "hide":false
       },
       {
          "address":"3JpyziZiGFNJ8JG6Y2r4CvhrpSoVQ3MCrHv",

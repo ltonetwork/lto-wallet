@@ -363,6 +363,15 @@
          "payoutSchedule":"Monthly",
          "tgContact":"@grafffu",
          "hide":false
+      },
+      {
+         "address":"3JcUzz5tHmoUkDrNBQq4f9JVBZMKvAd18op",
+         "sharing":"98%",
+         "name":"LTO node CryptoAIR",
+         "website":"https://t.me/grafffu",
+         "payoutSchedule":"Monthly",
+         "tgContact":"@grafffu",
+         "hide":false
       }
    ]
 }

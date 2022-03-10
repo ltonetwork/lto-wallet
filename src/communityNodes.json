@@ -372,6 +372,15 @@
          "payoutSchedule":"Monthly",
          "tgContact":"@grafffu",
          "hide":false
+      },
+     {
+         "address":"3Jk1b7HoyUEXjAyXF7fS1QfsKwCqnPrzeQa",
+         "sharing":"98%",
+         "name":"LTO node CryptoSKY",
+         "website":"https://t.me/grafffu",
+         "payoutSchedule":"Monthly",
+         "tgContact":"@grafffu",
+         "hide":false
       }
    ]
 }

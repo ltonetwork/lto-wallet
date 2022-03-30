@@ -381,8 +381,9 @@
          "payoutSchedule":"Monthly",
          "tgContact":"@grafffu",
          "hide":false
-      }
-     {  "address":"3Jkcf1k55sonzZyJh8LkL41mtznNW25s6A4",
+      },
+     {  
+         "address":"3Jkcf1k55sonzZyJh8LkL41mtznNW25s6A4",
          "sharing":"99%",
          "name":"LONE STAR NODE",
          "website":"lonestarnode.io",

@@ -388,4 +388,5 @@
          "website":"lonestarnode.io",
          "payoutSchedule":"After 10,000 Blocks",
          "tgContact":"@Tash22KA",
-         "hide":false
+         "hide":false 
+     }

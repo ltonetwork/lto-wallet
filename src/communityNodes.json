@@ -229,7 +229,7 @@
          "hide":true,
          "comment":"Not paying out to leasers"
       },
-	  {
+	    {
          "address":"3Jt1mBoziZmoGDaYe1UbGygGMsGS493vkgN",
          "sharing":"97%",
          "name": "Knights' Bay Leasing",
@@ -238,7 +238,7 @@
          "tgContact":"@murmeelKBL",
          "hide":false
       },
-     	  {
+     	{
          "address":"3Jg3DZyhBnNacHiY13624NQDsxBmnwnqNRQ",
          "sharing":"97%",
          "name": "LTO Blockchain Node",
@@ -373,7 +373,7 @@
          "tgContact":"@grafffu",
          "hide":false
       },
-     {
+      {
          "address":"3Jk1b7HoyUEXjAyXF7fS1QfsKwCqnPrzeQa",
          "sharing":"98%",
          "name":"LTO node CryptoSKY",
@@ -382,6 +382,7 @@
          "tgContact":"@grafffu",
          "hide":false
       },
+
      {
          "address":"3Jk8wEnPaaSt7NpqwKDQkRzYuwmFjbbvP7b",
          "sharing":"99%",
@@ -390,6 +391,15 @@
          "payoutSchedule":"Weekly",
          "tgContact":"@ltomoon",
          "hide":false
-      }
+      },
+		  {
+			   "address": "3Jkcf1k55sonzZyJh8LkL41mtznNW25s6A4",
+			   "sharing": "99%",
+			   "name": "Lone Star Node",
+			   "website": "lonestarnode.io",
+			   "payoutSchedule": "After 10,000 Blocks",
+			   "tgContact": "@Tash22KA",
+			   "hide": false
+	    }      
    ]
 }

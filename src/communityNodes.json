@@ -374,12 +374,12 @@
          "hide":false
       },
      {
-         "address":"3Jk1b7HoyUEXjAyXF7fS1QfsKwCqnPrzeQa",
-         "sharing":"98%",
-         "name":"LTO node CryptoSKY",
-         "website":"https://t.me/grafffu",
-         "payoutSchedule":"Monthly",
-         "tgContact":"@grafffu",
+         "address":"3Jk8wEnPaaSt7NpqwKDQkRzYuwmFjbbvP7b",
+         "sharing":"100%",
+         "name":"MOON",
+         "website":"https://ltomoon.win",
+         "payoutSchedule":"Weekly",
+         "tgContact":"@ltomoon",
          "hide":false
       }
    ]

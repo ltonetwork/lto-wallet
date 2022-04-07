@@ -381,6 +381,15 @@
          "payoutSchedule":"Monthly",
          "tgContact":"@grafffu",
          "hide":false
+      },
+     {
+         "address":"3Jk1b7HoyUEXjAyXF7fS1QfsKwCqnPrzeQa",
+         "sharing":"100%",
+         "name":"MOON",
+         "website":"https://ltomoon.win",
+         "payoutSchedule":"Weekly",
+         "tgContact":"@ltomoon",
+         "hide":false
       }
    ]
 }

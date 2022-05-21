@@ -13,6 +13,11 @@
           <button mat-flat-button color="primary" (click)="startLease()">Start lease</button>
         </mat-card-title>
         <mat-card-content>
+        <div class="warning">
+          <span>Note: An unbonding time of 3000 blocks applies to cancelled leases. (approximately 2 days)</span>
+        </div>
+      </mat-card-content>
+        <mat-card-content>
           <ng-container *ngIf="(transactions$ | async) as transactions; else: loadingTpl">
             <lto-transactions-list
               *ngIf="transactions.length; else: emptyTpl"

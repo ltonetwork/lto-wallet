@@ -88,7 +88,8 @@
          "website":"https://stakely.io/lto-network/",
          "payoutSchedule":"Compounding | Automatic & On demand",
          "tgContact":"@LTO_stakely",
-         "hide":false
+         "hide":true,
+         "comment":"Stake > 10%"
       },
       {
          "address":"3JnN8psLjuEyiPbH2bYcEFKUFpcamxzwFiv",
@@ -189,7 +190,8 @@
          "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
          "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
          "tgContact":"@RedPhoenix7",
-         "hide":false
+         "hide":true,
+         "comment":"Stake > 10%"
       },
       {
          "address":"3Jhkp3Xtg2wyT6NoEtJB2VQPAHiYuqYUVBp",

@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { WalletService, TransactionTypes, transactionsFilter, toPromise } from '../core';
 import { StartLeaseModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TransactionConfirmDialog } from '../components/transaction-confirmation-dialog';
 
 @Component({
   selector: 'lto-leasing',
@@ -21,6 +22,7 @@ export class LeasingComponent implements OnInit {
   }
 
   constructor(
+    private confirmDialog: TransactionConfirmDialog,
     private wallet: WalletService,
     private startLeaseModal: StartLeaseModal,
     private snackbar: MatSnackBar
@@ -71,12 +73,28 @@ export class LeasingComponent implements OnInit {
   }
 
   async cancelLease(leaseTransaction: any) {
+    const leaseData = await this._confirm(leaseTransaction);
+    if (!leaseData) {
+      return;
+    }
     try {
       await this.wallet.cancelLease(leaseTransaction.id);
       this.notify('Lease has been canceled');
     } catch (err) {
       this.notify('Ooops. Something went wrong');
     }
+  }
+
+  private _confirm(leaseTransaction: any) {
+    return this.confirmDialog.show({
+      title: 'Confirm transaction',
+      transactionData: [
+        {
+          label: 'Unbonding time',
+          value: '3000 Blocks (50 hours)',
+        }
+      ],
+    });
   }
 
   trackByFn(transaction: any) {

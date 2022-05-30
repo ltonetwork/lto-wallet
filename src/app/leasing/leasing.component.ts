@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WalletService, TransactionTypes, transactionsFilter, toPromise } from '../core';
 import { StartLeaseModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TransactionConfirmDialog } from '../components/transaction-confirmation-dialog';
+import { AMOUNT_DIVIDER } from '@app/tokens';
 
 @Component({
   selector: 'lto-leasing',
@@ -25,7 +26,8 @@ export class LeasingComponent implements OnInit {
     private confirmDialog: TransactionConfirmDialog,
     private wallet: WalletService,
     private startLeaseModal: StartLeaseModal,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    @Inject(AMOUNT_DIVIDER) private AMOUNT_DIVIDER: number
   ) {
     this.address$ = wallet.address$;
     this.transactions$ = wallet.leasingTransactions$.pipe(
@@ -89,6 +91,14 @@ export class LeasingComponent implements OnInit {
     return this.confirmDialog.show({
       title: 'Confirm transaction',
       transactionData: [
+        {
+          label: 'Amount',
+          value: Number(leaseTransaction.amount) / this.AMOUNT_DIVIDER,
+        },
+        {
+          label: 'Node Address',
+          value: leaseTransaction.recipient,
+        },
         {
           label: 'Unbonding time',
           value: '3000 Blocks (50 hours)',

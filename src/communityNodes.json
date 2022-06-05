@@ -402,6 +402,15 @@
 			   "payoutSchedule": "After 10,000 Blocks",
 			   "tgContact": "@Tash22KA",
 			   "hide": false
-	    }      
+	    },
+          {
+         "address":"3JiYAzVaJS3Yo9eRivDVBhZbnUzQNQEYoju",
+         "sharing":"98%",
+         "name":"TUK LTO Node",
+         "website":"http://t.me/KvRhh",
+         "payoutSchedule":"Monthly",
+         "tgContact":"@KvRhh",
+         "hide":false
+      }
    ]
 }

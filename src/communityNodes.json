@@ -404,6 +404,15 @@
 			   "hide": false
 	    },
       {
+         "address":"3JiYAzVaJS3Yo9eRivDVBhZbnUzQNQEYoju",
+         "sharing":"98%",
+         "name":"TUK LTO Node",
+         "website":"http://t.me/KvRhh",
+         "payoutSchedule":"Monthly",
+         "tgContact":"@KvRhh",
+         "hide":false
+      },
+      {
 			   "address": "3Jv111Z8F2TMV2pWyFLJnBuoQaysUUiLEAS",
 			   "sharing": "95%",
 			   "name": "LTOnod.es Leasing",

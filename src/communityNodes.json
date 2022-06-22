@@ -403,7 +403,7 @@
 			   "tgContact": "@Tash22KA",
 			   "hide": false
 	    },
-          {
+      {
          "address":"3JiYAzVaJS3Yo9eRivDVBhZbnUzQNQEYoju",
          "sharing":"98%",
          "name":"TUK LTO Node",
@@ -411,6 +411,15 @@
          "payoutSchedule":"Monthly",
          "tgContact":"@KvRhh",
          "hide":false
-      }
+      },
+      {
+			   "address": "3Jv111Z8F2TMV2pWyFLJnBuoQaysUUiLEAS",
+			   "sharing": "95%",
+			   "name": "LTOnod.es Leasing",
+			   "website": "https://www.ltonod.es/leasing",
+			   "payoutSchedule": "AutoCompounding | On demand",
+			   "tgContact": "@svenblockchain",
+			   "hide": false
+	    }
    ]
 }

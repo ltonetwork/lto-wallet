@@ -190,8 +190,7 @@
          "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
          "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
          "tgContact":"@RedPhoenix7",
-         "hide":true,
-         "comment":"Stake > 10%"
+         "hide":false
       },
       {
          "address":"3Jhkp3Xtg2wyT6NoEtJB2VQPAHiYuqYUVBp",

@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'lto-wallet-seed',
   template: `
-    <span class="word" *ngFor="let word of words">{{ word }}</span>
+    <span class="word" *ngFor="let word of words; last as isLast">{{ word }}<ng-container *ngIf="!isLast">&nbsp;</ng-container></span>
   `,
   styles: [
     `
@@ -26,19 +26,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SeedComponent {
   @Input()
   set seed(value: string[]) {
-    this.words = this._addSpaces(value);
+    this.words = value;
   }
 
   words: string[] = [];
-
-  /**
-   * To make user able to copy/paste text from screen we need to add spaces to
-   * each word.
-   */
-  private _addSpaces(words: string[]): string[] {
-    const lastIndex = words.length - 1;
-    return words.map((word, index) => {
-      return word + (index === lastIndex ? '' : ' ');
-    });
-  }
 }

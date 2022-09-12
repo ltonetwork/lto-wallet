@@ -10,6 +10,7 @@ import { ContentDialogComponent } from './content-dialog';
 import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
 import { HiddenTextComponent } from './hidden-text/hidden-text.component';
 import { TransactionConfirmationDialogModule } from './transaction-confirmation-dialog';
+import { AccountQrComponent } from './account-qr/account-qr.component';
 
 @NgModule({
   imports: [SharedModule, QRCodeModule, RecaptchaModule],
@@ -20,13 +21,15 @@ import { TransactionConfirmationDialogModule } from './transaction-confirmation-
     DeleteAccountDialogComponent,
     HiddenTextComponent,
     ContentDialogComponent,
+    AccountQrComponent,
   ],
   exports: [
     AmountInputComponent,
     BridgeDepositDialogComponent,
     BridgeWithdrawDialogComponent,
     HiddenTextComponent,
-    TransactionConfirmationDialogModule
+    TransactionConfirmationDialogModule,
+    AccountQrComponent
   ],
   entryComponents: [
     BridgeDepositDialogComponent,

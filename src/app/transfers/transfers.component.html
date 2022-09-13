@@ -10,7 +10,7 @@
       <div class="balance" fxLayout="row" fxLayout.lt-md="column" *ngIf="(balance$ | async) as balance" fxLayoutGap="24px">
         <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
           <div class="label">Regular</div>
-          <div class="value" matTooltip="{{ balance.generating | amountDivide }}">{{ balance.regular | amountDivide| number: '1.0-3' }}</div>
+          <div class="value" matTooltip="{{ balance.generating | amountDivide }}">{{ balance.regular | amountDivide | number: '1.0-3' }}</div>
         </mat-card>
 
         <mat-card fxFlex="1 1 20" fxLayout="column" fxHide.lt-md fxLayoutAlign="center center">

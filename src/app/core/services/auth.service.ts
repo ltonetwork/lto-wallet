@@ -138,6 +138,7 @@ export abstract class AuthService {
   abstract readonly STORAGE_KEY: string;
 
   abstract authenticated$: Observable<boolean>;
+  abstract account$: Observable<IUserAccount | null>;
   abstract wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
   abstract localAccount$: BehaviorSubject<IUserAccount | null> =
     new BehaviorSubject<IUserAccount | null>(null);

@@ -10,7 +10,7 @@ import {
   catchError
 } from 'rxjs/operators';
 import { PublicNode } from './public-node';
-import { AuthService } from './auth.service';
+import { AuthService, IUserAccount } from './auth.service';
 import { Account } from 'lto-api';
 import { TransactionTypes } from '../transaction-types';
 import { BridgeService, TokenType } from './bridge.service';
@@ -89,14 +89,14 @@ export class WalletServiceImpl implements WalletService {
     @Inject(AMOUNT_DIVIDER) private amountDivider: number,
     @Inject(DEFAULT_TRANSFER_FEE) private defaultTransferFee: number
   ) {
-    this.address$ = merge(auth.wallet$, auth.ledgerAccount$).pipe(
-      filter((account): account is Account | ILedgerAccount => !!account),
+    this.address$ = auth.account$.pipe(
+      filter((account): account is IUserAccount => !!account),
       map(account => account.address)
     );
 
     this.update$ = merge(this.polling$, this.manualUpdate$).pipe(
-      switchMapTo(merge(auth.wallet$, auth.ledgerAccount$)),
-      filter((account): account is Account | ILedgerAccount => !!account),
+      switchMapTo(auth.account$),
+      filter((account): account is IUserAccount => !!account),
       map(account => account.address),
       shareReplay(1)
     );
@@ -254,7 +254,7 @@ export class WalletServiceImpl implements WalletService {
   async massTransfer(data: IMassTransferPayload) {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
-    
+
     if (!wallet && !ledger) throw new Error('No account connected');
 
     const { attachment } = data;

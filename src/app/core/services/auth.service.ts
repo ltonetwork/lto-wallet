@@ -5,10 +5,11 @@ import { Observable, BehaviorSubject, Subscriber, combineLatest } from 'rxjs';
 
 import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '@app/tokens';
 import { ILedgerAccount, LedgerService } from '@app/core/services/ledger.service';
+import { MobileAuthService, IPublicAccount } from '@app/core/services/mobile-auth.service';
 
 export interface IUserAccount {
   name: string;
-  encryptedSeed: string;
+  encryptedSeed?: string;
   address: string;
   privateKey?: string;
 }
@@ -20,10 +21,10 @@ export class AuthServiceImpl implements AuthService {
   readonly STORAGE_KEY: string = '_USERS_ACCOUNTS_';
 
   authenticated$: Observable<boolean>;
-  wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
-  account$: BehaviorSubject<IUserAccount | null> = new BehaviorSubject<IUserAccount | null>(null);
-  ledgerAccount$: BehaviorSubject<ILedgerAccount | null> =
-    new BehaviorSubject<ILedgerAccount | null>(null);
+  account$: Observable<IUserAccount | null>;
+  wallet$ = new BehaviorSubject<Account | null>(null);
+  localAccount$ = new BehaviorSubject<IUserAccount | null>(null);
+  ledgerAccount$ = new BehaviorSubject<ILedgerAccount | null>(null);
 
   ltoInstance: LTO;
   availableAccounts$: Observable<IUserAccount[]>;
@@ -33,7 +34,8 @@ export class AuthServiceImpl implements AuthService {
     @Inject(LTO_NETWORK_BYTE) networkByte: string,
     @Inject(LTO_PUBLIC_API) publicApi: string,
     private _injector: Injector,
-    private ledger: LedgerService
+    private ledger: LedgerService,
+    private mobileAuth: MobileAuthService
   ) {
     this.ltoInstance = new LTO(networkByte, publicApi.replace(/\/$/, ''));
 
@@ -43,8 +45,16 @@ export class AuthServiceImpl implements AuthService {
       subscriber.next(this.readFromLocalStorage());
     });
 
-    this.authenticated$ = combineLatest(this.wallet$, this.ledger.connected$).pipe(
-      map(([wallet, ledgerConnected]) => !!wallet || !!ledgerConnected)
+    this.authenticated$ = combineLatest(this.wallet$, this.ledger.connected$, this.mobileAuth.account$).pipe(
+      map(([wallet, ledgerConnected, mobileAccount]) => !!wallet || ledgerConnected || !!mobileAccount)
+    );
+
+    this.account$ = combineLatest(this.localAccount$, this.ledger.ledgerAccount$, this.mobileAuth.account$).pipe(
+      map(([localAccount, ledgerAccount, mobileAccount]) =>
+        localAccount ||
+        (ledgerAccount ? { name: ledgerAccount.name + ' @ ledger', address: ledgerAccount.address } : null) ||
+        (mobileAccount ? { name: 'LTO Universal wallet', address: mobileAccount.address } : null)
+      )
     );
 
     this.ledgerAccount$ = this.ledger.ledgerAccount$;
@@ -82,14 +92,14 @@ export class AuthServiceImpl implements AuthService {
       throw new Error('Seed missing');
     }
 
-    this.account$.next(userAccount);
+    this.localAccount$.next(userAccount);
     this.wallet$.next(wallet);
 
     return wallet.address;
   }
 
   logout() {
-    this.account$.next(null);
+    this.localAccount$.next(null);
     this.wallet$.next(null);
     this.ledger.disconnect();
   }
@@ -129,7 +139,7 @@ export abstract class AuthService {
 
   abstract authenticated$: Observable<boolean>;
   abstract wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
-  abstract account$: BehaviorSubject<IUserAccount | null> =
+  abstract localAccount$: BehaviorSubject<IUserAccount | null> =
     new BehaviorSubject<IUserAccount | null>(null);
   abstract ledgerAccount$: BehaviorSubject<ILedgerAccount | null> =
     new BehaviorSubject<ILedgerAccount | null>(null);

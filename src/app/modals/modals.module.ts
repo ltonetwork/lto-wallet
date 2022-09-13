@@ -8,6 +8,7 @@ import { FeeInputModalModule } from './fee-input-modal';
 import { CreateScriptModule } from './create-script';
 import { ScriptInfoModalModule } from './script-info-modal';
 import { DisableScriptModule } from './disable-script';
+import { MobileAuthModalModule } from './mobile-auth-modal';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { DisableScriptModule } from './disable-script';
     FeeInputModalModule,
     CreateScriptModule,
     ScriptInfoModalModule,
-    DisableScriptModule
+    DisableScriptModule,
+    MobileAuthModalModule
   ]
 })
 export class ModalsModule {}

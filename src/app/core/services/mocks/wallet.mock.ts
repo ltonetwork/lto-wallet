@@ -1,4 +1,4 @@
-import { WalletService } from '../wallet.service';
+import { IAnchorPayload, ILeasePayload, IMassTransferPayload, ITransferPayload, WalletService } from '../wallet.service';
 import { of } from 'rxjs';
 
 export class WalletServiceMock implements WalletService {
@@ -17,6 +17,7 @@ export class WalletServiceMock implements WalletService {
   transferFee$ = of(0.75);
 
   address$ = of('test_address');
+  canSign$ = of(true);
 
   transactions$ = of([]);
   leasingTransactions$ = of([]);
@@ -36,4 +37,10 @@ export class WalletServiceMock implements WalletService {
   async cancelLease() {}
   async withdraw() {}
   async anchor() {}
+
+  prepareAnchor = (data: IAnchorPayload) => ({});
+  prepareCancelLease = (transactionId: string) => ({});
+  prepareLease = (data: ILeasePayload) => ({});
+  prepareMassTransfer = (data: IMassTransferPayload) => ({});
+  prepareTransfer = (data: ITransferPayload) => ({});
 }

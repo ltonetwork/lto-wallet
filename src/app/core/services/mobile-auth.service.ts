@@ -37,7 +37,6 @@ export class MobileAuthService {
             '@schema': 'http://schema.lto.network/basic-auth-v1.json',
             'url': 'http://localhost:3030/' + data.code
           });
-          console.log('set challenge', data);
         } else if (this.dataIsAccount(data)) {
           this.account$.next(data);
           this.subject?.complete();

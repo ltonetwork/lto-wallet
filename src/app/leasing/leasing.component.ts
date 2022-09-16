@@ -6,6 +6,7 @@ import { StartLeaseModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TransactionConfirmDialog } from '../components/transaction-confirmation-dialog';
 import { AMOUNT_DIVIDER } from '@app/tokens';
+import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 
 @Component({
   selector: 'lto-leasing',
@@ -24,6 +25,7 @@ export class LeasingComponent implements OnInit {
 
   constructor(
     private confirmDialog: TransactionConfirmDialog,
+    private qrDialog: TransactionQrDialog,
     private wallet: WalletService,
     private startLeaseModal: StartLeaseModal,
     private snackbar: MatSnackBar,
@@ -66,7 +68,9 @@ export class LeasingComponent implements OnInit {
       return;
     }
     try {
-      await this.wallet.lease({ ...leaseData });
+      if (leaseData !== true) { // If leaseData is true it means the tx has been sent using a QR.
+        await this.wallet.lease({ ...leaseData });
+      }
       this.notify('New lease created');
     } catch (Err) {
       this.notify('Cannot lease');
@@ -75,7 +79,15 @@ export class LeasingComponent implements OnInit {
   }
 
   async cancelLease(leaseTransaction: any) {
-    const leaseData = await this._confirm(leaseTransaction);
+    if (!await toPromise(this.wallet.canSign$)) {
+      await this._cancelLeaseViaQr(leaseTransaction);
+      return;
+    }
+
+    const leaseData = await this.confirmDialog.show({
+      title: 'Confirm transaction',
+      transactionData: this._describeTransaction(leaseTransaction)
+    });
     if (!leaseData) {
       return;
     }
@@ -87,24 +99,33 @@ export class LeasingComponent implements OnInit {
     }
   }
 
-  private _confirm(leaseTransaction: any) {
-    return this.confirmDialog.show({
-      title: 'Confirm transaction',
-      transactionData: [
-        {
-          label: 'Amount',
-          value: Number(leaseTransaction.amount) / this.AMOUNT_DIVIDER,
-        },
-        {
-          label: 'Node Address',
-          value: leaseTransaction.recipient,
-        },
-        {
-          label: 'Unbonding time',
-          value: '3000 Blocks (50 hours)',
-        }
-      ],
+  private async _cancelLeaseViaQr(leaseTransaction: any) {
+    const tx = this.wallet.prepareCancelLease(leaseTransaction.id)
+    const send = await this.qrDialog.show({
+      tx: {...tx, sender: await toPromise(this.wallet.address$)},
+      transactionData: this._describeTransaction(leaseTransaction)
     });
+
+    if (send) {
+      this.notify('Lease has been canceled');
+    }
+  }
+
+  private _describeTransaction(leaseTransaction: any) {
+    return [
+      {
+        label: 'Amount',
+        value: Number(leaseTransaction.amount) / this.AMOUNT_DIVIDER,
+      },
+      {
+        label: 'Node Address',
+        value: leaseTransaction.recipient,
+      },
+      {
+        label: 'Unbonding time',
+        value: '3000 Blocks (50 hours)',
+      }
+    ];
   }
 
   trackByFn(transaction: any) {

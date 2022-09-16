@@ -1,0 +1,33 @@
+.icon-box {
+  mat-icon {
+    width: 74px;
+    height: 74px;
+    font-size: 74px;
+  }
+
+  margin-bottom: 20px;
+}
+
+.transaction-data-list {
+  border-top: 1px solid #ebebeb;
+  margin-bottom: 32px;
+  .transaction-data-row {
+    border-bottom: 1px solid #ebebeb;
+    padding: 12px 8px;
+
+    .label {
+      color: rgba(0, 0, 0, 0.44);
+    }
+    .value {
+      text-align: right;
+    }
+  }
+}
+
+.detail {
+  font-size: 0.8em;
+}
+
+.hidden {
+  display: none !important;
+}

@@ -78,7 +78,7 @@ export class CreateAccountComponent implements OnInit {
       // this.auth.login(account, credentials.password);
       this.goToStep(3);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 

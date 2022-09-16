@@ -45,7 +45,7 @@ export class SigninComponent implements OnInit {
       this.snackbar.open('Logged in', 'Dismiss', { duration: 3000 });
       this.router.navigate(['/']);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       this.snackbar.open('Invalid password', 'Dismiss', { duration: 3000 });
     }
   }

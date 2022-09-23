@@ -8,6 +8,7 @@ import { take, withLatestFrom } from 'rxjs/operators';
 import { TransactionConfirmDialog } from '@app/components/transaction-confirmation-dialog';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 import { MakeTransactionService } from '@app/core/services/make-transaction.service';
+import { base58Encode } from 'lto-ledger-js-unofficial-test/lib/utils';
 
 interface FormValue {
   transfers: FormTransfersValue[];
@@ -74,6 +75,8 @@ export class MakeTransactionComponent implements OnInit {
       const tx = formValue.transfers.length === 1
         ? this.wallet.prepareTransfer(this._transferData(formValue))
         : this.wallet.prepareMassTransfer(formValue);
+
+      (tx as any).attachment = base58Encode(new TextEncoder().encode((tx as any).attachment));
 
       const send = await this.transactionQrDialog.show({
         tx: {...tx, sender: await toPromise(this.wallet.address$)},

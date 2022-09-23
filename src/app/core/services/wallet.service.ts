@@ -17,6 +17,7 @@ import { BridgeService, TokenType } from './bridge.service';
 import { transactionsFilter, toPromise } from '../utils';
 import { AMOUNT_DIVIDER, DEFAULT_TRANSFER_FEE } from '../../tokens';
 import { LedgerService, ILedgerAccount, IUnsignedTransaction } from './ledger.service';
+import { base58Encode } from 'lto-ledger-js-unofficial-test/lib/utils';
 
 export interface IBalance {
   regular: number;
@@ -233,6 +234,7 @@ export class WalletServiceImpl implements WalletService {
     return {
       ...data,
       type: TransactionTypes.TRANSFER,
+      version: 3,
       timestamp: Date.now(),
       fee,
       amount,
@@ -257,8 +259,6 @@ export class WalletServiceImpl implements WalletService {
   }
 
   prepareMassTransfer(data: IMassTransferPayload): object {
-    const { attachment } = data;
-
     const fee = Math.round(data.fee * this.amountDivider);
     const transfers = data.transfers.map(transfer => ({
       recipient: transfer.recipient,
@@ -267,10 +267,10 @@ export class WalletServiceImpl implements WalletService {
 
     return {
       type: TransactionTypes.MASS_TRANSFER,
+      version: 3,
       timestamp: Date.now(),
       transfers,
       fee,
-      attachment,
     };
   }
 
@@ -314,6 +314,7 @@ export class WalletServiceImpl implements WalletService {
     return {
       ...data,
       type: TransactionTypes.LEASING,
+      version: 3,
       timestamp: Date.now(),
       fee,
       amount,
@@ -342,6 +343,7 @@ export class WalletServiceImpl implements WalletService {
       transactionId,
       timestamp: Date.now(),
       type: TransactionTypes.CANCEL_LEASING,
+      version: 3,
       fee: this.defaultTransferFee,
     };
   }
@@ -370,6 +372,7 @@ export class WalletServiceImpl implements WalletService {
     return {
       ...data,
       type: TransactionTypes.ANCHOR,
+      version: 3,
       timestamp: Date.now(),
       fee,
       anchors,

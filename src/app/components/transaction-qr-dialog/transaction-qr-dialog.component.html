@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>{{ dialogTitle }}</h1>
+<mat-dialog-content>
+  <div class="transaction-qr">
+    <qrcode [qrdata]="tx | json" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  </div>
+  <div class="transaction-data-list">
+    <div class="transaction-data-row" *ngFor="let field of transactionData" fxLayout="row" [ngClass]="{detail: field.detailOnly, hidden: field.detailOnly && !showDetails}">
+      <div class="label">{{ field.label }}</div>
+      <div class="value" fxFlex="1 1 auto">
+        {{ prettify(field.value) }}
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
+  <button mat-button (click)="showDetails = true" *ngIf="!showDetails && haveDetails">Show details</button>
+  <button mat-button (click)="showDetails = false" *ngIf="showDetails && haveDetails">Hide details</button>
+  <button mat-button [mat-dialog-close]="false">Go back</button>
+</mat-dialog-actions>

@@ -67,9 +67,15 @@ mat-list {
     width: 100%;
     max-width: 436px;
   }
-  
+
   .inner + .inner {
     margin-top: 16px;
+  }
+
+  .label {
+    line-height: 36px;
+    font-weight: 100;
+    padding: 0 32px 0 0;
   }
 }
 

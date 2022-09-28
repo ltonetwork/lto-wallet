@@ -6,7 +6,7 @@ import { StartLeaseModalComponent, LeaseData } from './start-lease-modal.compone
 export class StartLeaseModal {
   constructor(private dialog: MatDialog) { }
 
-  show(balance: number): Promise<LeaseData | void> {
+  show(balance: number): Promise<LeaseData | boolean | void> {
     return this.dialog
       .open(StartLeaseModalComponent, {
         minWidth: 'min(400px, 95vw)',

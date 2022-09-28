@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { WalletService, groupByDate, TransactionsGroup, EncoderService } from '../core';
+import { WalletService, groupByDate, TransactionsGroup, EncoderService, toPromise } from '../core';
 import { FeeInputModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TransactionConfirmDialog } from '@app/components/transaction-confirmation-dialog';
+import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
+import { AMOUNT_DIVIDER, ANCHOR_FEE } from '@app/tokens';
 
 @Component({
   selector: 'lto-anchors',
@@ -11,7 +14,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./anchors.component.scss'],
 })
 export class AnchorsComponent implements OnInit {
-  groupedAcnhors$: Observable<TransactionsGroup[]>;
+  fee: number;
+  groupedAnchors$: Observable<TransactionsGroup[]>;
 
   selectedTransaction: any = null;
 
@@ -21,11 +25,16 @@ export class AnchorsComponent implements OnInit {
 
   constructor(
     private wallet: WalletService,
-    private feeInputModal: FeeInputModal,
+    private confirmDialog: TransactionConfirmDialog,
+    private qrDialog: TransactionQrDialog,
     private snackbar: MatSnackBar,
     private encoder: EncoderService,
+    @Inject(AMOUNT_DIVIDER) divider: number,
+    @Inject(ANCHOR_FEE) defaultFee: number,
   ) {
-    this.groupedAcnhors$ = wallet.anchors$.pipe(
+    this.fee = defaultFee / divider;
+
+    this.groupedAnchors$ = wallet.anchors$.pipe(
       map((anchors) => {
         const withHash = anchors.items.map((anchorTransaction) => {
           // We need to show HASH in table and this HASH should be HEX-HASH
@@ -50,19 +59,50 @@ export class AnchorsComponent implements OnInit {
   ngOnInit() {}
 
   async createAnchor(fileDropevent: any) {
-    const fee = await this.feeInputModal.show(fileDropevent.hex);
-    if (fee) {
-      try {
-        await this.wallet.anchor({ fee, hash: fileDropevent.base58 });
-        this.snackbar.open('Anchor created', 'Dismiss', {
-          duration: 3000,
-        });
-      } catch (error) {
-        this.snackbar.open('Anchor creation error', 'Dismiss', {
-          duration: 3000,
-        });
-      }
+    const hash = fileDropevent.base58;
+
+    if (!await toPromise(this.wallet.canSign$)) {
+      const tx = this.wallet.prepareAnchor({ fee: this.fee, hash });
+      await this.qrDialog.show({
+        tx: {...tx, sender: await toPromise(this.wallet.address$)},
+        transactionData: this._describeTransaction(hash)
+      });
+
+      return;
     }
+
+    const confirmed = await this.confirmDialog.show({
+      title: 'Confirm lease',
+      transactionData: this._describeTransaction(hash)
+    });
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await this.wallet.anchor({ fee: this.fee, hash });
+      this.snackbar.open('Anchor created', 'Dismiss', {
+        duration: 3000,
+      });
+    } catch (error) {
+      this.snackbar.open('Anchor creation error', 'Dismiss', {
+        duration: 3000,
+      });
+    }
+  }
+
+  private _describeTransaction(hash: string) {
+    return [
+      {
+        label: 'Hash',
+        value: hash,
+      },
+      {
+        label: 'Fee',
+        value: this.fee,
+      },
+    ];
   }
 
   select(transaction: any) {

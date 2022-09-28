@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 import { AuthService, IUserAccount, toPromise, LedgerService } from '../../core';
 import { Router } from '@angular/router';
 import { DeleteAccountDialogComponent } from '../../components/delete-account-dialog/delete-account-dialog.component';
+import { MobileAuthModal } from '@app/modals/mobile-auth-modal';
 
 @Component({
   selector: 'lto-signin',
@@ -22,6 +23,7 @@ export class SigninComponent implements OnInit {
     private snackbar: MatSnackBar,
     private router: Router,
     private matDialog: MatDialog,
+    private mobileAuthModal: MobileAuthModal
   ) {
     this.availableAccounts$ = auth.availableAccounts$;
   }
@@ -43,7 +45,7 @@ export class SigninComponent implements OnInit {
       this.snackbar.open('Logged in', 'Dismiss', { duration: 3000 });
       this.router.navigate(['/']);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       this.snackbar.open('Invalid password', 'Dismiss', { duration: 3000 });
     }
   }
@@ -57,6 +59,10 @@ export class SigninComponent implements OnInit {
     if (confirmDelete) {
       this.auth.deleteAccount(account);
     }
+  }
+
+  async mobileLogin() {
+    await this.mobileAuthModal.show();
   }
 
   async ledgerLogin() {

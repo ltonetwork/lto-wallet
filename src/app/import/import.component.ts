@@ -72,7 +72,7 @@ export class ImportComponent implements OnInit {
       this.auth.login(account, credentials.password);
       this.router.navigate(['/']);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 

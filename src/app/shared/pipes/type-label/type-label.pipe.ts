@@ -16,7 +16,6 @@ export class TypeLabelPipe implements PipeTransform {
       case TransactionTypes.MASS_TRANSFER:
         return 'Mass transfer';
       case TransactionTypes.ANCHOR:
-      case TransactionTypes.ANCHOR_NEW:
         return 'Anchor';
     }
 

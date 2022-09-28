@@ -225,9 +225,6 @@ export class LedgerServiceImpl implements LedgerService {
       case TransactionTypes.ANCHOR:
         if (!data.anchors) throw new Error('Property "anchors" is undefined');
 
-        // fixing old anchor type (old = 12; new = 15)
-        data.type = TransactionTypes.ANCHOR_NEW;
-
         version = 1;
 
         rawTransaction = {

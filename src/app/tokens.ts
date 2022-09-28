@@ -6,6 +6,7 @@ export const LTO_NETWORK_BYTE = new InjectionToken<'T' | 'L'>('LTO_NETWORK_BYTE'
  * Public node utl
  */
 export const LTO_PUBLIC_API = new InjectionToken<string>('LTO_PUBLIC_API');
+export const LTO_MOBILE_AUTH = new InjectionToken<{ws: string, url: string}>('LTO_MOBILE_AUTH');
 
 /**
  * Transaction ammount and fees stored as plain number in transaction

@@ -21,10 +21,4 @@ describe('create-account/SeedComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should allow to copy text with space between words', () => {
-    component.seed = ['foo', 'bar', 'zed'];
-    fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toEqual('foo bar zed');
-  });
 });

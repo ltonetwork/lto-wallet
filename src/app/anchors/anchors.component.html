@@ -20,7 +20,7 @@
         <mat-card fxFlex="1 1 auto">
           <mat-card-title>Active anchors</mat-card-title>
           <mat-card-content>
-            <ng-container *ngIf="(groupedAcnhors$ | async) as groupedAcnhors; else: loadingTpl">
+            <ng-container *ngIf="(groupedAnchors$ | async) as groupedAcnhors; else: loadingTpl">
               <ng-container *ngIf="groupedAcnhors.length; else: emptyTpl">
                 <ng-container
                   *ngTemplateOutlet="hashTable; context: { groupedAcnhors: groupedAcnhors }"

@@ -11,7 +11,11 @@ export const environment = {
   bridge: true,
   swapPageEnabled: true,
   lto_api_url: 'https://testnet.lto.network/',
-  bridge_url: 'https://testnet-bridge.lto.network'
+  bridge_url: 'https://testnet-bridge.lto.network',
+  mobile_auth: {
+    ws: 'ws://wallet-auth-testnet.lto.network/connect',
+    url: 'https://wallet-auth-testnet.lto.network/'
+  }
 };
 
 /*

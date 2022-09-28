@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
 import { BehaviorSubject } from 'rxjs';
+import { LTO_MOBILE_AUTH } from '@app/tokens';
 
 export interface IPublicAccount {
   address: string;
@@ -21,21 +22,21 @@ export class MobileAuthService {
   challenge$ = new BehaviorSubject<IMobileAuthChallenge|null>(null);
   account$ = new BehaviorSubject<IPublicAccount|null>(null);
 
-  constructor() {}
+  constructor(@Inject(LTO_MOBILE_AUTH) private settings: {ws: string, url: string}) {}
 
   connect() {
     if (this.subject) {
       throw new Error('Already connected');
     }
 
-    this.subject = webSocket('ws://localhost:3030/connect');
+    this.subject = webSocket(this.settings.ws);
 
     this.subject.subscribe({
       next: data => {
         if (this.dataIsCode(data)) {
           this.challenge$.next({
             '@schema': 'http://schema.lto.network/simple-auth-v1.json',
-            'url': 'http://localhost:3030/' + data.code
+            'url': this.settings.url + data.code
           });
         } else if (this.dataIsAccount(data)) {
           this.account$.next(data);

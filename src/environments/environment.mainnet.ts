@@ -7,5 +7,9 @@ export const environment = {
   bridge: true,
   swapPageEnabled: true,
   lto_api_url: 'https://nodes.lto.network/',
-  bridge_url: 'https://bridge.lto.network'
+  bridge_url: 'https://bridge.lto.network',
+  mobile_auth: {
+    ws: 'ws://wallet-auth.lto.network/connect',
+    url: 'https://wallet-auth.lto.network/'
+  }
 };

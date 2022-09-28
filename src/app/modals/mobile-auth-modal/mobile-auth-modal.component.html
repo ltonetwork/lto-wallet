@@ -1,5 +1,4 @@
 <h1 mat-dialog-title>Scan the QR code with LTO Universal wallet</h1>
 <mat-dialog-content>
   <qrcode [qrdata]="challenge$ | async | json" [width]="256" [errorCorrectionLevel]="'M'" *ngIf='challenge$ | async'></qrcode>
-  <p>{{ (challenge$ | async)?.url }}</p>
 </mat-dialog-content>

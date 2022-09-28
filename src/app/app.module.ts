@@ -18,7 +18,7 @@ import {
   MASS_TRANSFER_FEE,
   ANCHOR_FEE,
   BRIDGE_ENABLED,
-  SWAP_PAGE_ENABLED,
+  SWAP_PAGE_ENABLED, LTO_MOBILE_AUTH
 } from './tokens';
 import { ModalsModule } from './modals/modals.module';
 import { WalletComponentsModule } from './components/wallet-components.module';
@@ -83,6 +83,10 @@ import { environment } from '../environments/environment';
     {
       provide: LTO_PUBLIC_API,
       useValue: environment.lto_api_url,
+    },
+    {
+      provide: LTO_MOBILE_AUTH,
+      useValue: environment.mobile_auth,
     },
     {
       provide: AMOUNT_DIVIDER,

@@ -211,7 +211,7 @@ export class WalletServiceImpl implements WalletService {
         return zip(
           publicNode.indexedTransactions(address, 'anchor'),
           this.unconfirmed$.pipe(
-            map(transactionsFilter(TransactionTypes.ANCHOR, TransactionTypes.ANCHOR_NEW))
+            map(transactionsFilter(TransactionTypes.ANCHOR))
           )
         );
       }),

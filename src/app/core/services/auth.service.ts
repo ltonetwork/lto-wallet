@@ -101,6 +101,7 @@ export class AuthServiceImpl implements AuthService {
   logout() {
     this.localAccount$.next(null);
     this.wallet$.next(null);
+    this.mobileAuth.account$.next(null);
     this.ledger.disconnect();
   }
 

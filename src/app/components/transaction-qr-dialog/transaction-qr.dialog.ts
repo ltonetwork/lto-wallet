@@ -61,6 +61,8 @@ export class TransactionQrDialog {
         return transaction.leaseId === this.tx?.leaseId;
       case TransactionTypes.MASS_TRANSFER:
         return transaction.transfers === this.tx.transfers;
+      case TransactionTypes.ANCHOR:
+        return transaction.anchors.includes(this.tx.anchors[0]);
       default:
         return true;
     }

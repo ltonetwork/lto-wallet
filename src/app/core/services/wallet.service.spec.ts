@@ -35,6 +35,17 @@ describe('Core/WalletService', () => {
     ledgerService = TestBed.inject(LedgerService);
   });
 
+  const timestamp = Date.now();
+
+  beforeEach(() => {
+    jasmine.clock().install();
+    jasmine.clock().mockDate(new Date(timestamp));
+  });
+
+  afterEach(() => {
+    jasmine.clock().uninstall();
+  });
+
   describe('massTransfer()', () => {
     it('should process mass transfer transactions', async () => {
       const broadcastSpy = spyOn(authService.ltoInstance.API.PublicNode.transactions, 'broadcast');
@@ -58,8 +69,10 @@ describe('Core/WalletService', () => {
       expect(broadcastSpy).toHaveBeenCalledWith(
         'massTransfer',
         {
+          type: 11,
+          version: 3,
+          timestamp,
           fee: 350000000,
-          attachment: undefined,
           transfers: [
             {
               recipient: 'some-recipient',
@@ -89,8 +102,9 @@ describe('Core/WalletService', () => {
       expect(broadcastSpy).toHaveBeenCalledTimes(1);
       expect(broadcastSpy).toHaveBeenCalledWith({
         type: 11,
+        version: 3,
+        timestamp,
         fee: 350000000,
-        attachment: undefined,
         transfers: [
           {
             recipient: 'some-recipient',
@@ -122,8 +136,10 @@ describe('Core/WalletService', () => {
       expect(broadcastSpy).toHaveBeenCalledWith(
         'massTransfer',
         {
+          type: 11,
+          version: 3,
+          timestamp,
           fee: 350000000,
-          attachment: undefined,
           transfers: [
             {
               recipient: 'some-recipient',

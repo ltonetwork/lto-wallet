@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '../../tokens';
+import { LTO_MOBILE_AUTH, LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '../../tokens';
 
 import { LedgerServiceMock } from './mocks';
 
@@ -20,6 +20,13 @@ describe('core/AuthServiceImpl', () => {
         {
           provide: LTO_PUBLIC_API,
           useValue: 'http://localhost'
+        },
+        {
+          provide: LTO_MOBILE_AUTH,
+          useValue: {
+            'ws': 'ws://localhost/connect',
+            'url': 'http://localhost'
+          }
         }
       ]
     });

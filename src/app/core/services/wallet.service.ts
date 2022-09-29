@@ -97,8 +97,8 @@ export class WalletServiceImpl implements WalletService {
     );
 
     this.canSign$ = this.address$.pipe(
-      switchMapTo(merge(this.auth.wallet$, this.auth.ledgerAccount$)),
-      map(wallet => !!wallet)
+      switchMapTo(combineLatest(this.auth.wallet$, this.auth.ledgerAccount$)),
+      map(([wallet, ledgerAccount]) => !!wallet || !!ledgerAccount)
     );
 
     this.update$ = merge(this.polling$, this.manualUpdate$).pipe(

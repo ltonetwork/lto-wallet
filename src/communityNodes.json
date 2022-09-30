@@ -147,15 +147,6 @@
          "comment": "Hidden because node quits service"
       },
       {
-         "address":"3JgmLfWZXs1g36V8zFugxw7dHbDREuzSUAm",
-         "sharing":"97%",
-         "name":"LTO Community Node",
-         "website":"https://t.me/LTOCommunityNode",
-         "payoutSchedule":"Every 10.000 blocks",
-         "tgContact":"@Wayne031",
-         "hide":false
-      },
-      {
          "address":"3JexCgRXGFUiuNoJTkkWucSumteRWdb8kKU",
          "sharing":"97.0%",
          "name":"LTO Services",

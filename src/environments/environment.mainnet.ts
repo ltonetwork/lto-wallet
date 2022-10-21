@@ -9,7 +9,7 @@ export const environment = {
   lto_api_url: 'https://nodes.lto.network/',
   bridge_url: 'https://bridge.lto.network',
   mobile_auth: {
-    ws: 'ws://wallet-auth.lto.network/connect',
+    ws: 'wss://wallet-auth.lto.network/connect',
     url: 'https://wallet-auth.lto.network/'
   }
 };

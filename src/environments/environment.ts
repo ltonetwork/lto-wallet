@@ -14,7 +14,7 @@ export const environment = {
   bridge_url: 'https://testnet-bridge.lto.network',
   mobile_auth: {
     ws: 'wss://wallet-auth.testnet.lto.network/connect',
-    url: 'https://wallet-auth-testnet.lto.network/'
+    url: 'https://wallet-auth.testnet.lto.network/'
   }
 };
 

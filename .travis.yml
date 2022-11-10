@@ -15,7 +15,7 @@ script:
   - npm test
 
 before_deploy:
-  - npm run build --configuration=testnet
+  - npm run build:testnet
 
 deploy:
   - provider: s3

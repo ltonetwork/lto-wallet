@@ -8,7 +8,7 @@
          "payoutSchedule":"End of month",
          "tgContact":"@PatrickS79",
          "hide":true,
-         "comment": "Hidden because node is inactive"
+         "comment": "Node is inactive"
       },
       {
          "address":"3JtBYdoHJoQbgf8hYvEz1pyp7jj9URWvvbB",
@@ -36,7 +36,7 @@
          "payoutSchedule":"Monthly",
          "tgContact":"@ICODOGGIO",
          "hide":true,
-         "comment": "Hidden because node is inactive"
+         "comment": "Node is inactive"
       },
       {
          "address":"3JnYB1TzHYS3gYDvczYtNUnmEbJsgmsdWY3",
@@ -64,7 +64,7 @@
          "payoutSchedule":"End of month",
          "tgContact":"@eceler",
          "hide":true,
-         "comment": "Hidden because node is inactive and tgContact is unavailable"
+         "comment": "Node is inactive and Telegram contact is unavailable"
       },
       {
          "address":"3JmcAJMQhdLKj296xoDkng9r1McCmBSFiEX",
@@ -120,7 +120,7 @@
          "payoutSchedule":"Manual Payouts | Monthly",
          "tgContact":"@fierydev",
          "hide":true,
-         "comment": "Hidden because node is inactive and tgContact not available"
+         "comment": "Node is inactive and Telegram contact is not available"
       },
       {
          "address":"3JzWiVi5ngetgzZiS1RW1VXmmghVKKPPjU3",
@@ -148,7 +148,7 @@
          "payoutSchedule":"Every 25.000 blocks",
          "tgContact":"@Beekmeister",
          "hide":true,
-         "comment": "Hidden because node quits service"
+         "comment": "Node ended service"
       },
       {
          "address":"3JexCgRXGFUiuNoJTkkWucSumteRWdb8kKU",
@@ -158,7 +158,7 @@
          "payoutSchedule":"Daily | min 100 LTO in pool",
          "tgContact":"@bbjansen",
          "hide":true,
-         "comment": "Hidden because of compromised server"
+         "comment": "Compromised server, node ended service"
       },
       {
          "address":"3JbXLTSZoU5os2JsTkMorhvvna6Z2dvhBUC",
@@ -213,7 +213,7 @@
          "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
          "tgContact":"@RedPhoenix7",
          "hide":true,
-         "comment": "Hidden because node merged to Phoenixnest node"
+         "comment": "Node merged with Phoenixnest"
       },
       {
          "address":"3JkihPXS5iPs8xDKcFQmhR8TVcAmDRUZpyx",
@@ -260,7 +260,7 @@
          "payoutSchedule":"Every Saturday",
          "tgContact":"@a24io",
          "hide":true,
-         "comment": "Hidden because node is inactive"
+         "comment": "Node is inactive"
       },
       {
          "address":"3Jp9rSY8BCk8DbfDRcqeULNrecWRRP7ShLr",
@@ -315,7 +315,7 @@
          "payoutSchedule":"Beginning of every month",
          "tgContact":"@fr1ts",
          "hide":true,
-         "comment": "Hidden because node has quit"
+         "comment": "Node ended service"
       },
       {
          "address":"3JyXXG6zMKrVkeNdcg3cTRBLRJcbDZcf6RR",
@@ -352,7 +352,7 @@
          "payoutSchedule":"Weekly",
          "tgContact":"@finocrat",
          "hide":true,
-         "comment": "Hidden because node is inactive"
+         "comment": "Node is inactive"
       },
       {
          "address":"3JpyziZiGFNJ8JG6Y2r4CvhrpSoVQ3MCrHv",

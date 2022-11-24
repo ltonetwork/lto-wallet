@@ -7,7 +7,8 @@
          "website":"https://t.me/LTOnaut",
          "payoutSchedule":"End of month",
          "tgContact":"@PatrickS79",
-         "hide":false
+         "hide":true,
+         "comment": "Hidden because node is inactive"
       },
       {
          "address":"3JtBYdoHJoQbgf8hYvEz1pyp7jj9URWvvbB",
@@ -34,7 +35,8 @@
          "website":"https://t.me/ICO_DOG_POOL",
          "payoutSchedule":"Monthly",
          "tgContact":"@ICODOGGIO",
-         "hide":false
+         "hide":true,
+         "comment": "Hidden because node is inactive"
       },
       {
          "address":"3JnYB1TzHYS3gYDvczYtNUnmEbJsgmsdWY3",
@@ -61,7 +63,8 @@
          "website":"https://t.me/lto_tr",
          "payoutSchedule":"End of month",
          "tgContact":"@eceler",
-         "hide":false
+         "hide":true,
+         "comment": "Hidden because node is inactive and tgContact is unavailable"
       },
       {
          "address":"3JmcAJMQhdLKj296xoDkng9r1McCmBSFiEX",
@@ -116,7 +119,8 @@
          "website":"http://millenniumclub.ca",
          "payoutSchedule":"Manual Payouts | Monthly",
          "tgContact":"@fierydev",
-         "hide":false
+         "hide":true,
+         "comment": "Hidden because node is inactive and tgContact not available"
       },
       {
          "address":"3JzWiVi5ngetgzZiS1RW1VXmmghVKKPPjU3",
@@ -255,7 +259,8 @@
          "website":"https://access24.io",
          "payoutSchedule":"Every Saturday",
          "tgContact":"@a24io",
-         "hide":false
+         "hide":true,
+         "comment": "Hidden because node is inactive"
       },
       {
          "address":"3Jp9rSY8BCk8DbfDRcqeULNrecWRRP7ShLr",
@@ -309,7 +314,8 @@
          "website":"http://brokenchairmedia.nl",
          "payoutSchedule":"Beginning of every month",
          "tgContact":"@fr1ts",
-         "hide":false
+         "hide":true,
+         "comment": "Hidden because node has quit"
       },
       {
          "address":"3JyXXG6zMKrVkeNdcg3cTRBLRJcbDZcf6RR",
@@ -345,7 +351,8 @@
          "website":"https://finocrat.io",
          "payoutSchedule":"Weekly",
          "tgContact":"@finocrat",
-         "hide":false
+         "hide":true,
+         "comment": "Hidden because node is inactive"
       },
       {
          "address":"3JpyziZiGFNJ8JG6Y2r4CvhrpSoVQ3MCrHv",

@@ -44,7 +44,7 @@ jobs:
     - name: "Testnet"
       stage: deploy
       before_install:
-        - yarn version $TRAVIS_TAG --no-git-tag-version
+        - yarn version --new-version $TRAVIS_TAG --no-git-tag-version
       install:
         - yarn install
       script:
@@ -65,7 +65,7 @@ jobs:
     - name: "Mainnet"
       stage: deploy
       before_install:
-        - yarn version $TRAVIS_TAG --no-git-tag-version
+        - yarn version --new-version $TRAVIS_TAG --no-git-tag-version
       install:
         - yarn install
       script:

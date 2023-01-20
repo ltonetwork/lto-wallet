@@ -19,9 +19,9 @@ jobs:
   include:
     - stage: test
       install:
-        - npm install
+        - yarn install
       script:
-        - npm run test
+        - yarn test
   
     - stage: release
       before_script:
@@ -44,11 +44,11 @@ jobs:
     - name: "Testnet"
       stage: deploy
       before_install:
-        - npm version $TRAVIS_TAG --no-git-tag-version
+        - yarn version $TRAVIS_TAG --no-git-tag-version
       install:
-        - npm install
+        - yarn install
       script:
-        - npm build:testnet
+        - yarn build:testnet
       deploy:
         provider: s3
         access_key_id: "AKIA5RMFNFEWJOX5Y2AX"
@@ -65,11 +65,11 @@ jobs:
     - name: "Mainnet"
       stage: deploy
       before_install:
-        - npm version $TRAVIS_TAG --no-git-tag-version
+        - yarn version $TRAVIS_TAG --no-git-tag-version
       install:
-        - npm install
+        - yarn install
       script:
-        - npm build:mainnet
+        - yarn build:mainnet
       deploy:
         provider: s3
         access_key_id: "AKIAQUQNQW2MPO46CH4R"

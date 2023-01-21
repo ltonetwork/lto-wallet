@@ -13,7 +13,13 @@
           <a fxFlex="1 1 50" mat-flat-button color="primary" routerLink="../import-account">Import account</a>
         </div>
         <div class="narrow" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
-          <a fxFlex="1 1 100" mat-button (click)="connectLedger()">Sign in with Ledger</a>
+          <div class="label" fxFlex="1 1 30">or sign in with</div>
+          <button fxFlex="1 1 35" mat-button (click)="mobileLogin()">
+            Universal wallet
+          </button>
+          <button fxFlex="1 1 35" mat-button (click)="connectLedger()">
+            Ledger
+          </button>
         </div>
       </div>
     </mat-card-content>

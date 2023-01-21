@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { LedgerService } from '@app/core';
+import { MobileAuthModal } from '@app/modals/mobile-auth-modal';
 
 @Component({
   selector: 'lto-no-account',
@@ -13,8 +14,13 @@ export class NoAccountComponent {
   constructor(
     private router: Router,
     private snackbar: MatSnackBar,
-    private ledger: LedgerService
+    private ledger: LedgerService,
+    private mobileAuthModal: MobileAuthModal,
   ) {}
+
+  async mobileLogin() {
+    await this.mobileAuthModal.show();
+  }
 
   async connectLedger() {
     try {

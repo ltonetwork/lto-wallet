@@ -17,8 +17,10 @@ import {
   DEFAULT_TRANSFER_FEE,
   MASS_TRANSFER_FEE,
   ANCHOR_FEE,
+  SET_SCRIPT_FEE,
   BRIDGE_ENABLED,
-  SWAP_PAGE_ENABLED, LTO_MOBILE_AUTH
+  SWAP_PAGE_ENABLED,
+  LTO_MOBILE_AUTH
 } from './tokens';
 import { ModalsModule } from './modals/modals.module';
 import { WalletComponentsModule } from './components/wallet-components.module';
@@ -107,6 +109,10 @@ import { environment } from '../environments/environment';
     {
       provide: ANCHOR_FEE,
       useValue: environment.anchor_fee,
+    },
+    {
+      provide: SET_SCRIPT_FEE,
+      useValue: environment.set_script_fee,
     },
     {
       provide: BRIDGE_ENABLED,

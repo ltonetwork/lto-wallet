@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { switchMap, filter, map, shareReplay } from 'rxjs/operators';
 import { toPromise } from '../utils';
 import { ScriptsService, PredefinedScript } from './scripts.service';
+import { SET_SCRIPT_FEE } from '@app/tokens';
 
 export const enum TRANSACTION_TYPE {
   TRANSFER = 'transfer',
@@ -27,11 +28,7 @@ match tx {
   case _ => sigVerify(tx.bodyBytes, tx.proofs[0], tx.senderPublicKey)
 }
     `,
-  },
-  {
-    label: 'Delete',
-    value: '',
-  },
+  }
 ];
 
 const PREDEFINED_SCRIPTS_TEST: PredefinedScript[] = [
@@ -41,15 +38,10 @@ const PREDEFINED_SCRIPTS_TEST: PredefinedScript[] = [
 match tx {
   case t:  TransferTransaction => false
   case mt: MassTransferTransaction => false
-  case ss: SetScriptTransaction => false
   case _ => sigVerify(tx.bodyBytes, tx.proofs[0], tx.senderPublicKey)
 }
     `,
-  },
-  {
-    label: 'Delete',
-    value: '',
-  },
+  }
 ];
 
 @Injectable()
@@ -58,7 +50,7 @@ export class ScriptsServiceImpl implements ScriptsService {
   scriptEnabled$: Observable<boolean>;
   scriptInfo$: Observable<any>;
 
-  constructor(private _publicNode: PublicNode, private _auth: AuthService) {
+  constructor(private _publicNode: PublicNode, private _auth: AuthService, @Inject(SET_SCRIPT_FEE) private fee: number) {
     this.scriptInfo$ = _auth.account$.pipe(
       switchMap((account) => {
         if (!account) {
@@ -85,7 +77,7 @@ export class ScriptsServiceImpl implements ScriptsService {
             TRANSACTION_TYPE.SET_SCRIPT,
             {
               script: script.script,
-              fee: 500000000,
+              fee: this.fee,
             },
             wallet.getSignKeys()
           );
@@ -94,13 +86,13 @@ export class ScriptsServiceImpl implements ScriptsService {
       .toPromise();
   }
 
-  async disabeScript(fee: number) {
+  async disabeScript() {
     const wallet: any = await toPromise(this._auth.wallet$);
     return this._auth.ltoInstance.API.PublicNode.transactions.broadcast(
       TRANSACTION_TYPE.SET_SCRIPT,
       {
         script: '',
-        fee,
+        fee: this.fee,
       },
       wallet.getSignKeys()
     );

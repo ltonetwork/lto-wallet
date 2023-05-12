@@ -19,6 +19,7 @@ export const LTO_BRIDGE_HOST = new InjectionToken<string>('LTO_BRIDGE_API');
 export const DEFAULT_TRANSFER_FEE = new InjectionToken<number>('DEFAUTL_TRANSFER_FEE');
 export const MASS_TRANSFER_FEE = new InjectionToken<number>('MASS_TRANSFER_FEE');
 export const ANCHOR_FEE = new InjectionToken<number>('ANCHOR_FEE');
+export const SET_SCRIPT_FEE = new InjectionToken<number>('SET_SCRIPT_FEE');
 
 /**
  * Bridget service works on mainnet only. Based on this token

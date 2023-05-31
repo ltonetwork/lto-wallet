@@ -9,7 +9,7 @@ import { AuthService } from '@app/core';
 })
 export class AccountQrComponent implements OnInit {
   lto$!: Subscription;
-  account!: { '@schema': string, address?: string, seed?: string };
+  account!: { '@schema': string, name?: string, address?: string, seed?: string };
   show = false;
 
   constructor(
@@ -17,10 +17,11 @@ export class AccountQrComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.lto$ = this.auth.wallet$.subscribe((ltoAccount) => (this.account = {
+    this.lto$ = this.auth.account$.subscribe((ltoAccount) => (this.account = {
       '@schema': 'http://schema.lto.network/account-seed.json',
+      name: ltoAccount?.name,
       address: ltoAccount?.address,
-      seed: ltoAccount?.seed,
+      seed: ltoAccount?.encryptedSeed,
     }));
   }
 }

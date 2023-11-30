@@ -416,6 +416,15 @@
 			   "payoutSchedule": "AutoCompounding | On demand",
 			   "tgContact": "@ltonodeslease",
 			   "hide": false
-	    }
+	    },
+      {
+			   "address": "3Jwxe6edRFJBYmigzT1nHVWchmv479Rn9nX",
+			   "sharing": "98%",
+			   "name": "RexoLTO",
+			   "website": "https://t.me/a_krol",
+			   "payoutSchedule": "Weekly",
+			   "tgContact": "@a_krol",
+			   "hide": false
+	    }     
    ]
 }

@@ -22,9 +22,9 @@
       {
          "address":"3Jn6jpPBVmi1RLRpUtQGKVibNZpeTRACK2P",
          "sharing":"98.0%",
-         "name":"Kruptos Nomisma",
-         "website":"https://t.me/joinchat/FWHS41c5dkPila-gl60f7A",
-         "payoutSchedule":"End of month",
+         "name":"Kruptos Nomisma Monthly Payments",
+         "website":"https://t.me/KNLTONodeMonthly",
+         "payoutSchedule":"End Of Every Month",
          "tgContact":"@PitBullCH",
          "hide":false
       },
@@ -78,10 +78,10 @@
       {
          "address":"3JqGGBMvkMtQQqNhGVD6knEzhncb55Y7JJ5",
          "sharing":"97.5%",
-         "name":"Liquid Leasing Network",
-         "website":"https://t.me/liquidleasingnetwork",
-         "payoutSchedule":"Every second Monday",
-         "tgContact":"@jayjayy",
+         "name":"Kruptos Nomisma Monthly Payments",
+         "website":"https://t.me/KNLTONodeBiWeekly",
+         "payoutSchedule":"Every Second Monday",
+         "tgContact":"@PitBullCH",
          "hide":false
       },
       {

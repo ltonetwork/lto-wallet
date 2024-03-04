@@ -425,6 +425,15 @@
 			   "payoutSchedule": "Weekly",
 			   "tgContact": "@a_krol",
 			   "hide": false
-	    }     
+	    },
+      {
+			   "address": "3JjkXHqssTXPJJVuompRG5K4Lsk6k5gVvLU",
+			   "sharing": "95%",
+			   "name": "High Alps | Nodes",
+			   "website": "https://lto.highalps.ch/",
+			   "payoutSchedule": "Every two weeks",
+			   "tgContact": "@highalps",
+			   "hide": false
+	    } 
    ]
 }

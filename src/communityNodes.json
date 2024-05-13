@@ -268,7 +268,8 @@
          "website":"https://ltomoonbase.club",
          "payoutSchedule":"Every Saturday",
          "tgContact":"@lebarb0",
-         "hide":false
+         "hide":true,
+         "comment":"Node is not paying out to leasers"
       },
       {
          "address":"3JwUPNbGzguXqvZoAyPYsVDjqURMFVXp9WX",

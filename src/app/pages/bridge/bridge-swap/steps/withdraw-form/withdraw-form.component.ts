@@ -44,11 +44,14 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
       case SwapType.BINANCE_MAIN:
+      case SwapType.BEP20_MAIN:
       case SwapType.MAIN_BINANCEEXCHANGE:
         return 'MAINNET';
       case SwapType.ERC20_BINANCE:
       case SwapType.MAIN_BINANCE:
         return 'BEP-2';
+      case SwapType.MAIN_BEP20:
+        return 'BEP-20';
       case SwapType.MAIN_ERC20:
         return 'ERC-20';
     }
@@ -58,10 +61,12 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
       case SwapType.BINANCE_MAIN:
+      case SwapType.BEP20_MAIN:
         return 'purple';
       case SwapType.ERC20_BINANCE:
       case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
+      case SwapType.MAIN_BEP20:
         return 'yellow';
       case SwapType.MAIN_ERC20:
         return 'blue';
@@ -81,6 +86,9 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
       case SwapType.MAIN_BINANCE:
       case SwapType.ERC20_BINANCE:
         return 'BEP-2';
+      case SwapType.BEP20_MAIN:
+      case SwapType.MAIN_BEP20:
+        return 'BEP-20';
       case SwapType.MAIN_BINANCEEXCHANGE:
         return 'MAINNET';
     }
@@ -95,6 +103,8 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
       case SwapType.MAIN_BINANCE:
       case SwapType.ERC20_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
+      case SwapType.BEP20_MAIN:
+      case SwapType.MAIN_BEP20:
         return 'yellow';
     }
   }
@@ -117,7 +127,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.addressPlaceholder = this.swapType === SwapType.MAIN_ERC20 ? 'ETH' : 'BEP-2';
+    this.addressPlaceholder = this.swapType === SwapType.MAIN_ERC20 ? 'ETH' : this.swapType === SwapType.MAIN_BINANCE ? 'BEP-2' : 'BEP-20';
 
     const addressValidators: ValidatorFn[] = [Validators.required];
 
@@ -202,7 +212,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
 
   transfer() {
     const { amount, address, memo } = this.withdrawForm.value;
-    const tokenType = this.swapType === SwapType.MAIN_ERC20 ? 'LTO20' : 'BINANCE';
+    const tokenType = this.swapType === SwapType.MAIN_ERC20 ? 'LTO20' : this.swapType === SwapType.MAIN_BINANCE ? 'BINANCE' : 'BEP20';
     this.transfer$ = this._wallet.withdraw(
       address,
       amount,

@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
-import { SwapType } from '../../swap-type';
+import { SwapTokenType, SwapType } from '../../swap-type';
 
 
 @Component({
@@ -11,46 +11,33 @@ import { SwapType } from '../../swap-type';
 export class SwapTypeComponent {
   @Output() selectType = new EventEmitter<SwapType>();
 
-  selectedType: SwapType | null = null;
-  SwapType = SwapType;
-
-  get ercToMainActive(): boolean {
-    return this.selectedType === SwapType.ERC20_MAIN;
-  }
-
-  get mainToErcActive(): boolean {
-    return this.selectedType === SwapType.MAIN_ERC20;
-  }
+  selectedFrom: SwapTokenType | null = null;
+  selectedTo: SwapTokenType | null = null;
+  SwapTokenType = SwapTokenType;
 
   constructor() {}
 
-  selectERC20ToMain() {
-    this.selectedType = SwapType.ERC20_MAIN;
+  selectFrom(token: SwapTokenType) {
+    this.selectedFrom = token;
+    this.selectedTo = token === SwapTokenType.MAINNET ? SwapTokenType.ERC20 : SwapTokenType.MAINNET;
   }
 
-  selectMainToERC20() {
-    this.selectedType = SwapType.MAIN_ERC20;
-  }
+  selectTo(token: SwapTokenType) {
+    if (token === this.selectedFrom || token === SwapTokenType.ERC20 && this.selectedFrom && this.selectedFrom !== SwapTokenType.MAINNET) {
+      return;
+    }
 
-  selectBinanceToMain() {
-    this.selectedType = SwapType.BINANCE_MAIN;
-  }
+    this.selectedTo = token;
 
-  selectMainToBinance() {
-    this.selectedType = SwapType.MAIN_BINANCE;
-  }
-
-  selectERC20ToBinance() {
-    this.selectedType = SwapType.ERC20_BINANCE;
-  }
-
-  selectMainToBinanceExchange() {
-    this.selectedType = SwapType.MAIN_BINANCEEXCHANGE;
+    if (!this.selectedFrom) {
+      this.selectedFrom = token === SwapTokenType.MAINNET ? SwapTokenType.ERC20 : SwapTokenType.MAINNET;
+    }
   }
 
   nextStepClick() {
-    if (this.selectedType) {
-      this.selectType.next(this.selectedType);
+    if (this.selectedFrom && this.selectedTo) {
+      const type = `${this.selectedFrom}->${this.selectedTo}` as SwapType;
+      this.selectType.next(type);
     }
   }
 }

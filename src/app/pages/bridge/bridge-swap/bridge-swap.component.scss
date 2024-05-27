@@ -45,6 +45,17 @@
   .red {
     color: red;
   }
+
+  .disabled {
+    opacity: 0.5;
+
+    .purple,
+    .blue,
+    .yellow,
+    .red {
+      color: inherit;
+    }
+  }
 }
 
 .close-button {

@@ -47,6 +47,9 @@ export class DepositErcComponent implements OnInit {
       case SwapType.BINANCE_MAIN:
       case SwapType.MAIN_BINANCE:
         return 'BEP-2';
+      case SwapType.BEP20_MAIN:
+      case SwapType.MAIN_BEP20:
+        return 'BEP-20';
       case SwapType.MAIN_BINANCEEXCHANGE:
         return 'MAINNET';
     }
@@ -61,6 +64,8 @@ export class DepositErcComponent implements OnInit {
       case SwapType.BINANCE_MAIN:
       case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
+      case SwapType.BEP20_MAIN:
+      case SwapType.MAIN_BEP20:
         return 'yellow';
     }
   }

@@ -19,6 +19,7 @@ export interface IUserAccount {
 })
 export class AuthServiceImpl implements AuthService {
   readonly STORAGE_KEY: string = '_USERS_ACCOUNTS_';
+  readonly SESSION_KEY: string = '_LTO_ACCOUNT_';
 
   authenticated$: Observable<boolean>;
   account$: Observable<IUserAccount | null>;
@@ -58,6 +59,8 @@ export class AuthServiceImpl implements AuthService {
     );
 
     this.ledgerAccount$ = this.ledger.ledgerAccount$;
+
+    this.loadSession();
   }
 
   saveAccount(name: string, password: string, wallet: Account): IUserAccount {
@@ -95,6 +98,8 @@ export class AuthServiceImpl implements AuthService {
     this.localAccount$.next(userAccount);
     this.wallet$.next(wallet);
 
+    this.saveSession();
+
     return wallet.address;
   }
 
@@ -103,6 +108,8 @@ export class AuthServiceImpl implements AuthService {
     this.wallet$.next(null);
     this.mobileAuth.account$.next(null);
     this.ledger.disconnect();
+
+    this.saveSession();
   }
 
   deleteAccount(account: IUserAccount) {
@@ -127,6 +134,31 @@ export class AuthServiceImpl implements AuthService {
     const newAccounts = accounts.filter((a) => a.address !== account.address);
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(newAccounts));
     return newAccounts;
+  }
+
+  private saveSession() {
+    const userAccount = this.localAccount$.getValue();
+    const wallet = this.wallet$.getValue();
+
+    if (userAccount && wallet) {
+      sessionStorage.setItem(this.SESSION_KEY, JSON.stringify({ ...userAccount, seed: wallet.seed }));
+    } else {
+      sessionStorage.removeItem(this.SESSION_KEY);
+    }
+  }
+
+  private loadSession() {
+    const sessionData = sessionStorage.getItem(this.SESSION_KEY);
+
+    if (!sessionData) {
+      return;
+    }
+
+    const { seed, ...userAccount } = JSON.parse(sessionData);
+    const wallet = this.ltoInstance.createAccountFromExistingPhrase(seed);
+
+    this.localAccount$.next(userAccount);
+    this.wallet$.next(wallet);
   }
 }
 

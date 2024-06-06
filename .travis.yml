@@ -15,6 +15,9 @@ stages:
   - name: deploy
     if: tag IS present OR (branch = staging AND type = push)
 
+env:
+  - NODE_OPTIONS=--openssl-legacy-provider
+
 jobs:
   include:
     - stage: test

@@ -33,7 +33,7 @@
     "buffer": "^5.7.1",
     "concurrently": "^6.2.1",
     "core-js": "^2.6.12",
-    "crypto-js": "^3.3.0",
+    "crypto-js": "^4.2.0",
     "js-sha256": "^0.9.0",
     "json-server": "^0.16.3",
     "lto-api": "^0.5.13",

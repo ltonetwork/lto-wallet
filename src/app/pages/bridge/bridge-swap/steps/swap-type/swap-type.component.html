@@ -9,7 +9,8 @@
       <div (click)="selectFrom(SwapTokenType.ERC20)" [ngClass]="{active: selectedFrom === SwapTokenType.ERC20}">
         <span class="blue">ERC-20 <small>(Ethereum)</small></span>
       </div>
-      <div (click)="selectFrom(SwapTokenType.BEP20)" [ngClass]="{active: selectedFrom === SwapTokenType.BEP20}">
+      <div (click)="bscEnabled && selectFrom(SwapTokenType.BEP20)" [ngClass]="{active: selectedFrom === SwapTokenType.BEP20, disabled: !bscEnabled}"
+      [matTooltip]="bscEnabled ? '' : 'Transferring from BSc to Mainnet is not available yet as it\'s currently being reviewed. Thanks for your patience'">
         <span class="yellow">BEP-20 <small>(Binance Smart Chain)</small></span>
       </div>
       <div (click)="selectFrom(SwapTokenType.BEP2)" [ngClass]="{active: selectedFrom === SwapTokenType.BEP2}">

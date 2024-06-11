@@ -26,4 +26,5 @@ export const SET_SCRIPT_FEE = new InjectionToken<number>('SET_SCRIPT_FEE');
  * BridgetService factory will decide which version of BridgeService to use
  */
 export const BRIDGE_ENABLED = new InjectionToken<boolean>('BRIDGE_ENABLED');
+export const BRIDGE_BSC_ENABLED = new InjectionToken<boolean>('BRIDGE_BSC_ENABLED');
 export const SWAP_PAGE_ENABLED = new InjectionToken<boolean>('SWAP_PAGE_ENABLED');

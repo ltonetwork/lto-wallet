@@ -15,6 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgSuspenseModule } from 'ng-suspense';
 import { WithdrawFormComponent } from './steps/withdraw-form/withdraw-form.component';
 import { WithdrawCexComponent } from './steps/withdraw-cex/withdraw-cex.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { WithdrawCexComponent } from './steps/withdraw-cex/withdraw-cex.componen
     ReactiveFormsModule,
     FormsModule,
     MatIconModule,
+    MatTooltipModule
   ],
   exports: [BridgeSwapComponent],
   entryComponents: [BridgeSwapComponent],

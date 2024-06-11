@@ -19,6 +19,7 @@ import {
   ANCHOR_FEE,
   SET_SCRIPT_FEE,
   BRIDGE_ENABLED,
+  BRIDGE_BSC_ENABLED,
   SWAP_PAGE_ENABLED,
   LTO_MOBILE_AUTH
 } from './tokens';
@@ -117,6 +118,10 @@ import { environment } from '../environments/environment';
     {
       provide: BRIDGE_ENABLED,
       useValue: environment.bridge,
+    },
+    {
+      provide: BRIDGE_BSC_ENABLED,
+      useValue: environment.networkByte === 'T',
     },
     {
       provide: SWAP_PAGE_ENABLED,

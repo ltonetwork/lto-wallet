@@ -1,32 +1,33 @@
 <h2 mat-dialog-title>Choose your swap</h2>
 <mat-dialog-content>
   <div>
-    <p>Choose your swap direction and press next.</p>
-
+    <h3>from</h3>
     <div class="swap-type-picker">
-      <div class="main-to-binance-exchange" (click)="selectMainToBinanceExchange()" [ngClass]="{active: selectedType === SwapType.MAIN_BINANCEEXCHANGE}">
-        <span class="purple">MAINNET</span> to <span class="yellow">BINANCE Exchange</span>
+      <div (click)="selectFrom(SwapTokenType.MAINNET)" [ngClass]="{active: selectedFrom === SwapTokenType.MAINNET}">
+        <span class="purple">MAINNET</span>
       </div>
-      <div class="erc-to-main" (click)="selectERC20ToMain()" [ngClass]="{active: selectedType === SwapType.ERC20_MAIN}">
-        <span class="blue">ERC-20</span> to <span class="purple">MAINNET</span>
+      <div (click)="selectFrom(SwapTokenType.ERC20)" [ngClass]="{active: selectedFrom === SwapTokenType.ERC20}">
+        <span class="blue">ERC-20 <small>(Ethereum)</small></span>
       </div>
-      <div class="main-to-erc" (click)="selectMainToERC20()" [ngClass]="{active: selectedType === SwapType.MAIN_ERC20}">
-        <span class="purple">MAINNET</span> to <span class="blue">ERC-20</span>
+      <div (click)="selectFrom(SwapTokenType.BEP20)" [ngClass]="{active: selectedFrom === SwapTokenType.BEP20}">
+        <span class="yellow">BEP-20 <small>(Binance Smart Chain)</small></span>
       </div>
-      <div (click)="selectBinanceToMain()" [ngClass]="{active: selectedType === SwapType.BINANCE_MAIN}">
-        <span class="yellow">BEP-2</span> to <span class="purple">MAINNET</span>
-      </div>
-      <div (click)="selectMainToBinance()" [ngClass]="{active: selectedType === SwapType.MAIN_BINANCE}">
-        <span class="purple">MAINNET</span> to <span class="yellow">BEP-2</span>
-      </div>
-      <div (click)="selectERC20ToBinance()" [ngClass]="{active: selectedType === SwapType.ERC20_BINANCE}">
-        <span class="blue">ERC-20</span> to <span class="yellow">BEP-2</span>
+      <div (click)="selectFrom(SwapTokenType.BEP2)" [ngClass]="{active: selectedFrom === SwapTokenType.BEP2}">
+        <span class="black">BEP-2 <small>(Binance Beacon Chain)</small></span>
       </div>
     </div>
 
-    <p class="muted"><small><strong>BEP-20</strong> (Binance Smart Chain) is not supported by the bridge. Instead, please follow the <a href="https://blog.ltonetwork.com/how-to-swap-lto-bep2-to-lto-bep20/" target="_blank" title="BEP-2 to BEP-20 instructions">instructions in this article</a>.</small></p>
+    <h3>to</h3>
+    <div class="swap-type-picker">
+      <div (click)="selectTo(SwapTokenType.MAINNET)" [ngClass]="{active: selectedTo === SwapTokenType.MAINNET, disabled: selectedFrom === SwapTokenType.MAINNET}">
+        <span class="purple">MAINNET</span>
+      </div>
+      <div (click)="selectTo(SwapTokenType.ERC20)" [ngClass]="{active: selectedTo === SwapTokenType.ERC20, disabled: selectedFrom && selectedFrom !== SwapTokenType.MAINNET}">
+        <span class="blue">ERC-20 <small>(Ethereum)</small></span>
+      </div>
+    </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-flat-button color="primary" [disabled]="!selectedType" (click)="nextStepClick()">Next</button>
+  <button mat-flat-button color="primary" [disabled]="!selectedFrom || !selectedTo" (click)="nextStepClick()">Next</button>
 </mat-dialog-actions>

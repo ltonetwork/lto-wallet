@@ -38,9 +38,12 @@ export class ExampleComponent implements OnInit {
         return 'ERC-20';
       case SwapType.BINANCE_MAIN:
         return 'BEP-2';
+      case SwapType.BEP20_MAIN:
+        return 'BEP-20';
       case SwapType.MAIN_ERC20:
       case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
+      case SwapType.MAIN_BEP20:
         return 'MAINNET';
     }
   }
@@ -51,10 +54,12 @@ export class ExampleComponent implements OnInit {
       case SwapType.ERC20_BINANCE:
         return 'blue';
       case SwapType.BINANCE_MAIN:
+      case SwapType.BEP20_MAIN:
         return 'yellow';
       case SwapType.MAIN_ERC20:
       case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
+      case SwapType.MAIN_BEP20:
         return 'purple';
     }
   }
@@ -63,11 +68,14 @@ export class ExampleComponent implements OnInit {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
       case SwapType.BINANCE_MAIN:
+      case SwapType.BEP20_MAIN:
       case SwapType.MAIN_BINANCEEXCHANGE:
         return 'MAINNET';
       case SwapType.ERC20_BINANCE:
       case SwapType.MAIN_BINANCE:
         return 'BEP-2';
+      case SwapType.MAIN_BEP20:
+        return 'BEP-20';
       case SwapType.MAIN_ERC20:
         return 'ERC-20';
     }
@@ -77,15 +85,18 @@ export class ExampleComponent implements OnInit {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
       case SwapType.BINANCE_MAIN:
+      case SwapType.BEP20_MAIN:
         return 'purple';
       case SwapType.ERC20_BINANCE:
       case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
+      case SwapType.MAIN_BEP20:
         return 'yellow';
       case SwapType.MAIN_ERC20:
         return 'blue';
     }
   }
+
 
   ltoWithdrawing = 1000;
 

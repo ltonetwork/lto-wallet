@@ -27,57 +27,37 @@ export class WithdrawCexComponent implements OnInit {
 
   get fromTokenType(): string {
     switch (this.swapType) {
-      case SwapType.ERC20_MAIN:
-      case SwapType.ERC20_BINANCE:
-        return 'ERC-20';
-      case SwapType.BINANCE_MAIN:
-        return 'BEP-2';
-      case SwapType.MAIN_ERC20:
-      case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
         return 'MAINNET';
+      default:
+        throw new Error('Invalid swap type: no CEX withdrawal');
     }
   }
 
   get fromColor(): string {
     switch (this.swapType) {
-      case SwapType.ERC20_MAIN:
-      case SwapType.ERC20_BINANCE:
-        return 'blue';
-      case SwapType.BINANCE_MAIN:
-        return 'yellow';
-      case SwapType.MAIN_ERC20:
-      case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
         return 'purple';
+      default:
+        throw new Error('Invalid swap type: no CEX withdrawal');
     }
   }
 
   get toTokenType(): string {
     switch (this.swapType) {
-      case SwapType.ERC20_MAIN:
-      case SwapType.BINANCE_MAIN:
       case SwapType.MAIN_BINANCEEXCHANGE:
         return 'MAINNET';
-      case SwapType.ERC20_BINANCE:
-      case SwapType.MAIN_BINANCE:
-        return 'BEP-2';
-      case SwapType.MAIN_ERC20:
-        return 'ERC-20';
+      default:
+        throw new Error('Invalid swap type: no CEX withdrawal');
     }
   }
 
   get toColor(): string {
     switch (this.swapType) {
-      case SwapType.ERC20_MAIN:
-      case SwapType.BINANCE_MAIN:
-        return 'purple';
-      case SwapType.ERC20_BINANCE:
-      case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
         return 'yellow';
-      case SwapType.MAIN_ERC20:
-        return 'blue';
+      default:
+        throw new Error('Invalid swap type: no CEX withdrawal');
     }
   }
 

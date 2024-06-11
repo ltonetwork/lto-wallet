@@ -12,6 +12,8 @@ export class WalletServiceMock implements WalletService {
     generating: 0,
     available: 0,
     effective: 0,
+    leasing: 0,
+    unbonding: 0,
     amountDivider: 1
   });
   transferFee$ = of(0.75);

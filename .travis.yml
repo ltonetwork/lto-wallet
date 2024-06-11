@@ -2,6 +2,11 @@ language: node_js
 node_js: 18
 dist: jammy
 
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
 branches:
   only:
     - master
@@ -17,6 +22,10 @@ stages:
 
 env:
   - NODE_OPTIONS=--openssl-legacy-provider
+
+before_install:
+  - corepack enable
+  - yarn --version
 
 jobs:
   include:
@@ -46,9 +55,8 @@ jobs:
 
     - name: "Testnet"
       stage: deploy
-      before_install:
-        - yarn version --new-version $TRAVIS_TAG --no-git-tag-version
       install:
+        - yarn version --new-version $TRAVIS_TAG --no-git-tag-version
         - yarn install
       script:
         - yarn build:testnet

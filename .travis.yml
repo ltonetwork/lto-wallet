@@ -26,7 +26,6 @@ env:
 before_install:
   - corepack enable
   - yarn --version
-  - yarn plugin import version
 
 jobs:
   include:
@@ -76,9 +75,10 @@ jobs:
 
     - name: "Mainnet"
       stage: deploy
-      install:
+      before_install:
         - yarn version --new-version $TRAVIS_TAG --no-git-tag-version
-        - yarn install --immutable
+      install:
+        - yarn install
       script:
         - yarn build:mainnet
       deploy:

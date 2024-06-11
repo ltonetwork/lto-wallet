@@ -57,7 +57,7 @@ jobs:
     - name: "Testnet"
       stage: deploy
       install:
-        - yarn version $TRAVIS_TAG
+        - yarn version --new-version $TRAVIS_TAG --no-git-tag-version
         - yarn install --immutable
       script:
         - yarn build:testnet
@@ -77,7 +77,7 @@ jobs:
     - name: "Mainnet"
       stage: deploy
       install:
-        - yarn version $TRAVIS_TAG
+        - yarn version --new-version $TRAVIS_TAG --no-git-tag-version
         - yarn install --immutable
       script:
         - yarn build:mainnet

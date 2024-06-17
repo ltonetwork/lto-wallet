@@ -42,6 +42,7 @@ export class BridgeSwapComponent implements OnInit {
   goToNextStep() {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
+      case SwapType.BEP20_MAIN:
       case SwapType.BINANCE_MAIN:
       case SwapType.ERC20_BINANCE:
         this.step = 4;
@@ -50,6 +51,8 @@ export class BridgeSwapComponent implements OnInit {
       case SwapType.MAIN_ERC20:
         this.step = 5;
         break;
+      default:
+        throw new Error(`No step for swap type: ${this.swapType}`);
     }
   }
 

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BridgeService, WalletService } from '../../../../../core';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { SwapType } from '../../swap-type';
+import { SwapTokenType, SwapType } from '../../swap-type';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import * as bech32 from 'bech32';
 
@@ -116,11 +116,7 @@ export class DepositErcComponent implements OnInit {
 
   resolveCaptcha(response: string) {
     this.captchaResponse = response;
-    const tokenType =
-      this.swapType === SwapType.ERC20_MAIN || this.swapType === SwapType.ERC20_BINANCE
-        ? 'LTO20'
-        : 'BINANCE';
-    const toTokenType = this.swapType === SwapType.ERC20_BINANCE ? 'BINANCE' : 'LTO';
+    const [tokenType, toTokenType] = this.swapType.split('->') as [SwapTokenType, SwapTokenType];
     if (this.swapType === SwapType.ERC20_BINANCE) {
       this.address$ = this._bridge.depositTo(
         this.depositForm.value.address,

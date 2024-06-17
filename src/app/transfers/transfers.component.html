@@ -9,13 +9,8 @@
     <lto-content-section title="Transfers" subtitle="">
       <div class="balance" fxLayout="row" fxLayout.lt-md="column" *ngIf="(balance$ | async) as balance" fxLayoutGap="24px">
         <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
-          <div class="label">Total</div>
+          <div class="label">Balance</div>
           <div class="value" matTooltip="{{ balance.regular | amountDivide }}">{{ balance.regular | amountDivide | number: '1.0-3' }}</div>
-        </mat-card>
-
-        <mat-card fxFlex="1 1 20" fxLayout="column" fxHide.lt-md fxLayoutAlign="center center">
-          <div class="label">Available</div>
-          <div class="value" matTooltip="{{ balance.available | amountDivide }}">{{ balance.available | amountDivide | number: '1.0-3' }}</div>
         </mat-card>
 
         <mat-card fxFlex="1 1 20" fxLayout="column" fxHide.lt-md fxLayoutAlign="center center">
@@ -28,7 +23,12 @@
           <div class="value" matTooltip="{{ balance.unbonding | amountDivide }}">{{ balance.unbonding | amountDivide | number: '1.0-3' }}</div>
         </mat-card>
 
-        <mat-card fxFlex="1 1 20" fxLayout="column" fxLayoutAlign="center center">
+        <mat-card fxFlex="1 1 20" fxLayout="column" fxHide.lt-md fxLayoutAlign="center center">
+          <div class="label">Available</div>
+          <div class="value" matTooltip="{{ balance.available | amountDivide }}">{{ balance.available | amountDivide | number: '1.0-3' }}</div>
+        </mat-card>
+
+        <mat-card fxFlex="1 1 20" fxLayout="column" fxHide.lt-md fxLayoutAlign="center center">
           <div class="label">Number of transactions</div>
           <div class="value">{{ (transfers$ | async)?.total }}</div>
         </mat-card>

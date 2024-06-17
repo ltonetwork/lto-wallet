@@ -8,7 +8,7 @@ export const environment = {
   bridge: true,
   swapPageEnabled: false,
   lto_api_url: 'https://testnet.lto.network/',
-  bridge_url: 'http://localhost:3000',
+  bridge_url: 'http://localhost:3002',
   mobile_auth: {
     ws: 'ws://localhost:3030/connect',
     url: 'http://localhost:3030/'

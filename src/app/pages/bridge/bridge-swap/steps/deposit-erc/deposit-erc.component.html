@@ -25,7 +25,7 @@
 
 <ng-template #addressTpl>
   <ng-container [ngSuspense]="address$">
-    <p *ngSuspenseError class="error">Cannot generate bridge</p>
+    <p *ngSuspenseError class="error">Failed to obtain a bridge address</p>
     <lto-loading-spinner *ngSuspensePlaceholder="1000"></lto-loading-spinner>
     <div class="address-box" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px"
       *ngSuspenseSuccess="let address;">

@@ -7,6 +7,7 @@ export const environment = {
   set_script_fee: 500000000,
   bridge: true,
   swapPageEnabled: true,
+  recaptcha_site_key: '6LebrZMUAAAAAEhsMU6H0QQChao1Ya3buSsBXunu',
   lto_api_url: 'https://nodes.lto.network/',
   bridge_url: 'https://bridge.lto.network',
   mobile_auth: {

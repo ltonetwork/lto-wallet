@@ -5,7 +5,7 @@
   </ng-container>
   <ng-container *ngIf="shouldShowCaptcha && !captchaResponse; then captchaTpl;">
   </ng-container>
-  <ng-container *ngIf="captchaResponse; then addressTpl;">
+  <ng-container *ngIf="captchaResponse || (!shouldSpecifyToAddress && !shouldShowCaptcha); then addressTpl;">
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions>

@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { BridgeService, WalletService } from '../../../../../core';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SwapTokenType, SwapType } from '../../swap-type';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import * as bech32 from 'bech32';
+import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 
 @Component({
   selector: 'lto-wallet-deposit-erc',
@@ -81,13 +82,17 @@ export class DepositErcComponent implements OnInit {
 
   addressPlaceholder!: string;
 
-  constructor(private _bridge: BridgeService, private _wallet: WalletService) {}
+  constructor(
+    private _bridge: BridgeService,
+    private _wallet: WalletService,
+    @Inject(RECAPTCHA_SETTINGS) private _recaptchaSettings: { siteKey: string }
+  ) {}
 
   ngOnInit() {
     this.addressPlaceholder = this.swapType === SwapType.ERC20_BINANCE ? 'BEP-2' : 'LTO20';
     const addressValidators: ValidatorFn[] = [Validators.required];
 
-    this.shouldShowCaptcha = !this.shouldSpecifyToAddress;
+    this.shouldShowCaptcha = !!this._recaptchaSettings.siteKey && !this.shouldSpecifyToAddress;
 
     if (this.swapType === SwapType.ERC20_BINANCE) {
       addressValidators.push((ctrl: AbstractControl) => {
@@ -107,6 +112,8 @@ export class DepositErcComponent implements OnInit {
           };
         }
       });
+    } else if (!this.shouldShowCaptcha) {
+      this.resolveCaptcha('');
     }
 
     this.depositForm = new FormGroup({

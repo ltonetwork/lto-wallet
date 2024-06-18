@@ -7,8 +7,9 @@ export const environment = {
   anchor_fee: 35000000,
   bridge: true,
   swapPageEnabled: false,
+  recaptcha_site_key: '',
   lto_api_url: 'https://testnet.lto.network/',
-  bridge_url: 'http://localhost:3002',
+  bridge_url: 'https://bridge.testnet.lto.network',
   mobile_auth: {
     ws: 'ws://localhost:3030/connect',
     url: 'http://localhost:3030/'

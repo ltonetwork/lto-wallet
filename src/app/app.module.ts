@@ -76,7 +76,7 @@ import { environment } from '../environments/environment';
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {
-        siteKey: '6LebrZMUAAAAAEhsMU6H0QQChao1Ya3buSsBXunu',
+        siteKey: environment.recaptcha_site_key
       },
     },
     {

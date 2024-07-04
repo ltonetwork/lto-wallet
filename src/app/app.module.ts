@@ -121,7 +121,7 @@ import { environment } from '../environments/environment';
     },
     {
       provide: BRIDGE_BSC_ENABLED,
-      useValue: environment.networkByte === 'T',
+      useValue: true,
     },
     {
       provide: SWAP_PAGE_ENABLED,

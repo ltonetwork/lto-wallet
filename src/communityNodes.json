@@ -426,6 +426,15 @@
 			   "payoutSchedule": "Weekly",
 			   "tgContact": "@a_krol",
 			   "hide": false
+	    },
+      {
+			   "address": "3JrStxukQMpVGMbQ5eccBWYKdRzeVftXSAd",
+			   "sharing": "98%",
+			   "name": "ForenChain.com - Public Node",
+			   "website": "https://forenchain-pn.com,
+			   "payoutSchedule": "Weekly",
+			   "tgContact": "@AT004_AT",
+			   "hide": false
 	    }     
    ]
 }

@@ -21,7 +21,7 @@ import {
   BRIDGE_ENABLED,
   BRIDGE_BSC_ENABLED,
   SWAP_PAGE_ENABLED,
-  LTO_MOBILE_AUTH
+  LTO_MOBILE_AUTH, BRIDGE_BEP2_ENABLED
 } from './tokens';
 import { ModalsModule } from './modals/modals.module';
 import { WalletComponentsModule } from './components/wallet-components.module';
@@ -122,6 +122,10 @@ import { environment } from '../environments/environment';
     {
       provide: BRIDGE_BSC_ENABLED,
       useValue: true,
+    },
+    {
+      provide: BRIDGE_BEP2_ENABLED,
+      useValue: false,
     },
     {
       provide: SWAP_PAGE_ENABLED,

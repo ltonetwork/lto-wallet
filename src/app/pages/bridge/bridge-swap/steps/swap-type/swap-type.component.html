@@ -10,10 +10,11 @@
         <span class="blue">ERC-20 <small>(Ethereum)</small></span>
       </div>
       <div (click)="bscEnabled && selectFrom(SwapTokenType.BEP20)" [ngClass]="{active: selectedFrom === SwapTokenType.BEP20, disabled: !bscEnabled}"
-      [matTooltip]="bscEnabled ? '' : 'Transferring from BSc to Mainnet is not available yet as it\'s currently being reviewed. Thanks for your patience'">
+           [matTooltip]="bscEnabled ? '' : 'Transferring from BSc to Mainnet is not available yet as it\'s currently being reviewed. Thanks for your patience'">
         <span class="yellow">BEP-20 <small>(Binance Smart Chain)</small></span>
       </div>
-      <div (click)="selectFrom(SwapTokenType.BEP2)" [ngClass]="{active: selectedFrom === SwapTokenType.BEP2}">
+      <div (click)="bep2Enabled && selectFrom(SwapTokenType.BEP2)" [ngClass]="{active: selectedFrom === SwapTokenType.BEP2, disabled: !bep2Enabled}"
+             [matTooltip]="bep2Enabled ? '' : 'Binance Beacon Chain has been shut down at block height 385,251,927 since December 3, 2024'">
         <span class="black">BEP-2 <small>(Binance Beacon Chain)</small></span>
       </div>
     </div>

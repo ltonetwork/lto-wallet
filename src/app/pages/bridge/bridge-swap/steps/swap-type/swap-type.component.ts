@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 
 import { SwapTokenType, SwapType } from '../../swap-type';
-import { BRIDGE_BSC_ENABLED } from '@app/tokens';
+import { BRIDGE_BEP2_ENABLED, BRIDGE_BSC_ENABLED } from '@app/tokens';
 
 
 @Component({
@@ -17,7 +17,8 @@ export class SwapTypeComponent {
   SwapTokenType = SwapTokenType;
 
   constructor(
-    @Inject(BRIDGE_BSC_ENABLED) public bscEnabled: number,
+    @Inject(BRIDGE_BSC_ENABLED) public bscEnabled: boolean,
+    @Inject(BRIDGE_BEP2_ENABLED) public bep2Enabled: boolean
   ) {}
 
   selectFrom(token: SwapTokenType) {

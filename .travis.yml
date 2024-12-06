@@ -27,6 +27,12 @@ before_install:
   - corepack enable
   - yarn --version
 
+before_deploy:
+  - yes | gem update --system --force
+  - gem install bundler
+  - gem install uri
+  - gem install logger
+
 jobs:
   include:
     - stage: test
@@ -48,6 +54,7 @@ jobs:
           fi
       script:
         - git tag "$NEXT_VERSION"
+      before_deploy:
       deploy:
         provider: releases
         token:

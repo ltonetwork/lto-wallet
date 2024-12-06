@@ -57,6 +57,7 @@ jobs:
       before_deploy:
       deploy:
         provider: releases
+        edge: true  # opt in to dpl v2
         token:
           secure: "x48Da71tfJA0vU3OCpq9xiFeib6h2c7B7XJbi/BqihVg9xjU1vThqHnf7YHMGxK2jZojDPI7YoNRcTX9Jh26ddujrjwBjOgpUsy8BpiV+nElqizQ+JXT/123azPpIZ8qIQhdqNX0dfpPPzh+oyGo1DRW3XUAxMJ9OoRwAecCK57XfyCUdCrdcVlPvrkkFqskCwMN38N1UwsqUCcUPgIgaDfNcxWRe0AKinCIrjjoa83UfuboS4RjbmnumARAIr0hf33JqdPtKWHRn6iGkP5PL7O9KGO2LsmywZtW+DqOgqbaa868muvILIbMDRl3Kjw4aC4Dayr02dVc67rmdiPBWezj4uqm8vTV7cSvyxzRV2tlzf+Q8XDfOslvjsKHRU+FgDoeYNQ5xYtjah8DkydCKrnHGs5tZTkPkPu5zzyF+KamrYBXFw9Nq4XwhMG/9JkekUSnVkwbDNdC3AvkJCp0ko11kYF7UnzPivfRIZ5Ja+zDubfYkNNrKeV1f3vyCWZ1Nx3/d+SJqcPQXIOhq9peMbeSZCCCuDZ0YXi9t3/pPj75fhKgbcz6C1dNLvu1en/N1IgXYRGofI9XEKCX4+nNotMoSU5WJZmxiyU/cUhSVdtnzuHwCULPeTbTWeRyFUBU0ghNQC4/u+X+3DOr/EPcpmtbPDEil0WRnleoe4j1V+Q="
 

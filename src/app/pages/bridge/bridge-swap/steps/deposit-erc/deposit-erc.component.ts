@@ -93,6 +93,7 @@ export class DepositErcComponent implements OnInit {
     const addressValidators: ValidatorFn[] = [Validators.required];
 
     this.shouldShowCaptcha = !!this._recaptchaSettings.siteKey && !this.shouldSpecifyToAddress;
+    console.log(this.shouldShowCaptcha);
 
     if (this.swapType === SwapType.ERC20_BINANCE) {
       addressValidators.push((ctrl: AbstractControl) => {

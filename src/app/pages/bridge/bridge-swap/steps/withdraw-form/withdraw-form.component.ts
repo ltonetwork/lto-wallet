@@ -6,6 +6,7 @@ import { DEFAULT_TRANSFER_FEE } from '../../../../../tokens';
 import { map, withLatestFrom, take } from 'rxjs/operators';
 import { SwapType } from '../../swap-type';
 import * as bech32 from 'bech32';
+import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 
 @Component({
   selector: 'lto-wallet-withdraw-form',
@@ -17,6 +18,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
   @Output() close = new EventEmitter();
 
   withdrawForm!: FormGroup;
+  shouldShowCaptcha = false;
 
   step = 'input';
 
@@ -114,13 +116,14 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
   private _subscriptions = new Subscription();
 
   get cannotSend(): boolean {
-    return !this.confirmed || !this.captchaResponse;
+    return !this.confirmed || (this.shouldShowCaptcha && !this.captchaResponse);
   }
 
   constructor(
     private _wallet: WalletService,
     private _bridge: BridgeService,
-    @Inject(DEFAULT_TRANSFER_FEE) private _transferFee: number
+    @Inject(DEFAULT_TRANSFER_FEE) private _transferFee: number,
+    @Inject(RECAPTCHA_SETTINGS) private _recaptchaSettings: { siteKey: string },
   ) {
     this.burnFeeERC$ = this._bridge.burnFees$.pipe(map(fees => fees.lto20));
     this.burnFeeMain$ = this._bridge.burnFees$.pipe(map(fees => fees.lto));
@@ -128,6 +131,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.addressPlaceholder = this.swapType === SwapType.MAIN_ERC20 ? 'ETH' : this.swapType === SwapType.MAIN_BINANCE ? 'BEP-2' : 'BEP-20';
+    this.shouldShowCaptcha = !!this._recaptchaSettings.siteKey;
 
     const addressValidators: ValidatorFn[] = [Validators.required];
 
@@ -157,7 +161,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
 
     this.withdrawForm = new FormGroup({
       amount: new FormControl(
-        this.BRIDGE_MINIMAL_FEE,
+        null,
         [Validators.min(this.BRIDGE_MINIMAL_FEE), Validators.required],
         this.validateAmount.bind(this)
       ),

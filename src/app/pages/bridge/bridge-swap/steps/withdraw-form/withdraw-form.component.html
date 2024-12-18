@@ -50,7 +50,7 @@
           I confirm that the all the information I filled in is correct.
         </label>
       </div>
-      <div *ngIf="confirmed" class="captcha-box" fxLayout="row" fxLayoutAlign="center">
+      <div *ngIf="confirmed && shouldShowCaptcha" class="captcha-box" fxLayout="row" fxLayoutAlign="center">
         <re-captcha (resolved)="solveCaptcha($event)"></re-captcha>
       </div>
     </ng-container>

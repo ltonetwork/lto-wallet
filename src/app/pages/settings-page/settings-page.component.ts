@@ -81,8 +81,8 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
         duration: 3000,
       });
     } catch (error) {
-      this._snackbar.open('Cannot create script', 'DISMISS', {
-        duration: 3000,
+      this._snackbar.open('Failed to create script', 'DISMISS', {
+        duration: 10000,
       });
     }
   }
@@ -94,13 +94,13 @@ export class SettingsPageComponent implements OnInit, OnDestroy {
       return;
     }
     try {
-      this._scriptService.disabeScript();
+      await this._scriptService.disabeScript();
       this._snackbar.open('Script removed', 'DISMISS', {
         duration: 3000,
       });
     } catch (error) {
-      this._snackbar.open('Cannot remove script', 'DISMISS', {
-        duration: 3000,
+      this._snackbar.open('Failed to remove script', 'DISMISS', {
+        duration: 10000,
       });
     }
   }

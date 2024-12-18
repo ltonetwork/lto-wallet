@@ -1,9 +1,9 @@
 <div mat-dialog-title>Script transaction</div>
 <mat-dialog-content>
-  Are you sure you want to disable script?
-  <p>Fee: {{fee | amountDivide}}</p>
+  Are you sure you want to remove the smart account script?
+  <p>Fee: {{fee | amountDivide}} LTO</p>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button [mat-dialog-close]="false">Cancel</button>
-  <button mat-button color="primary" [mat-dialog-close]="true">Disable</button>
+  <button mat-button color="primary" [mat-dialog-close]="true">Remove</button>
 </mat-dialog-actions>

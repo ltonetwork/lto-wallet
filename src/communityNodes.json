@@ -1,440 +1,448 @@
 {
    "nodes":[
-      {
-         "address":"3Jw2JvjSYcYyKFExHaYFGKyZnHDhJ9TimvJ",
-         "sharing":"variable",
-         "name":"PJSmit79",
-         "website":"https://t.me/LTOnaut",
-         "payoutSchedule":"End of month",
-         "tgContact":"@PatrickS79",
-         "hide":true,
-         "comment": "Node is inactive"
-      },
-      {
-         "address":"3JtBYdoHJoQbgf8hYvEz1pyp7jj9URWvvbB",
-         "sharing":"97.0%",
-         "name":"YourCryptoLibrary (formerly CryptoBieb)",
-         "website":"https://yourcryptolibrary.com/lto-leasing-network-manual-start-leasing-today/",
-         "payoutSchedule":"After 10.000 blocks",
-         "tgContact":"@JellevanderSteen",
-         "hide":false
-      },
-      {
-         "address":"3Jn6jpPBVmi1RLRpUtQGKVibNZpeTRACK2P",
-         "sharing":"98.0%",
-         "name":"Kruptos Nomisma Monthly Payments",
-         "website":"https://t.me/KNLTONodeMonthly",
-         "payoutSchedule":"End Of Every Month",
-         "tgContact":"@PitBullCH",
-         "hide":false
-      },
-      {
-         "address":"3JfWZRLvCSjMGNMNtNUWPa6BiQXiJgvKj7k",
-         "sharing":"95.0%",
-         "name":"ICODOGGIO",
-         "website":"https://t.me/ICO_DOG_POOL",
-         "payoutSchedule":"Monthly",
-         "tgContact":"@ICODOGGIO",
-         "hide":true,
-         "comment": "Node is inactive"
-      },
-      {
-         "address":"3JnYB1TzHYS3gYDvczYtNUnmEbJsgmsdWY3",
-         "sharing":"97.5%",
-         "name":"LunarWhale",
-         "website":"https://t.me/LunarWhale_LTO_Node",
-         "payoutSchedule":"Every weekend",
-         "tgContact":"@floydvulcan",
-         "hide":false
-      },
-      {
-         "address":"3Ju1azb5ZuMExDPBFLsJ33hPpCNL4sRKYjT",
-         "sharing":"98.0%",
-         "name":"NodeMN",
-         "website":"http://nodemn.com/",
-         "payoutSchedule":"Every weekend",
-         "tgContact":"@nodemn",
-         "hide":true
-      },
-      {
-         "address":"3JjtGYPannaVDMvbjdyLrmo39LohZ8KESdL",
-         "sharing":"95.0%",
-         "name":"Node-853073",
-         "website":"https://t.me/lto_tr",
-         "payoutSchedule":"End of month",
-         "tgContact":"@eceler",
-         "hide":true,
-         "comment": "Node is inactive and Telegram contact is unavailable"
-      },
-      {
-         "address":"3JmcAJMQhdLKj296xoDkng9r1McCmBSFiEX",
-         "sharing":"95.0%",
-         "name":"ltoleasing.com",
-         "website":"http://www.ltoleasing.com",
-         "payoutSchedule":"Every monday (every 10200 blocks)",
-         "tgContact":"@NUT65",
-         "hide":false
-      },
-      {
-         "address":"3JqGGBMvkMtQQqNhGVD6knEzhncb55Y7JJ5",
-         "sharing":"97.5%",
-         "name":"Kruptos Nomisma Monthly Payments",
-         "website":"https://t.me/KNLTONodeBiWeekly",
-         "payoutSchedule":"Every Second Monday",
-         "tgContact":"@PitBullCH",
-         "hide":false
-      },
-      {
-         "address":"3Jq3F3njrrR1ZvM3JhwLX2Sh56LQDtuEyu9",
-         "sharing":"95.0%",
-         "name":"Stakely",
-         "website":"https://stakely.io/en/lto-network-staking",
-         "payoutSchedule":"Compounding | Automatic & On demand",
-         "tgContact":"@LTO_stakely",
-         "hide":false
-      },
-      {
-         "address":"3JnN8psLjuEyiPbH2bYcEFKUFpcamxzwFiv",
-         "sharing":"95.0%",
-         "name":"LTO Node",
-         "website":"https://ltonode.com",
-         "payoutSchedule":"Every monday",
-         "tgContact":"@G1zm0NL",
-         "hide":false
-      },
-      {
-         "address":"3JsZN7TwprVdXr9CbQ9EUvLSBG2YSZgdPGB",
-         "sharing":"95%",
-         "name":"BlackTurtleNode",
-         "website":"https://www.turtlenetwork.eu/insight/",
-         "payoutSchedule":"Every Sunday",
-         "tgContact":"@Black_Turtle",
-         "hide":false
-      },
-      {
-         "address":"3Jweg1cE1zWioXcMV1YngufjNjKdp4umUp8",
-         "sharing":"95.0%",
-         "name":"Millenium Club",
-         "website":"http://millenniumclub.ca",
-         "payoutSchedule":"Manual Payouts | Monthly",
-         "tgContact":"@fierydev",
-         "hide":true,
-         "comment": "Node is inactive and Telegram contact is not available"
-      },
-      {
-         "address":"3JzWiVi5ngetgzZiS1RW1VXmmghVKKPPjU3",
-         "sharing":"97.0%",
-         "name":"Aratos_Node",
-         "website":"http://blockchain2050.io",
-         "payoutSchedule":"Every monday",
-         "tgContact":"@kontsi",
-         "hide":false
-      },
-      {
-         "address":"3Jm6xTW3n9qNYRfZ7LzpenweeYVkdDk7m7F",
-         "sharing":"96.0%",
-         "name":"LogMaker Mining",
-         "website":"http://www.logmaker360.eu/",
-         "payoutSchedule":"Monthly",
-         "tgContact":"@logMaker",
-         "hide":false
-      },
-      {
-         "address":"3JsyNRBHaU97DUVKMJKMARVHnJiGjAxMsCV",
-         "sharing":"98.0%",
-         "name":"LTO Stream node",
-         "website":"https://t.me/ltostreamnode",
-         "payoutSchedule":"Every 25.000 blocks",
-         "tgContact":"@Beekmeister",
-         "hide":true,
-         "comment": "Node ended service"
-      },
-      {
-         "address":"3JexCgRXGFUiuNoJTkkWucSumteRWdb8kKU",
-         "sharing":"97.0%",
-         "name":"LTO Services",
-         "website":"https://lto.services",
-         "payoutSchedule":"Daily | min 100 LTO in pool",
-         "tgContact":"@bbjansen",
-         "hide":true,
-         "comment": "Compromised server, node ended service"
-      },
-      {
-         "address":"3JbXLTSZoU5os2JsTkMorhvvna6Z2dvhBUC",
-         "sharing":"97.0%",
-         "name":"Binnostake",
-         "website":"http://www.binnostake.com/",
-         "payoutSchedule":"Every monday",
-         "tgContact":"@binnostake",
-         "hide":false
-      },
-      {
-         "address":"3JqTwkbDFbtCPo9z5bFa9WfLmjEr7PXNode",
-         "sharing":"97.5%",
-         "name":"Edge Node",
-         "website":"https://edge.x06.nl/",
-         "payoutSchedule":"Every 25.000 blocks",
-         "tgContact":"@michaelvg",
-         "hide":false
-      },
-      {
-         "address":"3JffJmwV2G158V6N27ouzkoRTgEVPLFqxPy",
-         "sharing":"98.0%",
-         "name":"ThePhoenixNest",
-         "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
-         "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
-         "tgContact":"@RedPhoenix7",
-         "hide":false
-      },
-      {
-         "address":"3Jhkp3Xtg2wyT6NoEtJB2VQPAHiYuqYUVBp",
-         "sharing":"97.5%",
-         "name":"lto.lease | Odin",
-         "website":"https://lto.lease/lto",
-         "payoutSchedule":"Every monday",
-         "tgContact":"@sysrex",
-         "hide":false
-      },
-      {
-         "address":"3JnZLvmVBXsc2XMug4e6yjyvPehr1Fjx9oM",
-         "sharing":"96.5%",
-         "name":"LowSea Leasing",
-         "website":"https://t.me/joinchat/ALw70hNg64IIUx2vd3qU8g",
-         "payoutSchedule":"1st and 15th of each month",
-         "tgContact":"@N0rthstar",
-         "hide":false
-      },
-      {
-         "address":"3JgZdq3LgP2qdB8cPFbuhdDV61u3qdqx2MP",
-         "sharing":"98.5%",
-         "name":"LTO Elites Leasing",
-         "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
-         "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
-         "tgContact":"@RedPhoenix7",
-         "hide":true,
-         "comment": "Node merged with Phoenixnest"
-      },
-      {
-         "address":"3JkihPXS5iPs8xDKcFQmhR8TVcAmDRUZpyx",
-         "sharing":"99%",
-         "name": "Xeno",
-         "website":"https://xeno.finance",
-         "payoutSchedule":"weekly",
-         "tgContact":"@stinkypinky",
-         "hide":true,
-         "comment":"Not paying out to leasers"
-      },
-	    {
-         "address":"3Jt1mBoziZmoGDaYe1UbGygGMsGS493vkgN",
-         "sharing":"98%",
-         "name": "Knights' Bay Leasing",
-         "website":"https://knightsbayleasing.com",
-         "payoutSchedule":"Every Friday (+ optional compound)",
-         "tgContact":"@murmeelKBL",
-         "hide":false
-      },
-     	{
-         "address":"3Jg3DZyhBnNacHiY13624NQDsxBmnwnqNRQ",
-         "sharing":"97%",
-         "name": "LTO Blockchain Node",
-         "website":"https://ltoblockchainnode.com",
-         "payoutSchedule":"Every Monday",
-         "tgContact":"@LTOBlockchainNode",
-         "hide":false
-      },
-      {
-         "address":"3JwDJx9poWx84v1ffkATRUCSQJnxW4WUcgb",
-         "sharing":"99%",
-         "name": "Our /biz/ node",
-         "website":"https://ourbiznode.com",
-         "payoutSchedule":"Every second Saturday",
-         "tgContact":"@fractalwalkr",
-         "hide":false
-      },
        {
-         "address":"3Jr2yFjdb1Tia6ppjYs4p8fxWaAasqLrsiW",
-         "sharing":"95%",
-         "name": "Access24.io",
-         "website":"https://access24.io",
-         "payoutSchedule":"Every Saturday",
-         "tgContact":"@a24io",
-         "hide":true,
-         "comment": "Node is inactive"
-      },
-      {
-         "address":"3Jp9rSY8BCk8DbfDRcqeULNrecWRRP7ShLr",
-         "sharing":"98%",
-         "name": "LTO MoonBase Node",
-         "website":"https://ltomoonbase.club",
-         "payoutSchedule":"Every Saturday",
-         "tgContact":"@lebarb0",
-         "hide":true,
-         "comment":"Node is not paying out to leasers"
-      },
-      {
-         "address":"3JwUPNbGzguXqvZoAyPYsVDjqURMFVXp9WX",
-         "sharing":"98%",
-         "name": "StockholmBlockBuilders",
-         "website":"https://stockholmblockbuilders.se",
-         "payoutSchedule":"Every weekend",
-         "tgContact":"@StockholmBlockBuilder",
-         "hide":false
-      },
-     {
-         "address":"3Ju8dmBqNzqNN57czAznmoFzmu6Pk3Yyoej",
-         "sharing":"variable",
-         "name": "Kahion",
-         "website":"https://node.kahion.com/lto",
-         "payoutSchedule":"Auto-Compounding",
-         "tgContact":"@armaelll",
-         "hide":false
-      },
-      {
-        "address":"3JuTF9p8BmKPeGBPNizyCtYvY3eJkLY9fRK",
-        "sharing":"98%",
-        "name": "MyCointainer.com",
-        "website":"https://mycointainer.com/",
-        "payoutSchedule":"Weekly",
-        "tgContact":"@BartoszPozniak",
-        "hide":false
-      },
-      {
-         "address":"3JiNi1B3LVdF9Aa2P3cBA2NNwLP7XNaV9A5",
-         "sharing":"98%",
-         "name": "lto.lease | Thors",
-         "website":"https://lto.lease/lto",
-         "payoutSchedule":"Every Monday",
-         "tgContact":"@sysrex",
-         "hide":false
-      },
-      {
-         "address":"3JxqWZaikeEW9m9d2MCPh1KNHjo6Ty2YxUJ",
-         "sharing":"99.9%",
-         "name": "BrokenChairMedia",
-         "website":"http://brokenchairmedia.nl",
-         "payoutSchedule":"Beginning of every month",
-         "tgContact":"@fr1ts",
-         "hide":true,
-         "comment": "Node ended service"
-      },
-      {
-         "address":"3JyXXG6zMKrVkeNdcg3cTRBLRJcbDZcf6RR",
-         "sharing":"100%",
-         "name":"zolnode",
-         "website":"https://t.me/LTO_zolnode",
-         "payoutSchedule":"Monthly",
-         "tgContact":"@zolnode",
-         "hide":false
-      },
-      {
-         "address":"3Ji11kn7hUryLguBSpe7fgcGEGWzVUTeZYh",
-         "sharing":"98%",
-         "name":"LTO node CryptoFLY",
-         "website":"https://t.me/grafffu",
-         "payoutSchedule":"Monthly",
-         "tgContact":"@grafffu",
-         "hide":false
-      },
-      {
-         "address":"3Jh4bTtzNvwbQKBLJUiT6XUZMFayyvVpYFB",
-         "sharing":"97.5%",
-         "name":"kcoin",
-         "website":"https://t.me/koloboi",
-         "payoutSchedule":"Weekly",
-         "tgContact":"@koloboi",
-         "hide":false
-      },
-      {
-         "address":"3JeGLLH3ybAdYgJ92Naj6wrDbzaEdfMfpJz",
-         "sharing":"98%",
-         "name":"Finocrat.io",
-         "website":"https://finocrat.io",
-         "payoutSchedule":"Weekly",
-         "tgContact":"@finocrat",
-         "hide":true,
-         "comment": "Node is inactive"
-      },
-      {
-         "address":"3JpyziZiGFNJ8JG6Y2r4CvhrpSoVQ3MCrHv",
-         "sharing":"98%",
-         "name":"LTO node CryptoBEE",
-         "website":"https://t.me/grafffu",
-         "payoutSchedule":"Monthly",
-         "tgContact":"@grafffu",
-         "hide":false
-      },
-      {
-         "address":"3JcUzz5tHmoUkDrNBQq4f9JVBZMKvAd18op",
-         "sharing":"98%",
-         "name":"LTO node CryptoAIR",
-         "website":"https://t.me/grafffu",
-         "payoutSchedule":"Monthly",
-         "tgContact":"@grafffu",
-         "hide":false
-      },
-      {
-         "address":"3Jk1b7HoyUEXjAyXF7fS1QfsKwCqnPrzeQa",
-         "sharing":"98%",
-         "name":"LTO node CryptoSKY",
-         "website":"https://t.me/grafffu",
-         "payoutSchedule":"Monthly",
-         "tgContact":"@grafffu",
-         "hide":false
-      },
-
-     {
-         "address":"3Jk8wEnPaaSt7NpqwKDQkRzYuwmFjbbvP7b",
-         "sharing":"99%",
-         "name":"MOON",
-         "website":"https://ltomoon.win",
-         "payoutSchedule":"Weekly",
-         "tgContact":"@ltomoon",
-         "hide":false
-      },
-		  {
-			   "address": "3Jkcf1k55sonzZyJh8LkL41mtznNW25s6A4",
-			   "sharing": "99%",
-			   "name": "Lone Star Node",
-			   "website": "lonestarnode.io",
-			   "payoutSchedule": "After 10,000 Blocks",
-			   "tgContact": "@Tash22KA",
-			   "hide": false
-	    },
-      {
-         "address":"3JiYAzVaJS3Yo9eRivDVBhZbnUzQNQEYoju",
-         "sharing":"98%",
-         "name":"TUK LTO Node",
-         "website":"http://t.me/KvRhh",
-         "payoutSchedule":"Monthly",
-         "tgContact":"@KvRhh",
-         "hide":false
-      },
-      {
-			   "address": "3Jv111Z8F2TMV2pWyFLJnBuoQaysUUiLEAS",
-			   "sharing": "95%",
-			   "name": "LTOnod.es Leasing",
-			   "website": "https://www.ltonod.es/leasing",
-			   "payoutSchedule": "AutoCompounding | On demand",
-			   "tgContact": "@ltonodeslease",
-			   "hide": false
-	    },
-      {
-			   "address": "3Jwxe6edRFJBYmigzT1nHVWchmv479Rn9nX",
-			   "sharing": "98%",
-			   "name": "RexoLTO",
-			   "website": "https://t.me/a_krol",
-			   "payoutSchedule": "Weekly",
-			   "tgContact": "@a_krol",
-			   "hide": false
-	    },
-      {
-			   "address": "3JrStxukQMpVGMbQ5eccBWYKdRzeVftXSAd",
-			   "sharing": "98%",
-			   "name": "ForenChain.com - Public Node",
-			   "website": "https://forenchain-pn.com",
-			   "payoutSchedule": "Weekly",
-			   "tgContact": "@AT004_AT",
-			   "hide": false
-	    }     
+           "address":"3Jw2JvjSYcYyKFExHaYFGKyZnHDhJ9TimvJ",
+           "sharing":"variable",
+           "name":"PJSmit79",
+           "website":"https://t.me/LTOnaut",
+           "payoutSchedule":"End of month",
+           "tgContact":"@PatrickS79",
+           "hide":true,
+           "comment":"Node is inactive"
+       },
+       {
+           "address":"3JtBYdoHJoQbgf8hYvEz1pyp7jj9URWvvbB",
+           "sharing":"97.0%",
+           "name":"YourCryptoLibrary (formerly CryptoBieb)",
+           "website":"https://yourcryptolibrary.com/lto-leasing-network-manual-start-leasing-today/",
+           "payoutSchedule":"After 10.000 blocks",
+           "tgContact":"@JellevanderSteen",
+           "hide":false
+       },
+       {
+           "address":"3Jn6jpPBVmi1RLRpUtQGKVibNZpeTRACK2P",
+           "sharing":"98.0%",
+           "name":"Kruptos Nomisma Monthly Payments",
+           "website":"https://t.me/KNLTONodeMonthly",
+           "payoutSchedule":"End Of Every Month",
+           "tgContact":"@PitBullCH",
+           "hide":false
+       },
+       {
+           "address":"3JfWZRLvCSjMGNMNtNUWPa6BiQXiJgvKj7k",
+           "sharing":"95.0%",
+           "name":"ICODOGGIO",
+           "website":"https://t.me/ICO_DOG_POOL",
+           "payoutSchedule":"Monthly",
+           "tgContact":"@ICODOGGIO",
+           "hide":true,
+           "comment":"Node is inactive"
+       },
+       {
+           "address":"3JnYB1TzHYS3gYDvczYtNUnmEbJsgmsdWY3",
+           "sharing":"97.5%",
+           "name":"LunarWhale",
+           "website":"https://t.me/LunarWhale_LTO_Node",
+           "payoutSchedule":"Every weekend",
+           "tgContact":"@floydvulcan",
+           "hide":false
+       },
+       {
+           "address":"3Ju1azb5ZuMExDPBFLsJ33hPpCNL4sRKYjT",
+           "sharing":"98.0%",
+           "name":"NodeMN",
+           "website":"http://nodemn.com/",
+           "payoutSchedule":"Every weekend",
+           "tgContact":"@nodemn",
+           "hide":true
+       },
+       {
+           "address":"3JjtGYPannaVDMvbjdyLrmo39LohZ8KESdL",
+           "sharing":"95.0%",
+           "name":"Node-853073",
+           "website":"https://t.me/lto_tr",
+           "payoutSchedule":"End of month",
+           "tgContact":"@eceler",
+           "hide":true,
+           "comment":"Node is inactive and Telegram contact is unavailable"
+       },
+       {
+           "address":"3JmcAJMQhdLKj296xoDkng9r1McCmBSFiEX",
+           "sharing":"95.0%",
+           "name":"ltoleasing.com",
+           "website":"http://www.ltoleasing.com",
+           "payoutSchedule":"Every monday (every 10200 blocks)",
+           "tgContact":"@NUT65",
+           "hide":false
+       },
+       {
+           "address":"3JqGGBMvkMtQQqNhGVD6knEzhncb55Y7JJ5",
+           "sharing":"97.5%",
+           "name":"Kruptos Nomisma Monthly Payments",
+           "website":"https://t.me/KNLTONodeBiWeekly",
+           "payoutSchedule":"Every Second Monday",
+           "tgContact":"@PitBullCH",
+           "hide":false
+       },
+       {
+           "address":"3Jq3F3njrrR1ZvM3JhwLX2Sh56LQDtuEyu9",
+           "sharing":"95.0%",
+           "name":"Stakely",
+           "website":"https://stakely.io/en/lto-network-staking",
+           "payoutSchedule":"Compounding | Automatic & On demand",
+           "tgContact":"@LTO_stakely",
+           "hide":false
+       },
+       {
+           "address":"3JnN8psLjuEyiPbH2bYcEFKUFpcamxzwFiv",
+           "sharing":"95.0%",
+           "name":"LTO Node",
+           "website":"https://ltonode.com",
+           "payoutSchedule":"Every monday",
+           "tgContact":"@G1zm0NL",
+           "hide":false
+       },
+       {
+           "address":"3JsZN7TwprVdXr9CbQ9EUvLSBG2YSZgdPGB",
+           "sharing":"95%",
+           "name":"BlackTurtleNode",
+           "website":"https://www.turtlenetwork.eu/insight/",
+           "payoutSchedule":"Every Sunday",
+           "tgContact":"@Black_Turtle",
+           "hide":false
+       },
+       {
+           "address":"3Jweg1cE1zWioXcMV1YngufjNjKdp4umUp8",
+           "sharing":"95.0%",
+           "name":"Millenium Club",
+           "website":"http://millenniumclub.ca",
+           "payoutSchedule":"Manual Payouts | Monthly",
+           "tgContact":"@fierydev",
+           "hide":true,
+           "comment":"Node is inactive and Telegram contact is not available"
+       },
+       {
+           "address":"3JzWiVi5ngetgzZiS1RW1VXmmghVKKPPjU3",
+           "sharing":"97.0%",
+           "name":"Aratos_Node",
+           "website":"http://blockchain2050.io",
+           "payoutSchedule":"Every monday",
+           "tgContact":"@kontsi",
+           "hide":false
+       },
+       {
+           "address":"3Jm6xTW3n9qNYRfZ7LzpenweeYVkdDk7m7F",
+           "sharing":"96.0%",
+           "name":"LogMaker Mining",
+           "website":"http://www.logmaker360.eu/",
+           "payoutSchedule":"Monthly",
+           "tgContact":"@logMaker",
+           "hide":false
+       },
+       {
+           "address":"3JsyNRBHaU97DUVKMJKMARVHnJiGjAxMsCV",
+           "sharing":"98.0%",
+           "name":"LTO Stream node",
+           "website":"https://t.me/ltostreamnode",
+           "payoutSchedule":"Every 25.000 blocks",
+           "tgContact":"@Beekmeister",
+           "hide":true,
+           "comment":"Node ended service"
+       },
+       {
+           "address":"3JexCgRXGFUiuNoJTkkWucSumteRWdb8kKU",
+           "sharing":"97.0%",
+           "name":"LTO Services",
+           "website":"https://lto.services",
+           "payoutSchedule":"Daily | min 100 LTO in pool",
+           "tgContact":"@bbjansen",
+           "hide":true,
+           "comment":"Compromised server, node ended service"
+       },
+       {
+           "address":"3JbXLTSZoU5os2JsTkMorhvvna6Z2dvhBUC",
+           "sharing":"97.0%",
+           "name":"Binnostake",
+           "website":"http://www.binnostake.com/",
+           "payoutSchedule":"Every monday",
+           "tgContact":"@binnostake",
+           "hide":false
+       },
+       {
+           "address":"3JqTwkbDFbtCPo9z5bFa9WfLmjEr7PXNode",
+           "sharing":"97.5%",
+           "name":"Edge Node",
+           "website":"https://edge.x06.nl/",
+           "payoutSchedule":"Every 25.000 blocks",
+           "tgContact":"@michaelvg",
+           "hide":false
+       },
+       {
+           "address":"3JffJmwV2G158V6N27ouzkoRTgEVPLFqxPy",
+           "sharing":"98.0%",
+           "name":"ThePhoenixNest",
+           "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
+           "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
+           "tgContact":"@RedPhoenix7",
+           "hide":false
+       },
+       {
+           "address":"3Jhkp3Xtg2wyT6NoEtJB2VQPAHiYuqYUVBp",
+           "sharing":"97.5%",
+           "name":"lto.lease | Odin",
+           "website":"https://lto.lease/lto",
+           "payoutSchedule":"Every monday",
+           "tgContact":"@sysrex",
+           "hide":false
+       },
+       {
+           "address":"3JnZLvmVBXsc2XMug4e6yjyvPehr1Fjx9oM",
+           "sharing":"96.5%",
+           "name":"LowSea Leasing",
+           "website":"https://t.me/joinchat/ALw70hNg64IIUx2vd3qU8g",
+           "payoutSchedule":"1st and 15th of each month",
+           "tgContact":"@N0rthstar",
+           "hide":false
+       },
+       {
+           "address":"3JgZdq3LgP2qdB8cPFbuhdDV61u3qdqx2MP",
+           "sharing":"98.5%",
+           "name":"LTO Elites Leasing",
+           "website":"https://t.me/joinchat/AAAAAEr3IR2-FwdfgHJ6kA",
+           "payoutSchedule":"Minimum lease 100k | Loyalty discounts",
+           "tgContact":"@RedPhoenix7",
+           "hide":true,
+           "comment":"Node merged with Phoenixnest"
+       },
+       {
+           "address":"3JkihPXS5iPs8xDKcFQmhR8TVcAmDRUZpyx",
+           "sharing":"99%",
+           "name":"Xeno",
+           "website":"https://xeno.finance",
+           "payoutSchedule":"weekly",
+           "tgContact":"@stinkypinky",
+           "hide":true,
+           "comment":"Not paying out to leasers"
+       },
+       {
+           "address":"3Jt1mBoziZmoGDaYe1UbGygGMsGS493vkgN",
+           "sharing":"98%",
+           "name":"Knights' Bay Leasing",
+           "website":"https://knightsbayleasing.com",
+           "payoutSchedule":"Every Friday (+ optional compound)",
+           "tgContact":"@murmeelKBL",
+           "hide":false
+       },
+       {
+           "address":"3Jg3DZyhBnNacHiY13624NQDsxBmnwnqNRQ",
+           "sharing":"97%",
+           "name":"LTO Blockchain Node",
+           "website":"https://ltoblockchainnode.com",
+           "payoutSchedule":"Every Monday",
+           "tgContact":"@LTOBlockchainNode",
+           "hide":false
+       },
+       {
+           "address":"3JwDJx9poWx84v1ffkATRUCSQJnxW4WUcgb",
+           "sharing":"99%",
+           "name":"Our /biz/ node",
+           "website":"https://ourbiznode.com",
+           "payoutSchedule":"Every second Saturday",
+           "tgContact":"@fractalwalkr",
+           "hide":false
+       },
+       {
+           "address":"3Jr2yFjdb1Tia6ppjYs4p8fxWaAasqLrsiW",
+           "sharing":"95%",
+           "name":"Access24.io",
+           "website":"https://access24.io",
+           "payoutSchedule":"Every Saturday",
+           "tgContact":"@a24io",
+           "hide":true,
+           "comment":"Node is inactive"
+       },
+       {
+           "address":"3Jp9rSY8BCk8DbfDRcqeULNrecWRRP7ShLr",
+           "sharing":"98%",
+           "name":"LTO MoonBase Node",
+           "website":"https://ltomoonbase.club",
+           "payoutSchedule":"Every Saturday",
+           "tgContact":"@lebarb0",
+           "hide":true,
+           "comment":"Node is not paying out to leasers"
+       },
+       {
+           "address":"3JwUPNbGzguXqvZoAyPYsVDjqURMFVXp9WX",
+           "sharing":"98%",
+           "name":"StockholmBlockBuilders",
+           "website":"https://stockholmblockbuilders.se",
+           "payoutSchedule":"Every weekend",
+           "tgContact":"@StockholmBlockBuilder",
+           "hide":false
+       },
+       {
+           "address":"3Ju8dmBqNzqNN57czAznmoFzmu6Pk3Yyoej",
+           "sharing":"variable",
+           "name":"Kahion",
+           "website":"https://node.kahion.com/lto",
+           "payoutSchedule":"Auto-Compounding",
+           "tgContact":"@armaelll",
+           "hide":false
+       },
+       {
+           "address":"3JuTF9p8BmKPeGBPNizyCtYvY3eJkLY9fRK",
+           "sharing":"98%",
+           "name":"MyCointainer.com",
+           "website":"https://mycointainer.com/",
+           "payoutSchedule":"Weekly",
+           "tgContact":"@BartoszPozniak",
+           "hide":false
+       },
+       {
+           "address":"3JiNi1B3LVdF9Aa2P3cBA2NNwLP7XNaV9A5",
+           "sharing":"98%",
+           "name":"lto.lease | Thors",
+           "website":"https://lto.lease/lto",
+           "payoutSchedule":"Every Monday",
+           "tgContact":"@sysrex",
+           "hide":false
+       },
+       {
+           "address":"3JxqWZaikeEW9m9d2MCPh1KNHjo6Ty2YxUJ",
+           "sharing":"99.9%",
+           "name":"BrokenChairMedia",
+           "website":"http://brokenchairmedia.nl",
+           "payoutSchedule":"Beginning of every month",
+           "tgContact":"@fr1ts",
+           "hide":true,
+           "comment":"Node ended service"
+       },
+       {
+           "address":"3JyXXG6zMKrVkeNdcg3cTRBLRJcbDZcf6RR",
+           "sharing":"100%",
+           "name":"zolnode",
+           "website":"https://t.me/LTO_zolnode",
+           "payoutSchedule":"Monthly",
+           "tgContact":"@zolnode",
+           "hide":false
+       },
+       {
+           "address":"3Ji11kn7hUryLguBSpe7fgcGEGWzVUTeZYh",
+           "sharing":"98%",
+           "name":"LTO node CryptoFLY",
+           "website":"https://t.me/grafffu",
+           "payoutSchedule":"Monthly",
+           "tgContact":"@grafffu",
+           "hide":false
+       },
+       {
+           "address":"3Jh4bTtzNvwbQKBLJUiT6XUZMFayyvVpYFB",
+           "sharing":"97.5%",
+           "name":"kcoin",
+           "website":"https://t.me/koloboi",
+           "payoutSchedule":"Weekly",
+           "tgContact":"@koloboi",
+           "hide":false
+       },
+       {
+           "address":"3JeGLLH3ybAdYgJ92Naj6wrDbzaEdfMfpJz",
+           "sharing":"98%",
+           "name":"Finocrat.io",
+           "website":"https://finocrat.io",
+           "payoutSchedule":"Weekly",
+           "tgContact":"@finocrat",
+           "hide":true,
+           "comment":"Node is inactive"
+       },
+       {
+           "address":"3JpyziZiGFNJ8JG6Y2r4CvhrpSoVQ3MCrHv",
+           "sharing":"98%",
+           "name":"LTO node CryptoBEE",
+           "website":"https://t.me/grafffu",
+           "payoutSchedule":"Monthly",
+           "tgContact":"@grafffu",
+           "hide":false
+       },
+       {
+           "address":"3JcUzz5tHmoUkDrNBQq4f9JVBZMKvAd18op",
+           "sharing":"98%",
+           "name":"LTO node CryptoAIR",
+           "website":"https://t.me/grafffu",
+           "payoutSchedule":"Monthly",
+           "tgContact":"@grafffu",
+           "hide":false
+       },
+       {
+           "address":"3Jk1b7HoyUEXjAyXF7fS1QfsKwCqnPrzeQa",
+           "sharing":"98%",
+           "name":"LTO node CryptoSKY",
+           "website":"https://t.me/grafffu",
+           "payoutSchedule":"Monthly",
+           "tgContact":"@grafffu",
+           "hide":false
+       },
+       {
+           "address":"3Jk8wEnPaaSt7NpqwKDQkRzYuwmFjbbvP7b",
+           "sharing":"99%",
+           "name":"MOON",
+           "website":"https://ltomoon.win",
+           "payoutSchedule":"Weekly",
+           "tgContact":"@ltomoon",
+           "hide":false
+       },
+       {
+           "address":"3Jkcf1k55sonzZyJh8LkL41mtznNW25s6A4",
+           "sharing":"99%",
+           "name":"Lone Star Node",
+           "website":"lonestarnode.io",
+           "payoutSchedule":"After 10,000 Blocks",
+           "tgContact":"@Tash22KA",
+           "hide":false
+       },
+       {
+           "address":"3JiYAzVaJS3Yo9eRivDVBhZbnUzQNQEYoju",
+           "sharing":"98%",
+           "name":"TUK LTO Node",
+           "website":"http://t.me/KvRhh",
+           "payoutSchedule":"Monthly",
+           "tgContact":"@KvRhh",
+           "hide":false
+       },
+       {
+           "address":"3Jv111Z8F2TMV2pWyFLJnBuoQaysUUiLEAS",
+           "sharing":"95%",
+           "name":"LTOnod.es Leasing",
+           "website":"https://www.ltonod.es/leasing",
+           "payoutSchedule":"AutoCompounding | On demand",
+           "tgContact":"@ltonodeslease",
+           "hide":false
+       },
+       {
+           "address":"3Jwxe6edRFJBYmigzT1nHVWchmv479Rn9nX",
+           "sharing":"98%",
+           "name":"RexoLTO",
+           "website":"https://t.me/a_krol",
+           "payoutSchedule":"Weekly",
+           "tgContact":"@a_krol",
+           "hide":false
+       },
+       {
+           "address":"3JrStxukQMpVGMbQ5eccBWYKdRzeVftXSAd",
+           "sharing":"98%",
+           "name":"ForenChain.com - Public Node",
+           "website":"https://forenchain-pn.com",
+           "payoutSchedule":"Weekly",
+           "tgContact":"@AT004_AT",
+           "hide":false
+       },
+       {
+           "address":"3JqhTFb5Zqar4DgwCZe3pEi4z2RbdsbTiqJ",
+           "sharing":"95%",
+           "name":"Ralyth Node - ralyth.com",
+           "website":"https://ralyth.com",
+           "payoutSchedule":"Compounding | Automatic payouts on the 1st of each month or manual withdrawal once a month",
+           "tgContact":"@Ralyth",
+           "hide":false
+       }
    ]
 }

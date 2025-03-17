@@ -435,6 +435,15 @@
 			   "payoutSchedule": "Weekly",
 			   "tgContact": "@AT004_AT",
 			   "hide": false
-	    }     
+	    },
+       {
+         "address":"3JqhTFb5Zqar4DgwCZe3pEi4z2RbdsbTiqJ",
+         "sharing":"95%",
+         "name":"Ralyth Node - ralyth.com",
+         "website":"https://ralyth.com",
+         "payoutSchedule":"Compounding | Automatic payouts on the 1st of each month or manual withdrawal once a month",
+         "tgContact":"@Ralyth",
+         "hide":false
+     }      
    ]
 }

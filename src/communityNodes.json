@@ -278,7 +278,7 @@
          "website":"https://stockholmblockbuilders.se",
          "payoutSchedule":"Every weekend",
          "tgContact":"@StockholmBlockBuilder",
-         "hide":false
+         "hide":true
       },
      {
          "address":"3Ju8dmBqNzqNN57czAznmoFzmu6Pk3Yyoej",

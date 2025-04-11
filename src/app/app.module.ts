@@ -21,7 +21,7 @@ import {
   BRIDGE_ENABLED,
   BRIDGE_BSC_ENABLED,
   SWAP_PAGE_ENABLED,
-  LTO_MOBILE_AUTH, BRIDGE_BEP2_ENABLED
+  LTO_MOBILE_AUTH, BRIDGE_BEP2_ENABLED, WALLETCONNECT_PROJECT_ID
 } from './tokens';
 
 import { environment } from '../environments/environment';

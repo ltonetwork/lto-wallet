@@ -8,6 +8,8 @@ export const LTO_NETWORK_BYTE = new InjectionToken<'T' | 'L'>('LTO_NETWORK_BYTE'
 export const LTO_PUBLIC_API = new InjectionToken<string>('LTO_PUBLIC_API');
 export const LTO_MOBILE_AUTH = new InjectionToken<{ws: string, url: string}>('LTO_MOBILE_AUTH');
 
+export const WALLETCONNECT_PROJECT_ID = new InjectionToken<string>('WALLETCONNECT_PROJECT_ID');
+
 /**
  * Transaction ammount and fees stored as plain number in transaction
  * To make user-consumable value we need to dive it by speciffic ammout

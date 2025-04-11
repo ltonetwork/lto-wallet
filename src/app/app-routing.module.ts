@@ -45,7 +45,7 @@ const routes: Routes = [
       },
       {
         path: 'bridge',
-        loadChildren: './pages/bridge/bridge.module#BridgeModule'
+        loadChildren: () => import('./pages/bridge/bridge.module').then(m => m.BridgeModule)
       },
       {
         path: 'settings',
@@ -53,7 +53,7 @@ const routes: Routes = [
       },
       {
         path: 'seed-swap',
-        loadChildren: './pages/token-swap/token-swap.module#TokenSwapModule'
+        loadChildren: () => import('./pages/token-swap/token-swap.module').then(m => m.TokenSwapModule)
       },
       {
         path: '',

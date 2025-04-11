@@ -40,8 +40,6 @@
     "lto-ledger-js-unofficial-test": "^1.0.7",
     "moment": "^2.29.4",
     "ng-recaptcha": "^6.0.2",
-    "ng-suspense": "0.0.4",
-    "ngx-file-drop": "^9.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.6.3",
     "zone.js": "~0.10.2"

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RecaptchaModule } from 'ng-recaptcha';
 import { BridgeServiceMock, WalletServiceMock } from '../../../../core/mocks';
@@ -14,7 +14,7 @@ describe('SwapDialogComponent', () => {
   let component: SwapDialogComponent;
   let fixture: ComponentFixture<SwapDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         SharedModule,

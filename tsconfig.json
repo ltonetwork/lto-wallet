@@ -11,13 +11,21 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "module": "es2020",
-    "lib": ["es2018", "dom"],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "skipLibCheck": true,
     "paths": {
-      "@app/*": ["src/app/*"],
-      "crypto": ["node_modules/crypto-js"]
-    }
+      "@app/*": [
+        "src/app/*"
+      ],
+      "crypto": [
+        "node_modules/crypto-js"
+      ]
+    },
+    "useDefineForClassFields": false
   }
 }

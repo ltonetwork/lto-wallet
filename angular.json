@@ -104,21 +104,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "wallet:build"
+            "buildTarget": "wallet:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "wallet:build:production"
+              "buildTarget": "wallet:build:production"
             },
             "local": {
-              "browserTarget": "wallet:build:local"
+              "buildTarget": "wallet:build:local"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "wallet:build"
+            "buildTarget": "wallet:build"
           }
         },
         "test": {

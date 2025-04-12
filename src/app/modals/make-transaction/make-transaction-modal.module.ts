@@ -10,18 +10,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MakeTransactionTransfersComponent } from './components/make-transaction-transfers/make-transaction-transfers.component';
 
 @NgModule({
-  imports: [
-    SharedModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    MatSnackBarModule,
-    MatProgressSpinnerModule
-  ],
-  declarations: [
-    MakeTransactionComponent,
-    MakeTransactionTransfersComponent
-  ],
-  entryComponents: [MakeTransactionComponent],
-  providers: [MakeTransactionModal],
+    imports: [
+        SharedModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule
+    ],
+    declarations: [
+        MakeTransactionComponent,
+        MakeTransactionTransfersComponent
+    ],
+    providers: [MakeTransactionModal]
 })
 export class MakeTransactionModalModule {}

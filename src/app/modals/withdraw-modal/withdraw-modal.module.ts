@@ -6,9 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [WithdrawModalComponent],
-  imports: [SharedModule, MatDialogModule, ReactiveFormsModule],
-  providers: [WithdrawModal],
-  entryComponents: [WithdrawModalComponent],
+    declarations: [WithdrawModalComponent],
+    imports: [SharedModule, MatDialogModule, ReactiveFormsModule],
+    providers: [WithdrawModal]
 })
 export class WithdrawModalModule {}

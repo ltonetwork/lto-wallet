@@ -9,9 +9,8 @@ import { TransactionQrDialog } from './transaction-qr.dialog';
 import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
-  declarations: [TransactionQrDialogComponent],
-  entryComponents: [TransactionQrDialogComponent],
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, FlexLayoutModule, QRCodeModule],
-  providers: [TransactionQrDialog],
+    declarations: [TransactionQrDialogComponent],
+    imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, FlexLayoutModule, QRCodeModule],
+    providers: [TransactionQrDialog]
 })
 export class TransactionQrDialogModule {}

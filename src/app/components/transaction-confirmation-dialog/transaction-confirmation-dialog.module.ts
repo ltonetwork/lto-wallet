@@ -8,9 +8,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TransactionConfirmDialog } from './transaction-confirmation.dialog';
 
 @NgModule({
-  declarations: [TransactionConfirmationDialogComponent],
-  entryComponents: [TransactionConfirmationDialogComponent],
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, FlexLayoutModule],
-  providers: [TransactionConfirmDialog],
+    declarations: [TransactionConfirmationDialogComponent],
+    imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, FlexLayoutModule],
+    providers: [TransactionConfirmDialog]
 })
 export class TransactionConfirmationDialogModule {}

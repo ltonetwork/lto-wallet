@@ -13,18 +13,17 @@ import { DepositModal } from './deposit-modal';
 import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
-  declarations: [DepositModalComponent],
-  imports: [
-    CommonModule,
-    QRCodeModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatProgressSpinnerModule,
-    MatDialogModule,
-    MatButtonModule,
-    FlexLayoutModule,
-  ],
-  entryComponents: [DepositModalComponent],
-  providers: [DepositModal],
+    declarations: [DepositModalComponent],
+    imports: [
+        CommonModule,
+        QRCodeModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+        MatButtonModule,
+        FlexLayoutModule,
+    ],
+    providers: [DepositModal]
 })
 export class DepositModalModule {}

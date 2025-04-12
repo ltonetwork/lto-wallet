@@ -8,19 +8,18 @@ import { SwapDialogComponent } from './components/swap-dialog/swap-dialog.compon
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [
-    SharedModule,
-    RecaptchaModule,
-    ReactiveFormsModule,
-    QRCodeModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: TokenSwapComponent
-      }
-    ])
-  ],
-  declarations: [TokenSwapComponent, SwapDialogComponent],
-  entryComponents: [SwapDialogComponent]
+    imports: [
+        SharedModule,
+        RecaptchaModule,
+        ReactiveFormsModule,
+        QRCodeModule,
+        RouterModule.forChild([
+            {
+                path: '',
+                component: TokenSwapComponent
+            }
+        ])
+    ],
+    declarations: [TokenSwapComponent, SwapDialogComponent]
 })
 export class TokenSwapModule {}

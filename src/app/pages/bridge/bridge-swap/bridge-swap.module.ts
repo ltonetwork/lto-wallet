@@ -18,30 +18,29 @@ import { WithdrawCexComponent } from './steps/withdraw-cex/withdraw-cex.componen
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  declarations: [
-    BridgeSwapComponent,
-    SwapTypeComponent,
-    ExampleComponent,
-    DepositErcComponent,
-    WithdrawFormComponent,
-    WithdrawCexComponent,
-  ],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    RecaptchaModule,
-    QRCodeModule,
-    CopyableTextModule,
-    FlexLayoutModule,
-    NgSuspenseModule,
-    LoadingSpinnerModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatIconModule,
-    MatTooltipModule
-  ],
-  exports: [BridgeSwapComponent],
-  entryComponents: [BridgeSwapComponent],
+    declarations: [
+        BridgeSwapComponent,
+        SwapTypeComponent,
+        ExampleComponent,
+        DepositErcComponent,
+        WithdrawFormComponent,
+        WithdrawCexComponent,
+    ],
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        RecaptchaModule,
+        QRCodeModule,
+        CopyableTextModule,
+        FlexLayoutModule,
+        NgSuspenseModule,
+        LoadingSpinnerModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatIconModule,
+        MatTooltipModule
+    ],
+    exports: [BridgeSwapComponent]
 })
 export class BridgeSwapModule {}

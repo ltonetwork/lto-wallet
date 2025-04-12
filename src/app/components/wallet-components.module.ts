@@ -14,30 +14,24 @@ import { TransactionQrDialogModule } from './transaction-qr-dialog';
 import { AccountQrComponent } from './account-qr/account-qr.component';
 
 @NgModule({
-  imports: [SharedModule, QRCodeModule, RecaptchaModule],
-  declarations: [
-    AmountInputComponent,
-    BridgeDepositDialogComponent,
-    BridgeWithdrawDialogComponent,
-    DeleteAccountDialogComponent,
-    HiddenTextComponent,
-    ContentDialogComponent,
-    AccountQrComponent,
-  ],
-  exports: [
-    AmountInputComponent,
-    BridgeDepositDialogComponent,
-    BridgeWithdrawDialogComponent,
-    HiddenTextComponent,
-    TransactionConfirmationDialogModule,
-    TransactionQrDialogModule,
-    AccountQrComponent
-  ],
-  entryComponents: [
-    BridgeDepositDialogComponent,
-    BridgeWithdrawDialogComponent,
-    DeleteAccountDialogComponent,
-    ContentDialogComponent,
-  ]
+    imports: [SharedModule, QRCodeModule, RecaptchaModule],
+    declarations: [
+        AmountInputComponent,
+        BridgeDepositDialogComponent,
+        BridgeWithdrawDialogComponent,
+        DeleteAccountDialogComponent,
+        HiddenTextComponent,
+        ContentDialogComponent,
+        AccountQrComponent,
+    ],
+    exports: [
+        AmountInputComponent,
+        BridgeDepositDialogComponent,
+        BridgeWithdrawDialogComponent,
+        HiddenTextComponent,
+        TransactionConfirmationDialogModule,
+        TransactionQrDialogModule,
+        AccountQrComponent
+    ]
 })
 export class WalletComponentsModule {}

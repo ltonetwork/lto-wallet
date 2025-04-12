@@ -7,9 +7,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
-  declarations: [MobileAuthModalComponent],
-  imports: [SharedModule, MatDialogModule, ReactiveFormsModule, QRCodeModule],
-  providers: [MobileAuthModal],
-  entryComponents: [MobileAuthModalComponent],
+    declarations: [MobileAuthModalComponent],
+    imports: [SharedModule, MatDialogModule, ReactiveFormsModule, QRCodeModule],
+    providers: [MobileAuthModal]
 })
 export class MobileAuthModalModule {}

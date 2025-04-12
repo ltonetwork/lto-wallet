@@ -11,17 +11,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FeeInputModal } from './fee-input.modal';
 
 @NgModule({
-  declarations: [FeeInputModalComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    FlexLayoutModule,
-  ],
-  entryComponents: [FeeInputModalComponent],
-  providers: [FeeInputModal],
+    declarations: [FeeInputModalComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        FlexLayoutModule,
+    ],
+    providers: [FeeInputModal]
 })
 export class FeeInputModalModule {}

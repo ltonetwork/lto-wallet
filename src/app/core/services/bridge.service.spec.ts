@@ -1,23 +1,26 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { BridgeService, BridgeServiceImpl } from './bridge.service';
 import { LTO_BRIDGE_HOST, BRIDGE_ENABLED } from '@app/tokens';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 function configureTestingModule(bridgeEnabled: boolean) {
   TestBed.configureTestingModule({
-    imports: [HttpClientTestingModule],
+    imports: [],
     providers: [
-      BridgeService.provider,
-      {
-        provide: LTO_BRIDGE_HOST,
-        useValue: 'http://test_brige',
-      },
-      {
-        provide: BRIDGE_ENABLED,
-        useValue: bridgeEnabled,
-      },
-    ],
-  });
+        BridgeService.provider,
+        {
+            provide: LTO_BRIDGE_HOST,
+            useValue: 'http://test_brige',
+        },
+        {
+            provide: BRIDGE_ENABLED,
+            useValue: bridgeEnabled,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
 }
 
 describe('Core/BridgeService', () => {

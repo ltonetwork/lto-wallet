@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 @import './app/app.theme';
 @include mat-core();
 $lto-wallet-primary: mat-palette($mat-deep-purple);

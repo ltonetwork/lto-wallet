@@ -3,7 +3,7 @@ import { BridgeService, WalletService } from '../../../../../core';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SwapTokenType, SwapType } from '../../swap-type';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import * as bech32 from 'bech32';
 import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 
@@ -19,7 +19,7 @@ export class DepositErcComponent implements OnInit {
   shouldShowCaptcha = false;
   captchaResponse = '';
   address$: Observable<string> | null = null;
-  depositForm!: FormGroup;
+  depositForm!: UntypedFormGroup;
 
   get toTokenType(): string {
     switch (this.swapType) {
@@ -117,8 +117,8 @@ export class DepositErcComponent implements OnInit {
       this.resolveCaptcha('');
     }
 
-    this.depositForm = new FormGroup({
-      address: new FormControl('', addressValidators)
+    this.depositForm = new UntypedFormGroup({
+      address: new UntypedFormControl('', addressValidators)
     });
   }
 

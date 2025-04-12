@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 import { formControlErrors, IBalance, LedgerService, WalletService } from '@app/core';
 import { MakeTransactionService } from '@app/core/services/make-transaction.service';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./make-transaction-transfers.component.scss'],
 })
 export class MakeTransactionTransfersComponent implements OnInit {
-  @Input() sendForm: FormGroup | undefined;
+  @Input() sendForm: UntypedFormGroup | undefined;
 
   ledger$!: Observable<boolean>;
   balance$!: Observable<IBalance>;
@@ -33,7 +33,7 @@ export class MakeTransactionTransfersComponent implements OnInit {
 
   addTransfer() {
     this._transactionService.addTransfer();
-    let transfers = <FormArray>this.sendForm?.get('transfers');
+    let transfers = <UntypedFormArray>this.sendForm?.get('transfers');
     this.transferVisible = transfers.length - 1;
   }
 
@@ -52,7 +52,7 @@ export class MakeTransactionTransfersComponent implements OnInit {
   }
 
   next() {
-    if (this.transferVisible < (<FormArray>this.sendForm?.controls.transfers).length - 1)
+    if (this.transferVisible < (<UntypedFormArray>this.sendForm?.controls.transfers).length - 1)
       this.transferVisible++;
     this._transactionService.updateFee();
   }
@@ -62,12 +62,12 @@ export class MakeTransactionTransfersComponent implements OnInit {
   }
 
   get transfersCount() {
-    return (<FormArray>this.sendForm?.controls.transfers).length;
+    return (<UntypedFormArray>this.sendForm?.controls.transfers).length;
   }
 
   get transferMaxAmount() {
     const transfers = this._transactionService.transfers;
-    const transfer = <FormGroup>transfers.controls[this.transferVisible];
+    const transfer = <UntypedFormGroup>transfers.controls[this.transferVisible];
     const amountControl = transfer.controls.amount;
     return this._transactionService.getTransferMaxAmount(amountControl.value);
   }

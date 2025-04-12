@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  FormGroup,
-  FormControl,
+  UntypedFormGroup,
+  UntypedFormControl,
   Validators,
   FormGroupDirective,
   NgForm,
@@ -15,7 +15,7 @@ export interface IAccountCredentials {
 }
 
 export class CustomErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     if (!form || !control) {
       return true;
     }
@@ -30,7 +30,7 @@ export class CustomErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./credentials-form.component.scss'],
 })
 export class CrendetialsFormComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   appearance = 'outline';
 
@@ -50,11 +50,11 @@ export class CrendetialsFormComponent implements OnInit {
   confirmationErrorMatcher = new CustomErrorStateMatcher();
 
   constructor() {
-    this.form = new FormGroup(
+    this.form = new UntypedFormGroup(
       {
-        accountName: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required]),
-        confirmation: new FormControl('', [Validators.required]),
+        accountName: new UntypedFormControl('', [Validators.required]),
+        password: new UntypedFormControl('', [Validators.required]),
+        confirmation: new UntypedFormControl('', [Validators.required]),
       },
       {
         validators: this.checkPasswords as any, // Some wierd TS error with 'undefined'
@@ -64,7 +64,7 @@ export class CrendetialsFormComponent implements OnInit {
 
   ngOnInit() {}
 
-  private checkPasswords(group: FormGroup) {
+  private checkPasswords(group: UntypedFormGroup) {
     let passwordField = group.get('password') as AbstractControl;
     let confirmationField = group.get('confirmation') as AbstractControl;
 

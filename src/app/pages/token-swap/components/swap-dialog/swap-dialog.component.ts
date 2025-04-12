@@ -3,7 +3,7 @@ import { BridgeService } from '../../../../core';
 import { Observable, zip } from 'rxjs';
 import { shareReplay, switchMap, map, take } from 'rxjs/operators';
 import { WalletService, WAVES_ADDRESS_VALIDATOR } from '../../../../core';
-import { FormControl, ValidatorFn } from '@angular/forms';
+import { UntypedFormControl, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'lto-wallet-swap-dialog',
@@ -17,7 +17,7 @@ export class SwapDialogComponent implements OnInit {
 
   bridgeAddress$: Observable<string> | null = null;
 
-  wavesAddressControl: FormControl;
+  wavesAddressControl: UntypedFormControl;
 
   step = 0;
   constructor(
@@ -25,7 +25,7 @@ export class SwapDialogComponent implements OnInit {
     private _wallet: WalletService,
     @Inject(WAVES_ADDRESS_VALIDATOR) wavesAddValidator: ValidatorFn
   ) {
-    this.wavesAddressControl = new FormControl('', [wavesAddValidator]);
+    this.wavesAddressControl = new UntypedFormControl('', [wavesAddValidator]);
   }
 
   ngOnInit() {}

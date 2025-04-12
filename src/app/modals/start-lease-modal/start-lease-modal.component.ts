@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, ValidatorFn } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import {
@@ -46,7 +46,7 @@ interface CommunityNode {
   styleUrls: ['./start-lease-modal.component.scss'],
 })
 export class StartLeaseModalComponent implements OnInit {
-  leaseForm: FormGroup | null = null;
+  leaseForm: UntypedFormGroup | null = null;
   balance$!: Observable<IBalance>;
   isNodeSelected = false;
   communityNodesLoaded: CommunityNode[] = [];
@@ -92,14 +92,14 @@ export class StartLeaseModalComponent implements OnInit {
 
         const maxLeased = (balance.available / balance.amountDivider) > 1 ?
           (balance.available / balance.amountDivider) - 1 : 0;
-        this.leaseForm = new FormGroup({
-          recipient: new FormControl(element.address, [Validators.required, this._addressValidator]),
-          amount: new FormControl(maxLeased, [
+        this.leaseForm = new UntypedFormGroup({
+          recipient: new UntypedFormControl(element.address, [Validators.required, this._addressValidator]),
+          amount: new UntypedFormControl(maxLeased, [
             Validators.required,
             Validators.min(minAmount),
             Validators.max(maxAmount),
           ]),
-          fee: new FormControl({ value: fee, disabled: true }, [
+          fee: new UntypedFormControl({ value: fee, disabled: true }, [
             Validators.required,
             Validators.min(minAmount),
           ]),

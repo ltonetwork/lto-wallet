@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Inject, OnDestroy, Input } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Observable, combineLatest, ReplaySubject, Subscription } from 'rxjs';
 import { BridgeService, WalletService, etheriumAddressValidator } from '../../../../../core';
 import { DEFAULT_TRANSFER_FEE } from '../../../../../tokens';
@@ -17,7 +17,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
   @Input() swapType!: SwapType;
   @Output() close = new EventEmitter();
 
-  withdrawForm!: FormGroup;
+  withdrawForm!: UntypedFormGroup;
   shouldShowCaptcha = false;
 
   step = 'input';
@@ -159,14 +159,14 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.withdrawForm = new FormGroup({
-      amount: new FormControl(
+    this.withdrawForm = new UntypedFormGroup({
+      amount: new UntypedFormControl(
         null,
         [Validators.min(this.BRIDGE_MINIMAL_FEE), Validators.required],
         this.validateAmount.bind(this)
       ),
-      address: new FormControl('', addressValidators),
-      memo: new FormControl('')
+      address: new UntypedFormControl('', addressValidators),
+      memo: new UntypedFormControl('')
     });
 
     this.receiving$ = this.withdrawForm.valueChanges.pipe(

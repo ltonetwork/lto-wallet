@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
@@ -29,7 +29,7 @@ interface FormTransfersValue {
 export class MakeTransactionComponent implements OnInit {
   loading = false;
 
-  sendForm: FormGroup | null = null;
+  sendForm: UntypedFormGroup | null = null;
   private _recipientsCountSubscription: Subscription;
 
   balance$!: Observable<IBalance>;

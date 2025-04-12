@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { ScriptsService, PredefinedScript } from '../../core';
 import { Observable } from 'rxjs';
 
@@ -10,12 +10,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./create-script.component.scss'],
 })
 export class CreateScriptComponent {
-  scriptTextCtrl: FormControl;
+  scriptTextCtrl: UntypedFormControl;
   predefinedScripts: PredefinedScript[];
 
   constructor(private _dialogRef: MatDialogRef<any>, private _scriptsService: ScriptsService) {
     this.predefinedScripts = _scriptsService.predefinedScripts;
-    this.scriptTextCtrl = new FormControl(this.predefinedScripts[0].value);
+    this.scriptTextCtrl = new UntypedFormControl(this.predefinedScripts[0].value);
   }
 
   createScript() {

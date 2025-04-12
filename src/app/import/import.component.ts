@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../core';
 import { Account } from 'lto-api';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, take, shareReplay, filter } from 'rxjs/operators';
 import { trimSeed } from './trim-seed.rxjs-pipe';
@@ -20,9 +20,9 @@ export class ImportComponent implements OnInit {
   stepTemplate!: TemplateRef<any>;
   wallet!: Account;
 
-  seedForm = new FormGroup({
-    'seed': new FormControl(''),
-    'tidy': new FormControl(true)
+  seedForm = new UntypedFormGroup({
+    'seed': new UntypedFormControl(''),
+    'tidy': new UntypedFormControl(true)
   });
 
   walletAddress$: Observable<string>;

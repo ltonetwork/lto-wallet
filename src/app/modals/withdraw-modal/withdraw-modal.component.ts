@@ -5,9 +5,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { WalletService, IBalance } from '../../core';
 
 @Component({
-  selector: 'lto-withdraw-modal',
-  templateUrl: './withdraw-modal.component.html',
-  styleUrls: ['./withdraw-modal.component.scss'],
+    selector: 'lto-withdraw-modal',
+    templateUrl: './withdraw-modal.component.html',
+    styleUrls: ['./withdraw-modal.component.scss'],
+    standalone: false
 })
 export class WithdrawModalComponent implements OnInit {
   withdrawForm: UntypedFormGroup;

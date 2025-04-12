@@ -6,9 +6,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService, ILedgerAccount, IUserAccount, Sidenav } from '@app/core/services';
 
 @Component({
-  selector: 'lto-appbar',
-  templateUrl: './appbar.component.html',
-  styleUrls: ['./appbar.component.scss'],
+    selector: 'lto-appbar',
+    templateUrl: './appbar.component.html',
+    styleUrls: ['./appbar.component.scss'],
+    standalone: false
 })
 export class AppbarComponent implements OnInit, OnDestroy {
   authenticated$!: Subscription;

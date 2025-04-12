@@ -5,9 +5,10 @@ import { ScriptsService, PredefinedScript } from '../../core';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'lto-create-script',
-  templateUrl: './create-script.component.html',
-  styleUrls: ['./create-script.component.scss'],
+    selector: 'lto-create-script',
+    templateUrl: './create-script.component.html',
+    styleUrls: ['./create-script.component.scss'],
+    standalone: false
 })
 export class CreateScriptComponent {
   scriptTextCtrl: UntypedFormControl;

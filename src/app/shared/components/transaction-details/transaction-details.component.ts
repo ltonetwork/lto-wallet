@@ -8,9 +8,10 @@ interface AnchorData {
 }
 
 @Component({
-  selector: 'lto-transaction-details',
-  templateUrl: './transaction-details.component.html',
-  styleUrls: ['./transaction-details.component.scss']
+    selector: 'lto-transaction-details',
+    templateUrl: './transaction-details.component.html',
+    styleUrls: ['./transaction-details.component.scss'],
+    standalone: false
 })
 export class TransactionDetailsComponent implements OnInit, OnChanges {
   @Input() transaction!: LTO.Transaction;

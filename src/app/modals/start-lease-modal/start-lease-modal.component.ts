@@ -41,9 +41,10 @@ interface CommunityNode {
 
 
 @Component({
-  selector: 'lto-wallet-start-lease-modal',
-  templateUrl: './start-lease-modal.component.html',
-  styleUrls: ['./start-lease-modal.component.scss'],
+    selector: 'lto-wallet-start-lease-modal',
+    templateUrl: './start-lease-modal.component.html',
+    styleUrls: ['./start-lease-modal.component.scss'],
+    standalone: false
 })
 export class StartLeaseModalComponent implements OnInit {
   leaseForm: UntypedFormGroup | null = null;

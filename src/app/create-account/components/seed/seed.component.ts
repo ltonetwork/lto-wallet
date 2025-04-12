@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'lto-wallet-seed',
-  template: `
+    selector: 'lto-wallet-seed',
+    template: `
     <span class="word" *ngFor="let word of words; last as isLast">{{ word }}<ng-container *ngIf="!isLast">&nbsp;</ng-container></span>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         display: block;
         padding: 16px;
@@ -21,7 +21,8 @@ import { Component, OnInit, Input } from '@angular/core';
         margin: 8px;
       }
     `
-  ]
+    ],
+    standalone: false
 })
 export class SeedComponent {
   @Input()

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TransactionTypes } from '../../../core';
 
 @Pipe({
-  name: 'typeLabel'
+    name: 'typeLabel',
+    standalone: false
 })
 export class TypeLabelPipe implements PipeTransform {
   transform(type: TransactionTypes, args?: any): string {

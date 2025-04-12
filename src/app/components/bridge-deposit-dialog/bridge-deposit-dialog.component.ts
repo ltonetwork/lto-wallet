@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { WalletService, BridgeService, toPromise } from '../../core';
 
 @Component({
-  selector: 'lto-wallet-bridge-deposit-dialog',
-  templateUrl: './bridge-deposit-dialog.component.html',
-  styleUrls: ['./bridge-deposit-dialog.component.scss']
+    selector: 'lto-wallet-bridge-deposit-dialog',
+    templateUrl: './bridge-deposit-dialog.component.html',
+    styleUrls: ['./bridge-deposit-dialog.component.scss'],
+    standalone: false
 })
 export class BridgeDepositDialogComponent implements OnInit {
   step = 1;

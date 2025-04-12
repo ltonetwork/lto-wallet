@@ -17,11 +17,12 @@ interface TransactionDataField {
 }
 
 @Component({
-  selector: 'lto-wallet-transaction-confirmation-dialog',
-  templateUrl: './transaction-confirmation-dialog.component.html',
-  styleUrls: ['./transaction-confirmation-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [DecimalPipe],
+    selector: 'lto-wallet-transaction-confirmation-dialog',
+    templateUrl: './transaction-confirmation-dialog.component.html',
+    styleUrls: ['./transaction-confirmation-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [DecimalPipe],
+    standalone: false
 })
 export class TransactionConfirmationDialogComponent implements OnInit {
   dialogTitle!: string;

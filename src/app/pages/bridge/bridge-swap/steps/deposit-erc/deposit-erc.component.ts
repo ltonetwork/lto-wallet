@@ -8,9 +8,10 @@ import * as bech32 from 'bech32';
 import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 
 @Component({
-  selector: 'lto-wallet-deposit-erc',
-  templateUrl: './deposit-erc.component.html',
-  styleUrls: ['./deposit-erc.component.scss']
+    selector: 'lto-wallet-deposit-erc',
+    templateUrl: './deposit-erc.component.html',
+    styleUrls: ['./deposit-erc.component.scss'],
+    standalone: false
 })
 export class DepositErcComponent implements OnInit {
   @Input() swapType!: SwapType;

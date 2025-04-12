@@ -3,9 +3,10 @@ import { SWAP_PAGE_ENABLED } from '../../../tokens';
 import { Sidenav } from '../../services';
 
 @Component({
-  selector: 'lto-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+    selector: 'lto-sidenav',
+    templateUrl: './sidenav.component.html',
+    styleUrls: ['./sidenav.component.scss'],
+    standalone: false
 })
 export class SidenavComponent implements OnInit {
   constructor(@Inject(SWAP_PAGE_ENABLED) public swapEnabled: boolean, private _sidenav: Sidenav) {}

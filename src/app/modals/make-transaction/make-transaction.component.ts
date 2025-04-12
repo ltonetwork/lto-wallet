@@ -22,9 +22,10 @@ interface FormTransfersValue {
 }
 
 @Component({
-  selector: 'lto-wallet-make-transaction',
-  templateUrl: './make-transaction.component.html',
-  styleUrls: ['./make-transaction.component.scss'],
+    selector: 'lto-wallet-make-transaction',
+    templateUrl: './make-transaction.component.html',
+    styleUrls: ['./make-transaction.component.scss'],
+    standalone: false
 })
 export class MakeTransactionComponent implements OnInit {
   loading = false;

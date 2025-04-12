@@ -9,9 +9,10 @@ import { AMOUNT_DIVIDER } from '@app/tokens';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 
 @Component({
-  selector: 'lto-leasing',
-  templateUrl: './leasing.component.html',
-  styleUrls: ['./leasing.component.scss'],
+    selector: 'lto-leasing',
+    templateUrl: './leasing.component.html',
+    styleUrls: ['./leasing.component.scss'],
+    standalone: false
 })
 export class LeasingComponent implements OnInit {
   transactions$: Observable<any[]>;

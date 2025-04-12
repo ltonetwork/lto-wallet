@@ -6,9 +6,10 @@ import { WalletService, WAVES_ADDRESS_VALIDATOR } from '../../../../core';
 import { UntypedFormControl, ValidatorFn } from '@angular/forms';
 
 @Component({
-  selector: 'lto-wallet-swap-dialog',
-  templateUrl: './swap-dialog.component.html',
-  styleUrls: ['./swap-dialog.component.scss']
+    selector: 'lto-wallet-swap-dialog',
+    templateUrl: './swap-dialog.component.html',
+    styleUrls: ['./swap-dialog.component.scss'],
+    standalone: false
 })
 export class SwapDialogComponent implements OnInit {
   captcha = '';

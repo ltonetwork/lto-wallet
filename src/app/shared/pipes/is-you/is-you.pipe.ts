@@ -5,7 +5,8 @@ import { AuthService } from '../../../core';
  * Replacec address with 'You'
  */
 @Pipe({
-  name: 'isYou'
+    name: 'isYou',
+    standalone: false
 })
 export class IsYouPipe implements PipeTransform {
   constructor(private auth: AuthService) {}

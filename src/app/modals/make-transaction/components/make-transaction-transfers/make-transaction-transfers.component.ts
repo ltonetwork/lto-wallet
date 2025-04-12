@@ -4,9 +4,10 @@ import { formControlErrors, IBalance, LedgerService, WalletService } from '@app/
 import { MakeTransactionService } from '@app/core/services/make-transaction.service';
 import { Observable } from 'rxjs';
 @Component({
-  selector: 'lto-wallet-make-transaction-transfers',
-  templateUrl: './make-transaction-transfers.component.html',
-  styleUrls: ['./make-transaction-transfers.component.scss'],
+    selector: 'lto-wallet-make-transaction-transfers',
+    templateUrl: './make-transaction-transfers.component.html',
+    styleUrls: ['./make-transaction-transfers.component.scss'],
+    standalone: false
 })
 export class MakeTransactionTransfersComponent implements OnInit {
   @Input() sendForm: UntypedFormGroup | undefined;

@@ -5,9 +5,10 @@ import { map } from 'rxjs/operators';
 import { BridgeService } from '../../../../../core';
 
 @Component({
-  selector: 'lto-wallet-example',
-  templateUrl: './example.component.html',
-  styleUrls: ['./example.component.scss']
+    selector: 'lto-wallet-example',
+    templateUrl: './example.component.html',
+    styleUrls: ['./example.component.scss'],
+    standalone: false
 })
 export class ExampleComponent implements OnInit {
   @Input() swapType!: SwapType;

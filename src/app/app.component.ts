@@ -3,9 +3,10 @@ import { Observable } from 'rxjs';
 import { AuthService, Sidenav, SidenavMode } from './core';
 
 @Component({
-  selector: 'lto-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'lto-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   authenticated$!: Observable<boolean>;

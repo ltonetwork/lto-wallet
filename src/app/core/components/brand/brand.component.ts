@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lto-brand',
-  template: `
+    selector: 'lto-brand',
+    template: `
     <a routerLink="/"> <img src="assets/LTO-LOGO.png" alt="" /> <strong>LTO</strong> Wallet </a>
   `,
-  styles: [
-    `
+    styles: [
+        `
       a {
         text-decoration: none;
         color: #fff;
@@ -26,7 +26,8 @@ import { Component, OnInit } from '@angular/core';
         height: 33px;
       }
     `
-  ]
+    ],
+    standalone: false
 })
 export class BrandComponent implements OnInit {
   constructor() {}

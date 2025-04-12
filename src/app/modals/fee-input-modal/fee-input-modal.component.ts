@@ -4,9 +4,10 @@ import { AMOUNT_DIVIDER, ANCHOR_FEE } from '../../tokens';
 import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
 
 @Component({
-  selector: 'lto-wallet-fee-input-modal',
-  templateUrl: './fee-input-modal.component.html',
-  styleUrls: ['./fee-input-modal.component.scss'],
+    selector: 'lto-wallet-fee-input-modal',
+    templateUrl: './fee-input-modal.component.html',
+    styleUrls: ['./fee-input-modal.component.scss'],
+    standalone: false
 })
 export class FeeInputModalComponent {
   fee: number;

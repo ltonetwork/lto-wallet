@@ -9,9 +9,10 @@ import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 import { AMOUNT_DIVIDER, ANCHOR_FEE } from '@app/tokens';
 
 @Component({
-  selector: 'lto-anchors',
-  templateUrl: './anchors.component.html',
-  styleUrls: ['./anchors.component.scss'],
+    selector: 'lto-anchors',
+    templateUrl: './anchors.component.html',
+    styleUrls: ['./anchors.component.scss'],
+    standalone: false
 })
 export class AnchorsComponent implements OnInit {
   fee: number;

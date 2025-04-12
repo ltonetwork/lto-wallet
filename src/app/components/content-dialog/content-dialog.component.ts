@@ -7,9 +7,10 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'lto-wallet-content-dialog',
-  templateUrl: './content-dialog.component.html',
-  styleUrls: ['./content-dialog.component.scss'],
+    selector: 'lto-wallet-content-dialog',
+    templateUrl: './content-dialog.component.html',
+    styleUrls: ['./content-dialog.component.scss'],
+    standalone: false
 })
 export class ContentDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}

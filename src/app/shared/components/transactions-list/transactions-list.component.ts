@@ -2,9 +2,10 @@ import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angu
 import { groupByDate, TransactionsGroup, replaceAmountFor, TransactionTypes } from '../../../core';
 
 @Component({
-  selector: 'lto-transactions-list',
-  templateUrl: './transactions-list.component.html',
-  styleUrls: ['./transactions-list.component.scss']
+    selector: 'lto-transactions-list',
+    templateUrl: './transactions-list.component.html',
+    styleUrls: ['./transactions-list.component.scss'],
+    standalone: false
 })
 export class TransactionsListComponent implements OnInit, OnChanges {
   @Input('transactions') transactionsArray!: any[];

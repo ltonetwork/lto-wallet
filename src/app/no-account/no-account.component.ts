@@ -6,9 +6,10 @@ import { LedgerService } from '@app/core';
 import { MobileAuthModal } from '@app/modals/mobile-auth-modal';
 
 @Component({
-  selector: 'lto-no-account',
-  templateUrl: './no-account.component.html',
-  styleUrls: ['./no-account.component.scss'],
+    selector: 'lto-no-account',
+    templateUrl: './no-account.component.html',
+    styleUrls: ['./no-account.component.scss'],
+    standalone: false
 })
 export class NoAccountComponent {
   constructor(

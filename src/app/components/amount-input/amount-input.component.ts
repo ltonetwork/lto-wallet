@@ -2,16 +2,17 @@ import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'lto-wallet-amount-input',
-  templateUrl: './amount-input.component.html',
-  styleUrls: ['./amount-input.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
-      useExisting: forwardRef(() => AmountInputComponent)
-    }
-  ]
+    selector: 'lto-wallet-amount-input',
+    templateUrl: './amount-input.component.html',
+    styleUrls: ['./amount-input.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: forwardRef(() => AmountInputComponent)
+        }
+    ],
+    standalone: false
 })
 export class AmountInputComponent implements OnInit, ControlValueAccessor {
   @Input()

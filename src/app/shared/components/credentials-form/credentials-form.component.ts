@@ -25,9 +25,10 @@ export class CustomErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'lto-credentials-form',
-  templateUrl: './credentials-form.component.html',
-  styleUrls: ['./credentials-form.component.scss'],
+    selector: 'lto-credentials-form',
+    templateUrl: './credentials-form.component.html',
+    styleUrls: ['./credentials-form.component.scss'],
+    standalone: false
 })
 export class CrendetialsFormComponent implements OnInit {
   form: UntypedFormGroup;

@@ -5,9 +5,10 @@ import { SwapType } from './swap-type';
 import { MakeTransactionModal } from '../../../modals';
 
 @Component({
-  selector: 'lto-wallet-bridge-swap',
-  templateUrl: './bridge-swap.component.html',
-  styleUrls: ['./bridge-swap.component.scss'],
+    selector: 'lto-wallet-bridge-swap',
+    templateUrl: './bridge-swap.component.html',
+    styleUrls: ['./bridge-swap.component.scss'],
+    standalone: false
 })
 export class BridgeSwapComponent implements OnInit {
   step = 2;

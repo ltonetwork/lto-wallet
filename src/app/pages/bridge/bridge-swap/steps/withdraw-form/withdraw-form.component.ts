@@ -9,9 +9,10 @@ import * as bech32 from 'bech32';
 import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 
 @Component({
-  selector: 'lto-wallet-withdraw-form',
-  templateUrl: './withdraw-form.component.html',
-  styleUrls: ['./withdraw-form.component.scss']
+    selector: 'lto-wallet-withdraw-form',
+    templateUrl: './withdraw-form.component.html',
+    styleUrls: ['./withdraw-form.component.scss'],
+    standalone: false
 })
 export class WithdrawFormComponent implements OnInit, OnDestroy {
   @Input() swapType!: SwapType;

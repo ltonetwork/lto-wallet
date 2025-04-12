@@ -3,9 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { SwapDialogComponent } from './components/swap-dialog/swap-dialog.component';
 
 @Component({
-  selector: 'lto-wallet-token-swap',
-  templateUrl: './token-swap.component.html',
-  styleUrls: ['./token-swap.component.scss'],
+    selector: 'lto-wallet-token-swap',
+    templateUrl: './token-swap.component.html',
+    styleUrls: ['./token-swap.component.scss'],
+    standalone: false
 })
 export class TokenSwapComponent implements OnInit {
   constructor(private _matDialog: MatDialog) {}

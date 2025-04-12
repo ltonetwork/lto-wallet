@@ -3,9 +3,10 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '@app/core';
 
 @Component({
-  selector: 'lto-wallet-account-qr',
-  templateUrl: './account-qr.component.html',
-  styleUrls: ['./account-qr.component.scss']
+    selector: 'lto-wallet-account-qr',
+    templateUrl: './account-qr.component.html',
+    styleUrls: ['./account-qr.component.scss'],
+    standalone: false
 })
 export class AccountQrComponent implements OnInit {
   lto$!: Subscription;

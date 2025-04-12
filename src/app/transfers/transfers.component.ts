@@ -4,9 +4,10 @@ import { WalletService } from '../core';
 import { MakeTransactionModal, WithdrawModal, DepositModal } from '../modals';
 
 @Component({
-  selector: 'lto-transfers',
-  templateUrl: './transfers.component.html',
-  styleUrls: ['./transfers.component.scss']
+    selector: 'lto-transfers',
+    templateUrl: './transfers.component.html',
+    styleUrls: ['./transfers.component.scss'],
+    standalone: false
 })
 export class TransfersComponent implements OnInit {
   balance$: Observable<any>;

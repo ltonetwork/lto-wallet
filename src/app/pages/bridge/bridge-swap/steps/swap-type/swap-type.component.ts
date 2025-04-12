@@ -5,9 +5,10 @@ import { BRIDGE_BEP2_ENABLED, BRIDGE_BSC_ENABLED } from '@app/tokens';
 
 
 @Component({
-  selector: 'lto-wallet-swap-type',
-  templateUrl: './swap-type.component.html',
-  styleUrls: ['./swap-type.component.scss']
+    selector: 'lto-wallet-swap-type',
+    templateUrl: './swap-type.component.html',
+    styleUrls: ['./swap-type.component.scss'],
+    standalone: false
 })
 export class SwapTypeComponent {
   @Output() selectType = new EventEmitter<SwapType>();

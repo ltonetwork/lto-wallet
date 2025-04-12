@@ -9,9 +9,10 @@ import { map, take, shareReplay, filter } from 'rxjs/operators';
 import { trimSeed } from './trim-seed.rxjs-pipe';
 
 @Component({
-  selector: 'lto-import',
-  templateUrl: './import.component.html',
-  styleUrls: ['./import.component.scss'],
+    selector: 'lto-import',
+    templateUrl: './import.component.html',
+    styleUrls: ['./import.component.scss'],
+    standalone: false
 })
 export class ImportComponent implements OnInit {
   @ViewChild('step1Tpl', { static: true }) step1!: TemplateRef<any>;

@@ -9,9 +9,10 @@ import { DeleteAccountDialogComponent } from '../../components/delete-account-di
 import { MobileAuthModal } from '@app/modals/mobile-auth-modal';
 
 @Component({
-  selector: 'lto-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss'],
+    selector: 'lto-signin',
+    templateUrl: './signin.component.html',
+    styleUrls: ['./signin.component.scss'],
+    standalone: false
 })
 export class SigninComponent implements OnInit {
   availableAccounts$: Observable<IUserAccount[]>;

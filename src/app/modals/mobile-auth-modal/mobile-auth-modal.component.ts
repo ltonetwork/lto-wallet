@@ -6,9 +6,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'lto-mobile-auth-modal',
-  templateUrl: './mobile-auth-modal.component.html',
-  styleUrls: ['./mobile-auth-modal.component.scss'],
+    selector: 'lto-mobile-auth-modal',
+    templateUrl: './mobile-auth-modal.component.html',
+    styleUrls: ['./mobile-auth-modal.component.scss'],
+    standalone: false
 })
 export class MobileAuthModalComponent implements OnInit {
   public challenge$: Observable<IMobileAuthChallenge|null>;

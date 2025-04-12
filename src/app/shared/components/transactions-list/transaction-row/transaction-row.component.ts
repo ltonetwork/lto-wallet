@@ -2,9 +2,10 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { TransactionTypes } from '../../../../core';
 
 @Component({
-  selector: 'lto-transaction-row',
-  templateUrl: './transaction-row.component.html',
-  styleUrls: ['./transaction-row.component.scss']
+    selector: 'lto-transaction-row',
+    templateUrl: './transaction-row.component.html',
+    styleUrls: ['./transaction-row.component.scss'],
+    standalone: false
 })
 export class TransactionRowComponent implements OnInit {
   @Input() transaction!: LTO.Transaction;

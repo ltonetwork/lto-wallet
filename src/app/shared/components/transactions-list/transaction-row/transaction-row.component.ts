@@ -10,7 +10,7 @@ import { TransactionTypes } from '../../../../core';
 export class TransactionRowComponent implements OnInit {
   @Input() transaction!: LTO.Transaction;
   @Input() myAddress!: string;
-  @Output() cancelLease = new EventEmitter();
+  @Output() cancelLease = new EventEmitter<void>();
 
   get isOutcoming(): boolean {
     return this.transaction.sender === this.myAddress;
@@ -52,7 +52,7 @@ export class TransactionRowComponent implements OnInit {
    * When we click "cancel" button we need to disable it immediatelly
    * So we just store id of transaction we want to cancel
    */
-  private _cancelClickedOn: string = '';
+  private _cancelClickedOn = '';
 
   constructor() {}
 

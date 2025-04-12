@@ -293,10 +293,10 @@ export abstract class LedgerService {
     useClass: LedgerServiceImpl,
   };
 
-  public ledgerId: number = 0;
+  public ledgerId = 0;
 
-  public abstract connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public abstract ledgerAccount$: BehaviorSubject<ILedgerAccount | null> =
+  public connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public ledgerAccount$: BehaviorSubject<ILedgerAccount | null> =
     new BehaviorSubject<ILedgerAccount | null>(null);
 
   public abstract connect(): Promise<void>;

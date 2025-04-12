@@ -2378,18 +2378,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ledgerhq/devices@npm:^5.51.1":
-  version: 5.51.1
-  resolution: "@ledgerhq/devices@npm:5.51.1"
-  dependencies:
-    "@ledgerhq/errors": ^5.50.0
-    "@ledgerhq/logs": ^5.50.0
-    rxjs: 6
-    semver: ^7.3.5
-  checksum: bb63548b4b143d3669fab33f219aa705d9114be9fbb42f1b26064fbf89a047186972518cd608ad90329a760a6ff0e91b32aaf9d2e543ae384fe381fbf29fea64
-  languageName: node
-  linkType: hard
-
 "@ledgerhq/devices@npm:^8.4.4":
   version: 8.4.4
   resolution: "@ledgerhq/devices@npm:8.4.4"
@@ -2409,13 +2397,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ledgerhq/errors@npm:^5.34.0, @ledgerhq/errors@npm:^5.50.0":
-  version: 5.50.0
-  resolution: "@ledgerhq/errors@npm:5.50.0"
-  checksum: 2933e85f5a3768bfb303ba08b759e01f3de9bfc6d1a18b4b0f9353bb16cfbac302a5e6f683867056d3a4d9897ec8c2656c268662338e881df27315936809084d
-  languageName: node
-  linkType: hard
-
 "@ledgerhq/errors@npm:^6.19.1":
   version: 6.19.1
   resolution: "@ledgerhq/errors@npm:6.19.1"
@@ -2432,18 +2413,6 @@ __metadata:
     "@ledgerhq/logs": ^4.72.0
     u2f-api: 0.2.7
   checksum: 3911ac382960af86e3f6010da1e06f333c8b1cdcd144a4e49d487208e1373b429998d3068f1ee105e213a0cb098bbd8a3da83e517fec051c109a5fc648142e6e
-  languageName: node
-  linkType: hard
-
-"@ledgerhq/hw-transport-u2f@npm:^5.36.0-deprecated":
-  version: 5.36.0-deprecated
-  resolution: "@ledgerhq/hw-transport-u2f@npm:5.36.0-deprecated"
-  dependencies:
-    "@ledgerhq/errors": ^5.34.0
-    "@ledgerhq/hw-transport": ^5.34.0
-    "@ledgerhq/logs": ^5.30.0
-    u2f-api: 0.2.7
-  checksum: 2f6836721bfe81a9e73b70a0af3871738ff61a6cca90e9285312adea144bc79e4032d06e1460495aef5ddcec4371da6ff0404bf1cba4a1f09a214876f3002fb4
   languageName: node
   linkType: hard
 
@@ -2470,17 +2439,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ledgerhq/hw-transport@npm:^5.34.0":
-  version: 5.51.1
-  resolution: "@ledgerhq/hw-transport@npm:5.51.1"
-  dependencies:
-    "@ledgerhq/devices": ^5.51.1
-    "@ledgerhq/errors": ^5.50.0
-    events: ^3.3.0
-  checksum: 55c8c1a05cd71e24fdbe8c9a95a327bf3416199f85be53169d57aec3f53fcedd8ec57ab048c8869031809fb947128157c260d8afe169b3271308a6c6abbbb13e
-  languageName: node
-  linkType: hard
-
 "@ledgerhq/hw-transport@npm:^6.31.4":
   version: 6.31.4
   resolution: "@ledgerhq/hw-transport@npm:6.31.4"
@@ -2497,13 +2455,6 @@ __metadata:
   version: 4.72.0
   resolution: "@ledgerhq/logs@npm:4.72.0"
   checksum: 128eeb1ff3dc8ab1a50ad811bf886eae45f8de9887bfd15b84e947914c69e77d1b859219d119ec5c40e0b1794ca238dea7fc2bc896db18fb60b5f7244c56ce19
-  languageName: node
-  linkType: hard
-
-"@ledgerhq/logs@npm:^5.30.0, @ledgerhq/logs@npm:^5.50.0":
-  version: 5.50.0
-  resolution: "@ledgerhq/logs@npm:5.50.0"
-  checksum: ad2e2f0f52ef2c921ccd19e4e65911d661fe625880f9358dc7cde5375d2a3fbc30bc0af6f1d219887878366e814e05b5008e924bfcabf35880c927909dd20b83
   languageName: node
   linkType: hard
 
@@ -2590,6 +2541,23 @@ __metadata:
   peerDependencies:
     typescript: ^3.2.2
   checksum: dadc31e4d0f6634c18d942f6889578a4e951e0d9c9be616d3fe7ba38eed529e502d30d638e1fc508cce616e2194961236b912fb22e3931c1cdb127c67253453a
+  languageName: node
+  linkType: hard
+
+"@ltonetwork/lto@npm:^0.15.17":
+  version: 0.15.17
+  resolution: "@ltonetwork/lto@npm:0.15.17"
+  dependencies:
+    "@noble/curves": ^1.0.0
+    "@noble/hashes": ^1.3.0
+    "@scure/base": ^1.1.1
+    "@scure/bip32": ^1.3.0
+    "@scure/bip39": ^1.2.0
+    bech32: ^2.0.0
+    crypto-js: ^4.1.1
+    ed2curve: ^0.3.0
+    tweetnacl: ^1.0.3
+  checksum: fbe9773544765ec2c3056fb05db1635588015ea5b08a0d792f2b73b66168301f2648142ea3ae03545df3ade211545de6449b39da651f41f11355197f2f6df971
   languageName: node
   linkType: hard
 
@@ -2812,6 +2780,22 @@ __metadata:
     typescript: ">=5.5 <5.9"
     webpack: ^5.54.0
   checksum: 855e09e7620c8372fe2f6e16bdc014fc04772a8b94d2ed0067380e409fd0822b23354c0df10a658f7953bd5a28e72fb42e2c7670ef371c06171c47d62b492c94
+  languageName: node
+  linkType: hard
+
+"@noble/curves@npm:^1.0.0, @noble/curves@npm:~1.8.1":
+  version: 1.8.1
+  resolution: "@noble/curves@npm:1.8.1"
+  dependencies:
+    "@noble/hashes": 1.7.1
+  checksum: 4143f1248ed57c1ae46dfef5c692a91383e5830420b9c72d3ff1061aa9ebbf8999297da6d2aed8a9716fef8e6b1f5a45737feeab02abf55ca2a4f514bf9339ec
+  languageName: node
+  linkType: hard
+
+"@noble/hashes@npm:1.7.1, @noble/hashes@npm:^1.3.0, @noble/hashes@npm:~1.7.1":
+  version: 1.7.1
+  resolution: "@noble/hashes@npm:1.7.1"
+  checksum: 4f1b56428a10323feef17e4f437c9093556cb18db06f94d254043fadb69c3da8475f96eb3f8322d41e8670117d7486475a8875e68265c2839f60fd03edd6a616
   languageName: node
   linkType: hard
 
@@ -3383,6 +3367,34 @@ __metadata:
     "@angular-devkit/schematics": 19.2.7
     jsonc-parser: 3.3.1
   checksum: 01431c62248397c2e32b0ac8c10cdb895331378262ecbf72341c174e8efeb977abca114cc92d594bf9576fe89899860b7470c99f032ed6daadba60afc723b827
+  languageName: node
+  linkType: hard
+
+"@scure/base@npm:^1.1.1, @scure/base@npm:~1.2.2, @scure/base@npm:~1.2.4":
+  version: 1.2.4
+  resolution: "@scure/base@npm:1.2.4"
+  checksum: db554eb550a1bd17684af9282e1ad751050a13d4add0e83ad61cc496680d7d1c1c1120ca780e72935a293bb59721c20a006a53a5eec6f6b5bdcd702cf27c8cae
+  languageName: node
+  linkType: hard
+
+"@scure/bip32@npm:^1.3.0":
+  version: 1.6.2
+  resolution: "@scure/bip32@npm:1.6.2"
+  dependencies:
+    "@noble/curves": ~1.8.1
+    "@noble/hashes": ~1.7.1
+    "@scure/base": ~1.2.2
+  checksum: e7586619f8a669e522267ce71a90b2d00c3a91da658f1f50e54072cf9f432ba26d2bb4d3d91a5d06932ab96612b8bd038bc31d885bbc048cebfb6509c4a790fc
+  languageName: node
+  linkType: hard
+
+"@scure/bip39@npm:^1.2.0":
+  version: 1.5.4
+  resolution: "@scure/bip39@npm:1.5.4"
+  dependencies:
+    "@noble/hashes": ~1.7.1
+    "@scure/base": ~1.2.4
+  checksum: 744f302559ad05ee6ea4928572ac8f0b5443e8068fd53234c9c2e158814e910a043c54f0688d05546decadd2ff66e0d0c76355d10e103a28cb8f44efe140857a
   languageName: node
   linkType: hard
 
@@ -5844,6 +5856,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ed2curve@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "ed2curve@npm:0.3.0"
+  dependencies:
+    tweetnacl: 1.x.x
+  checksum: 6dfbe2310aa5a47372c9dd2fd920be140c8d52aea5793d716a3e3865d2ceaeaf639a7653e5492dfe3b4910eaf65c09a1d5132580afe2fdca18a75ebb428a52f2
+  languageName: node
+  linkType: hard
+
 "ee-first@npm:1.1.1":
   version: 1.1.1
   resolution: "ee-first@npm:1.1.1"
@@ -8280,9 +8301,9 @@ __metadata:
     "@angular/platform-browser": ^19.2.6
     "@angular/platform-browser-dynamic": ^19.2.6
     "@angular/router": ^19.2.6
-    "@ledgerhq/hw-transport-u2f": ^5.36.0-deprecated
     "@ledgerhq/hw-transport-webusb": ^6.1.0
     "@lto-network/lto-transactions": ^1.2.11
+    "@ltonetwork/lto": ^0.15.17
     "@types/crypto-js": ^3.1.43
     "@types/jasmine": ~3.6.0
     "@types/jasminewd2": ^2.0.8
@@ -10253,21 +10274,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:6, rxjs@npm:^6.5.3":
-  version: 6.6.7
-  resolution: "rxjs@npm:6.6.7"
-  dependencies:
-    tslib: ^1.9.0
-  checksum: bc334edef1bb8bbf56590b0b25734ba0deaf8825b703256a93714308ea36dff8a11d25533671adf8e104e5e8f256aa6fdfe39b2e248cdbd7a5f90c260acbbd1b
-  languageName: node
-  linkType: hard
-
 "rxjs@npm:7.8.1":
   version: 7.8.1
   resolution: "rxjs@npm:7.8.1"
   dependencies:
     tslib: ^2.1.0
   checksum: de4b53db1063e618ec2eca0f7965d9137cabe98cf6be9272efe6c86b47c17b987383df8574861bcced18ebd590764125a901d5506082be84a8b8e364bf05f119
+  languageName: node
+  linkType: hard
+
+"rxjs@npm:^6.5.3":
+  version: 6.6.7
+  resolution: "rxjs@npm:6.6.7"
+  dependencies:
+    tslib: ^1.9.0
+  checksum: bc334edef1bb8bbf56590b0b25734ba0deaf8825b703256a93714308ea36dff8a11d25533671adf8e104e5e8f256aa6fdfe39b2e248cdbd7a5f90c260acbbd1b
   languageName: node
   linkType: hard
 
@@ -11395,17 +11416,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tweetnacl@npm:1.x.x, tweetnacl@npm:^1.0.0, tweetnacl@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "tweetnacl@npm:1.0.3"
+  checksum: e4a57cac188f0c53f24c7a33279e223618a2bfb5fea426231991652a13247bea06b081fd745d71291fcae0f4428d29beba1b984b1f1ce6f66b06a6d1ab90645c
+  languageName: node
+  linkType: hard
+
 "tweetnacl@npm:^0.14.3, tweetnacl@npm:~0.14.0":
   version: 0.14.5
   resolution: "tweetnacl@npm:0.14.5"
   checksum: 6061daba1724f59473d99a7bb82e13f211cdf6e31315510ae9656fefd4779851cb927adad90f3b488c8ed77c106adc0421ea8055f6f976ff21b27c5c4e918487
-  languageName: node
-  linkType: hard
-
-"tweetnacl@npm:^1.0.0, tweetnacl@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "tweetnacl@npm:1.0.3"
-  checksum: e4a57cac188f0c53f24c7a33279e223618a2bfb5fea426231991652a13247bea06b081fd745d71291fcae0f4428d29beba1b984b1f1ce6f66b06a6d1ab90645c
   languageName: node
   linkType: hard
 

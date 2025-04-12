@@ -34,8 +34,8 @@
     <mat-card-content>
       <mat-list>
         <h3 mat-subheader>Scripts</h3>
-        <mat-list-item [ngSuspense]="scriptEnabled$">
-          <div fxLayout="row" fxLayoutAlign="start center" fxFlexFill *ngSuspenseSuccess="let enabled">
+        <mat-list-item *ngIf="scriptEnabled$ | async as enabled">
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlexFill>
             <span fxFlex="1 1 auto">Script</span>
             <ng-container *ngIf="enabled">
               <button mat-button color="warn" (click)="disableScript()">Disable script</button>

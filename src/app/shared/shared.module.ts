@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material.module';
-import { NgSuspenseModule } from 'ng-suspense';
 
-import { FlexLayoutModule, BREAKPOINTS, DEFAULT_BREAKPOINTS } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FormsModule } from '@angular/forms';
 import {
@@ -21,7 +20,6 @@ import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './
   declarations: [],
   exports: [
     CommonModule,
-    NgSuspenseModule,
     ContentSectionModule,
     FlexLayoutModule,
     MaterialModule,

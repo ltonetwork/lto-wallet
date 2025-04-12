@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { SharedModule } from '../shared';
 
@@ -14,7 +14,7 @@ import { TransactionQrDialogModule } from './transaction-qr-dialog';
 import { AccountQrComponent } from './account-qr/account-qr.component';
 
 @NgModule({
-    imports: [SharedModule, QRCodeModule, RecaptchaModule],
+    imports: [SharedModule, QRCodeComponent, RecaptchaModule],
     declarations: [
         AmountInputComponent,
         BridgeDepositDialogComponent,

@@ -4,7 +4,7 @@ import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SwapTokenType, SwapType } from '../../swap-type';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
-import * as bech32 from 'bech32';
+import { bech32 } from 'bech32';
 import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 
 @Component({
@@ -15,7 +15,7 @@ import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 })
 export class DepositErcComponent implements OnInit {
   @Input() swapType!: SwapType;
-  @Output() close = new EventEmitter();
+  @Output() close = new EventEmitter<void>();
 
   shouldShowCaptcha = false;
   captchaResponse = '';

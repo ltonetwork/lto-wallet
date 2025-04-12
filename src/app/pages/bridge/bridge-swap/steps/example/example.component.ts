@@ -12,7 +12,7 @@ import { BridgeService } from '../../../../../core';
 })
 export class ExampleComponent implements OnInit {
   @Input() swapType!: SwapType;
-  @Output() nextStep = new EventEmitter();
+  @Output() nextStep = new EventEmitter<void>();
 
   burnRatePct$!: Observable<number>;
   burnedTokens$!: Observable<number>;

@@ -72,15 +72,16 @@ export class SigninComponent implements OnInit {
 
       this.snackbar.open('Logged in via Ledger', 'Dismiss', { duration: 3000 });
       this.router.navigate(['/']);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error while connecting to ledger: ', error);
 
-      if (error.statusCode === 26628) {
+      if (typeof error === 'object' && error !== null && 'statusCode' in error && error.statusCode === 26628) {
         this.snackbar.open('Ledger device: Transport error, unlock device and try again (0x6804)', 'Dismiss', { duration: 6000 });
         return;
       }
 
-      this.snackbar.open(error.message, 'Dismiss', { duration: 6000 });
+      const message = (error as any)?.message || 'Unknown error';
+      this.snackbar.open(message, 'Dismiss', { duration: 6000 });
     }
   }
 }

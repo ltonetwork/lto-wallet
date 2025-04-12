@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RecaptchaModule } from 'ng-recaptcha';
 import { BridgeServiceMock, WalletServiceMock } from '../../../../core/mocks';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 import { SharedModule } from '../../../../shared';
 import { WAVES_ADDRESS_VALIDATOR } from '../../../../core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ describe('SwapDialogComponent', () => {
       imports: [
         SharedModule,
         RecaptchaModule,
-        QRCodeModule,
+        QRCodeComponent,
         NoopAnimationsModule,
         ReactiveFormsModule
       ],

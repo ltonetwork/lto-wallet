@@ -26,7 +26,7 @@ export interface IBalance {
   effective: number;
   /**
    * All numbers in balance come in INT form.
-   * To make them human readable we need to divide them by AMOUNT_DIVIDER
+   * To make them human-readable we need to divide them by AMOUNT_DIVIDER
    */
   amountDivider: number;
 }
@@ -78,7 +78,7 @@ export class WalletServiceImpl implements WalletService {
   address$: Observable<string>;
 
   private polling$: Observable<number> = timer(0, 5000).pipe(share());
-  private manualUpdate$ = new Subject<any>();
+  private manualUpdate$ = new Subject<void>();
 
   private update$: Observable<string>;
   private unconfirmed$: Observable<LTO.Transaction[]>;
@@ -245,7 +245,9 @@ export class WalletServiceImpl implements WalletService {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    if (!wallet && !ledger) throw new Error('No account connected');
+    if (!wallet && !ledger) {
+      throw new Error('No account connected');
+    }
 
     const tx = this.prepareTransfer(data);
 
@@ -278,7 +280,9 @@ export class WalletServiceImpl implements WalletService {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    if (!wallet && !ledger) throw new Error('No account connected');
+    if (!wallet && !ledger) {
+      throw new Error('No account connected');
+    }
 
     const tx = this.prepareMassTransfer(data);
 
@@ -325,7 +329,9 @@ export class WalletServiceImpl implements WalletService {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    if (!wallet && !ledger) throw new Error('No account connected');
+    if (!wallet && !ledger) {
+      throw new Error('No account connected');
+    }
 
     const tx = this.prepareLease(data);
 
@@ -352,7 +358,9 @@ export class WalletServiceImpl implements WalletService {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    if (!wallet && !ledger) throw new Error('No account connected');
+    if (!wallet && !ledger) {
+      throw new Error('No account connected');
+    }
 
     const tx = this.prepareCancelLease(transactionId);
 
@@ -383,7 +391,9 @@ export class WalletServiceImpl implements WalletService {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    if (!wallet && !ledger) throw new Error('No account connected');
+    if (!wallet && !ledger) {
+      throw new Error('No account connected');
+    }
 
     const tx = this.prepareAnchor(data);
 
@@ -449,5 +459,12 @@ export abstract class WalletService {
   abstract cancelLease(transactionId: string): Promise<any>;
   abstract anchor(data: IAnchorPayload): Promise<void>;
 
-  abstract withdraw(address: string, amount: number, fee: number, captcha: string, tokenType?: TokenType, attachment?: string): Promise<any>;
+  abstract withdraw(
+    address: string,
+    amount: number,
+    fee: number,
+    captcha: string,
+    tokenType?: TokenType,
+    attachment?: string,
+  ): Promise<any>;
 }

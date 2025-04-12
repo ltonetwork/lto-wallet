@@ -172,11 +172,9 @@ export abstract class AuthService {
 
   abstract authenticated$: Observable<boolean>;
   abstract account$: Observable<IUserAccount | null>;
-  abstract wallet$: BehaviorSubject<Account | null> = new BehaviorSubject<Account | null>(null);
-  abstract localAccount$: BehaviorSubject<IUserAccount | null> =
-    new BehaviorSubject<IUserAccount | null>(null);
-  abstract ledgerAccount$: BehaviorSubject<ILedgerAccount | null> =
-    new BehaviorSubject<ILedgerAccount | null>(null);
+  abstract wallet$: BehaviorSubject<Account | null>;
+  abstract localAccount$: BehaviorSubject<IUserAccount | null>;
+  abstract ledgerAccount$: BehaviorSubject<ILedgerAccount | null>;
 
   abstract ltoInstance: LTO;
   abstract availableAccounts$: Observable<IUserAccount[]>;

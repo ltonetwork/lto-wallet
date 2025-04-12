@@ -6,11 +6,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TransactionQrDialog } from './transaction-qr.dialog';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @NgModule({
     declarations: [TransactionQrDialogComponent],
-    imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, FlexLayoutModule, QRCodeModule],
+    imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, FlexLayoutModule, QRCodeComponent],
     providers: [TransactionQrDialog]
 })
 export class TransactionQrDialogModule {}

@@ -15,7 +15,7 @@ interface AnchorData {
 })
 export class TransactionDetailsComponent implements OnInit, OnChanges {
   @Input() transaction!: LTO.Transaction;
-  @Output() close = new EventEmitter();
+  @Output() close = new EventEmitter<void>();
 
   get isMassTransaction(): boolean {
     return this.transaction && this.transaction.type === 11;

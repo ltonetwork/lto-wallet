@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RecaptchaModule } from 'ng-recaptcha';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 import { SharedModule } from '../../shared';
 import { TokenSwapComponent } from './token-swap.component';
 import { SwapDialogComponent } from './components/swap-dialog/swap-dialog.component';
@@ -12,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         SharedModule,
         RecaptchaModule,
         ReactiveFormsModule,
-        QRCodeModule,
+        QRCodeComponent,
         RouterModule.forChild([
             {
                 path: '',

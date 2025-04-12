@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Inject, OnDestroy, Input } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Observable, combineLatest, ReplaySubject, Subscription } from 'rxjs';
-import { BridgeService, WalletService, etheriumAddressValidator } from '../../../../../core';
-import { DEFAULT_TRANSFER_FEE } from '../../../../../tokens';
+import { BridgeService, WalletService, etheriumAddressValidator } from '@app/core';
+import { DEFAULT_TRANSFER_FEE } from '@app/tokens';
 import { map, withLatestFrom, take } from 'rxjs/operators';
 import { SwapType } from '../../swap-type';
-import * as bech32 from 'bech32';
+import { bech32 } from 'bech32';
 import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 
 @Component({
@@ -16,7 +16,7 @@ import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 })
 export class WithdrawFormComponent implements OnInit, OnDestroy {
   @Input() swapType!: SwapType;
-  @Output() close = new EventEmitter();
+  @Output() close = new EventEmitter<void>();
 
   withdrawForm!: UntypedFormGroup;
   shouldShowCaptcha = false;

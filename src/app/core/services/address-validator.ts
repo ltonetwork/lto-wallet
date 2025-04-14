@@ -1,9 +1,7 @@
-import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '../../tokens';
+import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '@app/tokens';
 import { ValidatorFn } from '@angular/forms';
-import { LTO } from 'lto-api';
+import LTO from '@ltonetwork/lto';
 import { FactoryProvider, InjectionToken } from '@angular/core';
-import { WalletService } from './wallet.service';
-import { WavesService } from './waves.service';
 
 export function addressValidatorFactory(networkByte: string, publicApi: string): ValidatorFn {
   return function(control: any) {
@@ -11,8 +9,8 @@ export function addressValidatorFactory(networkByte: string, publicApi: string):
     let isValid = true;
 
     if (value) {
-      const nodeAddress = publicApi.replace(/\/$/, '');
-      const lto = new LTO(networkByte, nodeAddress);
+      const lto = new LTO(networkByte);
+      lto.nodeAddress = publicApi.replace(/\/$/, '');
       isValid = lto.isValidAddress(control.value);
     }
 
@@ -20,30 +18,10 @@ export function addressValidatorFactory(networkByte: string, publicApi: string):
   };
 }
 
-export function wavesAddressValidatorFactory(wavesService: WavesService): ValidatorFn {
-  return function(control: any) {
-    const value = control.value;
-    let isValid = true;
-
-    if (value) {
-      isValid = wavesService.isValidAddress(value);
-    }
-
-    return isValid ? null : { invalidAddress: { value } };
-  };
-}
-
 export const ADDRESS_VALIDATOR = new InjectionToken('ADDRESS_VALIDATOR');
-export const WAVES_ADDRESS_VALIDATOR = new InjectionToken('WAVES_ADDRESS_VALIDATOR');
 
 export const addresValidatorProvider: FactoryProvider = {
   provide: ADDRESS_VALIDATOR,
   useFactory: addressValidatorFactory,
   deps: [LTO_NETWORK_BYTE, LTO_PUBLIC_API]
-};
-
-export const wavesAddressValidatorProvider: FactoryProvider = {
-  provide: WAVES_ADDRESS_VALIDATOR,
-  useFactory: wavesAddressValidatorFactory,
-  deps: [WavesService]
 };

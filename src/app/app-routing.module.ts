@@ -1,78 +1,35 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core';
-// import { SigninComponent, SigninModule } from './signin';
-import { CreateAccountComponent, CreateAccountModule } from './create-account';
-import { ImportComponent, ImportModule } from './import';
-import { NoAccountComponent, NoAccountModule } from './no-account';
-import { TransfersComponent, TransfersModule } from './transfers';
-import { LeasingComponent } from './leasing/leasing.component';
-import { AnchorsComponent, AnchorsModule } from './anchors';
-import { SettingsPageComponent, SigninComponent } from './pages';
+
+import { PlaceholderPageComponent } from './placeholder.component';
 
 const routes: Routes = [
   {
     path: 'signin',
-    component: SigninComponent
+    loadChildren: () => import('./signin/signin.module').then(m => m.SigninModule)
   },
-  {
-    path: 'create-account',
-    component: CreateAccountComponent
-  },
-  {
-    path: 'import-account',
-    component: ImportComponent
-  },
-  {
-    path: 'start',
-    component: NoAccountComponent
-  },
+  { path: 'create-account', component: PlaceholderPageComponent, data: { title: 'Create Account' } },
+  { path: 'import-account', component: PlaceholderPageComponent, data: { title: 'Import Account' } },
+  { path: 'start', component: PlaceholderPageComponent, data: { title: 'No Account' } },
   {
     path: '',
     canActivate: [AuthGuard],
     children: [
-      {
-        path: 'transfers',
-        component: TransfersComponent
-      },
-      {
-        path: 'leasing',
-        component: LeasingComponent
-      },
-      {
-        path: 'anchors',
-        component: AnchorsComponent
-      },
-      {
-        path: 'bridge',
-        loadChildren: () => import('./pages/bridge/bridge.module').then(m => m.BridgeModule)
-      },
-      {
-        path: 'settings',
-        component: SettingsPageComponent
-      },
-      {
-        path: 'seed-swap',
-        loadChildren: () => import('./pages/token-swap/token-swap.module').then(m => m.TokenSwapModule)
-      },
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'transfers'
-      }
+      { path: 'transfers', component: PlaceholderPageComponent, data: { title: 'Transfers' } },
+      { path: 'leasing', component: PlaceholderPageComponent, data: { title: 'Leasing' } },
+      { path: 'anchors', component: PlaceholderPageComponent, data: { title: 'Anchors' } },
+      { path: 'bridge', component: PlaceholderPageComponent, data: { title: 'Bridge' } },
+      { path: 'settings', component: PlaceholderPageComponent, data: { title: 'Settings' } },
+      { path: '', pathMatch: 'full', redirectTo: 'transfers' }
     ]
   }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, {}),
-    // SigninModule,
-    CreateAccountModule,
-    ImportModule,
-    NoAccountModule,
-    TransfersModule,
-    AnchorsModule
+    RouterModule.forRoot(routes),
+    PlaceholderPageComponent // Standalone, no need for a module
   ],
   exports: [RouterModule]
 })

@@ -14,7 +14,10 @@ export class AppComponent implements OnInit {
   mode$!: Observable<SidenavMode>;
   hasBackdrop$!: Observable<boolean>;
 
-  constructor(private _auth: AuthService, private _sidenav: Sidenav) {}
+  constructor(
+    private _auth: AuthService,
+    private _sidenav: Sidenav,
+  ) {}
 
   ngOnInit() {
     this.authenticated$ = this._auth.authenticated$;

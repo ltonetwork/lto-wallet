@@ -1,16 +1,17 @@
 import { Component, OnInit, Input, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'lto-content-section',
-    templateUrl: './content-section.component.html',
-    styleUrls: ['./content-section.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'lto-content-section',
+  templateUrl: './content-section.component.html',
+  styleUrls: ['./content-section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule],
 })
 export class ContentSectionComponent implements OnInit {
   @Input() width!: 'full' | 'large' | 'medium' | 'small' | 'very-small';
-  @Input() title: string = '';
-  @Input() subtitle: string = '';
+  @Input() title = '';
+  @Input() subtitle = '';
 
   get maxWidth(): string {
     switch (this.width) {

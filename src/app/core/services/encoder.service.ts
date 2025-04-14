@@ -42,7 +42,7 @@ export class EncoderService {
     }
 
     if (!hashBytes) {
-      throw 'Uncnown encoding: ' + encoding;
+      throw new Error('Uncnown encoding: ' + encoding);
     }
 
     return hashBytes;

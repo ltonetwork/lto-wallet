@@ -22,7 +22,9 @@ export class MobileAuthService {
   challenge$ = new BehaviorSubject<IMobileAuthChallenge|null>(null);
   account$ = new BehaviorSubject<IPublicAccount|null>(null);
 
-  constructor(@Inject(LTO_MOBILE_AUTH) private settings: {ws: string, url: string}) {}
+  constructor(
+    @Inject(LTO_MOBILE_AUTH) private settings: {ws: string, url: string},
+  ) {}
 
   connect() {
     if (this.subject) {

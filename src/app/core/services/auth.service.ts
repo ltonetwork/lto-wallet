@@ -1,11 +1,11 @@
 import { map } from 'rxjs/operators';
-import { LTO, Account } from 'lto-api';
-import { Injectable, Inject, ClassProvider, Injector } from '@angular/core';
+import LTO, { Account } from '@ltonetwork/lto';
+import { Injectable, Inject } from '@angular/core';
 import { Observable, BehaviorSubject, Subscriber, combineLatest } from 'rxjs';
 
 import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '@app/tokens';
 import { ILedgerAccount, LedgerService } from '@app/core/services/ledger.service';
-import { MobileAuthService, IPublicAccount } from '@app/core/services/mobile-auth.service';
+import { MobileAuthService } from '@app/core/services/mobile-auth.service';
 
 export interface IUserAccount {
   name: string;
@@ -17,7 +17,7 @@ export interface IUserAccount {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthServiceImpl implements AuthService {
+export class AuthService {
   readonly STORAGE_KEY: string = '_USERS_ACCOUNTS_';
   readonly SESSION_KEY: string = '_LTO_ACCOUNT_';
 
@@ -27,18 +27,18 @@ export class AuthServiceImpl implements AuthService {
   localAccount$ = new BehaviorSubject<IUserAccount | null>(null);
   ledgerAccount$ = new BehaviorSubject<ILedgerAccount | null>(null);
 
-  ltoInstance: LTO;
+  lto: LTO;
   availableAccounts$: Observable<IUserAccount[]>;
   private _availableAccounts$: Subscriber<IUserAccount[]> | null = null;
 
   constructor(
     @Inject(LTO_NETWORK_BYTE) networkByte: string,
     @Inject(LTO_PUBLIC_API) publicApi: string,
-    private _injector: Injector,
     private ledger: LedgerService,
     private mobileAuth: MobileAuthService
   ) {
-    this.ltoInstance = new LTO(networkByte, publicApi.replace(/\/$/, ''));
+    this.lto = new LTO(networkByte);
+    this.lto.nodeAddress = publicApi.replace(/\/$/, '');
 
     // Create Observable to give latest data on every subscription
     this.availableAccounts$ = new Observable((subscriber) => {
@@ -78,19 +78,16 @@ export class AuthServiceImpl implements AuthService {
   }
 
   generateWallet(phrase?: string) {
-    return phrase
-      ? this.ltoInstance.createAccountFromExistingPhrase(phrase)
-      : this.ltoInstance.createAccount();
+    return this.lto.account({ seed: phrase });
   }
 
   login(userAccount: IUserAccount, password: string): string {
     let wallet: Account;
 
     if (userAccount.encryptedSeed) {
-      const seed = this.ltoInstance.decryptSeedPhrase(userAccount.encryptedSeed, password);
-      wallet = this.ltoInstance.createAccountFromExistingPhrase(seed);
+      wallet = this.lto.account({ seed: userAccount.encryptedSeed, seedPassword: password });
     } else if (userAccount.privateKey) {
-      wallet = this.ltoInstance.createAccountFromPrivateKey(userAccount.privateKey);
+      wallet = this.lto.account({ privateKey: userAccount.privateKey });
     } else {
       throw new Error('Seed missing');
     }
@@ -155,33 +152,9 @@ export class AuthServiceImpl implements AuthService {
     }
 
     const { seed, ...userAccount } = JSON.parse(sessionData);
-    const wallet = this.ltoInstance.createAccountFromExistingPhrase(seed);
+    const wallet = this.lto.account({ seed });
 
     this.localAccount$.next(userAccount);
     this.wallet$.next(wallet);
   }
-}
-
-export abstract class AuthService {
-  static provider: ClassProvider = {
-    provide: AuthService,
-    useClass: AuthServiceImpl,
-  };
-
-  abstract readonly STORAGE_KEY: string;
-
-  abstract authenticated$: Observable<boolean>;
-  abstract account$: Observable<IUserAccount | null>;
-  abstract wallet$: BehaviorSubject<Account | null>;
-  abstract localAccount$: BehaviorSubject<IUserAccount | null>;
-  abstract ledgerAccount$: BehaviorSubject<ILedgerAccount | null>;
-
-  abstract ltoInstance: LTO;
-  abstract availableAccounts$: Observable<IUserAccount[]>;
-
-  abstract saveAccount(name: string, password: string, wallet: Account): IUserAccount;
-  abstract generateWallet(phrase?: string): Account;
-  abstract login(userAccount: IUserAccount, password: string): string;
-  abstract logout(): void;
-  abstract deleteAccount(account: IUserAccount): void;
 }

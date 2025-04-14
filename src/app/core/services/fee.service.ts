@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable, of, combineLatest } from 'rxjs';
 import { AuthService } from './auth.service';
 import { PublicNode } from './public-node';
-import { switchMap, filter, map, shareReplay } from 'rxjs/operators';
+import { switchMap, map, shareReplay } from 'rxjs/operators';
 import { DEFAULT_TRANSFER_FEE, MASS_TRANSFER_FEE, ANCHOR_FEE, SET_SCRIPT_FEE } from '@app/tokens';
 
 @Injectable({ providedIn: 'root' })

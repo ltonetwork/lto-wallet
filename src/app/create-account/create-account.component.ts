@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { AuthService, IUserAccount } from '../core';
-import { Account } from 'lto-api';
+import { Account } from '@ltonetwork/lto';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,7 +20,7 @@ export class CreateAccountComponent implements OnInit {
   stepTemplate!: TemplateRef<any>;
 
   get seedWords(): string[] {
-    return this.wallet.seed.split(' ');
+    return this.wallet.seed?.split(' ') ?? [];
   }
 
   selectedWords: string[] = [];
@@ -90,8 +90,8 @@ export class CreateAccountComponent implements OnInit {
 
   resetConfirmation() {
     this.shuffledWords = this.wallet.seed
-      .split(' ')
-      .sort(() => (Math.random() * 100 > 50 ? -1 : 1));
+      ?.split(' ')
+      .sort(() => (Math.random() * 100 > 50 ? -1 : 1)) ?? [];
     this.selectedWords = [];
     this._selectedWordsIndexes = {};
   }

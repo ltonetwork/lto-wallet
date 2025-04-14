@@ -5,6 +5,10 @@ import { FileDropModule, AnchorDetailsModule } from './components';
 
 @NgModule({
   declarations: [AnchorsComponent],
-  imports: [SharedModule, FileDropModule, AnchorDetailsModule]
+  imports: [
+    SharedModule,
+    FileDropModule,
+    AnchorDetailsModule,
+  ]
 })
 export class AnchorsModule {}

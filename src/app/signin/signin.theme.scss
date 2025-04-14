@@ -1,0 +1,13 @@
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+  lto-signin {
+    mat-list-item {
+      &:hover,
+      &.selected {
+        color: mat.get-theme-color($theme, primary) !important;
+        background-color: rgba($color: mat.get-theme-color($theme, primary, 50), $alpha: 0.5);
+      }
+    }
+  }
+}

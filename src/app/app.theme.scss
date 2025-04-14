@@ -1,11 +1,9 @@
-@import './core/components/components.theme.scss';
-@import './shared//components/components.theme.scss';
-@import './pages/pages.theme.scss';
-@mixin app-theme($theme) {
-  @include signin-theme($theme);
-  @include core-components-theme($theme);
-  @include shared-components-theme($theme);
-  @include pages-theme($theme);
+@use './signin/signin.theme' as signin;
+@use './shared/components/components.theme' as shared-components;
+
+@mixin theme($theme) {
+  @include signin.theme($theme);
+  @include shared-components.theme($theme);
 
   .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,
   .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap,

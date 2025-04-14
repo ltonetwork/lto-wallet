@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RecaptchaModule, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 import { SharedModule } from './shared';
 import { BREAKPOINT } from '@angular/flex-layout';
 
@@ -23,27 +23,38 @@ import {
   SWAP_PAGE_ENABLED,
   LTO_MOBILE_AUTH, BRIDGE_BEP2_ENABLED
 } from './tokens';
-import { ModalsModule } from './modals/modals.module';
-import { WalletComponentsModule } from './components/wallet-components.module';
-import { LeasingComponent } from './leasing/leasing.component';
-import { SettingsPageComponent, SigninComponent } from './pages';
 
 import { environment } from '../environments/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { SidenavComponent, AppbarComponent } from '@app/shared/components';
 
 @NgModule({
-    declarations: [AppComponent, SigninComponent, LeasingComponent, SettingsPageComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        SharedModule,
-        CoreModule,
-        ModalsModule,
-        RecaptchaModule,
-        WalletComponentsModule,
-    ],
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    CoreModule,
+    SharedModule,
+    SidenavComponent,
+    AppbarComponent
+  ],
     providers: [
-        {
+      {
+        provide: MatDialog,
+        useFactory: () => {
+          console.trace('MatDialog resolved');
+          return { open: () => ({ afterClosed: () => ({ subscribe: () => {} }) }) };
+        },
+      },
+      /*{
+        provide: MatSnackBar,
+        useFactory: () => {
+          console.trace('MatSnackBar resolved');
+          return { };
+        },
+      },*/
+      {
             provide: BREAKPOINT,
             useValue: [
                 {

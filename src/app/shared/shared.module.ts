@@ -5,14 +5,6 @@ import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { FormsModule } from '@angular/forms';
-import {
-  ContentSectionModule,
-  CredentialsFormModule,
-  CopyableTextModule,
-  LoadingSpinnerModule,
-  TransactionDetailsModule,
-  TransactionsListModule
-} from './components';
 
 import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './pipes';
 
@@ -20,18 +12,12 @@ import { AmountDividePipeModule, TypeLabelPipeModule, IsYouPipeModule } from './
   declarations: [],
   exports: [
     CommonModule,
-    ContentSectionModule,
     FlexLayoutModule,
     MaterialModule,
-    CredentialsFormModule,
-    CopyableTextModule,
     FormsModule,
-    LoadingSpinnerModule,
     AmountDividePipeModule,
     TypeLabelPipeModule,
     IsYouPipeModule,
-    TransactionDetailsModule,
-    TransactionsListModule
   ]
 })
 export class SharedModule {}

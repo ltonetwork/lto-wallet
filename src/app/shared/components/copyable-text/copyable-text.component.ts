@@ -1,15 +1,20 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRippleModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'lto-copyable-text',
-    templateUrl: './copyable-text.component.html',
-    styleUrls: ['./copyable-text.component.scss'],
-    standalone: false
+  selector: 'lto-copyable-text',
+  templateUrl: './copyable-text.component.html',
+  styleUrls: ['./copyable-text.component.scss'],
+  imports: [CommonModule, FlexLayoutModule, MatIconModule, MatRippleModule, MatTooltipModule],
 })
 export class CopyableTextComponent implements OnInit {
-  @Input() text: string = '';
-  @Input() label: string = '';
+  @Input() text = '';
+  @Input() label = '';
 
   constructor(private snackbar: MatSnackBar) {}
 

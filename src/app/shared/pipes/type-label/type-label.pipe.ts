@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { TransactionTypes } from '../../../core';
+import { TransactionTypes } from '@app/core';
 
 @Pipe({
     name: 'typeLabel',

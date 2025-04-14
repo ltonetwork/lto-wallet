@@ -5,7 +5,6 @@
     "callable-types": true,
     "class-name": true,
     "comment-format": [true, "check-space"],
-    "curly": true,
     "deprecation": {
       "severity": "warn"
     },
@@ -25,7 +24,7 @@
       }
     ],
     "no-arg": true,
-    "no-bitwise": true,
+    "no-bitwise": false,
     "no-console": [true, "debug", "info", "time", "timeEnd", "trace"],
     "no-construct": true,
     "no-debugger": true,

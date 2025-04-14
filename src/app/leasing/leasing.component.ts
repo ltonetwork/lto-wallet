@@ -14,7 +14,7 @@ import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
     styleUrls: ['./leasing.component.scss'],
     standalone: false
 })
-export class LeasingComponent implements OnInit {
+export class LeasingComponent {
   transactions$: Observable<any[]>;
   address$: Observable<string>;
 
@@ -30,7 +30,7 @@ export class LeasingComponent implements OnInit {
     private wallet: WalletService,
     private startLeaseModal: StartLeaseModal,
     private snackbar: MatSnackBar,
-    @Inject(AMOUNT_DIVIDER) private AMOUNT_DIVIDER: number
+    @Inject(AMOUNT_DIVIDER) private amount_divider: number
   ) {
     this.address$ = wallet.address$;
     this.transactions$ = wallet.leasingTransactions$.pipe(
@@ -55,8 +55,6 @@ export class LeasingComponent implements OnInit {
       })
     );
   }
-
-  ngOnInit() {}
 
   select(transaction: any) {
     this.selectedTransaction = transaction;
@@ -101,7 +99,7 @@ export class LeasingComponent implements OnInit {
   }
 
   private async _cancelLeaseViaQr(leaseTransaction: any) {
-    const tx = this.wallet.prepareCancelLease(leaseTransaction.id)
+    const tx = this.wallet.prepareCancelLease(leaseTransaction.id);
     const send = await this.qrDialog.show({
       tx: {...tx, sender: await toPromise(this.wallet.address$)},
       transactionData: this._describeTransaction(leaseTransaction)
@@ -116,7 +114,7 @@ export class LeasingComponent implements OnInit {
     return [
       {
         label: 'Amount',
-        value: Number(leaseTransaction.amount) / this.AMOUNT_DIVIDER,
+        value: Number(leaseTransaction.amount) / this.amount_divider,
       },
       {
         label: 'Node Address',

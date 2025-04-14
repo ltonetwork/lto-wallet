@@ -1,5 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
-import { EncoderService, TransactionTypes } from '../../../core';
+import { EncoderService, TransactionTypes } from '@app/core';
+import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { AmountDividePipeModule, TypeLabelPipeModule } from '@app/shared/pipes';
+import { MatDividerModule } from '@angular/material/divider';
 
 interface AnchorData {
   base64: string;
@@ -8,10 +15,19 @@ interface AnchorData {
 }
 
 @Component({
-    selector: 'lto-transaction-details',
-    templateUrl: './transaction-details.component.html',
-    styleUrls: ['./transaction-details.component.scss'],
-    standalone: false
+  selector: 'lto-transaction-details',
+  templateUrl: './transaction-details.component.html',
+  styleUrls: ['./transaction-details.component.scss'],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatIconModule,
+    MatButtonModule,
+    MatRippleModule,
+    AmountDividePipeModule,
+    MatDividerModule,
+    TypeLabelPipeModule,
+  ],
 })
 export class TransactionDetailsComponent implements OnInit, OnChanges {
   @Input() transaction!: LTO.Transaction;

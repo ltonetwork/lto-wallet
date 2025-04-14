@@ -14,16 +14,15 @@ export class MakeTransactionService {
     maxTransactionValue: any;
     minTransactionValue: any;
 
-    balance!: IBalance
-    transferFee!: number
-    massTransferFee!: number
+    balance!: IBalance;
+    transferFee!: number;
+    massTransferFee!: number;
 
     transfersCount$ = new Subject<number>();
 
     constructor (
-        @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn
-        ) {
-        }
+      @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn
+    ) {}
 
     /**
      * Build a new form
@@ -74,7 +73,7 @@ export class MakeTransactionService {
         return new UntypedFormGroup({
             recipient: new UntypedFormControl('', [Validators.required, this._addressValidator]),
             amount: new UntypedFormControl(0, this.getAmountValidators()),
-        })
+        });
     }
 
     private getAmountValidators (controllerAmount = 0) {
@@ -114,7 +113,7 @@ export class MakeTransactionService {
      */
     public updateAmountsValidators () {
         this.transfers.controls.forEach(transfer => {
-            let amountControl = (<UntypedFormGroup> transfer).controls.amount;
+            const amountControl = (<UntypedFormGroup> transfer).controls.amount;
             amountControl.setValidators(this.getAmountValidators(amountControl.value));
         });
     }

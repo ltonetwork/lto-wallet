@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
-import { groupByDate, TransactionsGroup, replaceAmountFor, TransactionTypes } from '../../../core';
+import { groupByDate, TransactionsGroup, replaceAmountFor, TransactionTypes } from '@app/core';
 
 @Component({
     selector: 'lto-transactions-list',

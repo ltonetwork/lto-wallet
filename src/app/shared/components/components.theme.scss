@@ -1,5 +1,7 @@
-@import './transactions-list/transactions-list.theme.scss';
+@use './transactions-list/transactions-list.theme' as transactions-list;
+@use './sidenav/sidenav.theme' as sidenav;
 
-@mixin shared-components-theme($theme) {
-  @include transactions-list-theme($theme);
+@mixin theme($theme) {
+  @include transactions-list.theme($theme);
+  @include sidenav.theme($theme);
 }

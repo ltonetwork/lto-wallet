@@ -5,9 +5,13 @@ import {
   Validators,
   FormGroupDirective,
   NgForm,
-  AbstractControl,
+  AbstractControl, ReactiveFormsModule
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
 
 export interface IAccountCredentials {
   accountName: string;
@@ -25,10 +29,16 @@ export class CustomErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-    selector: 'lto-credentials-form',
-    templateUrl: './credentials-form.component.html',
-    styleUrls: ['./credentials-form.component.scss'],
-    standalone: false
+  selector: 'lto-credentials-form',
+  templateUrl: './credentials-form.component.html',
+  styleUrls: ['./credentials-form.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
+    CommonModule,
+  ],
 })
 export class CrendetialsFormComponent implements OnInit {
   form: UntypedFormGroup;

@@ -1,9 +1,9 @@
-import { ClassProvider, Inject, Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
-import { LTO_BRIDGE_HOST } from '../../tokens';
-import { SwapTokenType } from '@app/pages/bridge/bridge-swap/swap-type';
+import { LTO_BRIDGE_HOST } from '@app/tokens';
+import { SwapTokenType } from '@app/bridge/bridge-swap/swap-type';
 
 export type TokenType = 'LTO' | 'LTO20' | 'WAVES' | 'BINANCE' | 'BSC';
 
@@ -33,8 +33,8 @@ interface BurnFees {
   binance: number;
 }
 
-@Injectable()
-export class BridgeServiceImpl implements BridgeService {
+@Injectable({ providedIn: 'root' })
+export class BridgeService {
   readonly STORAGE_KEY = '__bridge__';
 
   burnRate$: Observable<number>;
@@ -112,13 +112,6 @@ export class BridgeServiceImpl implements BridgeService {
     );
   }
 
-  faucet(recipient: string, captcha_response: string): Observable<any> {
-    return this.http.post(`${this.ltoBridgeHost}/waves/faucet`, {
-      recipient,
-      captcha_response
-    });
-  }
-
   private createBridgeAddress(
     fromToken: TokenType | SwapTokenType,
     toToken: TokenType | SwapTokenType,
@@ -153,39 +146,4 @@ export class BridgeServiceImpl implements BridgeService {
   private saveCache(cache: BridgeCache) {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(cache));
   }
-}
-
-export abstract class BridgeService {
-  static provider: ClassProvider = {
-    provide: BridgeService,
-    useClass: BridgeServiceImpl
-  };
-
-  abstract burnRate$: Observable<number>;
-  abstract burnedTokens$: Observable<number>;
-  abstract burnFees$: Observable<BurnFees>;
-
-  /**
-   * Generates bridge addres to convert LTO24 -> LTO and transfer on your account
-   * @param address - your account address
-   * @param captcha - captcha response
-   * @param tokenType type of token which will be converted from
-   * @param toTokenType type of token which will be converted to
-   */
-  abstract depositTo(
-    address: string,
-    captcha: string,
-    tokenType?: TokenType | SwapTokenType,
-    toTokenType?: TokenType | SwapTokenType
-  ): Observable<string>;
-
-  /**
-   * Generate bridge addres to convert LTO -> LTO20
-   * @param recipient - recipient addres
-   * @param captcha - captcha response
-   * @param tokenType type of token which will be converted from
-   */
-  abstract withdrawTo(recipient: string, captcha: string, tokenType?: TokenType | SwapTokenType): Observable<string>;
-
-  abstract faucet(recipient: string, captcha: string): Observable<any>;
 }

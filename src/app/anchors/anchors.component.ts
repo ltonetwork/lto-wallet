@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { WalletService, groupByDate, TransactionsGroup, EncoderService, toPromise } from '../core';
-import { FeeInputModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TransactionConfirmDialog } from '@app/components/transaction-confirmation-dialog';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';

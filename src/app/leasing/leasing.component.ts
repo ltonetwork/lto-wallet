@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { WalletService, TransactionTypes, transactionsFilter, toPromise } from '../core';
 import { StartLeaseModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TransactionConfirmDialog } from '../components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '../components/transaction-confirmation-dialog';
 import { AMOUNT_DIVIDER } from '@app/tokens';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 
@@ -25,7 +25,7 @@ export class LeasingComponent {
   }
 
   constructor(
-    private confirmDialog: TransactionConfirmDialog,
+    private confirmDialog: TransactionConfirmationDialog,
     private qrDialog: TransactionQrDialog,
     private wallet: WalletService,
     private startLeaseModal: StartLeaseModal,

@@ -6,6 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CreateScriptModal, ScriptInfoModal, DisableScriptModal } from '@app/modals';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: SettingsPageComponent,
+  }
+];
 
 @NgModule({
   declarations: [SettingsPageComponent],
@@ -14,6 +22,7 @@ import { CreateScriptModal, ScriptInfoModal, DisableScriptModal } from '@app/mod
     FormsModule,
     FlexLayoutModule,
     MatSnackBarModule,
+    RouterModule.forChild(routes),
   ],
   providers: [
     CreateScriptModal,

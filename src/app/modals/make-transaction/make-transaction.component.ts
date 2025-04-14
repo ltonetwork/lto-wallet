@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { WalletService, IBalance, FeeService, toPromise, TransactionTypes } from '@app/core';
 import { take, withLatestFrom } from 'rxjs/operators';
-import { TransactionConfirmDialog } from '@app/components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '@app/components/transaction-confirmation-dialog';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 import { MakeTransactionService } from '@app/core/services/make-transaction.service';
 import { base58Encode } from 'lto-ledger-js-unofficial-test/lib/utils';
@@ -39,7 +39,7 @@ export class MakeTransactionComponent implements OnInit {
     public dialogRef: MatDialogRef<any>,
     private wallet: WalletService,
     private snackbar: MatSnackBar,
-    private transactionConfirmDialog: TransactionConfirmDialog,
+    private transactionConfirmDialog: TransactionConfirmationDialog,
     private transactionQrDialog: TransactionQrDialog,
     private _feeService: FeeService,
     private _transactionService: MakeTransactionService

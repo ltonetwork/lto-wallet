@@ -4,18 +4,20 @@ import {
   TransactionConfirmationDialogComponent,
   TransactionConfirmDialogData,
 } from './transaction-confirmation-dialog.component';
+import { toPromise } from '@app/core';
 
 @Injectable()
-export class TransactionConfirmDialog {
+export class TransactionConfirmationDialog {
   constructor(private matDialog: MatDialog) {}
 
   show(dialogData: TransactionConfirmDialogData, width: number = 500): Promise<boolean> {
-    return this.matDialog
-      .open(TransactionConfirmationDialogComponent, {
-        width: `${width}px`,
-        data: dialogData,
-      })
-      .afterClosed()
-      .toPromise();
+    return toPromise(
+      this.matDialog
+        .open(TransactionConfirmationDialogComponent, {
+          width: `${width}px`,
+          data: dialogData,
+        })
+        .afterClosed()
+    );
   }
 }

@@ -5,10 +5,16 @@
         <h1>Sign in</h1>
         <p>Accounts found on this device</p>
         <mat-list>
-          <mat-list-item matRipple *ngFor="let account of (availableAccounts$ | async)" [ngClass]="{ selected: account.address === (selected$ | async)?.address }" (click)="select(account)">
-            <h4 matLine>{{ account.name }}</h4>
-            <p matLine>{{ account.address }}</p>
-            <mat-icon mat-list-icon color="primary">account_circle</mat-icon>
+          <mat-list-item
+            matRipple
+            *ngFor="let account of (availableAccounts$ | async)"
+            [ngClass]="{ selected: account.address === (selected$ | async)?.address }"
+            (click)="select(account)"
+          >
+            <div matListItemTitle>{{ account.name }}</div>
+            <div matListItemLine>{{ account.address }}</div>
+
+            <mat-icon matListItemIcon color="primary">account_circle</mat-icon>
             <mat-icon class="delete-account" (click)="deleteAccount(account, $event)">close</mat-icon>
           </mat-list-item>
         </mat-list>

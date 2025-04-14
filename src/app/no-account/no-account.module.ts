@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NoAccountComponent } from './no-account.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: NoAccountComponent,
+  }
+];
 
 @NgModule({
   declarations: [NoAccountComponent],
-  imports: [SharedModule, RouterModule.forChild([])]
+  imports: [SharedModule, RouterModule.forChild(routes)]
 })
 export class NoAccountModule {}

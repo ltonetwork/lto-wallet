@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SigninComponent } from './signin.component';
 import { SharedModule } from '@app/shared';
 import { RouterModule, Routes } from '@angular/router';
+import { MobileAuthModalModule } from '@app/modals';
+import { MaterialModule } from '@app/shared/material.module';
+import { ContentSectionComponent } from '@app/shared/components';
 
 const routes: Routes = [
   {
@@ -13,6 +15,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [SigninComponent],
-  imports: [CommonModule, SharedModule, RouterModule.forChild(routes)]
+  imports: [SharedModule, MaterialModule, MobileAuthModalModule, RouterModule.forChild(routes), ContentSectionComponent]
 })
 export class SigninModule {}

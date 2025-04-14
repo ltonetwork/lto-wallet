@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { WalletService, groupByDate, TransactionsGroup, EncoderService, toPromise } from '../core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TransactionConfirmDialog } from '@app/components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '@app/components/transaction-confirmation-dialog';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 import { AMOUNT_DIVIDER, ANCHOR_FEE } from '@app/tokens';
 
@@ -25,7 +25,7 @@ export class AnchorsComponent implements OnInit {
 
   constructor(
     private wallet: WalletService,
-    private confirmDialog: TransactionConfirmDialog,
+    private confirmDialog: TransactionConfirmationDialog,
     private qrDialog: TransactionQrDialog,
     private snackbar: MatSnackBar,
     private encoder: EncoderService,

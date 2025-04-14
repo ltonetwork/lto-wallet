@@ -41,20 +41,6 @@ import { SidenavComponent, AppbarComponent } from '@app/shared/components';
   ],
     providers: [
       {
-        provide: MatDialog,
-        useFactory: () => {
-          console.trace('MatDialog resolved');
-          return { open: () => ({ afterClosed: () => ({ subscribe: () => {} }) }) };
-        },
-      },
-      /*{
-        provide: MatSnackBar,
-        useFactory: () => {
-          console.trace('MatSnackBar resolved');
-          return { };
-        },
-      },*/
-      {
             provide: BREAKPOINT,
             useValue: [
                 {

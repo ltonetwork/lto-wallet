@@ -23,7 +23,7 @@ export class TransfersComponent implements OnInit {
   selectedTransaction: any = null;
 
   constructor(
-    private wallet: WalletService,
+    wallet: WalletService,
     private makeTransactionModal: MakeTransactionModal,
     private withdrawModal: WithdrawModal,
     private depositModal: DepositModal

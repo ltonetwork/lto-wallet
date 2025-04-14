@@ -12,7 +12,7 @@ import {
 import { DEFAULT_TRANSFER_FEE } from '../../tokens';
 import { take, withLatestFrom } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '../../components/transaction-confirmation-dialog';
 
 import * as communityNodes from '../../../communityNodes.json';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
@@ -61,7 +61,7 @@ export class StartLeaseModalComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<any, LeaseData|boolean>,
     private _wallet: WalletService,
-    private confirmDialog: TransactionConfirmDialog,
+    private confirmDialog: TransactionConfirmationDialog,
     private qrDialog: TransactionQrDialog,
     @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn,
     @Inject(MAT_DIALOG_DATA) public balance: number,

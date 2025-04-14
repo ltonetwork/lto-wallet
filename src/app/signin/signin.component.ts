@@ -12,22 +12,19 @@ import { MobileAuthModal } from '@app/modals/mobile-auth-modal';
     selector: 'lto-signin',
     templateUrl: './signin.component.html',
     styleUrls: ['./signin.component.scss'],
-    standalone: false
+    standalone: false,
 })
 export class SigninComponent implements OnInit {
   availableAccounts$: Observable<IUserAccount[]>;
   selected$: ReplaySubject<IUserAccount> = new ReplaySubject(1);
-
-  private matDialog: MatDialog = {} as any;
-  private mobileAuthModal: MobileAuthModal = {} as any;
 
   constructor(
     private auth: AuthService,
     private ledger: LedgerService,
     private snackbar: MatSnackBar,
     private router: Router,
-    // private matDialog: MatDialog,
-    // private mobileAuthModal: MobileAuthModal
+    private matDialog: MatDialog,
+    private mobileAuthModal: MobileAuthModal
   ) {
     this.availableAccounts$ = auth.availableAccounts$;
   }

@@ -5,9 +5,17 @@ import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { TransactionConfirmDialog } from '../components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '../components/transaction-confirmation-dialog';
 import { TransactionQrDialog } from '../components/transaction-qr-dialog';
 import { StartLeaseModal } from '../modals';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: LeasingComponent,
+  }
+];
 
 @NgModule({
   declarations: [LeasingComponent],
@@ -15,10 +23,11 @@ import { StartLeaseModal } from '../modals';
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    RouterModule.forChild(routes),
   ],
   providers: [
-    TransactionConfirmDialog,
+    TransactionConfirmationDialog,
     TransactionQrDialog,
     StartLeaseModal
   ]

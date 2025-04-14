@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MakeTransactionComponent } from './make-transaction.component';
-import { toPromise } from '../../core';
+import { toPromise } from '@app/core';
 
 @Injectable()
 export class MakeTransactionModal {

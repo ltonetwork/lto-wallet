@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AMOUNT_DIVIDER, ANCHOR_FEE } from '../../tokens';
-import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '../../components/transaction-confirmation-dialog';
 
 @Component({
     selector: 'lto-wallet-fee-input-modal',
@@ -16,7 +16,7 @@ export class FeeInputModalComponent {
     @Inject(MAT_DIALOG_DATA) public hash: string,
     @Inject(AMOUNT_DIVIDER) private divider: number,
     @Inject(ANCHOR_FEE) private defaultFee: number,
-    private _confirmationDialog: TransactionConfirmDialog,
+    private _confirmationDialog: TransactionConfirmationDialog,
     private _dialogRef: MatDialogRef<any>
   ) {
     this.fee = defaultFee / divider;

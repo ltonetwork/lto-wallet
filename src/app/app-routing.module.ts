@@ -9,19 +9,47 @@ const routes: Routes = [
     path: 'signin',
     loadChildren: () => import('./signin/signin.module').then(m => m.SigninModule)
   },
-  { path: 'create-account', component: PlaceholderPageComponent, data: { title: 'Create Account' } },
-  { path: 'import-account', component: PlaceholderPageComponent, data: { title: 'Import Account' } },
-  { path: 'start', component: PlaceholderPageComponent, data: { title: 'No Account' } },
+  {
+    path: 'create-account',
+    loadChildren: () => import('./create-account/create-account.module').then(m => m.CreateAccountModule)
+  },
+  {
+    path: 'import-account',
+    loadChildren: () => import('./import/import.module').then(m => m.ImportModule)
+  },
+  {
+    path: 'start',
+    loadChildren: () => import('./no-account/no-account.module').then(m => m.NoAccountModule)
+  },
   {
     path: '',
     canActivate: [AuthGuard],
     children: [
-      { path: 'transfers', component: PlaceholderPageComponent, data: { title: 'Transfers' } },
-      { path: 'leasing', component: PlaceholderPageComponent, data: { title: 'Leasing' } },
-      { path: 'anchors', component: PlaceholderPageComponent, data: { title: 'Anchors' } },
-      { path: 'bridge', component: PlaceholderPageComponent, data: { title: 'Bridge' } },
-      { path: 'settings', component: PlaceholderPageComponent, data: { title: 'Settings' } },
-      { path: '', pathMatch: 'full', redirectTo: 'transfers' }
+      {
+        path: 'transfers',
+        loadChildren: () => import('./transfers/transfers.module').then(m => m.TransfersModule)
+      },
+      {
+        path: 'leasing',
+        loadChildren: () => import('./leasing/leasing.module').then(m => m.LeasingModule)
+      },
+      {
+        path: 'anchors',
+        loadChildren: () => import('./anchors/anchors.module').then(m => m.AnchorsModule)
+      },
+      {
+        path: 'bridge',
+        loadChildren: () => import('./bridge/bridge.module').then(m => m.BridgeModule)
+      },
+      {
+        path: 'settings',
+        loadChildren: () => import('./settings-page/settings-page.module').then(m => m.SettingsPageModule)
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'transfers'
+      }
     ]
   }
 ];

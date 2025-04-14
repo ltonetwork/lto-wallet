@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ImportComponent } from './import.component';
+import { ContentSectionComponent, CrendetialsFormComponent } from '@app/shared/components';
 
 const routes: Routes = [
   {
@@ -20,6 +21,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     MatCheckboxModule,
-    MatTooltipModule]
+    MatTooltipModule,
+    ContentSectionComponent,
+    CrendetialsFormComponent
+  ]
 })
 export class ImportModule {}

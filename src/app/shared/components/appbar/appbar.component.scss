@@ -6,12 +6,14 @@ mat-toolbar {
   background: rgb(23, 5, 75);
 }
 
-.account-button {
+.account-button,
+.account-button span,
+mat-icon {
   color: rgba(255, 255, 255, 0.8);
+}
 
-  .user-icon {
-    margin-right: 10px;
-  }
+.account-button .user-icon {
+  margin-right: 10px;
 }
 
 .menu-button {
@@ -24,6 +26,7 @@ mat-toolbar {
   max-width: calc(100vw - 200px);
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
 }
 @media only screen and (max-width: 550px) {
   .hide-small-screen {

@@ -3,6 +3,7 @@ import { SharedModule } from '../shared';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateAccountComponent } from './create-account.component';
 import { SeedComponent } from './components/seed/seed.component';
+import { ContentSectionComponent, CrendetialsFormComponent } from '@app/shared/components';
 
 const routes: Routes = [
   {
@@ -13,6 +14,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [CreateAccountComponent, SeedComponent],
-  imports: [SharedModule, RouterModule.forChild(routes)]
+  imports: [SharedModule, RouterModule.forChild(routes), ContentSectionComponent, CrendetialsFormComponent]
 })
 export class CreateAccountModule {}

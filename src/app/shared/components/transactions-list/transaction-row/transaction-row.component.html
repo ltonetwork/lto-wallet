@@ -5,7 +5,10 @@
   <div class="info">
     <div class="addresses">
       <ng-container *ngIf="isOutcoming">
-        <span class="label">TO:</span> <span class="value smallTxt">{{ transaction.recipient }}</span>
+        <span class="label">TO:</span>
+        <span class="value smallTxt">
+          {{ transaction.recipient ?? (transaction.transfers ? transaction.transfers.length + ' recipients' : '-') }}
+        </span>
       </ng-container>
 
       <ng-container *ngIf="isIncoming">

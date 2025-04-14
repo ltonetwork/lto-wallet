@@ -41,13 +41,11 @@ export class AppbarComponent implements OnInit, OnDestroy {
   accounts$!: Subscription;
   availableAccounts!: any;
 
-  private _snackbar: MatSnackBar = {} as MatSnackBar;
-
   constructor(
     private _auth: AuthService,
     private _router: Router,
     private _sidenav: Sidenav,
-    // private _snackbar: MatSnackBar
+    private _snackbar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -80,15 +78,10 @@ export class AppbarComponent implements OnInit, OnDestroy {
   }
 
   copyAddressToClipboard(address: string) {
-    const input = document.createElement('input');
-    input.style.position = 'absolute';
-    input.style.bottom = '-1000px';
-    document.body.appendChild(input);
-    input.value = address;
-    input.select();
-    document.execCommand('copy');
-    document.body.removeChild(input);
-
-    this._snackbar.open('Address is copied', 'Dismiss', { duration: 3000 });
+    navigator.clipboard.writeText(address).then(() => {
+      this._snackbar.open('Address is copied', 'Dismiss', { duration: 3000 });
+    }).catch(() => {
+      this._snackbar.open('Failed to copy address', 'Dismiss', { duration: 3000 });
+    });
   }
 }

@@ -43,7 +43,7 @@ export class TransactionsListComponent implements OnInit, OnChanges {
     this.transactionClick.next(transaction);
   }
 
-  _cancelLease(transaction: any, event: Event) {
+  _cancelLease(transaction: any) {
     this.cancelLease.next(transaction);
   }
 

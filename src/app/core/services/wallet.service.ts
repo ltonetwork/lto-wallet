@@ -11,7 +11,7 @@ import {
 } from 'rxjs/operators';
 import { PublicNode } from './public-node';
 import { AuthService, IUserAccount } from './auth.service';
-import { TransactionTypes } from '../transaction-types';
+import { TransactionTypes } from '@app/core';
 import { BridgeService, TokenType } from './bridge.service';
 import { transactionsFilter, toPromise } from '../utils';
 import { AMOUNT_DIVIDER, DEFAULT_TRANSFER_FEE } from '@app/tokens';
@@ -87,8 +87,7 @@ export class WalletService {
     private auth: AuthService,
     private bridgeService: BridgeService,
     private ledgerService: LedgerService,
-    @Inject(AMOUNT_DIVIDER) private amountDivider: number,
-    @Inject(DEFAULT_TRANSFER_FEE) private defaultTransferFee: number
+    @Inject(AMOUNT_DIVIDER) private amountDivider: number
   ) {
     this.address$ = auth.account$.pipe(
       filter((account): account is IUserAccount => !!account),
@@ -148,9 +147,16 @@ export class WalletService {
         );
       }),
       map(([transferTransactions, unconfirmed]) => {
+        const all = [...transferTransactions.items, ...unconfirmed];
+
+        // Keep only the first transaction with each unique id
+        const unique = Array.from(
+          new Map(all.map(tx => [tx.id, tx])).values()
+        );
+
         return {
           total: transferTransactions.total,
-          items: [...transferTransactions.items, ...unconfirmed]
+          items: unique
         };
       }),
       shareReplay(1)

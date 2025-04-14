@@ -5,7 +5,7 @@
   </div>
   <div class="transaction-data-list">
     <div class="transaction-data-row" *ngFor="let field of transactionData" fxLayout="row" [ngClass]="{detail: field.detailOnly, hidden: field.detailOnly && !showDetails}">
-      <div class="label">{{ field.label }}</div>
+      <div class="label">{{ field.label }}</div>&nbsp;
       <div class="value" fxFlex="1 1 auto">
         {{ prettify(field.value) }}
       </div>

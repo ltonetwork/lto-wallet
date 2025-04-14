@@ -43,8 +43,14 @@
   .mat-card-content {
     margin: 0 15px;
   }
-}
 
-.qrcode {
-  text-align: center;
+  .qrcode {
+    text-align: center;
+  }
+
+  mat-card-title {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 16px;
+    font-weight: 400;
+  }
 }

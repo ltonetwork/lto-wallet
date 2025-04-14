@@ -19,7 +19,7 @@
               [transactions]="transactions"
               [address]="address$ | async"
               (cancelLease)="cancelLease($event)"
-              [selectedId]="123"
+              [selectedId]="'123'"
               (transactionClick)="select($event)"
             ></lto-transactions-list>
           </ng-container>

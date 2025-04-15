@@ -1,5 +1,5 @@
 language: node_js
-node_js: 18
+node_js: 20
 dist: jammy
 
 cache:
@@ -34,7 +34,7 @@ jobs:
         - yarn install --immutable
       script:
         - yarn test
-  
+
     - stage: release
       before_script:
         - CURRENT_VERSION=$(git describe --tags --abbrev=0)

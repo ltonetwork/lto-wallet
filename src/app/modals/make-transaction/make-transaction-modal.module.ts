@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MakeTransactionTransfersComponent } from './components/make-transaction-transfers/make-transaction-transfers.component';
 import { TransactionConfirmationDialogModule } from '@app/components/transaction-confirmation-dialog';
 import { TransactionQrDialogModule } from '@app/components/transaction-qr-dialog';
+import { AmountDividePipe } from '@app/pipes/amount-divide/amount-divide.pipe';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { TransactionQrDialogModule } from '@app/components/transaction-qr-dialog
     MatProgressSpinnerModule,
     TransactionConfirmationDialogModule,
     TransactionQrDialogModule,
+    AmountDividePipe
   ],
   declarations: [
     MakeTransactionComponent,

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateScriptComponent } from './create-script.component';
+import { toPromise } from '@app/core';
 
 @Injectable()
 export class CreateScriptModal {
@@ -8,6 +9,6 @@ export class CreateScriptModal {
 
   async show() {
     const dialog = this._matDialog.open(CreateScriptComponent);
-    return dialog.afterClosed().toPromise();
+    return toPromise(dialog.afterClosed());
   }
 }

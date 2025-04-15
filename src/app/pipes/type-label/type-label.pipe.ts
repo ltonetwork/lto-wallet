@@ -3,7 +3,6 @@ import { TransactionTypes } from '@app/core';
 
 @Pipe({
     name: 'typeLabel',
-    standalone: false
 })
 export class TypeLabelPipe implements PipeTransform {
   transform(type: TransactionTypes, args?: any): string {

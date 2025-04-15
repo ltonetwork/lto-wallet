@@ -1,9 +1,8 @@
 import { Pipe, PipeTransform, Inject } from '@angular/core';
-import { AMOUNT_DIVIDER } from '../../../tokens';
+import { AMOUNT_DIVIDER } from '@app/tokens';
 
 @Pipe({
-    name: 'amountDivide',
-    standalone: false
+  name: 'amountDivide'
 })
 export class AmountDividePipe implements PipeTransform {
   constructor(@Inject(AMOUNT_DIVIDER) private divider: number) {}

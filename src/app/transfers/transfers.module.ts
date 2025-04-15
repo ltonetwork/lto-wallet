@@ -9,6 +9,7 @@ import {
   TransactionDetailsComponent,
   TransactionsListModule
 } from '@app/components';
+import { AmountDividePipe } from '@app/pipes/amount-divide/amount-divide.pipe';
 
 const routes: Routes = [
   {
@@ -28,7 +29,8 @@ const routes: Routes = [
     TransactionDetailsComponent,
     ContentSectionComponent,
     TransactionsListModule,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AmountDividePipe
   ]
 })
 export class TransfersModule {}

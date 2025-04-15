@@ -2524,20 +2524,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ltonetwork/lto@npm:^0.15.17":
-  version: 0.15.17
-  resolution: "@ltonetwork/lto@npm:0.15.17"
+"@ltonetwork/lto@npm:^0.16.11":
+  version: 0.16.11
+  resolution: "@ltonetwork/lto@npm:0.16.11"
   dependencies:
-    "@noble/curves": ^1.0.0
-    "@noble/hashes": ^1.3.0
-    "@scure/base": ^1.1.1
-    "@scure/bip32": ^1.3.0
-    "@scure/bip39": ^1.2.0
-    bech32: ^2.0.0
-    crypto-js: ^4.1.1
+    "@noble/curves": ^1.8.2
+    "@noble/hashes": ^1.7.2
+    "@scure/base": ^1.2.4
+    "@scure/bip32": ^1.6.2
+    "@scure/bip39": ^1.5.4
+    crypto-js: ^4.2.0
     ed2curve: ^0.3.0
     tweetnacl: ^1.0.3
-  checksum: fbe9773544765ec2c3056fb05db1635588015ea5b08a0d792f2b73b66168301f2648142ea3ae03545df3ade211545de6449b39da651f41f11355197f2f6df971
+  checksum: 1b939e2dfe6b437733cf12049c7b1207cf0c02ecd399b0cfed22f2d39b43e17f01665d153205717dad53af88c5479509bf5212419817c1f394e4db908c7967ef
   languageName: node
   linkType: hard
 
@@ -2763,19 +2762,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/curves@npm:^1.0.0, @noble/curves@npm:~1.8.1":
-  version: 1.8.1
-  resolution: "@noble/curves@npm:1.8.1"
+"@noble/curves@npm:^1.8.2, @noble/curves@npm:~1.8.1":
+  version: 1.8.2
+  resolution: "@noble/curves@npm:1.8.2"
   dependencies:
-    "@noble/hashes": 1.7.1
-  checksum: 4143f1248ed57c1ae46dfef5c692a91383e5830420b9c72d3ff1061aa9ebbf8999297da6d2aed8a9716fef8e6b1f5a45737feeab02abf55ca2a4f514bf9339ec
+    "@noble/hashes": 1.7.2
+  checksum: f26fd77b4d78fe26dba2754cbcaddee5da23a711a0c9778ee57764eb0084282d97659d9b0a760718f42493adf68665dbffdca9d6213950f03f079d09c465c096
   languageName: node
   linkType: hard
 
-"@noble/hashes@npm:1.7.1, @noble/hashes@npm:^1.3.0, @noble/hashes@npm:~1.7.1":
-  version: 1.7.1
-  resolution: "@noble/hashes@npm:1.7.1"
-  checksum: 4f1b56428a10323feef17e4f437c9093556cb18db06f94d254043fadb69c3da8475f96eb3f8322d41e8670117d7486475a8875e68265c2839f60fd03edd6a616
+"@noble/hashes@npm:1.7.2, @noble/hashes@npm:^1.7.2, @noble/hashes@npm:~1.7.1":
+  version: 1.7.2
+  resolution: "@noble/hashes@npm:1.7.2"
+  checksum: f9e3c2e62c2850073f8d6ac30cc33b03a25cae859eb2209b33ae90ed3d1e003cb2a1ddacd2aacd6b7c98a5ad70795a234ccce04b0526657cd8020ce4ffdb491f
   languageName: node
   linkType: hard
 
@@ -3350,14 +3349,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@scure/base@npm:^1.1.1, @scure/base@npm:~1.2.2, @scure/base@npm:~1.2.4":
+"@scure/base@npm:^1.2.4, @scure/base@npm:~1.2.2, @scure/base@npm:~1.2.4":
   version: 1.2.4
   resolution: "@scure/base@npm:1.2.4"
   checksum: db554eb550a1bd17684af9282e1ad751050a13d4add0e83ad61cc496680d7d1c1c1120ca780e72935a293bb59721c20a006a53a5eec6f6b5bdcd702cf27c8cae
   languageName: node
   linkType: hard
 
-"@scure/bip32@npm:^1.3.0":
+"@scure/bip32@npm:^1.6.2":
   version: 1.6.2
   resolution: "@scure/bip32@npm:1.6.2"
   dependencies:
@@ -3368,7 +3367,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@scure/bip39@npm:^1.2.0":
+"@scure/bip39@npm:^1.5.4":
   version: 1.5.4
   resolution: "@scure/bip39@npm:1.5.4"
   dependencies:
@@ -3717,10 +3716,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/crypto-js@npm:^3.1.43":
-  version: 3.1.47
-  resolution: "@types/crypto-js@npm:3.1.47"
-  checksum: fdeabd526cb3bf3a37300752a2a7313d360292a08b40c97709981ba520cf66b90b872672e32da3c5f0ad29faa8dcd22d14a8f418e24ba6a1e154acd5a123d050
+"@types/crypto-js@npm:^4.2.0":
+  version: 4.2.2
+  resolution: "@types/crypto-js@npm:4.2.2"
+  checksum: 727daa0d2db35f0abefbab865c23213b6ee6a270e27e177939bbe4b70d1e84c2202d9fac4ea84859c4b4d49a4ee50f948f601327a39b69ec013288018ba07ca5
   languageName: node
   linkType: hard
 
@@ -3828,26 +3827,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jasmine@npm:*":
+"@types/jasmine@npm:~5.1.7":
   version: 5.1.7
   resolution: "@types/jasmine@npm:5.1.7"
   checksum: 6ef77af667f10997d391488221ce3aaf2c95e7951b383d2259b81ed23babfd259d05485bec7a8f634e05ecc5740cb4153a2959617f806622ea5de5d15610e4d4
-  languageName: node
-  linkType: hard
-
-"@types/jasmine@npm:~3.6.0":
-  version: 3.6.11
-  resolution: "@types/jasmine@npm:3.6.11"
-  checksum: ccb4b749dc43b9ccb4365f36b14bdba8aac5ad7fdd00cc693695064acfbddb6b32fd2d59accd7e70b8f3a1eba69b49e8afa263e96f2b29aed565d0b911efe6c4
-  languageName: node
-  linkType: hard
-
-"@types/jasminewd2@npm:^2.0.8":
-  version: 2.0.13
-  resolution: "@types/jasminewd2@npm:2.0.13"
-  dependencies:
-    "@types/jasmine": "*"
-  checksum: a661e1add2d7c0582b05e79fcdbc0297fa4292b38b1273e2970d88d0775c85ecc322e1417c84826b5e6caeceab4dc267f5f00300c0c11d0fc459601057698700
   languageName: node
   linkType: hard
 
@@ -3883,10 +3866,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^12.19.13":
-  version: 12.20.55
-  resolution: "@types/node@npm:12.20.55"
-  checksum: e4f86785f4092706e0d3b0edff8dca5a13b45627e4b36700acd8dfe6ad53db71928c8dee914d4276c7fd3b6ccd829aa919811c9eb708a2c8e4c6eb3701178c37
+"@types/node@npm:^20.14.8":
+  version: 20.17.30
+  resolution: "@types/node@npm:20.17.30"
+  dependencies:
+    undici-types: ~6.19.2
+  checksum: 40253bc4a3f6adc5dc286824c1fc72a398280a7f6e76cfc22a9d68e42c70edb04c4af53c5709030b90d439bb4bbb29ad62e937d0b04ce2019b3297698bad55ef
   languageName: node
   linkType: hard
 
@@ -5418,7 +5403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypto-js@npm:^4.1.1, crypto-js@npm:^4.2.0":
+"crypto-js@npm:^4.2.0":
   version: 4.2.0
   resolution: "crypto-js@npm:4.2.0"
   checksum: f051666dbc077c8324777f44fbd3aaea2986f198fe85092535130d17026c7c2ccf2d23ee5b29b36f7a4a07312db2fae23c9094b644cc35f7858b1b4fcaf27774
@@ -8215,11 +8200,10 @@ __metadata:
     "@angular/platform-browser-dynamic": ^19.2.6
     "@angular/router": ^19.2.6
     "@ledgerhq/hw-transport-webusb": ^6.29.4
-    "@ltonetwork/lto": ^0.15.17
-    "@types/crypto-js": ^3.1.43
-    "@types/jasmine": ~3.6.0
-    "@types/jasminewd2": ^2.0.8
-    "@types/node": ^12.19.13
+    "@ltonetwork/lto": ^0.16.11
+    "@types/crypto-js": ^4.2.0
+    "@types/jasmine": ~5.1.7
+    "@types/node": ^20.14.8
     angularx-qrcode: ^19.0.0
     bech32: ^2.0.0
     buffer: ^6.0.3
@@ -11347,6 +11331,13 @@ __metadata:
   bin:
     ua-parser-js: script/cli.js
   checksum: c8f69573c336cbf0f4341e7fe93a8d7082acf39dba4e135b704f06ad240f585d4b38fb44fd3cad92c97a015128e9fe2e653b39c3b6c0919f8a8af3be02d79cc2
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~6.19.2":
+  version: 6.19.8
+  resolution: "undici-types@npm:6.19.8"
+  checksum: de51f1b447d22571cf155dfe14ff6d12c5bdaec237c765085b439c38ca8518fc360e88c70f99469162bf2e14188a7b0bcb06e1ed2dc031042b984b0bb9544017
   languageName: node
   linkType: hard
 

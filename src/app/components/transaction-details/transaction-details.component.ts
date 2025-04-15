@@ -5,8 +5,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
-import { AmountDividePipeModule, TypeLabelPipeModule } from 'src/app/core/pipes';
 import { MatDividerModule } from '@angular/material/divider';
+import { CoreModule } from '@app/core/core.module';
+import { AmountDividePipe } from '@app/pipes/amount-divide/amount-divide.pipe';
+import { TypeLabelPipe } from '@app/pipes/type-label/type-label.pipe';
 
 interface AnchorData {
   base64: string;
@@ -24,10 +26,10 @@ interface AnchorData {
     MatIconModule,
     MatButtonModule,
     MatRippleModule,
-    AmountDividePipeModule,
     MatDividerModule,
-    TypeLabelPipeModule,
-  ],
+    AmountDividePipe,
+    TypeLabelPipe
+  ]
 })
 export class TransactionDetailsComponent implements OnInit, OnChanges {
   @Input() transaction!: LTO.Transaction;

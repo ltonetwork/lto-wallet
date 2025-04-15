@@ -1,5 +1,6 @@
 import { map } from 'rxjs/operators';
-import LTO, { Account } from '@ltonetwork/lto';
+import LTO from '@ltonetwork/lto';
+import { Account } from '@ltonetwork/lto/accounts';
 import { Injectable, Inject } from '@angular/core';
 import { Observable, BehaviorSubject, Subscriber, combineLatest } from 'rxjs';
 

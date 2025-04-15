@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { Account } from '@ltonetwork/lto';
+import { Account } from '@ltonetwork/lto/accounts';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { LedgerService } from '@app/core/services';

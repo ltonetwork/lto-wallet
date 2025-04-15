@@ -12,10 +12,8 @@ import {
   ScriptsService,
   LedgerService,
 } from './services';
-import { AmountDividePipeModule, TypeLabelPipeModule } from './pipes';
 
 @NgModule({
-  declarations: [],
   providers: [
     PublicNode,
     BridgeService,
@@ -28,9 +26,5 @@ import { AmountDividePipeModule, TypeLabelPipeModule } from './pipes';
     ScriptsService,
     provideHttpClient(withInterceptorsFromDi()),
   ],
-  exports: [
-    AmountDividePipeModule,
-    TypeLabelPipeModule,
-  ]
 })
 export class CoreModule {}

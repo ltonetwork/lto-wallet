@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { switchMap, map } from 'rxjs/operators';
 import { toPromise } from '../utils';
 import { SET_SCRIPT_FEE } from '@app/tokens';
+import { SetScript } from '@ltonetwork/lto/transactions';
 
 export interface PredefinedScript {
   label: string;
@@ -40,7 +41,7 @@ match tx {
 
 @Injectable({ providedIn: 'root' })
 export class ScriptsService {
-  predefinedScripts: PredefinedScript[] = PREDEFINED_SCRIPTS;
+  predefinedScripts: PredefinedScript[] = PREDEFINED_SCRIPTS_TEST;
   scriptEnabled$: Observable<boolean>;
   scriptInfo$: Observable<any>;
 
@@ -73,11 +74,13 @@ export class ScriptsService {
     const wallet = await this.getWallet();
     const node = this._auth.lto.node;
 
-    // await node.compile(code).signWith(wallet).broadcastTo(node);
+    const tx = await node.compile(code);
+    await tx.signWith(wallet).broadcastTo(node);
   }
 
   async disabeScript() {
     const wallet = await this.getWallet();
-    // await new SetScript().signWith(wallet).broadcastTo(this._auth.lto.node);
+    const tx = new SetScript();
+    await tx.signWith(wallet).broadcastTo(this._auth.lto.node);
   }
 }

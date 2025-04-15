@@ -14,9 +14,10 @@ import { AuthService, IUserAccount } from './auth.service';
 import { TransactionTypes } from '@app/core';
 import { BridgeService, TokenType } from './bridge.service';
 import { transactionsFilter, toPromise } from '../utils';
-import { AMOUNT_DIVIDER, DEFAULT_TRANSFER_FEE } from '@app/tokens';
+import { AMOUNT_DIVIDER } from '@app/tokens';
 import { LedgerService } from './ledger.service';
-import { Anchor, Binary, CancelLease, Lease, MassTransfer, Transfer } from '@ltonetwork/lto';
+import { Binary } from '@ltonetwork/lto';
+import { Anchor, CancelLease, Lease, MassTransfer, Transfer } from '@ltonetwork/lto/transactions';
 
 export interface IBalance {
   regular: number;

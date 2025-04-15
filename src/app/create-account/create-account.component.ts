@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { AuthService, IUserAccount } from '../core';
-import { Account } from '@ltonetwork/lto';
+import { Account } from '@ltonetwork/lto/accounts';
 import { Router } from '@angular/router';
 
 @Component({

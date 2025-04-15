@@ -50,7 +50,7 @@
         <mat-label>Amount</mat-label>
         <input type="number" formControlName="amount" required matInput />
         <mat-error *ngIf="leaseForm?.controls.amount.hasError('max')">
-          Max value: {{ (balance$ | async).available | amountDivide }}
+          Max value: {{ (balance$ | async)?.available | amountDivide }}
         </mat-error>
       </mat-form-field>
       <mat-form-field>

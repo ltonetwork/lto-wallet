@@ -7,7 +7,8 @@ import { WavesLedger } from 'lto-ledger-js-unofficial-test';
 import { LTO_NETWORK_BYTE } from '@app/tokens';
 
 import { toPromise } from '../utils';
-import LTO, { Anchor, Transaction } from '@ltonetwork/lto';
+import LTO from '@ltonetwork/lto';
+import { Anchor, Transaction } from '@ltonetwork/lto/transactions';
 
 enum NetworkCode {
   MAINNET = 76,
@@ -73,7 +74,7 @@ export class LedgerService {
 
   public async disconnect(): Promise<void> {
     if (!this.ledger) {
-      throw new Error('Ledger not connected');
+      return;
     }
 
     await this.ledger.disconnect();

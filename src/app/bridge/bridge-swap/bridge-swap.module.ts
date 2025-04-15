@@ -15,30 +15,32 @@ import { WithdrawFormComponent } from './steps/withdraw-form/withdraw-form.compo
 import { WithdrawCexComponent } from './steps/withdraw-cex/withdraw-cex.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CopyableTextComponent, LoadingSpinnerComponent } from '@app/shared/components';
+import { MakeTransactionModalModule } from '@app/modals';
 
 @NgModule({
-    declarations: [
-        BridgeSwapComponent,
-        SwapTypeComponent,
-        ExampleComponent,
-        DepositErcComponent,
-        WithdrawFormComponent,
-        WithdrawCexComponent,
-    ],
-    imports: [
-        CommonModule,
-        MatDialogModule,
-        MatButtonModule,
-        RecaptchaModule,
-        QRCodeComponent,
-        CopyableTextComponent,
-        FlexLayoutModule,
-        LoadingSpinnerComponent,
-        ReactiveFormsModule,
-        FormsModule,
-        MatIconModule,
-        MatTooltipModule
-    ],
-    exports: [BridgeSwapComponent]
+  declarations: [
+    BridgeSwapComponent,
+    SwapTypeComponent,
+    ExampleComponent,
+    DepositErcComponent,
+    WithdrawFormComponent,
+    WithdrawCexComponent,
+  ],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    RecaptchaModule,
+    QRCodeComponent,
+    CopyableTextComponent,
+    FlexLayoutModule,
+    LoadingSpinnerComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    MatIconModule,
+    MatTooltipModule,
+    MakeTransactionModalModule,
+  ],
+  exports: [BridgeSwapComponent]
 })
 export class BridgeSwapModule {}

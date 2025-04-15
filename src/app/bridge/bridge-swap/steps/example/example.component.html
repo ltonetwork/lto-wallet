@@ -25,6 +25,9 @@
     </div>
     <p *ngIf="toTokenType === 'BEP-2' && fromTokenType === 'ERC-20'"><span class="red">Do not use this to send to Binance Exchange.</span></p>
   </ng-container>
+  <ng-container *ngIf="!(bridgeFee$ | async)">
+    <lto-loading-spinner />
+  </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-flat-button color="primary" (click)="nextStepClick()">Next</button>

@@ -4,8 +4,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { SharedModule } from '../shared';
 
 import { AmountInputComponent } from './amount-input/amount-input.component';
-import { BridgeDepositDialogComponent } from './bridge-deposit-dialog/bridge-deposit-dialog.component';
-import { BridgeWithdrawDialogComponent } from './bridge-withdraw-dialog/bridge-withdraw-dialog.component';
+import { BridgeDepositDialogComponent } from '@app/bridge/components/bridge-deposit-dialog/bridge-deposit-dialog.component';
+import { BridgeWithdrawDialogComponent } from '@app/bridge/components/bridge-withdraw-dialog/bridge-withdraw-dialog.component';
 import { ContentDialogComponent } from './content-dialog';
 import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
 import { HiddenTextComponent } from './hidden-text/hidden-text.component';
@@ -17,8 +17,6 @@ import { AccountQrComponent } from './account-qr/account-qr.component';
     imports: [SharedModule, QRCodeComponent, RecaptchaModule],
     declarations: [
         AmountInputComponent,
-        BridgeDepositDialogComponent,
-        BridgeWithdrawDialogComponent,
         DeleteAccountDialogComponent,
         HiddenTextComponent,
         ContentDialogComponent,
@@ -26,8 +24,6 @@ import { AccountQrComponent } from './account-qr/account-qr.component';
     ],
     exports: [
         AmountInputComponent,
-        BridgeDepositDialogComponent,
-        BridgeWithdrawDialogComponent,
         HiddenTextComponent,
         TransactionConfirmationDialogModule,
         TransactionQrDialogModule,

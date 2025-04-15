@@ -14,7 +14,10 @@ export class BridgeSwapComponent implements OnInit {
   step = 2;
   swapType!: SwapType;
 
-  constructor(private _dialogRef: MatDialogRef<any>, private makeTransactionModal: MakeTransactionModal) {}
+  constructor(
+    private _dialogRef: MatDialogRef<any>,
+    private makeTransactionModal: MakeTransactionModal,
+  ) {}
 
   ngOnInit() {}
 

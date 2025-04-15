@@ -12,6 +12,7 @@ mat-card-content {
 
 mat-card-actions {
   text-align: center;
+  justify-content: center;
   padding: 42px !important;
 }
 
@@ -24,13 +25,12 @@ mat-card-actions {
 
 .img-box {
   text-align: center;
-  padding: 42px 0;
+  padding: 24px 0;
 
   img {
-    width: 230px;
+    width: 260px;
   }
 }
-
 
 .purple {
   color: #9867d0;

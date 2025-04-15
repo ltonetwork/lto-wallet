@@ -3,6 +3,7 @@
   max-width: 960px;
   // width: 960px;
   position: relative;
+  padding: 12px 24px 0;
 }
 
 :host::ng-deep {
@@ -18,7 +19,7 @@
   }
 
   mat-dialog-content {
-    padding-top: 32px;
+    padding-top: 32px !important;
     max-width: 500px !important;
     margin: 0 auto !important;
     text-align: center;
@@ -61,5 +62,5 @@
 .close-button {
   position: absolute;
   top: 20px;
-  right: 0;
+  right: 15px;
 }

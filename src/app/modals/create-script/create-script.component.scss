@@ -17,9 +17,10 @@ mat-form-field {
 
 pre {
   border: 1px solid #ebebeb;
-  padding: 16px;
+  padding: 0 16px;
   box-sizing: border-box;
   background: #fbf9f9;
   border-radius: 4px;
   min-height: 215px;
+  overflow-x: scroll;
 }

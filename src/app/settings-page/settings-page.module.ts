@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SettingsPageComponent } from './settings-page.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { FormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CreateScriptModal, ScriptInfoModal, DisableScriptModal } from '@app/modals';
 import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '@app/shared';
+import { AccountQrComponent, ContentSectionComponent, CopyableTextComponent, HiddenTextComponent } from '@app/components';
 
 const routes: Routes = [
   {
@@ -18,11 +16,12 @@ const routes: Routes = [
 @NgModule({
   declarations: [SettingsPageComponent],
   imports: [
-    CommonModule,
-    FormsModule,
-    FlexLayoutModule,
-    MatSnackBarModule,
+    SharedModule,
     RouterModule.forChild(routes),
+    CopyableTextComponent,
+    HiddenTextComponent,
+    AccountQrComponent,
+    ContentSectionComponent
   ],
   providers: [
     CreateScriptModal,

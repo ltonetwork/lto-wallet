@@ -4,9 +4,9 @@
     <mat-card-content>
       <div class="items" fxLayout="column" fxLayoutGap="16px">
         <lto-copyable-text label="Your address" [text]="ltoAccount?.address"></lto-copyable-text>
-        <lto-copyable-text label="Public key" [text]="ltoAccount?.getPublicSignKey()"></lto-copyable-text>
+        <lto-copyable-text label="Public key" [text]="ltoAccount?.publicKey"></lto-copyable-text>
         <lto-wallet-hidden-text label="Backup phrase" [text]="ltoAccount?.seed"></lto-wallet-hidden-text>
-        <lto-wallet-hidden-text label="Private key" [text]="ltoAccount?.getPrivateSignKey()"></lto-wallet-hidden-text>
+        <lto-wallet-hidden-text label="Private key" [text]="ltoAccount?.privateKey"></lto-wallet-hidden-text>
         <lto-wallet-account-qr></lto-wallet-account-qr>
       </div>
     </mat-card-content>
@@ -30,18 +30,19 @@
     </mat-card-content>
   </mat-card>
   <mat-card>
-    <mat-card-title>Security</mat-card-title>
+    <mat-card-title>Danger zone</mat-card-title>
     <mat-card-content>
       <mat-list>
-        <h3 mat-subheader>Scripts</h3>
-        <mat-list-item *ngIf="scriptEnabled$ | async as enabled">
+        <mat-list-item>
           <div fxLayout="row" fxLayoutAlign="start center" fxFlexFill>
             <span fxFlex="1 1 auto">Script</span>
-            <ng-container *ngIf="enabled">
+            <ng-container *ngIf="(scriptEnabled$ | async); else noScript">
               <button mat-button color="warn" (click)="disableScript()">Disable script</button>
               <button mat-button (click)="showScriptInfo()">Script info</button>
             </ng-container>
-            <button mat-button *ngIf="!enabled" (click)="createScript()">Set script</button>
+            <ng-template #noScript>
+              <button mat-button color="warn" (click)="createScript()">Set script</button>
+            </ng-template>
           </div>
         </mat-list-item>
       </mat-list>

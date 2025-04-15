@@ -3,8 +3,7 @@
   margin: 0 auto;
   width: 100%;
   max-width: 440px;
-  padding-top: 64px;
-  padding-bottom: 24px;
+  padding-top: 40px;
 }
 
 h1 {
@@ -79,3 +78,8 @@ mat-list {
   }
 }
 
+.align-center {
+  align-self: center !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}

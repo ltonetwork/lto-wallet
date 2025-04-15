@@ -11,11 +11,14 @@
             [ngClass]="{ selected: account.address === (selected$ | async)?.address }"
             (click)="select(account)"
           >
+            <mat-icon matListItemIcon color="primary" class="align-center">account_circle</mat-icon>
+
             <div matListItemTitle>{{ account.name }}</div>
             <div matListItemLine>{{ account.address }}</div>
 
-            <mat-icon matListItemIcon color="primary">account_circle</mat-icon>
-            <mat-icon class="delete-account" (click)="deleteAccount(account, $event)">close</mat-icon>
+            <div matListItemMeta class="align-center">
+              <mat-icon class="delete-account" (click)="deleteAccount(account, $event)">close</mat-icon>
+            </div>
           </mat-list-item>
         </mat-list>
         <div class="password-input">

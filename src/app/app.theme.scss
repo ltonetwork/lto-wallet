@@ -1,5 +1,6 @@
 @use './signin/signin.theme' as signin;
 @use 'components/components.theme' as shared-components;
+@use '@angular/material' as mat;
 
 @mixin theme($theme) {
   @include signin.theme($theme);
@@ -52,5 +53,13 @@
     border-bottom: 1px solid #e0e0e0;
     padding: 16px;
     font-weight: 400;
+  }
+
+  mat-chip.mat-warn {
+    background-color: mat.get-theme-color($theme, warn) !important;
+
+    .mat-mdc-chip-action-label {
+      color: white !important;
+    }
   }
 }

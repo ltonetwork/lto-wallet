@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChip } from '@angular/material/chips';
 
 @Component({
   selector: 'lto-wallet-delete-account-dialog',
@@ -11,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     FlexModule,
     MatButtonModule,
+    MatChip
   ]
 })
 export class DeleteAccountDialogComponent implements OnInit {

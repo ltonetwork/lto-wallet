@@ -41,7 +41,7 @@ match tx {
 
 @Injectable({ providedIn: 'root' })
 export class ScriptsService {
-  predefinedScripts: PredefinedScript[] = PREDEFINED_SCRIPTS_TEST;
+  predefinedScripts: PredefinedScript[] = PREDEFINED_SCRIPTS;
   scriptEnabled$: Observable<boolean>;
   scriptInfo$: Observable<any>;
 

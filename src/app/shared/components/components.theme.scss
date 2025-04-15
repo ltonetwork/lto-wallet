@@ -1,7 +1,0 @@
-@use './transactions-list/transactions-list.theme' as transactions-list;
-@use './sidenav/sidenav.theme' as sidenav;
-
-@mixin theme($theme) {
-  @include transactions-list.theme($theme);
-  @include sidenav.theme($theme);
-}

@@ -10,7 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { BrandModule } from '@app/shared/components/brand';
+import { BrandModule } from '@app/components/brand';
 
 @Component({
   selector: 'lto-appbar',

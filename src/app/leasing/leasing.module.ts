@@ -15,7 +15,7 @@ import {
   LoadingSpinnerComponent,
   TransactionDetailsComponent,
   TransactionsListModule
-} from '@app/shared/components';
+} from '@app/components';
 import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 import { MatButton } from '@angular/material/button';
 

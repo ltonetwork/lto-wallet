@@ -1,22 +1,25 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgClass } from '@angular/common';
 
 @Component({
-    selector: 'lto-wallet-amount-input',
-    templateUrl: './amount-input.component.html',
-    styleUrls: ['./amount-input.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            multi: true,
-            useExisting: forwardRef(() => AmountInputComponent)
-        }
-    ],
-    standalone: false
+  selector: 'lto-wallet-amount-input',
+  templateUrl: './amount-input.component.html',
+  styleUrls: ['./amount-input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: forwardRef(() => AmountInputComponent)
+    }
+  ],
+  imports: [
+    NgClass
+  ]
 })
 export class AmountInputComponent implements OnInit, ControlValueAccessor {
   @Input()
-  disabled: boolean = false;
+  disabled = false;
 
   get value(): any {
     return this._value;
@@ -34,7 +37,7 @@ export class AmountInputComponent implements OnInit, ControlValueAccessor {
   }
 
   private _value: any = '';
-  private _invalid: boolean = false;
+  private _invalid = false;
 
   private changeCb: Function | null = null;
 

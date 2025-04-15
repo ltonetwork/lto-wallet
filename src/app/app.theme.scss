@@ -1,5 +1,5 @@
 @use './signin/signin.theme' as signin;
-@use './shared/components/components.theme' as shared-components;
+@use 'components/components.theme' as shared-components;
 
 @mixin theme($theme) {
   @include signin.theme($theme);

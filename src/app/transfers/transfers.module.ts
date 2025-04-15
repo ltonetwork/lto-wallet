@@ -8,7 +8,7 @@ import {
   LoadingSpinnerComponent,
   TransactionDetailsComponent,
   TransactionsListModule
-} from '@app/shared/components';
+} from '@app/components';
 
 const routes: Routes = [
   {

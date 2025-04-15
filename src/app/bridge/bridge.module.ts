@@ -6,7 +6,7 @@ import { BridgeSwapModule } from './bridge-swap/bridge-swap.module';
 import { RouterModule, Routes } from '@angular/router';
 import { BridgeDepositDialogComponent } from './components/bridge-deposit-dialog/bridge-deposit-dialog.component';
 import { BridgeWithdrawDialogComponent } from './components/bridge-withdraw-dialog/bridge-withdraw-dialog.component';
-import { ContentSectionComponent } from '@app/shared/components';
+import { ContentSectionComponent } from '@app/components';
 
 const routes: Routes = [
   {

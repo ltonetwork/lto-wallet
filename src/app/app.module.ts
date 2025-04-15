@@ -26,7 +26,7 @@ import {
 
 import { environment } from '../environments/environment';
 import { MatDialog } from '@angular/material/dialog';
-import { SidenavComponent, AppbarComponent } from '@app/shared/components';
+import { SidenavComponent, AppbarComponent } from '@app/components';
 
 @NgModule({
   declarations: [AppComponent],

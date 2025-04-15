@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { SWAP_PAGE_ENABLED } from '@app/tokens';
 import { Sidenav } from '@app/core';
 import { CommonModule } from '@angular/common';
-import { BrandModule } from '@app/shared/components/brand';
+import { BrandModule } from '@app/components/brand';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';

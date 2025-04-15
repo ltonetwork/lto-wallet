@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { TransactionTypes } from '../../../../core';
+import { TransactionTypes } from '../../../core';
 
 @Component({
     selector: 'lto-transaction-row',

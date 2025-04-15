@@ -3,7 +3,7 @@ import { SharedModule } from '../shared';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateAccountComponent } from './create-account.component';
 import { SeedComponent } from './components/seed/seed.component';
-import { ContentSectionComponent, CrendetialsFormComponent } from '@app/shared/components';
+import { ContentSectionComponent, CrendetialsFormComponent } from '@app/components';
 
 const routes: Routes = [
   {

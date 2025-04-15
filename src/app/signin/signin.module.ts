@@ -4,7 +4,7 @@ import { SharedModule } from '@app/shared';
 import { RouterModule, Routes } from '@angular/router';
 import { MobileAuthModalModule } from '@app/modals';
 import { MaterialModule } from '@app/shared/material.module';
-import { ContentSectionComponent } from '@app/shared/components';
+import { ContentSectionComponent } from '@app/components';
 
 const routes: Routes = [
   {

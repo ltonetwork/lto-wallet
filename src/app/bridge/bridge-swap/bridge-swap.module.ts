@@ -14,7 +14,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { WithdrawFormComponent } from './steps/withdraw-form/withdraw-form.component';
 import { WithdrawCexComponent } from './steps/withdraw-cex/withdraw-cex.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CopyableTextComponent, LoadingSpinnerComponent } from '@app/shared/components';
+import { CopyableTextComponent, LoadingSpinnerComponent } from '@app/components';
 import { MakeTransactionModalModule } from '@app/modals';
 
 @NgModule({

@@ -5,7 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
-import { AmountDividePipeModule, TypeLabelPipeModule } from '@app/shared/pipes';
+import { AmountDividePipeModule, TypeLabelPipeModule } from 'src/app/core/pipes';
 import { MatDividerModule } from '@angular/material/divider';
 
 interface AnchorData {

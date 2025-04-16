@@ -9,7 +9,7 @@ import { TransactionConfirmationDialog } from '../components/transaction-confirm
 import { TransactionQrDialog } from '../components/transaction-qr-dialog';
 import { StartLeaseModal, StartLeaseModalModule } from '../modals';
 import { RouterModule, Routes } from '@angular/router';
-import { MatSidenav, MatSidenavContainer } from '@angular/material/sidenav';
+import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav';
 import {
   ContentSectionComponent,
   LoadingSpinnerComponent,
@@ -34,9 +34,8 @@ const routes: Routes = [
     FlexLayoutModule,
     MatSnackBarModule,
     RouterModule.forChild(routes),
-    MatSidenavContainer,
     TransactionDetailsComponent,
-    MatSidenav,
+    MatSidenavModule,
     ContentSectionComponent,
     MatCard,
     MatCardTitle,

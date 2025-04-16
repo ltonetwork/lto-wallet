@@ -8,13 +8,13 @@ export enum SidenavMode {
   side = 'side',
 }
 
-@Injectable()
-export class SidenavImpl implements Sidenav {
+@Injectable({ providedIn: 'root' })
+export class Sidenav {
   mode$: Observable<SidenavMode>;
   opened$: Observable<boolean>;
   hasBackdrop$: Observable<boolean>;
 
-  private _opened$: Subject<boolean> = new Subject();
+  private _opened$ = new Subject<boolean>();
 
   constructor(media: MediaObserver) {
     this.mode$ = media.asObservable().pipe(
@@ -50,18 +50,4 @@ export class SidenavImpl implements Sidenav {
       }
     });
   }
-}
-
-export abstract class Sidenav {
-  static provider = {
-    provide: Sidenav,
-    useClass: SidenavImpl,
-  };
-
-  abstract mode$: Observable<SidenavMode>;
-  abstract opened$: Observable<boolean>;
-  abstract hasBackdrop$: Observable<boolean>;
-
-  abstract open(): void;
-  abstract close(): void;
 }

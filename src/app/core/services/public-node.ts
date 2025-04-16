@@ -1,10 +1,10 @@
-import { Injectable, Inject, ClassProvider } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap, switchMapTo, distinctUntilChanged, catchError } from 'rxjs/operators';
-import { LTO_PUBLIC_API } from '../../tokens';
+import { LTO_PUBLIC_API } from '@app/tokens';
 import { transactionsFilter } from '../utils';
-import { TransactionTypes } from '../transaction-types';
+import { TransactionTypes } from '@app/core';
 
 interface CompildedScript {
   script: string;
@@ -15,8 +15,8 @@ interface CompildedScript {
 /**
  * Provide communication with LTO backend
  */
-@Injectable()
-export class PublicNodeImpl implements PublicNode {
+@Injectable({ providedIn: 'root' })
+export class PublicNode {
   constructor(private _http: HttpClient, @Inject(LTO_PUBLIC_API) private _publicApi: string) {}
 
   version(): Observable<string> {
@@ -28,9 +28,9 @@ export class PublicNodeImpl implements PublicNode {
   }
 
   lastBlocks(
-    count: number = 20,
-    poll: boolean = false,
-    pollInterval: number = 5000
+    count = 20,
+    poll = false,
+    pollInterval = 5000
   ): Observable<any> {
     const pollTimer = poll ? timer(0, pollInterval) : timer(0);
     return pollTimer.pipe(
@@ -64,7 +64,7 @@ export class PublicNodeImpl implements PublicNode {
 
   indexedTransactions(
     address: string,
-    index: string = 'anchor',
+    index = 'anchor',
     limit = 100
   ): Observable<LTO.Page<LTO.Transaction>> {
     const params: any = {
@@ -131,29 +131,4 @@ export class PublicNodeImpl implements PublicNode {
   compileScript(code: string): Observable<CompildedScript> {
     return this._http.post<CompildedScript>(`${this._publicApi}utils/script/compile`, code);
   }
-}
-
-export abstract class PublicNode {
-  static provider: ClassProvider = {
-    provide: PublicNode,
-    useClass: PublicNodeImpl
-  };
-
-  abstract version(): Observable<string>;
-  abstract height(): Observable<number>;
-  abstract lastBlocks(count: number, poll: boolean, pollInterval: number): Observable<any[]>;
-  abstract headerSequence(height: number, count: number): Observable<any[]>;
-  abstract transaction(id: string): Observable<any>;
-  abstract block(height: number | string): Observable<any>;
-  abstract transactionsOf(address: string): Observable<LTO.Transaction[]>;
-  abstract indexedTransactions(
-    address: string,
-    index?: string,
-    limit?: number
-  ): Observable<LTO.Page<LTO.Transaction>>;
-  abstract balanceOf(address: string): Observable<any>;
-  abstract unconfirmedTransactions(): Observable<any[]>;
-  abstract activeLease(address: string): Observable<LTO.Transaction[]>;
-  abstract getScript(address: string): Observable<any>;
-  abstract compileScript(code: string): Observable<CompildedScript>;
 }

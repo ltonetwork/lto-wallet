@@ -1,0 +1,66 @@
+:host {
+  display: block;
+  max-width: 960px;
+  // width: 960px;
+  position: relative;
+  padding: 12px 24px 0;
+}
+
+:host::ng-deep {
+  [mat-dialog-title] {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #3d5170;
+    margin: -24px -24px 0;
+    border-bottom: 1px solid #e0e2e8;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  mat-dialog-content {
+    padding-top: 32px !important;
+    max-width: 500px !important;
+    margin: 0 auto !important;
+    text-align: center;
+  }
+
+  mat-dialog-actions {
+    text-align: center;
+    padding: 32px !important;
+    justify-content: center;
+  }
+
+  .purple {
+    color: #9867d0;
+  }
+
+  .blue {
+    color: #4a90e2;
+  }
+
+  .yellow {
+    color: rgb(240, 185, 11);
+  }
+
+  .red {
+    color: red;
+  }
+
+  .disabled {
+    opacity: 0.5;
+
+    .purple,
+    .blue,
+    .yellow,
+    .red {
+      color: inherit;
+    }
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+}

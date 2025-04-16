@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  margin: 0 auto;
+  padding: 16px 32px;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media only screen and (max-width: 600px) {
+    padding: 16px;
+  }
+}
+
+hgroup {
+  margin-bottom: 26px;
+}
+h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 32px;
+  color: #3d5170;
+}
+h4 {
+  margin-bottom: 0;
+  margin-top: 10px;
+  color: #818ea3;
+}

@@ -3,9 +3,10 @@ import { Observable } from 'rxjs';
 import { AuthService, Sidenav, SidenavMode } from './core';
 
 @Component({
-  selector: 'lto-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'lto-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   authenticated$!: Observable<boolean>;
@@ -13,7 +14,10 @@ export class AppComponent implements OnInit {
   mode$!: Observable<SidenavMode>;
   hasBackdrop$!: Observable<boolean>;
 
-  constructor(private _auth: AuthService, private _sidenav: Sidenav) {}
+  constructor(
+    private _auth: AuthService,
+    private _sidenav: Sidenav,
+  ) {}
 
   ngOnInit() {
     this.authenticated$ = this._auth.authenticated$;

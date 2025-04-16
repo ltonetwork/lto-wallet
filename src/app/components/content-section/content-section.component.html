@@ -1,0 +1,5 @@
+<hgroup *ngIf="title || subtitle">
+  <h2 *ngIf="title">{{ title }}</h2>
+  <h4 *ngIf="subtitle">{{ subtitle }}</h4>
+</hgroup>
+<ng-content></ng-content>

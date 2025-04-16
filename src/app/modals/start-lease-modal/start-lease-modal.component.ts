@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, ValidatorFn } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import {
@@ -8,14 +8,15 @@ import {
   formControlErrors,
   ADDRESS_VALIDATOR,
   FeeService, toPromise
-} from '../../core';
-import { DEFAULT_TRANSFER_FEE } from '../../tokens';
+} from '@app/core';
 import { take, withLatestFrom } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { TransactionConfirmDialog } from '../../components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '@app/components';
 
+// @ts-expect-error Why is importing JSON resulting in a typescript error?
 import * as communityNodes from '../../../communityNodes.json';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
+import { LTO_NETWORK_BYTE } from '@app/tokens';
 
 export interface LeaseData {
   amount: number;
@@ -41,16 +42,16 @@ interface CommunityNode {
 
 
 @Component({
-  selector: 'lto-wallet-start-lease-modal',
-  templateUrl: './start-lease-modal.component.html',
-  styleUrls: ['./start-lease-modal.component.scss'],
+    selector: 'lto-wallet-start-lease-modal',
+    templateUrl: './start-lease-modal.component.html',
+    styleUrls: ['./start-lease-modal.component.scss'],
+    standalone: false
 })
 export class StartLeaseModalComponent implements OnInit {
-  leaseForm: FormGroup | null = null;
+  leaseForm: UntypedFormGroup | null = null;
   balance$!: Observable<IBalance>;
   isNodeSelected = false;
-  communityNodesLoaded: CommunityNode[] = [];
-  communityNodesCustom: CommunityNode[] = [];
+  communityNodes: CommunityNode[] = [];
   displayedColumns: string[] = ['name', 'address'];
   displayedColumnsCustom: string[] = ['name'];
   get recipientErrors() {
@@ -60,16 +61,18 @@ export class StartLeaseModalComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<any, LeaseData|boolean>,
     private _wallet: WalletService,
-    private confirmDialog: TransactionConfirmDialog,
+    private confirmDialog: TransactionConfirmationDialog,
     private qrDialog: TransactionQrDialog,
+    @Inject(LTO_NETWORK_BYTE) networkByte: string,
     @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn,
     @Inject(MAT_DIALOG_DATA) public balance: number,
     private _feeService: FeeService,
   ) {
     // Shuffling array
-    this.communityNodesLoaded = communityNodes.nodes.sort(() => Math.random() - 0.5)
-      .filter((o: CommunityNode) => (!o.hide));
-    this.communityNodesCustom.unshift({
+    this.communityNodes = networkByte === 'L'
+      ? communityNodes.nodes.sort(() => Math.random() - 0.5).filter((o: CommunityNode) => (!o.hide))
+      : [];
+    this.communityNodes.unshift({
       'name': 'Custom',
       'address': '',
       'comment': 'Lease to an unlisted node by entering the node address',
@@ -92,14 +95,14 @@ export class StartLeaseModalComponent implements OnInit {
 
         const maxLeased = (balance.available / balance.amountDivider) > 1 ?
           (balance.available / balance.amountDivider) - 1 : 0;
-        this.leaseForm = new FormGroup({
-          recipient: new FormControl(element.address, [Validators.required, this._addressValidator]),
-          amount: new FormControl(maxLeased, [
+        this.leaseForm = new UntypedFormGroup({
+          recipient: new UntypedFormControl(element.address, [Validators.required, this._addressValidator]),
+          amount: new UntypedFormControl(maxLeased, [
             Validators.required,
             Validators.min(minAmount),
             Validators.max(maxAmount),
           ]),
-          fee: new FormControl({ value: fee, disabled: true }, [
+          fee: new UntypedFormControl({ value: fee, disabled: true }, [
             Validators.required,
             Validators.min(minAmount),
           ]),

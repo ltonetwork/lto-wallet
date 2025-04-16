@@ -5,7 +5,7 @@
 export function setRecipient(transactions: any[]) {
   return transactions.map(transaction => {
     let recipient = transaction.recipient;
-    let sender = transaction.sender;
+    const sender = transaction.sender;
 
     if (transaction.type === 9) {
       recipient = transaction.lease.recipient;

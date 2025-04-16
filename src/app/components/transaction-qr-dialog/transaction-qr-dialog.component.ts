@@ -19,11 +19,12 @@ interface TransactionDataField {
 }
 
 @Component({
-  selector: 'lto-wallet-transaction-qr-dialog',
-  templateUrl: './transaction-qr-dialog.component.html',
-  styleUrls: ['./transaction-qr-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [DecimalPipe],
+    selector: 'lto-wallet-transaction-qr-dialog',
+    templateUrl: './transaction-qr-dialog.component.html',
+    styleUrls: ['./transaction-qr-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [DecimalPipe],
+    standalone: false
 })
 export class TransactionQrDialogComponent implements OnInit {
   dialogTitle!: string;

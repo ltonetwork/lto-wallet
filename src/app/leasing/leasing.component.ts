@@ -4,16 +4,17 @@ import { map } from 'rxjs/operators';
 import { WalletService, TransactionTypes, transactionsFilter, toPromise } from '../core';
 import { StartLeaseModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TransactionConfirmDialog } from '../components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '../components/transaction-confirmation-dialog';
 import { AMOUNT_DIVIDER } from '@app/tokens';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 
 @Component({
-  selector: 'lto-leasing',
-  templateUrl: './leasing.component.html',
-  styleUrls: ['./leasing.component.scss'],
+    selector: 'lto-leasing',
+    templateUrl: './leasing.component.html',
+    styleUrls: ['./leasing.component.scss'],
+    standalone: false
 })
-export class LeasingComponent implements OnInit {
+export class LeasingComponent {
   transactions$: Observable<any[]>;
   address$: Observable<string>;
 
@@ -24,12 +25,12 @@ export class LeasingComponent implements OnInit {
   }
 
   constructor(
-    private confirmDialog: TransactionConfirmDialog,
+    private confirmDialog: TransactionConfirmationDialog,
     private qrDialog: TransactionQrDialog,
     private wallet: WalletService,
     private startLeaseModal: StartLeaseModal,
     private snackbar: MatSnackBar,
-    @Inject(AMOUNT_DIVIDER) private AMOUNT_DIVIDER: number
+    @Inject(AMOUNT_DIVIDER) private amount_divider: number
   ) {
     this.address$ = wallet.address$;
     this.transactions$ = wallet.leasingTransactions$.pipe(
@@ -54,8 +55,6 @@ export class LeasingComponent implements OnInit {
       })
     );
   }
-
-  ngOnInit() {}
 
   select(transaction: any) {
     this.selectedTransaction = transaction;
@@ -100,7 +99,7 @@ export class LeasingComponent implements OnInit {
   }
 
   private async _cancelLeaseViaQr(leaseTransaction: any) {
-    const tx = this.wallet.prepareCancelLease(leaseTransaction.id)
+    const tx = this.wallet.prepareCancelLease(leaseTransaction.id);
     const send = await this.qrDialog.show({
       tx: {...tx, sender: await toPromise(this.wallet.address$)},
       transactionData: this._describeTransaction(leaseTransaction)
@@ -115,7 +114,7 @@ export class LeasingComponent implements OnInit {
     return [
       {
         label: 'Amount',
-        value: Number(leaseTransaction.amount) / this.AMOUNT_DIVIDER,
+        value: Number(leaseTransaction.amount) / this.amount_divider,
       },
       {
         label: 'Node Address',

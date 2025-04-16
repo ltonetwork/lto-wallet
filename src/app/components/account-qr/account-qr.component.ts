@@ -1,11 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '@app/core';
+import { CommonModule } from '@angular/common';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @Component({
   selector: 'lto-wallet-account-qr',
   templateUrl: './account-qr.component.html',
-  styleUrls: ['./account-qr.component.scss']
+  styleUrls: ['./account-qr.component.scss'],
+  imports: [
+    CommonModule,
+    QRCodeComponent
+  ]
 })
 export class AccountQrComponent implements OnInit {
   lto$!: Subscription;

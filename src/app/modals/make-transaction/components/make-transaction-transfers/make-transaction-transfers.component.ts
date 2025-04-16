@@ -1,15 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 import { formControlErrors, IBalance, LedgerService, WalletService } from '@app/core';
 import { MakeTransactionService } from '@app/core/services/make-transaction.service';
 import { Observable } from 'rxjs';
 @Component({
-  selector: 'lto-wallet-make-transaction-transfers',
-  templateUrl: './make-transaction-transfers.component.html',
-  styleUrls: ['./make-transaction-transfers.component.scss'],
+    selector: 'lto-wallet-make-transaction-transfers',
+    templateUrl: './make-transaction-transfers.component.html',
+    styleUrls: ['./make-transaction-transfers.component.scss'],
+    standalone: false
 })
 export class MakeTransactionTransfersComponent implements OnInit {
-  @Input() sendForm: FormGroup | undefined;
+  @Input() sendForm: UntypedFormGroup | undefined;
 
   ledger$!: Observable<boolean>;
   balance$!: Observable<IBalance>;
@@ -33,7 +34,7 @@ export class MakeTransactionTransfersComponent implements OnInit {
 
   addTransfer() {
     this._transactionService.addTransfer();
-    let transfers = <FormArray>this.sendForm?.get('transfers');
+    const transfers = this.sendForm?.get('transfers') as UntypedFormArray;
     this.transferVisible = transfers.length - 1;
   }
 
@@ -52,7 +53,7 @@ export class MakeTransactionTransfersComponent implements OnInit {
   }
 
   next() {
-    if (this.transferVisible < (<FormArray>this.sendForm?.controls.transfers).length - 1)
+    if (this.transferVisible < (this.sendForm?.controls.transfers as UntypedFormArray).length - 1)
       this.transferVisible++;
     this._transactionService.updateFee();
   }
@@ -62,12 +63,12 @@ export class MakeTransactionTransfersComponent implements OnInit {
   }
 
   get transfersCount() {
-    return (<FormArray>this.sendForm?.controls.transfers).length;
+    return (this.sendForm?.controls.transfers as UntypedFormArray).length;
   }
 
   get transferMaxAmount() {
     const transfers = this._transactionService.transfers;
-    const transfer = <FormGroup>transfers.controls[this.transferVisible];
+    const transfer = transfers.controls[this.transferVisible] as UntypedFormGroup;
     const amountControl = transfer.controls.amount;
     return this._transactionService.getTransferMaxAmount(amountControl.value);
   }

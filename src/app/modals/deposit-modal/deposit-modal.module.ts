@@ -9,22 +9,21 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DepositModalComponent } from './deposit-modal.component';
-import { DepositModal } from './deposit-modal';
-import { QRCodeModule } from 'angularx-qrcode';
+import { DepositModal } from '@app/modals';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @NgModule({
-  declarations: [DepositModalComponent],
-  imports: [
-    CommonModule,
-    QRCodeModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatProgressSpinnerModule,
-    MatDialogModule,
-    MatButtonModule,
-    FlexLayoutModule,
-  ],
-  entryComponents: [DepositModalComponent],
-  providers: [DepositModal],
+    declarations: [DepositModalComponent],
+    imports: [
+        CommonModule,
+        QRCodeComponent,
+        MatInputModule,
+        MatFormFieldModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+        MatButtonModule,
+        FlexLayoutModule,
+    ],
+    providers: [DepositModal]
 })
 export class DepositModalModule {}

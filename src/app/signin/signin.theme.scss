@@ -1,0 +1,29 @@
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+  lto-signin {
+    mat-list-item {
+      &:hover,
+      &.selected {
+        background-color: rgba($color: mat.get-theme-color($theme, primary, 50), $alpha: 0.5);
+
+        .mdc-list-item__primary-text,
+        .mdc-list-item__secondary-text {
+          color: mat.get-theme-color($theme, primary) !important;
+        }
+      }
+
+      .mdc-list-item__primary-text {
+        font-size: 18px;
+      }
+
+      .mdc-list-item__secondary-text {
+        font-weight: 100;
+      }
+
+      mat-icon.mat-primary {
+        color: mat.get-theme-color($theme, primary) !important;
+      }
+    }
+  }
+}

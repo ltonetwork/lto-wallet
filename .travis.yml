@@ -1,5 +1,5 @@
 language: node_js
-node_js: 18
+node_js: 20
 dist: jammy
 
 cache:
@@ -31,10 +31,10 @@ jobs:
   include:
     - stage: test
       install:
-        - yarn install --immutable
+        - yarn install --no-immutable
       script:
         - yarn test
-  
+
     - stage: release
       before_script:
         - CURRENT_VERSION=$(git describe --tags --abbrev=0)
@@ -58,7 +58,7 @@ jobs:
       stage: deploy
       install:
         - npm version --new-version $TRAVIS_TAG --no-git-tag-version
-        - yarn install --immutable
+        - yarn install --no-immutable
       script:
         - yarn build:testnet
       deploy:
@@ -79,7 +79,7 @@ jobs:
       stage: deploy
       install:
         - npm version --new-version $TRAVIS_TAG --no-git-tag-version
-        - yarn install
+        - yarn install --no-immutable
       script:
         - yarn build:mainnet
       deploy:

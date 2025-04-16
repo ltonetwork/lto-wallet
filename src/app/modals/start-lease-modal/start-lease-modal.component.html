@@ -1,41 +1,32 @@
 <div mat-dialog-title>Start lease</div>
 <mat-dialog-content>
   <ng-container *ngIf="!isNodeSelected">
-
-    <ng-container *ngIf="communityNodesCustom.length>0">
-      <table mat-table [dataSource]="communityNodesCustom">
-        <ng-container matColumnDef="name">
-
-          <td mat-cell *matCellDef="let element" class="noPaddingLeft">
-            <strong>{{element.name}}</strong><br />
-            <small>{{element.comment}}</small>
-          </td>
-        </ng-container>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsCustom;" (click)="selectNode(row)"></tr>
-
-      </table>
-      <table mat-table [dataSource]="communityNodesLoaded">
-        <ng-container matColumnDef="name">
-          <td mat-cell *matCellDef="let element" class="noPaddingLeft">
-            <strong>{{element.name}}</strong>
+    <table mat-table [dataSource]="communityNodes" class="communityNodes">
+      <ng-container matColumnDef="name">
+        <td mat-cell *matCellDef="let element" class="noPaddingLeft">
+          <strong>{{element.name}}</strong>
+          <ng-container *ngIf="element.address">
             <a (click)="$event.stopPropagation()" href='{{element.website}}' target="_blank" class="btn btn-link"><img src="assets/icons/external-link.svg" class="imgLink" alt="External link" /></a>
             <br /><span class="nodeAdr"> {{element.address}}</span>
-            <!--<br /><small>Payout: {{element.sharing}}</small>-->
-          </td>
+          </ng-container>
+          <ng-container *ngIf="!element.address">
+            <br />
+            <small>{{element.comment}}</small>
+          </ng-container>
+        </td>
 
-        </ng-container>
-        <ng-container matColumnDef="address" class="noPaddingRight">
-          <td mat-cell *matCellDef="let element" class="text-right" hidden>
-            <span class="nodeAdr"> {{element.address}}</span><br /><small>{{element.payoutSchedule}}</small>
-          </td>
-        </ng-container>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectNode(row)"></tr>
+      </ng-container>
+      <ng-container matColumnDef="address" class="noPaddingRight">
+        <td mat-cell *matCellDef="let element" class="text-right" hidden>
+          <span class="nodeAdr"> {{element.address}}</span><br /><small>{{element.payoutSchedule}}</small>
+        </td>
+      </ng-container>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectNode(row)"></tr>
 
-      </table>
-    </ng-container>
+    </table>
   </ng-container>
-  <ng-container *ngIf="isNodeSelected">
 
+  <ng-container *ngIf="isNodeSelected">
     <form [formGroup]="leaseForm" fxLayout="column" *ngIf="leaseForm; else loadingTpl">
       <mat-form-field>
         <mat-label>Balance</mat-label>
@@ -43,14 +34,14 @@
         <mat-error *ngIf="recipientErrors && recipientErrors.invalidAddress">Invalid address</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Recipient</mat-label>
+        <mat-label>Node address</mat-label>
         <input type="text" formControlName="recipient" required matInput />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Amount</mat-label>
         <input type="number" formControlName="amount" required matInput />
         <mat-error *ngIf="leaseForm?.controls.amount.hasError('max')">
-          Max value: {{ (balance$ | async).available | amountDivide }}
+          Max value: {{ (balance$ | async)?.available | amountDivide }}
         </mat-error>
       </mat-form-field>
       <mat-form-field>
@@ -58,6 +49,10 @@
         <input type="text" formControlName="fee" matInput />
       </mat-form-field>
     </form>
+
+    <div class="footnote">
+      Note: Leased tokens can’t be used or transferred until 3000 blocks (~50 hours) after canceling the lease.
+    </div>
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="end">

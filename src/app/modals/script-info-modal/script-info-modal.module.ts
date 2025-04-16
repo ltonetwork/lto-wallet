@@ -7,9 +7,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [ScriptInfoModalComponent],
-  imports: [CommonModule, MatDialogModule, MatButtonModule, FlexLayoutModule],
-  entryComponents: [ScriptInfoModalComponent],
-  providers: [ScriptInfoModal],
+    declarations: [ScriptInfoModalComponent],
+    imports: [CommonModule, MatDialogModule, MatButtonModule, FlexLayoutModule],
+    providers: [ScriptInfoModal]
 })
 export class ScriptInfoModalModule {}

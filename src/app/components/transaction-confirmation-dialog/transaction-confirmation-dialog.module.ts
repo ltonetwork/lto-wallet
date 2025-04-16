@@ -5,12 +5,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TransactionConfirmDialog } from './transaction-confirmation.dialog';
+import { TransactionConfirmationDialog } from './transaction-confirmation.dialog';
 
 @NgModule({
-  declarations: [TransactionConfirmationDialogComponent],
-  entryComponents: [TransactionConfirmationDialogComponent],
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, FlexLayoutModule],
-  providers: [TransactionConfirmDialog],
+    declarations: [TransactionConfirmationDialogComponent],
+    imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, FlexLayoutModule],
+    providers: [TransactionConfirmationDialog]
 })
 export class TransactionConfirmationDialogModule {}

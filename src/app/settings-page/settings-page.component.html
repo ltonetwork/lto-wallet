@@ -1,0 +1,51 @@
+<lto-content-section title="Settings" subtitle="" fxLayout="column" fxLayoutGap="32px">
+  <mat-card *ngIf="ltoAccount">
+    <mat-card-title>Account: {{ userAccount?.name }}</mat-card-title>
+    <mat-card-content>
+      <div class="items" fxLayout="column" fxLayoutGap="16px">
+        <lto-copyable-text label="Your address" [text]="ltoAccount?.address"></lto-copyable-text>
+        <lto-copyable-text label="Public key" [text]="ltoAccount?.publicKey"></lto-copyable-text>
+        <lto-wallet-hidden-text label="Backup phrase" [text]="ltoAccount?.seed"></lto-wallet-hidden-text>
+        <lto-wallet-hidden-text label="Private key" [text]="ltoAccount?.privateKey"></lto-wallet-hidden-text>
+        <lto-wallet-account-qr></lto-wallet-account-qr>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="ledgerAccount">
+    <mat-card-title> Account </mat-card-title>
+    <mat-card-content>
+      <div class="items" fxLayout="column" fxLayoutGap="16px">
+        <h3>Select your Ledger address</h3>
+        <mat-form-field appearance="fill">
+          <mat-label>Ledger Address ID</mat-label>
+          <mat-select [ngModel]="selectedLedgerId" (ngModelChange)="onChangeLedgerId($event)">
+            <mat-option *ngFor="let id of ledgerIdOptions" [value]="id">
+              {{ id }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <lto-copyable-text label="Your address" [text]="ledgerAccount?.address"></lto-copyable-text>
+        <lto-copyable-text label="Public key" [text]="ledgerAccount?.publicKey"></lto-copyable-text>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngIf="!ledgerAccount">
+    <mat-card-title>Danger zone</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <div fxLayout="row" fxLayoutAlign="start center" fxFlexFill>
+            <span fxFlex="1 1 auto">Script</span>
+            <ng-container *ngIf="(scriptEnabled$ | async); else noScript">
+              <button mat-button color="warn" (click)="disableScript()">Disable script</button>
+              <button mat-button (click)="showScriptInfo()">Script info</button>
+            </ng-container>
+            <ng-template #noScript>
+              <button mat-button color="warn" (click)="createScript()">Set script</button>
+            </ng-template>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</lto-content-section>

@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { MatDialogModule } from '@angular/material/dialog';
-
-import { AppbarModule, SidenavModule } from './components';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import {
   PublicNode,
@@ -11,34 +8,23 @@ import {
   WalletService,
   AuthService,
   addresValidatorProvider,
-  WavesService,
   Sidenav,
-  wavesAddressValidatorProvider,
   ScriptsService,
   LedgerService,
 } from './services';
 
-import { ScriptsServiceImpl } from './services/scripts.service.impl';
-
 @NgModule({
-  declarations: [],
-  imports: [HttpClientModule, MatDialogModule],
-  exports: [AppbarModule, SidenavModule],
   providers: [
-    PublicNode.provider,
-    BridgeService.provider,
+    PublicNode,
+    BridgeService,
     EncoderService,
-    WalletService.provider,
-    AuthService.provider,
+    WalletService,
+    AuthService,
     addresValidatorProvider,
-    wavesAddressValidatorProvider,
-    WavesService.provider,
-    Sidenav.provider,
-    LedgerService.provider,
-    {
-      provide: ScriptsService,
-      useClass: ScriptsServiceImpl,
-    },
+    Sidenav,
+    LedgerService,
+    ScriptsService,
+    provideHttpClient(withInterceptorsFromDi()),
   ],
 })
 export class CoreModule {}

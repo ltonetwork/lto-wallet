@@ -1,11 +1,10 @@
-@import './core/components/components.theme.scss';
-@import './shared//components/components.theme.scss';
-@import './pages/pages.theme.scss';
-@mixin app-theme($theme) {
-  @include signin-theme($theme);
-  @include core-components-theme($theme);
-  @include shared-components-theme($theme);
-  @include pages-theme($theme);
+@use './signin/signin.theme' as signin;
+@use 'components/components.theme' as shared-components;
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+  @include signin.theme($theme);
+  @include shared-components.theme($theme);
 
   .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,
   .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap,
@@ -39,14 +38,28 @@
   }
 
   .mat-toolbar {
-    color: #fff;
+    color: #fff !important;
   }
 
   .mat-card-content {
     margin: 0 15px;
   }
-}
 
-.qrcode {
-  text-align: center;
+  .qrcode {
+    text-align: center;
+  }
+
+  mat-card-title {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 16px;
+    font-weight: 400;
+  }
+
+  mat-chip.mat-warn {
+    background-color: mat.get-theme-color($theme, warn) !important;
+
+    .mat-mdc-chip-action-label {
+      color: white !important;
+    }
+  }
 }

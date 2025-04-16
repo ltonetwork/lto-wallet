@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { AuthService, IUserAccount } from '../core';
-import { Account } from 'lto-api';
+import { Account } from '@ltonetwork/lto/accounts';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'lto-create-account',
-  templateUrl: './create-account.component.html',
-  styleUrls: ['./create-account.component.scss'],
+    selector: 'lto-create-account',
+    templateUrl: './create-account.component.html',
+    styleUrls: ['./create-account.component.scss'],
+    standalone: false
 })
 export class CreateAccountComponent implements OnInit {
   wallet: Account;
@@ -19,13 +20,13 @@ export class CreateAccountComponent implements OnInit {
   stepTemplate!: TemplateRef<any>;
 
   get seedWords(): string[] {
-    return this.wallet.seed.split(' ');
+    return this.wallet.seed?.split(' ') ?? [];
   }
 
   selectedWords: string[] = [];
   shuffledWords: string[] = [];
 
-  private _selectedWordsIndexes: { [key: number]: boolean } = {};
+  private _selectedWordsIndexes: Record<number, boolean> = {};
 
   get getAvailableWords(): string[] {
     return [];
@@ -89,8 +90,8 @@ export class CreateAccountComponent implements OnInit {
 
   resetConfirmation() {
     this.shuffledWords = this.wallet.seed
-      .split(' ')
-      .sort(() => (Math.random() * 100 > 50 ? -1 : 1));
+      ?.split(' ')
+      .sort(() => (Math.random() * 100 > 50 ? -1 : 1)) ?? [];
     this.selectedWords = [];
     this._selectedWordsIndexes = {};
   }

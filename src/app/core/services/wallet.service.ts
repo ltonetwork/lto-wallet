@@ -11,13 +11,13 @@ import {
 } from 'rxjs/operators';
 import { PublicNode } from './public-node';
 import { AuthService, IUserAccount } from './auth.service';
-import { Account } from 'lto-api';
-import { TransactionTypes } from '../transaction-types';
+import { TransactionTypes } from '@app/core';
 import { BridgeService, TokenType } from './bridge.service';
 import { transactionsFilter, toPromise } from '../utils';
-import { AMOUNT_DIVIDER, DEFAULT_TRANSFER_FEE } from '../../tokens';
-import { LedgerService, ILedgerAccount, IUnsignedTransaction } from './ledger.service';
-import { base58Encode } from 'lto-ledger-js-unofficial-test/lib/utils';
+import { AMOUNT_DIVIDER } from '@app/tokens';
+import { LedgerService } from './ledger.service';
+import { Binary } from '@ltonetwork/lto';
+import { Anchor, CancelLease, Lease, MassTransfer, Transfer } from '@ltonetwork/lto/transactions';
 
 export interface IBalance {
   regular: number;
@@ -26,7 +26,7 @@ export interface IBalance {
   effective: number;
   /**
    * All numbers in balance come in INT form.
-   * To make them human readable we need to divide them by AMOUNT_DIVIDER
+   * To make them human-readable we need to divide them by AMOUNT_DIVIDER
    */
   amountDivider: number;
 }
@@ -63,8 +63,8 @@ export interface IMassTransfer {
 /**
  * TODO: Refactor Wallet to handle situations when auth.wallet is null
  */
-@Injectable()
-export class WalletServiceImpl implements WalletService {
+@Injectable({ providedIn: 'root' })
+export class WalletService {
   balance$: Observable<IBalance>;
   transferFee$ = of(1);
 
@@ -78,7 +78,7 @@ export class WalletServiceImpl implements WalletService {
   address$: Observable<string>;
 
   private polling$: Observable<number> = timer(0, 5000).pipe(share());
-  private manualUpdate$ = new Subject<any>();
+  private manualUpdate$ = new Subject<void>();
 
   private update$: Observable<string>;
   private unconfirmed$: Observable<LTO.Transaction[]>;
@@ -88,8 +88,7 @@ export class WalletServiceImpl implements WalletService {
     private auth: AuthService,
     private bridgeService: BridgeService,
     private ledgerService: LedgerService,
-    @Inject(AMOUNT_DIVIDER) private amountDivider: number,
-    @Inject(DEFAULT_TRANSFER_FEE) private defaultTransferFee: number
+    @Inject(AMOUNT_DIVIDER) private amountDivider: number
   ) {
     this.address$ = auth.account$.pipe(
       filter((account): account is IUserAccount => !!account),
@@ -149,9 +148,16 @@ export class WalletServiceImpl implements WalletService {
         );
       }),
       map(([transferTransactions, unconfirmed]) => {
+        const all = [...transferTransactions.items, ...unconfirmed];
+
+        // Keep only the first transaction with each unique id
+        const unique = Array.from(
+          new Map(all.map(tx => [tx.id, tx])).values()
+        );
+
         return {
           total: transferTransactions.total,
-          items: [...transferTransactions.items, ...unconfirmed]
+          items: unique
         };
       }),
       shareReplay(1)
@@ -227,65 +233,63 @@ export class WalletServiceImpl implements WalletService {
     this.balance$.subscribe(); // make balance hot
   }
 
-  prepareTransfer(data: ITransferPayload): object {
+  prepareTransfer(data: ITransferPayload): Transfer {
     const fee = Math.round(data.fee * this.amountDivider);
     const amount = Math.round(data.amount * this.amountDivider);
 
-    return {
-      ...data,
-      type: TransactionTypes.TRANSFER,
-      version: 3,
-      timestamp: Date.now(),
-      fee,
-      amount,
-    };
+    const tx = new Transfer(data.recipient, amount, data.attachment);
+    tx.fee = fee;
+
+    return tx;
   }
 
   async transfer(data: ITransferPayload) {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    if (!wallet && !ledger) throw new Error('No account connected');
+    if (!wallet && !ledger) {
+      throw new Error('No account connected');
+    }
 
     const tx = this.prepareTransfer(data);
 
     if (ledger) {
-      await this.ledgerService.signAndBroadcast(tx as IUnsignedTransaction);
+      await this.ledgerService.signAndBroadcast(tx);
     } else if (wallet) {
-      await this.auth.ltoInstance.API.PublicNode.transactions.broadcast('transfer', tx, wallet.getSignKeys());
+      await tx.signWith(wallet).broadcastTo(this.auth.lto.node);
     }
 
     this.manualUpdate$.next();
   }
 
-  prepareMassTransfer(data: IMassTransferPayload): object {
+  prepareMassTransfer(data: IMassTransferPayload): MassTransfer {
     const fee = Math.round(data.fee * this.amountDivider);
     const transfers = data.transfers.map(transfer => ({
       recipient: transfer.recipient,
       amount: Math.round(transfer.amount * this.amountDivider)
     }));
 
-    return {
-      type: TransactionTypes.MASS_TRANSFER,
-      version: 3,
-      timestamp: Date.now(),
-      transfers,
-      fee,
-    };
+    const tx = new MassTransfer(transfers, data.attachment);
+    tx.fee = fee;
+    tx.timestamp = Date.now();
+
+    return tx;
   }
 
   async massTransfer(data: IMassTransferPayload) {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    if (!wallet && !ledger) throw new Error('No account connected');
+    if (!wallet && !ledger) {
+      throw new Error('No account connected');
+    }
 
     const tx = this.prepareMassTransfer(data);
 
     if (ledger) {
-      await this.ledgerService.signAndBroadcast(tx as IUnsignedTransaction);
+      await this.ledgerService.signAndBroadcast(tx);
     } else if (wallet) {
-      await this.auth.ltoInstance.API.PublicNode.transactions.broadcast('massTransfer', tx, wallet.getSignKeys());
+      await tx.signWith(wallet).broadcastTo(this.auth.lto.node);
     }
 
     this.manualUpdate$.next();
@@ -307,90 +311,87 @@ export class WalletServiceImpl implements WalletService {
     return this.transfer(data);
   }
 
-  prepareLease(data: ILeasePayload): object {
+  prepareLease(data: ILeasePayload): Lease {
     const fee = Math.round(data.fee * this.amountDivider);
     const amount = Math.round(data.amount * this.amountDivider);
 
-    return {
-      ...data,
-      type: TransactionTypes.LEASING,
-      version: 3,
-      timestamp: Date.now(),
-      fee,
-      amount,
-    };
+    const tx = new Lease(data.recipient, amount);
+    tx.fee = fee;
+    tx.timestamp = Date.now();
+
+    return tx;
   }
 
   async lease(data: ILeasePayload): Promise<any> {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    if (!wallet && !ledger) throw new Error('No account connected');
+    if (!wallet && !ledger) {
+      throw new Error('No account connected');
+    }
 
     const tx = this.prepareLease(data);
 
     if (ledger) {
-      await this.ledgerService.signAndBroadcast(tx as IUnsignedTransaction);
+      await this.ledgerService.signAndBroadcast(tx);
     } else if (wallet) {
-      await this.auth.ltoInstance.API.PublicNode.transactions.broadcast('lease', tx, wallet.getSignKeys());
+      await tx.signWith(wallet).broadcastTo(this.auth.lto.node);
     }
 
     this.manualUpdate$.next();
   }
 
-  prepareCancelLease(transactionId: string): object {
-    return {
-      transactionId,
-      timestamp: Date.now(),
-      type: TransactionTypes.CANCEL_LEASING,
-      version: 3,
-      fee: this.defaultTransferFee,
-    };
+  prepareCancelLease(transactionId: string): CancelLease {
+    const tx = new CancelLease(transactionId);
+    tx.timestamp = Date.now();
+
+    return tx;
   }
 
   async cancelLease(transactionId: string): Promise<any> {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    if (!wallet && !ledger) throw new Error('No account connected');
+    if (!wallet && !ledger) {
+      throw new Error('No account connected');
+    }
 
     const tx = this.prepareCancelLease(transactionId);
 
     if (ledger) {
-      await this.ledgerService.signAndBroadcast(tx as IUnsignedTransaction);
+      await this.ledgerService.signAndBroadcast(tx);
     } else if (wallet) {
-      await this.auth.ltoInstance.API.PublicNode.transactions.broadcast('cancelLeasing', tx, wallet.getSignKeys());
+      await tx.signWith(wallet).broadcastTo(this.auth.lto.node);
     }
 
     this.manualUpdate$.next();
   }
 
-  prepareAnchor(data: IAnchorPayload): object {
+  prepareAnchor(data: IAnchorPayload): Anchor {
     const fee = Math.round(data.fee * this.amountDivider);
-    const anchors = [data.hash];
+    const hash = Binary.fromBase58(data.hash);
 
-    return {
-      ...data,
-      type: TransactionTypes.ANCHOR,
-      version: 3,
-      timestamp: Date.now(),
-      fee,
-      anchors,
-    };
+    const tx = new Anchor(hash);
+    tx.fee = fee;
+    tx.timestamp = Date.now();
+
+    return tx;
   }
 
   async anchor(data: IAnchorPayload) {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
 
-    if (!wallet && !ledger) throw new Error('No account connected');
+    if (!wallet && !ledger) {
+      throw new Error('No account connected');
+    }
 
     const tx = this.prepareAnchor(data);
 
     if (ledger) {
-      await this.ledgerService.signAndBroadcast(tx as IUnsignedTransaction);
+      await this.ledgerService.signAndBroadcast(tx);
     } else if (wallet) {
-      await this.auth.ltoInstance.API.PublicNode.transactions.broadcast('anchor', tx, wallet.getSignKeys());
+      await tx.signWith(wallet).broadcastTo(this.auth.lto.node);
     }
 
     this.manualUpdate$.next();
@@ -417,37 +418,4 @@ export class WalletServiceImpl implements WalletService {
         };
       });
   }
-}
-
-export abstract class WalletService {
-  static provider: ClassProvider = {
-    provide: WalletService,
-    useClass: WalletServiceImpl
-  };
-
-  abstract address$: Observable<string>;
-  abstract balance$: Observable<IBalance>;
-  abstract canSign$: Observable<boolean>;
-  abstract transferFee$: Observable<number>;
-
-  // Transactions history
-  abstract transactions$: Observable<any[]>;
-  abstract leasingTransactions$: Observable<any[]>;
-  abstract dataTransactions$: Observable<any[]>;
-  abstract transfers$: Observable<LTO.Page<LTO.Transaction>>; // Filtered by type 4 and 11
-  abstract anchors$: Observable<LTO.Page<LTO.Transaction>>;
-
-  abstract prepareTransfer(data: ITransferPayload): object;
-  abstract prepareMassTransfer(data: IMassTransferPayload): object;
-  abstract prepareLease(data: ILeasePayload): object;
-  abstract prepareCancelLease(transactionId: string): object;
-  abstract prepareAnchor(data: IAnchorPayload): object;
-
-  abstract transfer(data: ITransferPayload): Promise<void>;
-  abstract massTransfer(data: IMassTransferPayload): Promise<void>;
-  abstract lease(data: ILeasePayload): Promise<any>;
-  abstract cancelLease(transactionId: string): Promise<any>;
-  abstract anchor(data: IAnchorPayload): Promise<void>;
-
-  abstract withdraw(address: string, amount: number, fee: number, captcha: string, tokenType?: TokenType, attachment?: string): Promise<any>;
 }

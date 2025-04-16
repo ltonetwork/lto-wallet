@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>Your deposit address</h2>
+
+<mat-dialog-content>
+  <ng-container *ngIf="shouldSpecifyToAddress && !captchaResponse && !shouldShowCaptcha; then specifyToAddressTpl;">
+  </ng-container>
+  <ng-container *ngIf="shouldShowCaptcha && !captchaResponse; then captchaTpl;">
+  </ng-container>
+  <ng-container *ngIf="captchaResponse || (!shouldSpecifyToAddress && !shouldShowCaptcha); then addressTpl;">
+  </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="closeClick()" *ngIf="captchaResponse">Close</button>
+  <button mat-flat-button color="primary" (click)="shouldShowCaptcha = true" [disabled]="depositForm.invalid"
+    *ngIf="shouldSpecifyToAddress && !captchaResponse && !shouldShowCaptcha">Next</button>
+</mat-dialog-actions>
+
+<ng-template #captchaTpl>
+  <div class="captcha-box" fxLayout="column" fxLayoutAlign="start center">
+    <p>We will now generate an {{otherTokenType}} address to which you should transfer your LTO (<span
+        class="{{otherColor}}">{{otherTokenType}}</span>)
+      tokens to receive LTO (<span class="{{toColor}}">{{toTokenType}}</span>) in your LTO wallet.</p>
+    <re-captcha (resolved)="resolveCaptcha($event)"></re-captcha>
+  </div>
+</ng-template>
+
+<ng-template #addressTpl>
+  <ng-container *ngIf="address$ | async as address; else addressLoading">
+    <div class="address-box" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+      <p *ngIf="toTokenType === 'BEP-2'">
+        <span class="red">
+          Do not use this to send to Binance Exchange. If you are depositing to Binance Exchange, directly deposit your mainnet tokens.
+          The BEP2 requires additional memo settings, which is currently not supported.
+        </span>
+      </p>
+
+      <p>
+        Please send the LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens to the following wallet address:
+      </p>
+
+      <qrcode [qrdata]="address" [width]="148"></qrcode>
+      <span>or</span>
+      <lto-copyable-text [text]="address"></lto-copyable-text>
+
+      <p>
+        Once we have received your LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens,
+        we will swap them to LTO (<span class="{{toColor}}">{{toTokenType}}</span>) tokens.
+      </p>
+      <p>
+        Your LTO (<span class="{{toColor}}">{{toTokenType}}</span>) tokens will be automatically added to your LTO wallet.
+      </p>
+    </div>
+  </ng-container>
+
+  <ng-template #addressLoading>
+    <lto-loading-spinner></lto-loading-spinner>
+  </ng-template>
+</ng-template>
+
+<ng-template #specifyToAddressTpl>
+  <p>Please enter the address on which you want to receive LTO (<span class="{{toColor}}">{{toTokenType}}</span>)
+    tokens.</p>
+
+  <form class="deposit-form" [formGroup]="depositForm">
+    <div class="row address" [ngClass]="{invalid: isInvalid('address')}">
+      <div class="label">To</div>
+      <div class="value input">
+        <input type="text" placeholder="{{addressPlaceholder}} ADDRESS" required formControlName="address">
+      </div>
+    </div>
+  </form>
+  <div class="form-errors" *ngIf="depositForm.dirty && depositForm.invalid">
+    <div class="form-error" *ngFor="let error of getFormErrors()">{{error}}</div>
+  </div>
+</ng-template>

@@ -1,0 +1,45 @@
+mat-card-title {
+  text-align: center;
+  color: #3d5170;
+  font-weight: 500 !important;
+}
+
+mat-card-content {
+  text-align: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+mat-card-actions {
+  text-align: center;
+  justify-content: center;
+  padding: 24px 24px 42px 24px !important;
+}
+
+.text-box {
+  margin: 0 auto;
+  max-width: 500px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.img-box {
+  text-align: center;
+  padding: 24px 0;
+
+  img {
+    width: 260px;
+  }
+}
+
+.purple {
+  color: #9867d0;
+}
+
+.blue {
+  color: #4a90e2;
+}
+
+.yellow {
+  color: rgb(240, 185, 11);
+}

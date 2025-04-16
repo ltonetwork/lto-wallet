@@ -6,7 +6,7 @@
     ></lto-transaction-details>
   </mat-sidenav>
   <mat-sidenav-content>
-    <lto-content-section title="Anchors" subtitle="">
+    <lto-content-section title="Anchors" subtitle="Anchoring records a cryptographic hash of your data on the blockchain to prove its existence and integrity.">
         <mat-card>
           <mat-card-title>Create anchor</mat-card-title>
           <mat-card-content>
@@ -18,7 +18,7 @@
     <lto-content-section>
       <div fxLayout="row" fxLayoutGap="16px">
         <mat-card fxFlex="1 1 auto">
-          <mat-card-title>Active anchors</mat-card-title>
+          <mat-card-title>Your anchors</mat-card-title>
           <mat-card-content>
             <ng-container *ngIf="(groupedAnchors$ | async) as groupedAcnhors; else: loadingTpl">
               <ng-container *ngIf="groupedAcnhors.length; else: emptyTpl">

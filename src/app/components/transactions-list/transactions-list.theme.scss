@@ -1,0 +1,10 @@
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+  lto-transactions-list {
+    lto-transaction-row:hover,
+    lto-transaction-row.selected {
+      background-color: rgba($color: mat.get-theme-color($theme, primary, 50), $alpha: 0.5);
+    }
+  }
+}

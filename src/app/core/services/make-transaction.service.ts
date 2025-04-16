@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { FormArray, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { ADDRESS_VALIDATOR } from '.';
 import { IBalance } from './wallet.service';
@@ -10,20 +10,19 @@ import { IBalance } from './wallet.service';
 @Injectable({ providedIn: 'root' })
 export class MakeTransactionService {
 
-    sendForm: FormGroup | null = null;
+    sendForm: UntypedFormGroup | null = null;
     maxTransactionValue: any;
     minTransactionValue: any;
 
-    balance!: IBalance
-    transferFee!: number
-    massTransferFee!: number
+    balance!: IBalance;
+    transferFee!: number;
+    massTransferFee!: number;
 
     transfersCount$ = new Subject<number>();
 
     constructor (
-        @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn
-        ) {
-        }
+      @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn
+    ) {}
 
     /**
      * Build a new form
@@ -39,10 +38,10 @@ export class MakeTransactionService {
         this.maxTransactionValue = balance.available / balance.amountDivider;
         this.minTransactionValue = 1 / balance.amountDivider;
 
-        this.sendForm = new FormGroup({
-            transfers: new FormArray([this.getTransferControl()]),
-            attachment: new FormControl('', []),
-            fee: new FormControl({ value: this.fee, disabled: true }, [
+        this.sendForm = new UntypedFormGroup({
+            transfers: new UntypedFormArray([this.getTransferControl()]),
+            attachment: new UntypedFormControl('', []),
+            fee: new UntypedFormControl({ value: this.fee, disabled: true }, [
                 Validators.required,
                 Validators.min(this.minTransactionValue),
             ]),
@@ -71,10 +70,10 @@ export class MakeTransactionService {
      * Build and return a FormGroup for a new transfer
      */
     private getTransferControl () {
-        return new FormGroup({
-            recipient: new FormControl('', [Validators.required, this._addressValidator]),
-            amount: new FormControl(0, this.getAmountValidators()),
-        })
+        return new UntypedFormGroup({
+            recipient: new UntypedFormControl('', [Validators.required, this._addressValidator]),
+            amount: new UntypedFormControl(0, this.getAmountValidators()),
+        });
     }
 
     private getAmountValidators (controllerAmount = 0) {
@@ -114,12 +113,12 @@ export class MakeTransactionService {
      */
     public updateAmountsValidators () {
         this.transfers.controls.forEach(transfer => {
-            let amountControl = (<FormGroup> transfer).controls.amount;
+            const amountControl = (transfer as UntypedFormGroup).controls.amount;
             amountControl.setValidators(this.getAmountValidators(amountControl.value));
         });
     }
 
-    get transfers () { return <FormArray> this.sendForm?.get('transfers'); }
+    get transfers () { return this.sendForm?.get('transfers') as UntypedFormArray; }
 
     /**
      * Total amount to be sent to all recipients

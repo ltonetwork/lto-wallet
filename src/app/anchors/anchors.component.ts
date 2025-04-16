@@ -2,16 +2,16 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { WalletService, groupByDate, TransactionsGroup, EncoderService, toPromise } from '../core';
-import { FeeInputModal } from '../modals';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TransactionConfirmDialog } from '@app/components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '@app/components/transaction-confirmation-dialog';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 import { AMOUNT_DIVIDER, ANCHOR_FEE } from '@app/tokens';
 
 @Component({
-  selector: 'lto-anchors',
-  templateUrl: './anchors.component.html',
-  styleUrls: ['./anchors.component.scss'],
+    selector: 'lto-anchors',
+    templateUrl: './anchors.component.html',
+    styleUrls: ['./anchors.component.scss'],
+    standalone: false
 })
 export class AnchorsComponent implements OnInit {
   fee: number;
@@ -25,7 +25,7 @@ export class AnchorsComponent implements OnInit {
 
   constructor(
     private wallet: WalletService,
-    private confirmDialog: TransactionConfirmDialog,
+    private confirmDialog: TransactionConfirmationDialog,
     private qrDialog: TransactionQrDialog,
     private snackbar: MatSnackBar,
     private encoder: EncoderService,

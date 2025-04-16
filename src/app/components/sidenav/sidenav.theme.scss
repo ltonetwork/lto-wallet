@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+  lto-sidenav {
+    .main-navigation {
+      a:hover,
+      a.active {
+        color: mat.get-theme-color($theme, primary) !important;
+        background-color: rgba($color: mat.get-theme-color($theme, primary, 50), $alpha: 0.5);
+      }
+
+      a.active {
+        border-left-color: mat.get-theme-color($theme, primary) !important;
+      }
+    }
+  }
+}

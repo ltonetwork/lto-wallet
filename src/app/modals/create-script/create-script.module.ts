@@ -11,18 +11,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [CreateScriptComponent],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    FlexLayoutModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-  ],
-  entryComponents: [CreateScriptComponent],
-  providers: [CreateScriptModal],
+    declarations: [CreateScriptComponent],
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        FlexLayoutModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+    ],
+    providers: [CreateScriptModal]
 })
 export class CreateScriptModule {}

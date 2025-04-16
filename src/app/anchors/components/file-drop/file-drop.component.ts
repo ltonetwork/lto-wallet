@@ -4,9 +4,10 @@ import { sha256 } from 'js-sha256';
 import { EncoderService } from '../../../core';
 
 @Component({
-  selector: 'lto-wallet-file-drop',
-  templateUrl: './file-drop.component.html',
-  styleUrls: ['./file-drop.component.scss'],
+    selector: 'lto-wallet-file-drop',
+    templateUrl: './file-drop.component.html',
+    styleUrls: ['./file-drop.component.scss'],
+    standalone: false
 })
 export class FileDropComponent implements OnInit {
   @Output() fileHash = new EventEmitter<{

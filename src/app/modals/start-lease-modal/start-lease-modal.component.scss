@@ -3,6 +3,11 @@
   box-sizing: border-box;
 }
 
+.communityNodes td {
+  padding: 10px 0 5px 0;
+  cursor: pointer;
+}
+
 .text-right {
   text-align: right;
 }
@@ -60,6 +65,13 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
   .btn-link {
     display: none;
   }
+}
+
+.footnote {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 14px;
 }
 
 /*

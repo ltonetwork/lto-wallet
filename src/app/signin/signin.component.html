@@ -1,0 +1,51 @@
+<lto-content-section>
+  <mat-card>
+    <mat-card-content>
+      <div class="login-form">
+        <h1>Sign in</h1>
+        <p>Accounts found on this device</p>
+        <mat-list>
+          <mat-list-item
+            matRipple
+            *ngFor="let account of (availableAccounts$ | async)"
+            [ngClass]="{ selected: account.address === (selected$ | async)?.address }"
+            (click)="select(account)"
+          >
+            <mat-icon matListItemIcon color="primary" class="align-center">account_circle</mat-icon>
+
+            <div matListItemTitle>{{ account.name }}</div>
+            <div matListItemLine>{{ account.address }}</div>
+
+            <div matListItemMeta class="align-center">
+              <mat-icon class="delete-account" (click)="deleteAccount(account, $event)">close</mat-icon>
+            </div>
+          </mat-list-item>
+        </mat-list>
+        <div class="password-input">
+          <form (submit)="signin(password.value)">
+            <mat-form-field appearance="outline">
+              <input type="password" matInput placeholder="Password" required name="password" ngModel #password="ngModel" />
+            </mat-form-field>
+          </form>
+        </div>
+      </div>
+      <div class="buttons">
+        <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
+          <a fxFlex="1 1 50" mat-button routerLink="/create-account">Create Account</a>
+          <button fxFlex="1 1 50" mat-flat-button color="primary" [disabled]="password.invalid" (click)="signin(password.value)">
+            Sign in
+          </button>
+        </div>
+        <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
+          <div class="label" fxFlex="1 1 30">or sign in with</div>
+          <button fxFlex="1 1 35" mat-button (click)="mobileLogin()">
+            Universal wallet
+          </button>
+          <button fxFlex="1 1 35" mat-button (click)="ledgerLogin()">
+            Ledger
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</lto-content-section>

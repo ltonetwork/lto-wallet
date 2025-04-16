@@ -1,31 +1,25 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core';
-// import { SigninComponent, SigninModule } from './signin';
-import { CreateAccountComponent, CreateAccountModule } from './create-account';
-import { ImportComponent, ImportModule } from './import';
-import { NoAccountComponent, NoAccountModule } from './no-account';
-import { TransfersComponent, TransfersModule } from './transfers';
-import { LeasingComponent } from './leasing/leasing.component';
-import { AnchorsComponent, AnchorsModule } from './anchors';
-import { SettingsPageComponent, SigninComponent } from './pages';
+
+import { PlaceholderPageComponent } from './placeholder.component';
 
 const routes: Routes = [
   {
     path: 'signin',
-    component: SigninComponent
+    loadChildren: () => import('./signin/signin.module').then(m => m.SigninModule)
   },
   {
     path: 'create-account',
-    component: CreateAccountComponent
+    loadChildren: () => import('./create-account/create-account.module').then(m => m.CreateAccountModule)
   },
   {
     path: 'import-account',
-    component: ImportComponent
+    loadChildren: () => import('./import/import.module').then(m => m.ImportModule)
   },
   {
     path: 'start',
-    component: NoAccountComponent
+    loadChildren: () => import('./no-account/no-account.module').then(m => m.NoAccountModule)
   },
   {
     path: '',
@@ -33,27 +27,23 @@ const routes: Routes = [
     children: [
       {
         path: 'transfers',
-        component: TransfersComponent
+        loadChildren: () => import('./transfers/transfers.module').then(m => m.TransfersModule)
       },
       {
         path: 'leasing',
-        component: LeasingComponent
+        loadChildren: () => import('./leasing/leasing.module').then(m => m.LeasingModule)
       },
       {
         path: 'anchors',
-        component: AnchorsComponent
+        loadChildren: () => import('./anchors/anchors.module').then(m => m.AnchorsModule)
       },
       {
         path: 'bridge',
-        loadChildren: './pages/bridge/bridge.module#BridgeModule'
+        loadChildren: () => import('./bridge/bridge.module').then(m => m.BridgeModule)
       },
       {
         path: 'settings',
-        component: SettingsPageComponent
-      },
-      {
-        path: 'seed-swap',
-        loadChildren: './pages/token-swap/token-swap.module#TokenSwapModule'
+        loadChildren: () => import('./settings-page/settings-page.module').then(m => m.SettingsPageModule)
       },
       {
         path: '',
@@ -67,12 +57,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes),
-    // SigninModule,
-    CreateAccountModule,
-    ImportModule,
-    NoAccountModule,
-    TransfersModule,
-    AnchorsModule
+    PlaceholderPageComponent // Standalone, no need for a module
   ],
   exports: [RouterModule]
 })

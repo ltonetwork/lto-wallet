@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" fxLayout="row">
+  <lto-brand *ngIf="authenticated !== true"></lto-brand>
+  <ng-container *ngIf="authenticated">
+    <button mat-icon-button fxHide fxShow.lt-lg (click)="openSidenav()" class="menu-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </ng-container>
+  <div class="address" *ngIf="authenticated" (click)="copyAddressToClipboard(userAccount?.address || ledgerAccount?.address)">
+    <span fxHide.xs>Address:</span> {{userAccount?.address || ledgerAccount?.address}}
+  </div>
+  <span fxFlex="1 1 auto"></span>
+  <div fxLayout="row" fxLayoutGap="8px" class="hide-small-screen" *ngIf="authenticated !== true">
+    <a mat-button routerLink="/signin">Sign in</a>
+    <a mat-button routerLink="create-account">Create Account</a>
+    <a mat-button routerLink="import-account">Import Account</a>
+  </div>
+  <div *ngIf="authenticated" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px">
+    <button mat-button class="account-button" [matMenuTriggerFor]="appMenu">
+      <span fxLayout="row" fxLayoutAlign="start center" fxFlex fxLayoutGap="8px">
+        <mat-icon class="user-icon">account_box</mat-icon>
+        <span class="hide-small-screen" fxFlex>{{ userAccount?.name || ledgerAccount?.name }}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </span>
+    </button>
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item (click)="signout()">Sign out</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

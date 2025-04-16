@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { WalletService, IBalance, FeeService, toPromise, TransactionTypes } from '@app/core';
 import { take, withLatestFrom } from 'rxjs/operators';
-import { TransactionConfirmDialog } from '@app/components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '@app/components/transaction-confirmation-dialog';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 import { MakeTransactionService } from '@app/core/services/make-transaction.service';
 import { base58Encode } from 'lto-ledger-js-unofficial-test/lib/utils';
@@ -22,14 +22,15 @@ interface FormTransfersValue {
 }
 
 @Component({
-  selector: 'lto-wallet-make-transaction',
-  templateUrl: './make-transaction.component.html',
-  styleUrls: ['./make-transaction.component.scss'],
+    selector: 'lto-wallet-make-transaction',
+    templateUrl: './make-transaction.component.html',
+    styleUrls: ['./make-transaction.component.scss'],
+    standalone: false
 })
-export class MakeTransactionComponent implements OnInit {
+export class MakeTransactionComponent implements OnInit, OnDestroy {
   loading = false;
 
-  sendForm: FormGroup | null = null;
+  sendForm: UntypedFormGroup | null = null;
   private _recipientsCountSubscription: Subscription;
 
   balance$!: Observable<IBalance>;
@@ -38,7 +39,7 @@ export class MakeTransactionComponent implements OnInit {
     public dialogRef: MatDialogRef<any>,
     private wallet: WalletService,
     private snackbar: MatSnackBar,
-    private transactionConfirmDialog: TransactionConfirmDialog,
+    private transactionConfirmDialog: TransactionConfirmationDialog,
     private transactionQrDialog: TransactionQrDialog,
     private _feeService: FeeService,
     private _transactionService: MakeTransactionService
@@ -108,6 +109,7 @@ export class MakeTransactionComponent implements OnInit {
         await this.wallet.massTransfer(formValue);
       }
     } catch (error) {
+      console.error(error);
       this.snackbar.open('Transaction error', 'DISMISS', { duration: 3000 });
     }
 

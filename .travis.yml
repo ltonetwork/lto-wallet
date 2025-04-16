@@ -31,7 +31,7 @@ jobs:
   include:
     - stage: test
       install:
-        - yarn install --immutable
+        - yarn install
       script:
         - yarn test
 
@@ -58,7 +58,7 @@ jobs:
       stage: deploy
       install:
         - npm version --new-version $TRAVIS_TAG --no-git-tag-version
-        - yarn install --immutable
+        - yarn install
       script:
         - yarn build:testnet
       deploy:

@@ -8,14 +8,15 @@ import {
   formControlErrors,
   ADDRESS_VALIDATOR,
   FeeService, toPromise
-} from '../../core';
-import { DEFAULT_TRANSFER_FEE } from '../../tokens';
+} from '@app/core';
 import { take, withLatestFrom } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { TransactionConfirmationDialog } from '../../components/transaction-confirmation-dialog';
+import { TransactionConfirmationDialog } from '@app/components';
 
+// @ts-ignore
 import * as communityNodes from '../../../communityNodes.json';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
+import { LTO_NETWORK_BYTE } from '@app/tokens';
 
 export interface LeaseData {
   amount: number;
@@ -50,8 +51,7 @@ export class StartLeaseModalComponent implements OnInit {
   leaseForm: UntypedFormGroup | null = null;
   balance$!: Observable<IBalance>;
   isNodeSelected = false;
-  communityNodesLoaded: CommunityNode[] = [];
-  communityNodesCustom: CommunityNode[] = [];
+  communityNodes: CommunityNode[] = [];
   displayedColumns: string[] = ['name', 'address'];
   displayedColumnsCustom: string[] = ['name'];
   get recipientErrors() {
@@ -63,14 +63,16 @@ export class StartLeaseModalComponent implements OnInit {
     private _wallet: WalletService,
     private confirmDialog: TransactionConfirmationDialog,
     private qrDialog: TransactionQrDialog,
+    @Inject(LTO_NETWORK_BYTE) networkByte: string,
     @Inject(ADDRESS_VALIDATOR) private _addressValidator: ValidatorFn,
     @Inject(MAT_DIALOG_DATA) public balance: number,
     private _feeService: FeeService,
   ) {
     // Shuffling array
-    this.communityNodesLoaded = communityNodes.nodes.sort(() => Math.random() - 0.5)
-      .filter((o: CommunityNode) => (!o.hide));
-    this.communityNodesCustom.unshift({
+    this.communityNodes = networkByte === 'L'
+      ? communityNodes.nodes.sort(() => Math.random() - 0.5).filter((o: CommunityNode) => (!o.hide))
+      : [];
+    this.communityNodes.unshift({
       'name': 'Custom',
       'address': '',
       'comment': 'Lease to an unlisted node by entering the node address',

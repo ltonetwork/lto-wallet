@@ -8,7 +8,7 @@ import { LTO_NETWORK_BYTE } from '@app/tokens';
 
 import { toPromise } from '../utils';
 import LTO from '@ltonetwork/lto';
-import { Anchor, Transaction } from '@ltonetwork/lto/transactions';
+import { Anchor, CancelLease, Lease, MassTransfer, SetScript, Transaction, Transfer } from '@ltonetwork/lto/transactions';
 
 enum NetworkCode {
   MAINNET = 76,
@@ -105,19 +105,31 @@ export class LedgerService {
       throw new Error('Error with Ledger address data');
     }
 
-    let prefixBytes = new Uint8Array();
+    let shiftBytes = 0;
     const sender = this.lto.account({ publicKey: ledgerAccount.publicKey });
 
     tx.version = 1;
     tx.sender = sender.address;
     tx.senderKeyType = 'ed25519';
     tx.senderPublicKey = sender.publicKey;
+    tx.timestamp ??= Date.now();
 
-    if (tx.type === Anchor.TYPE) {
-      // on Ledger, anchor tx bytes start with
-      // `type + version + type + version`
-      // see https://github.com/Stakely/lto-network-ledger-wallet-ui/blob/master/scripts/transactions.js#L94
-      prefixBytes = new Uint8Array([15, 1]);
+    switch (tx.type) {
+      case Transfer.TYPE:
+        tx.version = 2;
+        shiftBytes = 2;
+        break;
+      case Lease.TYPE:
+      case CancelLease.TYPE:
+        tx.version = 2;
+        shiftBytes = 3;
+        break;
+      case Anchor.TYPE:
+        tx.version = 1;
+        shiftBytes = 1;
+        break;
+      default:
+        throw new Error('Transaction type not supported by Ledger');
     }
 
     /*const contentDialog = this.matDialog.open(ContentDialogComponent, {
@@ -129,14 +141,17 @@ export class LedgerService {
     });*/
     this.dialog$.next('open');
 
+    console.log(tx);
     const byteTransaction = tx.toBinary();
 
-    // `prefixBytes` is used to assemble the data properly before sending to Ledger app
-    // Ledger app doesn't sign properly if data is not correct,
-    // and it's slightly different from proper schema sometimes
-    const finalBytes = new Uint8Array(prefixBytes.length + byteTransaction.length);
+    // on Ledger, tx bytes start with
+    // `type + version + type`
+    // Version is always 1 for Ledger
+    // see https://github.com/Stakely/lto-network-ledger-wallet-ui/blob/master/scripts/transactions.js#L94
+    const prefixBytes = Uint8Array.from([tx.type, 1, tx.type]);
+    const finalBytes = new Uint8Array(prefixBytes.length + byteTransaction.length - shiftBytes);
     finalBytes.set(prefixBytes);
-    finalBytes.set(byteTransaction, prefixBytes.length);
+    finalBytes.set(byteTransaction.slice(shiftBytes), prefixBytes.length);
 
     const signature = await this.ledger
       .signTransaction(this.ledgerId, { precision: 1 }, finalBytes)

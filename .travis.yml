@@ -72,12 +72,12 @@ jobs:
         region: eu-west-1
         cleanup: false
         detect_encoding: true
-        local_dir: dist
+        local_dir: dist/browser
         on:
           tags: true
 
     - name: "Mainnet"
-      stage: deploy
+      stage: deploy/browser
       install:
         - npm version --new-version $TRAVIS_TAG --no-git-tag-version
         - yarn install --no-immutable
@@ -93,7 +93,7 @@ jobs:
         region: eu-west-1
         cleanup: false
         detect_encoding: true
-        local_dir: dist
+        local_dir: dist/browser
         on:
           tags: true
 

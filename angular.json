@@ -25,8 +25,13 @@
               "src/polyfills.ts"
             ],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.png", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": [
+              "src/favicon.png",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [],
             "allowedCommonJsDependencies": [
               "crypto-js",
@@ -124,12 +129,31 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [],
-            "assets": ["src/favicon.png", "src/assets"]
+            "assets": [
+              "src/favicon.png",
+              "src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }

@@ -9,8 +9,8 @@ import { WalletService, BridgeService, toPromise } from '../../../core';
 })
 export class BridgeDepositDialogComponent implements OnInit {
   step = 1;
-  bridgeAddress: string = '';
-  captcha: string = '';
+  bridgeAddress = '';
+  captcha = '';
 
   constructor(private wallet: WalletService, private bridgeService: BridgeService) {}
 

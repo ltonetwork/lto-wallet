@@ -76,8 +76,8 @@ export class CrendetialsFormComponent implements OnInit {
   ngOnInit() {}
 
   private checkPasswords(group: UntypedFormGroup) {
-    let passwordField = group.get('password') as AbstractControl;
-    let confirmationField = group.get('confirmation') as AbstractControl;
+    const passwordField = group.get('password') as AbstractControl;
+    const confirmationField = group.get('confirmation') as AbstractControl;
 
     return passwordField.value === confirmationField.value ? null : { notMatch: true };
   }

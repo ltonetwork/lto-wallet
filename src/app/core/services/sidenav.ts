@@ -14,7 +14,7 @@ export class Sidenav {
   opened$: Observable<boolean>;
   hasBackdrop$: Observable<boolean>;
 
-  private _opened$: Subject<boolean> = new Subject();
+  private _opened$ = new Subject<boolean>();
 
   constructor(media: MediaObserver) {
     this.mode$ = media.asObservable().pipe(

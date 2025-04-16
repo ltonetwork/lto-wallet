@@ -10,7 +10,7 @@ import { DEFAULT_TRANSFER_FEE, AMOUNT_DIVIDER } from '../../../tokens';
     standalone: false
 })
 export class BridgeWithdrawDialogComponent implements OnInit {
-  step: number = 1;
+  step = 1;
   mainnetAmount = 0;
 
   get erc20Amount(): number {
@@ -26,8 +26,8 @@ export class BridgeWithdrawDialogComponent implements OnInit {
   }
 
   erc20Address = '';
-  captchaResponse: string = '';
-  burnRate: number = 0;
+  captchaResponse = '';
+  burnRate = 0;
 
   get cannotContinue(): boolean {
     return !this.captchaResponse || this.erc20Amount === 0 || !this.erc20Address;

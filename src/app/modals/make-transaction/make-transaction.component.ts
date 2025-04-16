@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,7 +27,7 @@ interface FormTransfersValue {
     styleUrls: ['./make-transaction.component.scss'],
     standalone: false
 })
-export class MakeTransactionComponent implements OnInit {
+export class MakeTransactionComponent implements OnInit, OnDestroy {
   loading = false;
 
   sendForm: UntypedFormGroup | null = null;

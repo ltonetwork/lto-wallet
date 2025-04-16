@@ -13,7 +13,7 @@ import { take, withLatestFrom } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TransactionConfirmationDialog } from '@app/components';
 
-// @ts-ignore
+// @ts-expect-error Why is importing JSON resulting in a typescript error?
 import * as communityNodes from '../../../communityNodes.json';
 import { TransactionQrDialog } from '@app/components/transaction-qr-dialog';
 import { LTO_NETWORK_BYTE } from '@app/tokens';

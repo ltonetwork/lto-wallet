@@ -39,7 +39,7 @@ export class AmountInputComponent implements OnInit, ControlValueAccessor {
   private _value: any = '';
   private _invalid = false;
 
-  private changeCb: Function | null = null;
+  private changeCb: ((value: any) => unknown) | null = null;
 
   constructor() {}
 
@@ -57,11 +57,11 @@ export class AmountInputComponent implements OnInit, ControlValueAccessor {
    * ControlValueAccessor
    */
 
-  registerOnChange(cb: Function) {
+  registerOnChange(cb: (value: any) => unknown) {
     this.changeCb = cb;
   }
 
-  registerOnTouched(cb: Function) {}
+  registerOnTouched(cb: (value: any) => unknown) {}
 
   writeValue(value: any) {
     this.value = value;

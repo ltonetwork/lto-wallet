@@ -26,7 +26,7 @@ export class CreateAccountComponent implements OnInit {
   selectedWords: string[] = [];
   shuffledWords: string[] = [];
 
-  private _selectedWordsIndexes: { [key: number]: boolean } = {};
+  private _selectedWordsIndexes: Record<number, boolean> = {};
 
   get getAvailableWords(): string[] {
     return [];

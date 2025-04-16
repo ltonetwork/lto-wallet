@@ -16,7 +16,7 @@ import { MobileAuthModal } from '@app/modals/mobile-auth-modal';
 })
 export class SigninComponent implements OnInit {
   availableAccounts$: Observable<IUserAccount[]>;
-  selected$: ReplaySubject<IUserAccount> = new ReplaySubject(1);
+  selected$ = new ReplaySubject<IUserAccount>(1);
 
   constructor(
     private auth: AuthService,

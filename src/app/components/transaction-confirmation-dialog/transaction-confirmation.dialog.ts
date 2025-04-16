@@ -10,7 +10,7 @@ import { toPromise } from '@app/core';
 export class TransactionConfirmationDialog {
   constructor(private matDialog: MatDialog) {}
 
-  show(dialogData: TransactionConfirmDialogData, width: number = 500): Promise<boolean> {
+  show(dialogData: TransactionConfirmDialogData, width = 500): Promise<boolean> {
     return toPromise(
       this.matDialog
         .open(TransactionConfirmationDialogComponent, {

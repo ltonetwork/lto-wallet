@@ -4,7 +4,7 @@
 <mat-dialog-content>
   <ng-container *ngIf="!transfer$; else trollTpl">
     <p>Please fill in the amount of <span class="purple">MAINNET</span> tokens you want to transfer and the
-      {{otherTokenType == 'ERC-20' ? 'ETH' : otherTokenType}} address where you want to receive the
+      {{otherTokenType === 'ERC-20' ? 'ETH' : otherTokenType}} address where you want to receive the
       <span class="{{otherColor}}">{{otherTokenType}}</span> tokens.
     </p>
 

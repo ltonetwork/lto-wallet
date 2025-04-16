@@ -34,7 +34,7 @@ export class MakeTransactionTransfersComponent implements OnInit {
 
   addTransfer() {
     this._transactionService.addTransfer();
-    let transfers = <UntypedFormArray>this.sendForm?.get('transfers');
+    const transfers = this.sendForm?.get('transfers') as UntypedFormArray;
     this.transferVisible = transfers.length - 1;
   }
 
@@ -53,7 +53,7 @@ export class MakeTransactionTransfersComponent implements OnInit {
   }
 
   next() {
-    if (this.transferVisible < (<UntypedFormArray>this.sendForm?.controls.transfers).length - 1)
+    if (this.transferVisible < (this.sendForm?.controls.transfers as UntypedFormArray).length - 1)
       this.transferVisible++;
     this._transactionService.updateFee();
   }
@@ -63,12 +63,12 @@ export class MakeTransactionTransfersComponent implements OnInit {
   }
 
   get transfersCount() {
-    return (<UntypedFormArray>this.sendForm?.controls.transfers).length;
+    return (this.sendForm?.controls.transfers as UntypedFormArray).length;
   }
 
   get transferMaxAmount() {
     const transfers = this._transactionService.transfers;
-    const transfer = <UntypedFormGroup>transfers.controls[this.transferVisible];
+    const transfer = transfers.controls[this.transferVisible] as UntypedFormGroup;
     const amountControl = transfer.controls.amount;
     return this._transactionService.getTransferMaxAmount(amountControl.value);
   }

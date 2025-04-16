@@ -4,7 +4,7 @@ import { Buffer } from 'buffer';
 @Injectable()
 export class EncoderService {
   private alphabet: string;
-  private alphabetMap: { [key: string]: number };
+  private alphabetMap: Record<string, number>;
 
   constructor() {
     this.alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
@@ -63,8 +63,7 @@ export class EncoderService {
 
     const bytes = [0];
 
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < hash.length; i++) {
+       for (let i = 0; i < hash.length; i++) {
       const c = hash[i];
       if (!(c in this.alphabetMap)) {
         throw new Error(`hash-encoder: there is no character "${c}" in the base58 sequence`);
@@ -79,17 +78,13 @@ export class EncoderService {
 
       for (let j = 0; j < bytes.length; j++) {
         bytes[j] += carry;
-        // tslint:disable-next-line:no-bitwise
-        carry = bytes[j] >> 8;
-        // tslint:disable-next-line:no-bitwise
-        bytes[j] &= 0xff;
+               carry = bytes[j] >> 8;
+               bytes[j] &= 0xff;
       }
 
       while (carry) {
-        // tslint:disable-next-line:no-bitwise
-        bytes.push(carry & 0xff);
-        // tslint:disable-next-line:no-bitwise
-        carry >>= 8;
+               bytes.push(carry & 0xff);
+               carry >>= 8;
       }
     }
 

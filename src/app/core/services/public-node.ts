@@ -28,9 +28,9 @@ export class PublicNode {
   }
 
   lastBlocks(
-    count: number = 20,
-    poll: boolean = false,
-    pollInterval: number = 5000
+    count = 20,
+    poll = false,
+    pollInterval = 5000
   ): Observable<any> {
     const pollTimer = poll ? timer(0, pollInterval) : timer(0);
     return pollTimer.pipe(
@@ -64,7 +64,7 @@ export class PublicNode {
 
   indexedTransactions(
     address: string,
-    index: string = 'anchor',
+    index = 'anchor',
     limit = 100
   ): Observable<LTO.Page<LTO.Transaction>> {
     const params: any = {

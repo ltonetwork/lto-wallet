@@ -28,7 +28,7 @@ export class TransactionQrDialog {
     });
   }
 
-  show(dialogData: TransactionQrDialogData, width: number = 500): Promise<boolean> {
+  show(dialogData: TransactionQrDialogData, width = 500): Promise<boolean> {
     this.tx = dialogData.tx as any;
 
     this.dialog = this.matDialog

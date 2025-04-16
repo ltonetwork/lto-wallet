@@ -8,13 +8,9 @@ import { SwapTokenType } from '@app/bridge/bridge-swap/swap-type';
 export type TokenType = 'LTO' | 'LTO20' | 'WAVES' | 'BINANCE' | 'BSC';
 
 interface BridgeCache {
-  deposit: {
-    [address: string]: string;
-  };
+  deposit: Record<string, string>;
 
-  withdraw: {
-    [recipient: string]: string;
-  };
+  withdraw: Record<string, string>;
 }
 
 interface BridgeStats {

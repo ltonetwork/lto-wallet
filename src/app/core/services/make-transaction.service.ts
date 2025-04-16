@@ -113,12 +113,12 @@ export class MakeTransactionService {
      */
     public updateAmountsValidators () {
         this.transfers.controls.forEach(transfer => {
-            const amountControl = (<UntypedFormGroup> transfer).controls.amount;
+            const amountControl = (transfer as UntypedFormGroup).controls.amount;
             amountControl.setValidators(this.getAmountValidators(amountControl.value));
         });
     }
 
-    get transfers () { return <UntypedFormArray> this.sendForm?.get('transfers'); }
+    get transfers () { return this.sendForm?.get('transfers') as UntypedFormArray; }
 
     /**
      * Total amount to be sent to all recipients

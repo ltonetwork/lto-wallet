@@ -36,7 +36,6 @@ jobs:
         - yarn test
 
     - stage: release
-      before_install: false
       install: false
       before_script:
         - CURRENT_VERSION=$(git describe --tags --abbrev=0)

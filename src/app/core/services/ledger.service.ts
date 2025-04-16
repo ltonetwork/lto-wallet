@@ -8,7 +8,9 @@ import { LTO_NETWORK_BYTE } from '@app/tokens';
 
 import { toPromise } from '../utils';
 import LTO from '@ltonetwork/lto';
-import { Anchor, CancelLease, Lease, MassTransfer, SetScript, Transaction, Transfer } from '@ltonetwork/lto/transactions';
+import { Anchor, CancelLease, Lease, Transaction, Transfer } from '@ltonetwork/lto/transactions';
+import { MatDialog } from '@angular/material/dialog';
+import { ContentDialogComponent } from '@app/components';
 
 enum NetworkCode {
   MAINNET = 76,
@@ -45,10 +47,10 @@ export class LedgerService {
   public connected$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public ledgerAccount$: BehaviorSubject<ILedgerAccount | null> =
     new BehaviorSubject<ILedgerAccount | null>(null);
-  public dialog$ = new Subject<'open' | 'close'>();
 
   constructor(
     @Inject(LTO_NETWORK_BYTE) networkByte: string,
+    private matDialog: MatDialog,
   ) {
     this.transport = TransportWebUSB;
     this.networkCode = networkByte.charCodeAt(0);
@@ -132,16 +134,14 @@ export class LedgerService {
         throw new Error('Transaction type not supported by Ledger');
     }
 
-    /*const contentDialog = this.matDialog.open(ContentDialogComponent, {
+    const contentDialog = this.matDialog.open(ContentDialogComponent, {
       disableClose: true,
       data: {
         title: 'Awaiting input from device',
         content: 'Please review the transaction on your Ledger device',
       },
-    });*/
-    this.dialog$.next('open');
+    });
 
-    console.log(tx);
     const byteTransaction = tx.toBinary();
 
     // on Ledger, tx bytes start with
@@ -156,13 +156,14 @@ export class LedgerService {
     const signature = await this.ledger
       .signTransaction(this.ledgerId, { precision: 1 }, finalBytes)
       .catch((error) => {
-        this.dialog$.next('close');
+        contentDialog.close();
         return Promise.reject(error);
       });
 
+    tx.version = 1;
     tx.proofs.push(signature);
 
-    this.dialog$.next('close');
+    contentDialog.close();
 
     await this.lto.node.broadcast(tx);
   }

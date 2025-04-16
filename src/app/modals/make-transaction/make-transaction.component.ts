@@ -100,7 +100,7 @@ export class MakeTransactionComponent implements OnInit {
 
     this.loading = true;
 
-    //try {
+    try {
       if (formValue.transfers.length === 1) {
         // Send simple transaction
         await this.wallet.transfer(this._transferData(formValue));
@@ -108,10 +108,10 @@ export class MakeTransactionComponent implements OnInit {
         // Send mass transaction
         await this.wallet.massTransfer(formValue);
       }
-    /*} catch (error) {
+    } catch (error) {
       console.error(error);
       this.snackbar.open('Transaction error', 'DISMISS', { duration: 3000 });
-    }*/
+    }
 
     this.loading = false;
     this.dialogRef.close();

@@ -29,7 +29,7 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <mat-card>
+  <mat-card *ngIf="!ledgerAccount">
     <mat-card-title>Danger zone</mat-card-title>
     <mat-card-content>
       <mat-list>

@@ -6,7 +6,7 @@ import { QRCodeComponent } from 'angularx-qrcode';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from '@app/core';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
     MatDialogModule,
     MatSnackBarModule,
     QRCodeComponent,
-    MatButton,
+    MatButtonModule,
     RouterModule,
   ],
   providers: [WalletConnectModal],

@@ -27,7 +27,8 @@ export class AuthService {
   account$: Observable<IUserAccount | null>;
   wallet$ = new BehaviorSubject<Account | null>(null);
   localAccount$ = new BehaviorSubject<IUserAccount | null>(null);
-  ledgerAccount$ = new BehaviorSubject<ILedgerAccount | null>(null);
+  ledgerAccount$: BehaviorSubject<ILedgerAccount | null>;
+  walletConnectAccount$: BehaviorSubject<{ address: string } | null>;
 
   lto: LTO;
   availableAccounts$: Observable<IUserAccount[]>;
@@ -63,6 +64,7 @@ export class AuthService {
     );
 
     this.ledgerAccount$ = this.ledger.ledgerAccount$;
+    this.walletConnectAccount$ = this.walletConnect.account$;
 
     this.loadSession();
   }

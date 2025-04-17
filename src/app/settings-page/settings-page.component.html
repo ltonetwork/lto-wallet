@@ -3,10 +3,10 @@
     <mat-card-title>Account: {{ userAccount?.name }}</mat-card-title>
     <mat-card-content>
       <div class="items" fxLayout="column" fxLayoutGap="16px">
-        <lto-copyable-text label="Your address" [text]="ltoAccount?.address"></lto-copyable-text>
-        <lto-copyable-text label="Public key" [text]="ltoAccount?.publicKey"></lto-copyable-text>
-        <lto-wallet-hidden-text label="Backup phrase" [text]="ltoAccount?.seed"></lto-wallet-hidden-text>
-        <lto-wallet-hidden-text label="Private key" [text]="ltoAccount?.privateKey"></lto-wallet-hidden-text>
+        <lto-copyable-text label="Your address" [text]="ltoAccount!.address"></lto-copyable-text>
+        <lto-copyable-text label="Public key" [text]="ltoAccount!.publicKey"></lto-copyable-text>
+        <lto-wallet-hidden-text *ngIf="ltoAccount!.seed" label="Backup phrase" [text]="ltoAccount!.seed"></lto-wallet-hidden-text>
+        <lto-wallet-hidden-text label="Private key" [text]="ltoAccount!.privateKey"></lto-wallet-hidden-text>
         <lto-wallet-account-qr></lto-wallet-account-qr>
       </div>
     </mat-card-content>
@@ -24,12 +24,12 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <lto-copyable-text label="Your address" [text]="ledgerAccount?.address"></lto-copyable-text>
-        <lto-copyable-text label="Public key" [text]="ledgerAccount?.publicKey"></lto-copyable-text>
+        <lto-copyable-text label="Your address" [text]="ledgerAccount!.address"></lto-copyable-text>
+        <lto-copyable-text label="Public key" [text]="ledgerAccount!.publicKey"></lto-copyable-text>
       </div>
     </mat-card-content>
   </mat-card>
-  <mat-card *ngIf="!ledgerAccount">
+  <mat-card *ngIf="ltoAccount">
     <mat-card-title>Danger zone</mat-card-title>
     <mat-card-content>
       <mat-list>

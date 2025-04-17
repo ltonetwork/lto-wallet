@@ -2,6 +2,9 @@ import { Inject, Injectable } from '@angular/core';
 import SignClient from '@walletconnect/sign-client';
 import { BehaviorSubject } from 'rxjs';
 import { LTO_NETWORK_BYTE, WALLETCONNECT_PROJECT_ID } from '@app/tokens';
+import { Transaction, txFromData } from '@ltonetwork/lto/transactions';
+import { ContentDialogComponent } from '@app/components';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({ providedIn: 'root' })
 export class WalletConnectService {
@@ -15,6 +18,7 @@ export class WalletConnectService {
   constructor(
     @Inject(LTO_NETWORK_BYTE) private networkByte: string,
     @Inject(WALLETCONNECT_PROJECT_ID) private projectId: string,
+    private matDialog: MatDialog,
   ) {}
 
   async init() {
@@ -92,25 +96,40 @@ export class WalletConnectService {
     this.account$.next(null);
   }
 
-  async respondRequest(topic: string, id: number, result: any) {
-    await this.client.respond({
-      topic,
-      response: {
-        id,
-        jsonrpc: '2.0',
-        result,
-      },
-    });
-  }
+  public async sign<T extends Transaction>(tx: T): Promise<T> {
+    if (!this.client || !this.session$.value) {
+      throw new Error('WalletConnect not initialized or session missing');
+    }
 
-  async rejectRequest(topic: string, id: number, error: any) {
-    await this.client.respond({
-      topic,
-      response: {
-        id,
-        jsonrpc: '2.0',
-        error,
+    const session = this.session$.value;
+
+    const contentDialog = this.matDialog.open(ContentDialogComponent, {
+      disableClose: true,
+      data: {
+        title: 'Awaiting confirmation from WalletConnect',
+        content: 'Please review the transaction in your wallet application',
       },
     });
+
+    const result = await this.client.request({
+      topic: session.topic,
+      chainId: this.networkByte === 'T' ? 'lto:testnet' : 'lto:mainnet',
+      request: {
+        method: 'lto_signTransaction',
+        params: {
+          transaction: tx.toJSON(),
+        },
+      },
+    }) as Transaction;
+
+    contentDialog.close();
+
+    tx.sender = result.sender;
+    tx.senderKeyType = result.senderKeyType;
+    tx.senderPublicKey = result.senderPublicKey;
+    tx.timestamp = result.timestamp;
+    tx.proofs = result.proofs;
+
+    return tx;
   }
 }

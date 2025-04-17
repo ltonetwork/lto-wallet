@@ -31,20 +31,20 @@
       </div>
       <div class="buttons">
         <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
-          <a fxFlex="1 1 50" mat-button routerLink="/create-account">Create Account</a>
-          <button fxFlex="1 1 50" mat-flat-button color="primary" [disabled]="password.invalid" (click)="signin(password.value)">
+          <a fxFlex="1 1 50" fxFlex.xs="none" mat-button routerLink="/create-account">Create Account</a>
+          <button fxFlex="1 1 50" fxFlex.xs="none" mat-flat-button color="primary" [disabled]="password.invalid" (click)="signin(password.value)">
             Sign in
           </button>
         </div>
         <div class="label">or sign in with</div>
         <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
-          <button fxFlex="1 1 33" mat-button (click)="mobileLogin()">
+          <button fxFlex="1 1 33" fxFlex.xs="none" mat-button (click)="mobileLogin()">
             Universal wallet
           </button>
-          <button fxFlex="1 1 33" mat-button (click)="ledgerLogin()">
+          <button fxFlex="1 1 33" fxFlex.xs="none" mat-button (click)="ledgerLogin()">
             Ledger
           </button>
-          <button fxFlex="1 1 33" mat-button (click)="walletConnectLogin()">
+          <button fxFlex="1 1 33" fxFlex.xs="none" mat-button (click)="walletConnectLogin()">
             WalletConnect
           </button>
         </div>

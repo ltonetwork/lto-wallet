@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '@app/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { LoadingSpinnerComponent } from '@app/components';
 
 @NgModule({
   declarations: [WalletConnectModalComponent],
@@ -19,6 +20,7 @@ import { RouterModule } from '@angular/router';
     QRCodeComponent,
     MatButtonModule,
     RouterModule,
+    LoadingSpinnerComponent
   ],
   providers: [WalletConnectModal],
 })

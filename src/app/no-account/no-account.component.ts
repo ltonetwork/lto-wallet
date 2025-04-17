@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { LedgerService } from '@app/core';
 import { MobileAuthModal } from '@app/modals/mobile-auth-modal';
+import { WalletConnectModal } from '@app/modals/walletconnect-modal';
 
 @Component({
     selector: 'lto-no-account',
@@ -17,13 +18,14 @@ export class NoAccountComponent {
     private snackbar: MatSnackBar,
     private ledger: LedgerService,
     private mobileAuthModal: MobileAuthModal,
+    private walletConnectModal: WalletConnectModal,
   ) {}
 
   async mobileLogin() {
     await this.mobileAuthModal.show();
   }
 
-  async connectLedger() {
+  async ledgerLogin() {
     try {
       await this.ledger.connect();
 
@@ -44,5 +46,9 @@ export class NoAccountComponent {
       const message = (error as any)?.message || 'Unknown error';
       this.snackbar.open(message, 'Dismiss', { duration: 6000 });
     }
+  }
+
+  async walletConnectLogin() {
+    await this.walletConnectModal.show();
   }
 }

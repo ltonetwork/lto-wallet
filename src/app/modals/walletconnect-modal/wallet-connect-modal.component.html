@@ -1,11 +1,16 @@
-<ng-container *ngIf="uri$ | async as uri; else loading">
-  <qrcode [qrdata]="uri" [width]="300" errorCorrectionLevel="M"></qrcode>
+<div mat-dialog-title class="title">
+  <img src="assets/walletconnect.png" alt="WalletConnect logo" />
+</div>
+<mat-dialog-content>
+  <ng-container *ngIf="uri$ | async as uri; else loading">
+    <qrcode [qrdata]="uri" [width]="300" errorCorrectionLevel="M"></qrcode>
 
-  <div class="actions">
-    <button mat-button (click)="copyToClipboard(uri)">Copy link</button>
-  </div>
-</ng-container>
+    <div class="actions">
+      <button mat-button (click)="copyToClipboard(uri)">Copy link</button>
+    </div>
+  </ng-container>
+</mat-dialog-content>
 
 <ng-template #loading>
-  <p>Connecting to WalletConnect...</p>
+  <lto-loading-spinner />
 </ng-template>

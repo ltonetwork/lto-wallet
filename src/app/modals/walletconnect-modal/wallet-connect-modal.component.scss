@@ -1,4 +1,11 @@
-p {
-  font-size: 0.8em;
+.actions {
   text-align: center;
+}
+
+.title {
+  padding: 16px 16px 0 16px;
+
+  img {
+    max-width: 100%;
+  }
 }

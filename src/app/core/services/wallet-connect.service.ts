@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import SignClient from '@walletconnect/sign-client';
 import { BehaviorSubject } from 'rxjs';
 import { LTO_NETWORK_BYTE, WALLETCONNECT_PROJECT_ID } from '@app/tokens';
-import { Transaction, txFromData } from '@ltonetwork/lto/transactions';
+import { Transaction } from '@ltonetwork/lto/transactions';
 import { ContentDialogComponent } from '@app/components';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -32,10 +32,6 @@ export class WalletConnectService {
         url,
         icons: [`${url}/lto-icon-512.png`],
       },
-    });
-
-    this.client.on('session_proposal', proposal => {
-      // Handle session proposal if acting as a wallet
     });
 
     this.client.on('session_request', request => {
@@ -111,25 +107,31 @@ export class WalletConnectService {
       },
     });
 
-    const result = await this.client.request({
-      topic: session.topic,
-      chainId: this.networkByte === 'T' ? 'lto:testnet' : 'lto:mainnet',
-      request: {
-        method: 'lto_signTransaction',
-        params: {
-          transaction: tx.toJSON(),
+    try {
+      const result = await this.client.request({
+        topic: session.topic,
+        chainId: this.networkByte === 'T' ? 'lto:testnet' : 'lto:mainnet',
+        request: {
+          method: 'lto_signTransaction',
+          params: {
+            transaction: tx.toJSON(),
+          },
         },
-      },
-    }) as Transaction;
+      }) as Transaction;
 
-    contentDialog.close();
+      if (result.sender !== this.account$.value?.address) {
+        throw new Error('Sender address mismatch');
+      }
 
-    tx.sender = result.sender;
-    tx.senderKeyType = result.senderKeyType;
-    tx.senderPublicKey = result.senderPublicKey;
-    tx.timestamp = result.timestamp;
-    tx.proofs = result.proofs;
+      tx.sender = result.sender;
+      tx.senderKeyType = result.senderKeyType;
+      tx.senderPublicKey = result.senderPublicKey;
+      tx.timestamp = result.timestamp;
+      tx.proofs = result.proofs;
 
-    return tx;
+      return tx;
+    } finally {
+      contentDialog.close();
+    }
   }
 }

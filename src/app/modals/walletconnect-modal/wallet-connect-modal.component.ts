@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { WalletConnectService } from '@app/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./wallet-connect-modal.component.scss'],
   standalone: false,
 })
-export class WalletConnectModalComponent implements OnInit {
+export class WalletConnectModalComponent implements OnInit, OnDestroy {
   public uri$ = this.walletConnect.uri$;
 
   constructor(
@@ -37,6 +37,10 @@ export class WalletConnectModalComponent implements OnInit {
       this.snackbar.open('Unable to connect using WalletConnect', 'Dismiss', { duration: 3000 });
       this.dialog.close();
     }
+  }
+
+  async ngOnDestroy() {
+    this.uri$.next(null);
   }
 
   copyToClipboard(uri: string) {

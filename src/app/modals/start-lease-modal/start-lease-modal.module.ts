@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../../shared';
+import { SharedModule } from '@app/shared';
 import { MatDialogModule } from '@angular/material/dialog';
 import { StartLeaseModalComponent } from './start-lease-modal.component';
 import { StartLeaseModal } from './start-lease-modal';
@@ -10,7 +10,7 @@ import { MatChip } from '@angular/material/chips';
 
 @NgModule({
   imports: [SharedModule, ReactiveFormsModule, MatDialogModule, MatProgressSpinnerModule, AmountDividePipe, MatChip],
-    declarations: [StartLeaseModalComponent],
-    providers: [StartLeaseModal]
+  declarations: [StartLeaseModalComponent],
+  providers: [StartLeaseModal]
 })
 export class StartLeaseModalModule {}

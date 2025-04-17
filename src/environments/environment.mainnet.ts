@@ -13,5 +13,8 @@ export const environment = {
   mobile_auth: {
     ws: 'wss://wallet-auth.lto.network/connect',
     url: 'https://wallet-auth.lto.network/'
-  }
+  },
+  walletConnect: {
+    project_id: '',
+  },
 };

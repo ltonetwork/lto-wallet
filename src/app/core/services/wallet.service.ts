@@ -11,13 +11,13 @@ import {
 } from 'rxjs/operators';
 import { PublicNode } from './public-node';
 import { AuthService, IUserAccount } from './auth.service';
-import { TransactionTypes } from '@app/core';
+import { TransactionTypes, WalletConnectService } from '@app/core';
 import { BridgeService, TokenType } from './bridge.service';
 import { transactionsFilter, toPromise } from '../utils';
 import { AMOUNT_DIVIDER } from '@app/tokens';
 import { LedgerService } from './ledger.service';
 import { Binary } from '@ltonetwork/lto';
-import { Anchor, CancelLease, Lease, MassTransfer, Transfer } from '@ltonetwork/lto/transactions';
+import { Anchor, CancelLease, Lease, MassTransfer, Transaction, Transfer } from '@ltonetwork/lto/transactions';
 
 export interface IBalance {
   regular: number;
@@ -88,6 +88,7 @@ export class WalletService {
     private auth: AuthService,
     private bridgeService: BridgeService,
     private ledgerService: LedgerService,
+    private walletConnectService: WalletConnectService,
     @Inject(AMOUNT_DIVIDER) private amountDivider: number
   ) {
     this.address$ = auth.account$.pipe(
@@ -96,8 +97,8 @@ export class WalletService {
     );
 
     this.canSign$ = this.address$.pipe(
-      switchMapTo(combineLatest(this.auth.wallet$, this.auth.ledgerAccount$)),
-      map(([wallet, ledgerAccount]) => !!wallet || !!ledgerAccount)
+      switchMapTo(combineLatest(this.auth.wallet$, this.auth.ledgerAccount$, this.auth.walletConnectAccount$)),
+      map(([wallet, ledgerAccount, walletConnectAccount]) => !!wallet || !!ledgerAccount || !!walletConnectAccount)
     );
 
     this.update$ = merge(this.polling$, this.manualUpdate$).pipe(
@@ -244,22 +245,8 @@ export class WalletService {
   }
 
   async transfer(data: ITransferPayload) {
-    const wallet = await toPromise(this.auth.wallet$);
-    const ledger = await toPromise(this.auth.ledgerAccount$);
-
-    if (!wallet && !ledger) {
-      throw new Error('No account connected');
-    }
-
-    const tx = this.prepareTransfer(data);
-
-    if (ledger) {
-      await this.ledgerService.signAndBroadcast(tx);
-    } else if (wallet) {
-      await tx.signWith(wallet).broadcastTo(this.auth.lto.node);
-    }
-
-    this.manualUpdate$.next();
+    let tx = this.prepareTransfer(data);
+    await this.signAndBroadcast(tx);
   }
 
   prepareMassTransfer(data: IMassTransferPayload): MassTransfer {
@@ -277,22 +264,8 @@ export class WalletService {
   }
 
   async massTransfer(data: IMassTransferPayload) {
-    const wallet = await toPromise(this.auth.wallet$);
-    const ledger = await toPromise(this.auth.ledgerAccount$);
-
-    if (!wallet && !ledger) {
-      throw new Error('No account connected');
-    }
-
-    const tx = this.prepareMassTransfer(data);
-
-    if (ledger) {
-      await this.ledgerService.signAndBroadcast(tx);
-    } else if (wallet) {
-      await tx.signWith(wallet).broadcastTo(this.auth.lto.node);
-    }
-
-    this.manualUpdate$.next();
+    let tx = this.prepareMassTransfer(data);
+    await this.signAndBroadcast(tx);
   }
 
   async withdraw(recipient: string, amount: number, fee: number, captcha: string, tokenType: TokenType = 'LTO20', attachment?: string) {
@@ -323,22 +296,8 @@ export class WalletService {
   }
 
   async lease(data: ILeasePayload): Promise<any> {
-    const wallet = await toPromise(this.auth.wallet$);
-    const ledger = await toPromise(this.auth.ledgerAccount$);
-
-    if (!wallet && !ledger) {
-      throw new Error('No account connected');
-    }
-
-    const tx = this.prepareLease(data);
-
-    if (ledger) {
-      await this.ledgerService.signAndBroadcast(tx);
-    } else if (wallet) {
-      await tx.signWith(wallet).broadcastTo(this.auth.lto.node);
-    }
-
-    this.manualUpdate$.next();
+    let tx = this.prepareLease(data);
+    await this.signAndBroadcast(tx);
   }
 
   prepareCancelLease(transactionId: string): CancelLease {
@@ -349,22 +308,8 @@ export class WalletService {
   }
 
   async cancelLease(transactionId: string): Promise<any> {
-    const wallet = await toPromise(this.auth.wallet$);
-    const ledger = await toPromise(this.auth.ledgerAccount$);
-
-    if (!wallet && !ledger) {
-      throw new Error('No account connected');
-    }
-
-    const tx = this.prepareCancelLease(transactionId);
-
-    if (ledger) {
-      await this.ledgerService.signAndBroadcast(tx);
-    } else if (wallet) {
-      await tx.signWith(wallet).broadcastTo(this.auth.lto.node);
-    }
-
-    this.manualUpdate$.next();
+    let tx = this.prepareCancelLease(transactionId);
+    await this.signAndBroadcast(tx);
   }
 
   prepareAnchor(data: IAnchorPayload): Anchor {
@@ -379,20 +324,28 @@ export class WalletService {
   }
 
   async anchor(data: IAnchorPayload) {
+    let tx = this.prepareAnchor(data);
+    await this.signAndBroadcast(tx);
+  }
+
+  private async signAndBroadcast(tx: Transaction): Promise<void> {
     const wallet = await toPromise(this.auth.wallet$);
     const ledger = await toPromise(this.auth.ledgerAccount$);
+    const walletConnect = await toPromise(this.auth.walletConnectAccount$);
 
-    if (!wallet && !ledger) {
+    if (!wallet && !ledger && !walletConnect) {
       throw new Error('No account connected');
     }
 
-    const tx = this.prepareAnchor(data);
-
     if (ledger) {
-      await this.ledgerService.signAndBroadcast(tx);
-    } else if (wallet) {
-      await tx.signWith(wallet).broadcastTo(this.auth.lto.node);
+      tx = await this.ledgerService.sign(tx);
+    } else if (walletConnect) {
+      tx = await this.walletConnectService.sign(tx);
+    } else {
+      tx.signWith(wallet);
     }
+
+    await this.auth.lto.node.broadcast(tx);
 
     this.manualUpdate$.next();
   }

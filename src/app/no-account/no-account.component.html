@@ -12,13 +12,16 @@
           <a fxFlex="1 1 50" mat-flat-button color="primary" routerLink="../create-account">Create account</a>
           <a fxFlex="1 1 50" mat-stroked-button color="primary" routerLink="../import-account">Import account</a>
         </div>
-        <div class="narrow" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
-          <div class="label" fxFlex="1 1 30">or sign in with</div>
-          <button fxFlex="1 1 35" mat-button (click)="mobileLogin()">
+        <div class="label">or sign in with</div>
+        <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
+          <button fxFlex="1 1 33" mat-button (click)="mobileLogin()">
             Universal wallet
           </button>
-          <button fxFlex="1 1 35" mat-button (click)="connectLedger()">
+          <button fxFlex="1 1 33" mat-button (click)="ledgerLogin()">
             Ledger
+          </button>
+          <button fxFlex="1 1 33" mat-button (click)="walletConnectLogin()">
+            WalletConnect
           </button>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MobileAuthModalModule } from '@app/modals';
 import { MaterialModule } from '@app/shared/material.module';
 import { ContentSectionComponent } from '@app/components';
+import { WalletConnectModalModule } from '@app/modals/walletconnect-modal';
 
 const routes: Routes = [
   {
@@ -15,6 +16,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [SigninComponent],
-  imports: [SharedModule, MaterialModule, MobileAuthModalModule, RouterModule.forChild(routes), ContentSectionComponent]
+  imports: [SharedModule, MaterialModule, MobileAuthModalModule, WalletConnectModalModule, RouterModule.forChild(routes), ContentSectionComponent]
 })
 export class SigninModule {}

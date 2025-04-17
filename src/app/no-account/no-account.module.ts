@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NoAccountComponent } from './no-account.component';
 import { ContentSectionComponent } from '@app/components';
 import { MobileAuthModalModule } from '@app/modals';
+import { WalletConnectModalModule } from '@app/modals/walletconnect-modal';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ContentSectionComponent,
     MobileAuthModalModule,
+    WalletConnectModalModule,
   ]
 })
 export class NoAccountModule {}

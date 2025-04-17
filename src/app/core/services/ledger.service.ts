@@ -97,7 +97,7 @@ export class LedgerService {
     });
   }
 
-  public async signAndBroadcast(tx: Transaction): Promise<void> {
+  public async sign<T extends Transaction>(tx: T): Promise<T> {
     if (!this.ledger) {
       throw new Error('Ledger not connected');
     }
@@ -165,6 +165,6 @@ export class LedgerService {
 
     contentDialog.close();
 
-    await this.lto.node.broadcast(tx);
+    return tx;
   }
 }

@@ -26,10 +26,12 @@ img {
   border-top: 1px solid #becad6;
   padding: 32px 0;
   margin-top: 48px;
-}
 
-.label {
-  line-height: 36px;
-  font-weight: 100;
-  padding: 0 32px 0 0;
+  .label {
+    line-height: 36px;
+    font-weight: 100;
+    margin-top: 16px;
+    margin-bottom: 4px;
+    text-align: center;
+  }
 }

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   selector: 'lto-wallet-connect-modal',
   templateUrl: './wallet-connect-modal.component.html',
   styleUrls: ['./wallet-connect-modal.component.scss'],
+  standalone: false,
 })
 export class WalletConnectModalComponent implements OnInit {
   public uri$ = this.walletConnect.uri$;

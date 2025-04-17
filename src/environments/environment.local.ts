@@ -14,7 +14,7 @@ export const environment = {
     ws: 'ws://localhost:3030/connect',
     url: 'http://localhost:3030/'
   },
-  walletconnect: {
+  walletConnect: {
     project_id: '33225890e740db4296f936ebd487b902'
   }
 };

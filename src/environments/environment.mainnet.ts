@@ -14,7 +14,7 @@ export const environment = {
     ws: 'wss://wallet-auth.lto.network/connect',
     url: 'https://wallet-auth.lto.network/'
   },
-  walletconnect: {
-    project_id: ''
+  walletConnect: {
+    project_id: '',
   },
 };

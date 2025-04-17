@@ -7,6 +7,7 @@ import { AuthService, IUserAccount, toPromise, LedgerService } from '../core';
 import { Router } from '@angular/router';
 import { DeleteAccountDialogComponent } from '@app/components/delete-account-dialog/delete-account-dialog.component';
 import { MobileAuthModal } from '@app/modals/mobile-auth-modal';
+import { WalletConnectModal } from '@app/modals/walletconnect-modal';
 
 @Component({
     selector: 'lto-signin',
@@ -24,7 +25,8 @@ export class SigninComponent implements OnInit {
     private snackbar: MatSnackBar,
     private router: Router,
     private matDialog: MatDialog,
-    private mobileAuthModal: MobileAuthModal
+    private mobileAuthModal: MobileAuthModal,
+    private walletConnectModal: WalletConnectModal,
   ) {
     this.availableAccounts$ = auth.availableAccounts$;
   }
@@ -83,5 +85,9 @@ export class SigninComponent implements OnInit {
       const message = (error as any)?.message || 'Unknown error';
       this.snackbar.open(message, 'Dismiss', { duration: 6000 });
     }
+  }
+
+  async walletConnectLogin() {
+    await this.walletConnectModal.show();
   }
 }

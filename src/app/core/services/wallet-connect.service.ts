@@ -9,6 +9,7 @@ export class WalletConnectService {
 
   public uri$ = new BehaviorSubject<string | null>(null);
   public session$ = new BehaviorSubject<any>(null);
+  public account$ = new BehaviorSubject<{ address: string } | null>(null);
   public request$ = new BehaviorSubject<any>(null);
 
   constructor(
@@ -17,13 +18,15 @@ export class WalletConnectService {
   ) {}
 
   async init() {
+    const url = this.networkByte === 'T' ? 'https://wallet.testnet.lto.network' : 'https://wallet.lto.network';
+
     this.client = await SignClient.init({
       projectId: this.projectId,
       metadata: {
         name: 'LTO Web Wallet',
         description: 'LTO Network Web Wallet',
-        url: 'https://wallet.lto.network',
-        icons: ['https://wallet.lto.network/lto-icon-512.png'],
+        url,
+        icons: [`${url}/lto-icon-512.png`],
       },
     });
 
@@ -37,11 +40,13 @@ export class WalletConnectService {
   }
 
   async pair() {
+    const chain = this.networkByte === 'T' ? 'lto:testnet' : 'lto:mainnet';
+
     const { uri, approval } = await this.client.connect({
       requiredNamespaces: {
         lto: {
           methods: ['lto_signTransaction', 'lto_sendTransaction'],
-          chains: [this.networkByte === 'T' ? 'lto:testnet' : 'lto:mainnet'],
+          chains: [chain],
           events: [],
         },
       },
@@ -52,7 +57,39 @@ export class WalletConnectService {
     }
 
     const session = await approval();
+
+    const account = session.namespaces.lto?.accounts[0];
+    if (!account?.startsWith(`${chain}:`)) {
+      this.session$.error('Unable to connect: wrong chain');
+      await this.client.disconnect({
+        topic: session.topic,
+        reason: {
+          code: 10,
+          message: 'Wrong chain',
+        },
+      })
+      return;
+    }
+
+    const address = account?.split(':')[2];
+
     this.session$.next(session);
+    this.account$.next({ address });
+  }
+
+  async disconnect() {
+    const session = this.session$.value;
+    if (!session) return;
+
+    await this.client.disconnect({
+      topic: session.topic,
+      reason: {
+        code: 0,
+        message: 'User disconnected',
+      },
+    });
+    this.session$.next(null);
+    this.account$.next(null);
   }
 
   async respondRequest(topic: string, id: number, result: any) {

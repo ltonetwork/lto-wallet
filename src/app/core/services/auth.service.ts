@@ -7,6 +7,7 @@ import { Observable, BehaviorSubject, Subscriber, combineLatest } from 'rxjs';
 import { LTO_NETWORK_BYTE, LTO_PUBLIC_API } from '@app/tokens';
 import { ILedgerAccount, LedgerService } from '@app/core/services/ledger.service';
 import { MobileAuthService } from '@app/core/services/mobile-auth.service';
+import { WalletConnectService } from '@app/core';
 
 export interface IUserAccount {
   name: string;
@@ -36,7 +37,8 @@ export class AuthService {
     @Inject(LTO_NETWORK_BYTE) networkByte: string,
     @Inject(LTO_PUBLIC_API) publicApi: string,
     private ledger: LedgerService,
-    private mobileAuth: MobileAuthService
+    private mobileAuth: MobileAuthService,
+    private walletConnect: WalletConnectService,
   ) {
     this.lto = new LTO(networkByte);
     this.lto.nodeAddress = publicApi.replace(/\/$/, '');
@@ -47,15 +49,16 @@ export class AuthService {
       subscriber.next(this.readFromLocalStorage());
     });
 
-    this.authenticated$ = combineLatest(this.wallet$, this.ledger.connected$, this.mobileAuth.account$).pipe(
-      map(([wallet, ledgerConnected, mobileAccount]) => !!wallet || ledgerConnected || !!mobileAccount)
+    this.authenticated$ = combineLatest([this.wallet$, this.ledger.connected$, this.mobileAuth.account$, this.walletConnect.session$]).pipe(
+      map(([wallet, ledgerConnected, mobileAccount, walletConnectSession]) => !!wallet || ledgerConnected || !!mobileAccount || !!walletConnectSession)
     );
 
-    this.account$ = combineLatest(this.localAccount$, this.ledger.ledgerAccount$, this.mobileAuth.account$).pipe(
-      map(([localAccount, ledgerAccount, mobileAccount]) =>
+    this.account$ = combineLatest([this.localAccount$, this.ledger.ledgerAccount$, this.mobileAuth.account$, this.walletConnect.account$]).pipe(
+      map(([localAccount, ledgerAccount, mobileAccount, walletConnectAccount]) =>
         localAccount ||
         (ledgerAccount ? { name: ledgerAccount.name + ' @ ledger', address: ledgerAccount.address } : null) ||
-        (mobileAccount ? { name: 'LTO Universal wallet', address: mobileAccount.address } : null)
+        (mobileAccount ? { name: 'LTO Universal wallet', address: mobileAccount.address } : null) ||
+        (walletConnectAccount ? { name: 'WalletConnect', address: walletConnectAccount.address } : null)
       )
     );
 
@@ -105,7 +108,8 @@ export class AuthService {
     this.localAccount$.next(null);
     this.wallet$.next(null);
     this.mobileAuth.account$.next(null);
-    this.ledger.disconnect();
+    this.ledger.disconnect().then();
+    this.walletConnect.disconnect().then();
 
     this.saveSession();
   }

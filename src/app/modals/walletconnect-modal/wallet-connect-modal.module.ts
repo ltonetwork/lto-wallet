@@ -1,15 +1,25 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '@app/shared';
 import { WalletConnectModalComponent } from './wallet-connect-modal.component';
 import { WalletConnectModal } from './wallet-connect-modal';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { CoreModule } from '@app/core';
+import { MatButton } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [WalletConnectModalComponent],
-  imports: [SharedModule, MatDialogModule, ReactiveFormsModule, QRCodeModule],
+  imports: [
+    CommonModule,
+    CoreModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    QRCodeComponent,
+    MatButton,
+    RouterModule,
+  ],
   providers: [WalletConnectModal],
-  entryComponents: [WalletConnectModalComponent],
 })
 export class WalletConnectModalModule {}

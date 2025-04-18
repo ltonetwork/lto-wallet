@@ -45,7 +45,7 @@ export class WalletConnectService {
     const { uri, approval } = await this.client.connect({
       requiredNamespaces: {
         lto: {
-          methods: ['lto_signTransaction', 'lto_sendTransaction'],
+          methods: ['lto_signTransaction'],
           chains: [chain],
           events: [],
         },

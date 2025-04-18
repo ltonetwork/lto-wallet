@@ -15,6 +15,6 @@ export const environment = {
     url: 'https://wallet-auth.lto.network/'
   },
   walletConnect: {
-    project_id: '',
+    project_id: 'c4bf0a4dd07ebcbe978e9b9de6183067',
   },
 };

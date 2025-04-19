@@ -5,7 +5,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
-import { CoreModule } from '@app/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { LoadingSpinnerComponent } from '@app/components';
@@ -14,7 +13,6 @@ import { LoadingSpinnerComponent } from '@app/components';
   declarations: [WalletConnectModalComponent],
   imports: [
     CommonModule,
-    CoreModule,
     MatDialogModule,
     MatSnackBarModule,
     QRCodeComponent,

@@ -1,13 +1,15 @@
 import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { combineLatest, Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, from, Observable, of, Subscription } from 'rxjs';
 import { BridgeService, etheriumAddressValidator, WalletService } from '@app/core';
 import { DEFAULT_TRANSFER_FEE } from '@app/tokens';
-import { map, take, withLatestFrom } from 'rxjs/operators';
+import { catchError, finalize, map, take, withLatestFrom } from 'rxjs/operators';
 import { SwapType } from '../../swap-type';
 import { bech32 } from 'bech32';
 import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 import { TokenType } from '@app/core/services/bridge.service';
+
+type TransferState = 'idle' | 'confirm' | 'inProgress' | 'success' | 'error';
 
 @Component({
     selector: 'lto-wallet-withdraw-form',
@@ -27,7 +29,9 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
   confirmed = false;
   captchaResponse = '';
 
-  transfer$: Promise<any> | null = null;
+  // UI state machine
+  state$ = new BehaviorSubject<TransferState>('idle');
+  transferError: string | null = null;
 
   receiving$!: Observable<number>;
 
@@ -254,11 +258,14 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
     this.step = 'input';
     this.captchaResponse = '';
     this.confirmed = false;
+    this.transferError = null;
+    this.state$.next('idle');
   }
 
   goToConfirmation() {
     this.step = 'confirm';
     this.withdrawForm.disable();
+    this.state$.next('confirm');
   }
 
   solveCaptcha(response: string) {
@@ -289,14 +296,30 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
       default:
         throw new Error('Invalid swap type');
     }
-    this.transfer$ = this._wallet.withdraw(
+
+    this.transferError = null;
+    this.state$.next('inProgress');
+
+    from(this._wallet.withdraw(
       address,
       amount,
       this._transferFee,
       this.captchaResponse,
       tokenType,
       memo
-    );
+    )).pipe(
+      map(() => 'success' as const),
+      catchError((err: any) => {
+        this.transferError = (err && (err.message || err.error || err.toString())) || 'Transfer failed';
+        return of('error' as const);
+      }),
+      finalize(() => {
+        if (this.transferError) {
+          this.withdrawForm.enable();
+          this.step = 'confirm';
+        }
+      })
+    ).subscribe(state => this.state$.next(state));
   }
 
   closeClick() {

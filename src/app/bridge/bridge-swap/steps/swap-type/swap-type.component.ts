@@ -24,7 +24,7 @@ export class SwapTypeComponent {
 
   selectFrom(token: SwapTokenType) {
     this.selectedFrom = token;
-    this.selectedTo = token === SwapTokenType.MAINNET ? SwapTokenType.ERC20 : SwapTokenType.MAINNET;
+    this.selectedTo = null;
   }
 
   selectTo(token: SwapTokenType) {

@@ -1,14 +1,16 @@
-<h2 mat-dialog-title>LTO (<span class="purple">MAINNET</span>) to LTO (<span
-    class="{{otherColor}}">{{otherTokenType}}</span>)
+<h2 mat-dialog-title>
+  LTO (<span class="purple">MAINNET</span>) to
+  <ng-container *ngIf="otherTokenType !== 'EQTY'">LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>)</ng-container>
+  <ng-container *ngIf="otherTokenType === 'EQTY'"><span class="{{otherColor}}">{{otherTokenType}}</span></ng-container>
 </h2>
 <mat-dialog-content>
   <ng-container *ngIf="!transfer$; else trollTpl">
     <p>Please fill in the amount of <span class="purple">MAINNET</span> tokens you want to transfer and the
-      {{otherTokenType === 'ERC-20' ? 'ETH' : otherTokenType}} address where you want to receive the
+      {{otherTokenType === 'ERC-20' ? 'ETH' : otherTokenType === 'EQTY' ? 'BASE' : otherTokenType}} address where you want to receive the
       <span class="{{otherColor}}">{{otherTokenType}}</span> tokens.
     </p>
 
-    <p>Please use a wallet which is compatible with the {{otherTokenType}} token standard and which private keys you
+    <p>Please use a wallet which is compatible with the {{otherTokenStandard}} token standard and which private keys you
       control.</p>
     <form class="withdraw-form" [formGroup]="withdrawForm">
       <div class="row" [ngClass]="{invalid: isInvalid('amount')}">
@@ -16,15 +18,16 @@
         <div class="value input"><input type="number" formControlName="amount"> LTO (<span
             class="purple">MAINNET</span>)</div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="bridgeFee$ | async as bridgeFee">
         <div class="label">Fee</div>
-        <div class="value">- {{ bridgeFee$ | async }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
+        <div class="value">- {{ bridgeFee }} LTO <span class="purple">MAINNET</span></div>
       </div>
 
       <div class="row">
         <div class="label">Receiving</div>
-        <div class="value">{{receiving$ | async | number: '1.0-4'}} LTO (<span
-            class="{{otherColor}}">{{otherTokenType}}</span>)
+        <div class="value">{{receiving$ | async | number: '1.0-4'}}
+          <ng-container *ngIf="otherTokenType !== 'EQTY'">LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>)</ng-container>
+          <ng-container *ngIf="otherTokenType === 'EQTY'"><span class="{{otherColor}}">{{otherTokenType}}</span></ng-container>
         </div>
       </div>
 

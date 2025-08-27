@@ -26,6 +26,8 @@ export class DepositErcComponent implements OnInit {
     switch (this.swapType) {
       case SwapType.ERC20_BINANCE:
         return 'BEP-2';
+      case SwapType.ERC20_EQTY:
+        return 'EQTY';
       default:
         return 'MAINNET';
     }
@@ -35,6 +37,8 @@ export class DepositErcComponent implements OnInit {
     switch (this.swapType) {
       case SwapType.ERC20_BINANCE:
         return 'yellow';
+      case SwapType.ERC20_EQTY:
+        return 'cyan';
       default:
         return 'purple';
     }
@@ -54,6 +58,10 @@ export class DepositErcComponent implements OnInit {
         return 'BEP-20';
       case SwapType.MAIN_BINANCEEXCHANGE:
         return 'MAINNET';
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return 'EQTY';
     }
   }
 
@@ -69,6 +77,10 @@ export class DepositErcComponent implements OnInit {
       case SwapType.BEP20_MAIN:
       case SwapType.MAIN_BEP20:
         return 'yellow';
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return 'cyan';
     }
   }
 

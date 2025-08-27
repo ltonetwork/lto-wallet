@@ -21,6 +21,9 @@
 
     <h3>to</h3>
     <div class="swap-type-picker">
+      <div (click)="selectTo(SwapTokenType.EQTY)" [ngClass]="{active: selectedTo === SwapTokenType.EQTY }">
+        <span class="cyan">EQTY <small>(Base)</small></span>
+      </div>
       <div (click)="selectTo(SwapTokenType.MAINNET)" [ngClass]="{active: selectedTo === SwapTokenType.MAINNET, disabled: selectedFrom === SwapTokenType.MAINNET}">
         <span class="purple">MAINNET</span>
       </div>

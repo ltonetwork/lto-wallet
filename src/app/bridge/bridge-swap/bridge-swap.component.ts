@@ -49,8 +49,11 @@ export class BridgeSwapComponent implements OnInit {
       case SwapType.BEP20_MAIN:
       case SwapType.BINANCE_MAIN:
       case SwapType.ERC20_BINANCE:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
         this.step = 4;
         break;
+      case SwapType.MAIN_EQTY:
       case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_ERC20:
         this.step = 5;

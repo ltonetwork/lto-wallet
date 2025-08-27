@@ -21,7 +21,7 @@ import {
   BRIDGE_ENABLED,
   BRIDGE_BSC_ENABLED,
   SWAP_PAGE_ENABLED,
-  LTO_MOBILE_AUTH, BRIDGE_BEP2_ENABLED, WALLETCONNECT_PROJECT_ID
+  LTO_MOBILE_AUTH, BRIDGE_BEP2_ENABLED, WALLETCONNECT_PROJECT_ID, BRIDGE_EQTY_ENABLED
 } from './tokens';
 
 import { environment } from '../environments/environment';
@@ -123,6 +123,10 @@ import { SidenavComponent, AppbarComponent } from '@app/components';
     {
       provide: BRIDGE_BEP2_ENABLED,
       useValue: false
+    },
+    {
+      provide: BRIDGE_EQTY_ENABLED,
+      useValue: environment.networkByte === 'T' || (Date.now() >= Date.UTC(new Date().getUTCFullYear(), 8, 1) && Date.now() < Date.UTC(new Date().getUTCFullYear(), 10, 1))
     },
     {
       provide: SWAP_PAGE_ENABLED,

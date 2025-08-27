@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { BridgeService, WalletService } from '../../../../core';
-import { switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { BridgeService, etheriumAddressValidator, WalletService } from '../../../../core';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { SwapTokenType, SwapType } from '../../swap-type';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { bech32 } from 'bech32';
@@ -17,19 +17,31 @@ export class DepositErcComponent implements OnInit {
   @Input() swapType!: SwapType;
   @Output() close = new EventEmitter<void>();
 
+  // Captcha toggle (internal usage for transitions only)
   shouldShowCaptcha = false;
   captchaResponse = '';
   address$: Observable<string> | null = null;
   depositForm!: UntypedFormGroup;
+
+  // UI state machine for this step
+  // specifyToAddress: ask user for the destination address (for ERC20->BEP2/EQTY)
+  // captcha: show captcha before generating address
+  // address: show (and load) the generated deposit address
+  // error: show an error if address generation failed
+  state$ = new BehaviorSubject<'specifyToAddress' | 'captcha' | 'address' | 'error'>('captcha');
+  addressError: string | null = null;
 
   get toTokenType(): string {
     switch (this.swapType) {
       case SwapType.ERC20_BINANCE:
         return 'BEP-2';
       case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
         return 'EQTY';
-      default:
+      case SwapType.ERC20_MAIN:
         return 'MAINNET';
+      default:
+        throw new Error("Invalid swap type for this step");
     }
   }
 
@@ -38,6 +50,7 @@ export class DepositErcComponent implements OnInit {
       case SwapType.ERC20_BINANCE:
         return 'yellow';
       case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
         return 'cyan';
       default:
         return 'purple';
@@ -46,51 +59,45 @@ export class DepositErcComponent implements OnInit {
 
   get otherTokenType(): string {
     switch (this.swapType) {
-      case SwapType.ERC20_MAIN:
-      case SwapType.MAIN_ERC20:
       case SwapType.ERC20_BINANCE:
-        return 'ERC-20';
-      case SwapType.BINANCE_MAIN:
-      case SwapType.MAIN_BINANCE:
-        return 'BEP-2';
-      case SwapType.BEP20_MAIN:
-      case SwapType.MAIN_BEP20:
-        return 'BEP-20';
-      case SwapType.MAIN_BINANCEEXCHANGE:
-        return 'MAINNET';
-      case SwapType.MAIN_EQTY:
       case SwapType.ERC20_EQTY:
+      case SwapType.ERC20_MAIN:
+        return 'ERC-20';
       case SwapType.BEP20_EQTY:
-        return 'EQTY';
+        return 'BEP-20';
+      default:
+        throw new Error("Invalid swap type for this step");
     }
   }
 
   get otherColor(): string {
     switch (this.swapType) {
-      case SwapType.ERC20_MAIN:
-      case SwapType.MAIN_ERC20:
       case SwapType.ERC20_BINANCE:
-        return 'blue';
-      case SwapType.BINANCE_MAIN:
-      case SwapType.MAIN_BINANCE:
-      case SwapType.MAIN_BINANCEEXCHANGE:
-      case SwapType.BEP20_MAIN:
-      case SwapType.MAIN_BEP20:
-        return 'yellow';
-      case SwapType.MAIN_EQTY:
       case SwapType.ERC20_EQTY:
+      case SwapType.ERC20_MAIN:
+        return 'blue';
       case SwapType.BEP20_EQTY:
-        return 'cyan';
+        return 'yellow';
+      default:
+        throw new Error("Invalid swap type for this step");
+    }
+  }
+
+  get otherTokenNetwork(): string {
+    switch (this.swapType) {
+      case SwapType.ERC20_BINANCE:
+      case SwapType.ERC20_EQTY:
+      case SwapType.ERC20_MAIN:
+        return 'Ethereum';
+      case SwapType.BEP20_EQTY:
+        return 'BSc';
+      default:
+        throw new Error("Invalid swap type for this step");
     }
   }
 
   get shouldSpecifyToAddress(): boolean {
-    switch (this.swapType) {
-      case SwapType.ERC20_BINANCE:
-        return true;
-      default:
-        return false;
-    }
+    return this.swapType !== SwapType.ERC20_MAIN;
   }
 
   addressPlaceholder!: string;
@@ -102,11 +109,10 @@ export class DepositErcComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.addressPlaceholder = this.swapType === SwapType.ERC20_BINANCE ? 'BEP-2' : 'LTO20';
+    this.addressPlaceholder = this.swapType === SwapType.ERC20_EQTY || SwapType.BEP20_EQTY ? 'BASE' : this.toTokenType;
     const addressValidators: ValidatorFn[] = [Validators.required];
 
-    this.shouldShowCaptcha = !!this._recaptchaSettings.siteKey && !this.shouldSpecifyToAddress;
-    console.log(this.shouldShowCaptcha);
+    this.shouldShowCaptcha = !!this._recaptchaSettings.siteKey;
 
     if (this.swapType === SwapType.ERC20_BINANCE) {
       addressValidators.push((ctrl: AbstractControl) => {
@@ -126,30 +132,66 @@ export class DepositErcComponent implements OnInit {
           };
         }
       });
-    } else if (!this.shouldShowCaptcha) {
-      this.resolveCaptcha('');
+    } else {
+      addressValidators.push(etheriumAddressValidator);
     }
 
     this.depositForm = new UntypedFormGroup({
       address: new UntypedFormControl('', addressValidators)
     });
+
+    // Initialize state based on flow
+    if (this.shouldSpecifyToAddress) {
+      this.state$.next('specifyToAddress');
+    } else if (this.shouldShowCaptcha) {
+      this.state$.next('captcha');
+    } else {
+      this.obtainBridgeAddress();
+    }
   }
 
-  resolveCaptcha(response: string) {
-    this.captchaResponse = response;
+  // Proceed from specifyToAddress state
+  onNext() {
+    if (this.shouldShowCaptcha) {
+      this.state$.next('captcha');
+    } else {
+      this.obtainBridgeAddress();
+    }
+  }
+
+  obtainBridgeAddress(captcha: string = '') {
+    this.captchaResponse = captcha;
+    this.addressError = null;
     const [tokenType, toTokenType] = this.swapType.split('->') as [SwapTokenType, SwapTokenType];
-    if (this.swapType === SwapType.ERC20_BINANCE) {
+
+    if (this.shouldSpecifyToAddress) {
       this.address$ = this._bridge.depositTo(
         this.depositForm.value.address,
-        response,
+        captcha,
         tokenType,
         toTokenType
+      ).pipe(
+        tap(() => {}),
+        catchError((err: any) => {
+          this.addressError = (err && (err.message || err.error || err.toString())) || 'Failed to get deposit address';
+          this.state$.next('error');
+          return of('');
+        })
       );
     } else {
       this.address$ = this._wallet.address$.pipe(
-        switchMap(address => this._bridge.depositTo(address, response, tokenType, toTokenType))
+        switchMap(address => this._bridge.depositTo(address, captcha, tokenType, toTokenType)),
+        tap(() => {}),
+        catchError((err: any) => {
+          this.addressError = (err && (err.message || err.error || err.toString())) || 'Failed to get deposit address';
+          this.state$.next('error');
+          return of('');
+        })
       );
     }
+
+    // Switch to address state; addressTpl will show a loader until value arrives
+    this.state$.next('address');
   }
 
   isInvalid(controlName: string) {

@@ -22,7 +22,7 @@
     <h3>to</h3>
     <div class="swap-type-picker">
       <div (click)="selectTo(SwapTokenType.EQTY)" [ngClass]="{active: selectedTo === SwapTokenType.EQTY, disabled: !eqtyEnabled }"
-           [matTooltip]="!eqtyEnabled ? '' : 'Swapping to EQTY is available between September 1 00:00 UTC and October 31 23:59 UTC, 2025'">
+           [matTooltip]="eqtyEnabled ? '' : 'Swapping to EQTY is available between September 1 00:00 UTC and October 31 23:59 UTC, 2025'">
         <span class="cyan">EQTY <small>(Base)</small></span>
       </div>
       <div (click)="selectTo(SwapTokenType.MAINNET)" [ngClass]="{active: selectedTo === SwapTokenType.MAINNET, disabled: selectedFrom === SwapTokenType.MAINNET}">

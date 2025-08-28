@@ -1,14 +1,23 @@
 <h2 mat-dialog-title>How does it work?</h2>
 <mat-dialog-content>
-  <ng-container *ngIf="(bridgeFee$ | async) as bridgeFee">
-    <p>
-      The bridge will charge a fee for transfering your tokens. This fee is a standard fee of {{ bridgeFee }} LTO, which
-      will withdrawn from your transfered tokens.
-    </p>
-    <p>
-      To help you understand the process of swapping LTO (<span class="{{fromColor}}">{{fromTokenType}}</span>) to LTO
-      (<span class="{{toColor}}">{{toTokenType}}</span>), we have made an example:
-    </p>
+  @let bridgeFee = bridgeFee$ | async;
+
+  @if (bridgeFee === null || bridgeFee === undefined) {
+    <lto-loading-spinner />
+  } @else {
+    <ng-container *ngIf="bridgeFee > 0">
+      <p>
+        The bridge will charge a fee for transferring your tokens. This fee is a standard fee of {{ bridgeFee }} LTO, which
+        will withdrawn from your transferred tokens.
+      </p>
+      <p>
+        To help you understand the process of swapping LTO (<span class="{{fromColor}}">{{fromTokenType}}</span>) to LTO
+        (<span class="{{toColor}}">{{toTokenType}}</span>), we have made an example:
+      </p>
+    </ng-container>
+    <ng-container *ngIf="bridgeFee === 0">
+      <p>There are no fees for swapping your tokens.</p>
+    </ng-container>
     <div class="example">
       <div class="row">
         <div class="label">Sending</div>
@@ -20,14 +29,10 @@
       </div>
       <div class="row">
         <div class="label">Receiving</div>
-        <div class="value">{{ receiving(bridgeFee) }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
+        <div class="value">{{ receiving(bridgeFee) }} <span *ngIf="toTokenType !== 'EQTY'">LTO&nbsp;</span> <span class="{{toColor}}">{{toTokenType}}</span></div>
       </div>
     </div>
-    <p *ngIf="toTokenType === 'BEP-2' && fromTokenType === 'ERC-20'"><span class="red">Do not use this to send to Binance Exchange.</span></p>
-  </ng-container>
-  <ng-container *ngIf="!(bridgeFee$ | async)">
-    <lto-loading-spinner />
-  </ng-container>
+  }
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-flat-button color="primary" (click)="nextStepClick()">Next</button>

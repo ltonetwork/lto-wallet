@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 
 import { SwapTokenType, SwapType } from '../../swap-type';
-import { BRIDGE_BEP2_ENABLED, BRIDGE_BSC_ENABLED } from '@app/tokens';
+import { BRIDGE_BEP2_ENABLED, BRIDGE_BSC_ENABLED, BRIDGE_EQTY_ENABLED } from '@app/tokens';
 
 
 @Component({
@@ -19,12 +19,13 @@ export class SwapTypeComponent {
 
   constructor(
     @Inject(BRIDGE_BSC_ENABLED) public bscEnabled: boolean,
-    @Inject(BRIDGE_BEP2_ENABLED) public bep2Enabled: boolean
+    @Inject(BRIDGE_BEP2_ENABLED) public bep2Enabled: boolean,
+    @Inject(BRIDGE_EQTY_ENABLED) public eqtyEnabled: boolean,
   ) {}
 
   selectFrom(token: SwapTokenType) {
     this.selectedFrom = token;
-    this.selectedTo = token === SwapTokenType.MAINNET ? SwapTokenType.ERC20 : SwapTokenType.MAINNET;
+    this.selectedTo = null;
   }
 
   selectTo(token: SwapTokenType) {

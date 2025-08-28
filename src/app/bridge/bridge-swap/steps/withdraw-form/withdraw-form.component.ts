@@ -1,12 +1,15 @@
-import { Component, OnInit, Output, EventEmitter, Inject, OnDestroy, Input } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
-import { Observable, combineLatest, ReplaySubject, Subscription } from 'rxjs';
-import { BridgeService, WalletService, etheriumAddressValidator } from '@app/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { BehaviorSubject, combineLatest, from, Observable, of, Subscription } from 'rxjs';
+import { BridgeService, etheriumAddressValidator, WalletService } from '@app/core';
 import { DEFAULT_TRANSFER_FEE } from '@app/tokens';
-import { map, withLatestFrom, take } from 'rxjs/operators';
+import { catchError, finalize, map, take, withLatestFrom } from 'rxjs/operators';
 import { SwapType } from '../../swap-type';
 import { bech32 } from 'bech32';
 import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { TokenType } from '@app/core/services/bridge.service';
+
+type TransferState = 'idle' | 'confirm' | 'inProgress' | 'success' | 'error';
 
 @Component({
     selector: 'lto-wallet-withdraw-form',
@@ -26,7 +29,9 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
   confirmed = false;
   captchaResponse = '';
 
-  transfer$: Promise<any> | null = null;
+  // UI state machine
+  state$ = new BehaviorSubject<TransferState>('idle');
+  transferError: string | null = null;
 
   receiving$!: Observable<number>;
 
@@ -38,6 +43,10 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
       case SwapType.MAIN_ERC20:
       case SwapType.ERC20_BINANCE:
         return this.burnFeeERC$;
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return of(0);
       default:
         return this.burnFeeMain$;
     }
@@ -57,6 +66,10 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
         return 'BEP-20';
       case SwapType.MAIN_ERC20:
         return 'ERC-20';
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return 'EQTY';
     }
   }
 
@@ -73,6 +86,10 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
         return 'yellow';
       case SwapType.MAIN_ERC20:
         return 'blue';
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return 'cyan';
     }
   }
 
@@ -94,9 +111,32 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
         return 'BEP-20';
       case SwapType.MAIN_BINANCEEXCHANGE:
         return 'MAINNET';
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return 'EQTY';
     }
   }
 
+  get otherTokenStandard(): string {
+    switch (this.swapType) {
+      case SwapType.ERC20_MAIN:
+      case SwapType.MAIN_ERC20:
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return 'ERC-20';
+      case SwapType.BINANCE_MAIN:
+      case SwapType.MAIN_BINANCE:
+      case SwapType.ERC20_BINANCE:
+        return 'BEP-2';
+      case SwapType.BEP20_MAIN:
+      case SwapType.MAIN_BEP20:
+        return 'BEP-20';
+      case SwapType.MAIN_BINANCEEXCHANGE:
+        return 'MAINNET';
+    }
+  }
   get otherColor(): string {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
@@ -109,6 +149,10 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
       case SwapType.BEP20_MAIN:
       case SwapType.MAIN_BEP20:
         return 'yellow';
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return 'cyan';
     }
   }
 
@@ -131,14 +175,28 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.addressPlaceholder = this.swapType === SwapType.MAIN_ERC20 ? 'ETH' : this.swapType === SwapType.MAIN_BINANCE ? 'BEP-2' : 'BEP-20';
+    switch (this.swapType) {
+      case SwapType.MAIN_ERC20:
+        this.addressPlaceholder = 'ETH';
+        break;
+      case SwapType.MAIN_BINANCE:
+        this.addressPlaceholder = 'BEP-2';
+        break;
+      case SwapType.MAIN_BEP20:
+        this.addressPlaceholder = 'BEP-20';
+        break;
+      case SwapType.MAIN_EQTY:
+        this.addressPlaceholder = 'BASE';
+        break;
+    }
+
     this.shouldShowCaptcha = !!this._recaptchaSettings.siteKey;
 
     const addressValidators: ValidatorFn[] = [Validators.required];
 
     this.bridgeFee$.pipe(take(1)).subscribe(fee => (this.BRIDGE_MINIMAL_FEE = fee));
 
-    if (this.swapType === SwapType.MAIN_ERC20) {
+    if (this.swapType !== SwapType.MAIN_BINANCE) {
       addressValidators.push(etheriumAddressValidator);
     } else {
       addressValidators.push((ctrl: AbstractControl) => {
@@ -200,11 +258,14 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
     this.step = 'input';
     this.captchaResponse = '';
     this.confirmed = false;
+    this.transferError = null;
+    this.state$.next('idle');
   }
 
   goToConfirmation() {
     this.step = 'confirm';
     this.withdrawForm.disable();
+    this.state$.next('confirm');
   }
 
   solveCaptcha(response: string) {
@@ -217,15 +278,48 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
 
   transfer() {
     const { amount, address, memo } = this.withdrawForm.value;
-    const tokenType = this.swapType === SwapType.MAIN_ERC20 ? 'LTO20' : this.swapType === SwapType.MAIN_BINANCE ? 'BINANCE' : 'BSC';
-    this.transfer$ = this._wallet.withdraw(
+
+    let tokenType: TokenType = 'LTO';
+    switch (this.swapType) {
+      case SwapType.MAIN_ERC20:
+        tokenType = 'LTO20';
+        break;
+      case SwapType.MAIN_BINANCE:
+        tokenType = 'BINANCE';
+        break;
+      case SwapType.MAIN_BEP20:
+        tokenType = 'BSC';
+        break;
+      case SwapType.MAIN_EQTY:
+        tokenType = 'EQTY';
+        break;
+      default:
+        throw new Error('Invalid swap type');
+    }
+
+    this.transferError = null;
+    this.state$.next('inProgress');
+
+    from(this._wallet.withdraw(
       address,
       amount,
       this._transferFee,
       this.captchaResponse,
       tokenType,
       memo
-    );
+    )).pipe(
+      map(() => 'success' as const),
+      catchError((err: any) => {
+        this.transferError = (err && (err.message || err.error || err.toString())) || 'Transfer failed';
+        return of('error' as const);
+      }),
+      finalize(() => {
+        if (this.transferError) {
+          this.withdrawForm.enable();
+          this.step = 'confirm';
+        }
+      })
+    ).subscribe(state => this.state$.next(state));
   }
 
   closeClick() {

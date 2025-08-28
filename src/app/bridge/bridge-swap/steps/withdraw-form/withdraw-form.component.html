@@ -1,14 +1,15 @@
-<h2 mat-dialog-title>LTO (<span class="purple">MAINNET</span>) to LTO (<span
-    class="{{otherColor}}">{{otherTokenType}}</span>)
+<h2 mat-dialog-title>
+  LTO (<span class="purple">MAINNET</span>) to <ng-container *ngTemplateOutlet="otherToken"></ng-container>
 </h2>
 <mat-dialog-content>
-  <ng-container *ngIf="!transfer$; else trollTpl">
+  <!-- Form and confirmation states -->
+  <ng-container *ngIf="(state$ | async) === 'idle' || (state$ | async) === 'confirm'">
     <p>Please fill in the amount of <span class="purple">MAINNET</span> tokens you want to transfer and the
-      {{otherTokenType === 'ERC-20' ? 'ETH' : otherTokenType}} address where you want to receive the
+      {{otherTokenType === 'ERC-20' ? 'ETH' : otherTokenType === 'EQTY' ? 'BASE' : otherTokenType}} address where you want to receive the
       <span class="{{otherColor}}">{{otherTokenType}}</span> tokens.
     </p>
 
-    <p>Please use a wallet which is compatible with the {{otherTokenType}} token standard and which private keys you
+    <p>Please use a wallet which is compatible with the {{otherTokenStandard}} token standard and which private keys you
       control.</p>
     <form class="withdraw-form" [formGroup]="withdrawForm">
       <div class="row" [ngClass]="{invalid: isInvalid('amount')}">
@@ -16,15 +17,15 @@
         <div class="value input"><input type="number" formControlName="amount"> LTO (<span
             class="purple">MAINNET</span>)</div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="bridgeFee$ | async as bridgeFee">
         <div class="label">Fee</div>
-        <div class="value">- {{ bridgeFee$ | async }} LTO <span class="{{toColor}}">{{toTokenType}}</span></div>
+        <div class="value">- {{ bridgeFee }} LTO <span class="purple">MAINNET</span></div>
       </div>
 
       <div class="row">
         <div class="label">Receiving</div>
-        <div class="value">{{receiving$ | async | number: '1.0-4'}} LTO (<span
-            class="{{otherColor}}">{{otherTokenType}}</span>)
+        <div class="value">{{receiving$ | async | number: '1.0-4'}}
+          <ng-container *ngTemplateOutlet="otherToken"></ng-container>
         </div>
       </div>
 
@@ -55,35 +56,62 @@
       </div>
     </ng-container>
   </ng-container>
-</mat-dialog-content>
-<mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
-  <ng-container *ngIf="!transfer$">
-    <button mat-flat-button color="primary" [disabled]="withdrawForm.pristine || withdrawForm.invalid"
-      *ngIf="step === 'input'" (click)="goToConfirmation()">Next</button>
-    <ng-container *ngIf="step ==='confirm'">
-      <button mat-button (click)="goToInputStep()">Back</button>
-      <button mat-flat-button color="primary" [disabled]="cannotSend" (click)="transfer()">Transfer</button>
-    </ng-container>
-  </ng-container>
-  <ng-container *ngIf="transfer$">
-    <button mat-flat-button color="primary" (click)="closeClick()">Close</button>
-  </ng-container>
-</mat-dialog-actions>
 
-<ng-template #trollTpl>
-  <ng-container *ngIf="transfer$ | async; else transferLoading">
+  <!-- Loading state -->
+  <ng-container *ngIf="(state$ | async) === 'inProgress'">
+    <lto-loading-spinner></lto-loading-spinner>
+  </ng-container>
+
+  <!-- Success state -->
+  <ng-container *ngIf="(state$ | async) === 'success'">
     <div>
       <img class="troll" src="../../../../../assets/troll.png" alt="">
       <p>We have sent the LTO (<span class="purple">MAINNET</span>) tokens
-        to our Bridge Troll to convert them to LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens.</p>
+        to our Bridge Troll to convert them to <ng-container *ngTemplateOutlet="otherToken"></ng-container> tokens.</p>
 
-      <p>The LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens will be sent to:<br>
+      <p>The <ng-container *ngTemplateOutlet="otherToken"></ng-container> tokens will be sent to:<br>
         <b>{{withdrawForm.value.address}}</b> {{addressPlaceholder}} address.
       </p>
     </div>
   </ng-container>
 
-  <ng-template #transferLoading>
-    <lto-loading-spinner></lto-loading-spinner>
-  </ng-template>
+  <!-- Error state -->
+  <ng-container *ngIf="(state$ | async) === 'error'">
+    <div class="form-errors">
+      <div class="form-error">{{ transferError }}</div>
+    </div>
+  </ng-container>
+</mat-dialog-content>
+
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+  <!-- Idle/Confirm actions -->
+  <ng-container *ngIf="(state$ | async) === 'idle' || (state$ | async) === 'confirm'">
+    <button mat-flat-button color="primary" [disabled]="withdrawForm.pristine || withdrawForm.invalid"
+      *ngIf="step === 'input'" (click)="goToConfirmation()">Next</button>
+    <ng-container *ngIf="step === 'confirm'">
+      <button mat-button (click)="goToInputStep()">Back</button>
+      <button mat-flat-button color="primary" [disabled]="cannotSend" (click)="transfer()">Transfer</button>
+    </ng-container>
+  </ng-container>
+
+  <!-- In progress actions -->
+  <ng-container *ngIf="(state$ | async) === 'inProgress'">
+    <button mat-flat-button color="primary" disabled>Processing…</button>
+  </ng-container>
+
+  <!-- Success actions -->
+  <ng-container *ngIf="(state$ | async) === 'success'">
+    <button mat-flat-button color="primary" (click)="closeClick()">Close</button>
+  </ng-container>
+
+  <!-- Error actions -->
+  <ng-container *ngIf="(state$ | async) === 'error'">
+    <button mat-button (click)="goToInputStep()">Back</button>
+    <button mat-flat-button color="primary" [disabled]="withdrawForm.invalid || cannotSend" (click)="transfer()">Retry</button>
+  </ng-container>
+</mat-dialog-actions>
+
+<ng-template #otherToken>
+  <ng-container *ngIf="otherTokenType !== 'EQTY'">LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>)</ng-container>
+  <ng-container *ngIf="otherTokenType === 'EQTY'"><span class="{{otherColor}}">{{otherTokenType}}</span></ng-container>
 </ng-template>

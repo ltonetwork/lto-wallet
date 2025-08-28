@@ -1,25 +1,33 @@
 <h2 mat-dialog-title>Your deposit address</h2>
 
 <mat-dialog-content>
-  <ng-container *ngIf="shouldSpecifyToAddress && !captchaResponse && !shouldShowCaptcha; then specifyToAddressTpl;">
+  <ng-container *ngIf="(state$ | async) === 'specifyToAddress'">
+    <ng-container *ngTemplateOutlet="specifyToAddressTpl"></ng-container>
   </ng-container>
-  <ng-container *ngIf="shouldShowCaptcha && !captchaResponse; then captchaTpl;">
+  <ng-container *ngIf="(state$ | async) === 'captcha'">
+    <ng-container *ngTemplateOutlet="captchaTpl"></ng-container>
   </ng-container>
-  <ng-container *ngIf="captchaResponse || (!shouldSpecifyToAddress && !shouldShowCaptcha); then addressTpl;">
+  <ng-container *ngIf="(state$ | async) === 'address'">
+    <ng-container *ngTemplateOutlet="addressTpl"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="(state$ | async) === 'error'">
+    <div class="form-errors">
+      <div class="form-error">{{ addressError }}</div>
+    </div>
   </ng-container>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-flat-button color="primary" (click)="closeClick()" *ngIf="captchaResponse">Close</button>
-  <button mat-flat-button color="primary" (click)="shouldShowCaptcha = true" [disabled]="depositForm.invalid"
-    *ngIf="shouldSpecifyToAddress && !captchaResponse && !shouldShowCaptcha">Next</button>
+  <button mat-flat-button color="primary" (click)="closeClick()" *ngIf="(state$ | async) === 'address'">Close</button>
+  <button mat-flat-button color="primary" (click)="onNext()" [disabled]="depositForm.invalid"
+    *ngIf="(state$ | async) === 'specifyToAddress'">Next</button>
 </mat-dialog-actions>
 
 <ng-template #captchaTpl>
   <div class="captcha-box" fxLayout="column" fxLayoutAlign="start center">
-    <p>We will now generate an {{otherTokenType}} address to which you should transfer your LTO (<span
-        class="{{otherColor}}">{{otherTokenType}}</span>)
-      tokens to receive LTO (<span class="{{toColor}}">{{toTokenType}}</span>) in your LTO wallet.</p>
-    <re-captcha (resolved)="resolveCaptcha($event)"></re-captcha>
+    <p>We will now generate an {{otherTokenNetwork}} address to which you should transfer your
+      LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>)
+      tokens to receive <ng-container *ngTemplateOutlet="toToken"></ng-container> in your wallet.</p>
+    <re-captcha (resolved)="obtainBridgeAddress($event)"></re-captcha>
   </div>
 </ng-template>
 
@@ -43,10 +51,10 @@
 
       <p>
         Once we have received your LTO (<span class="{{otherColor}}">{{otherTokenType}}</span>) tokens,
-        we will swap them to LTO (<span class="{{toColor}}">{{toTokenType}}</span>) tokens.
+        we will swap them to <ng-container *ngTemplateOutlet="toToken"></ng-container> tokens.
       </p>
       <p>
-        Your LTO (<span class="{{toColor}}">{{toTokenType}}</span>) tokens will be automatically added to your LTO wallet.
+        Your <ng-container *ngTemplateOutlet="toToken"></ng-container> tokens will be automatically added to your wallet.
       </p>
     </div>
   </ng-container>
@@ -57,7 +65,7 @@
 </ng-template>
 
 <ng-template #specifyToAddressTpl>
-  <p>Please enter the address on which you want to receive LTO (<span class="{{toColor}}">{{toTokenType}}</span>)
+  <p>Please enter the address on which you want to receive <ng-container *ngTemplateOutlet="toToken"></ng-container>
     tokens.</p>
 
   <form class="deposit-form" [formGroup]="depositForm">
@@ -71,4 +79,9 @@
   <div class="form-errors" *ngIf="depositForm.dirty && depositForm.invalid">
     <div class="form-error" *ngFor="let error of getFormErrors()">{{error}}</div>
   </div>
+</ng-template>
+
+<ng-template #toToken>
+  <ng-container *ngIf="toTokenType !== 'EQTY'">LTO (<span class="{{toColor}}">{{toTokenType}}</span>)</ng-container>
+  <ng-container *ngIf="toTokenType === 'EQTY'"><span class="{{toColor}}">{{toTokenType}}</span></ng-container>
 </ng-template>

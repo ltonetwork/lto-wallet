@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SwapType } from '../../swap-type';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BridgeService } from '../../../../core';
+import { BridgeService } from '@app/core';
 
 @Component({
     selector: 'lto-wallet-example',
@@ -27,6 +27,10 @@ export class ExampleComponent implements OnInit {
       case SwapType.MAIN_ERC20:
       case SwapType.ERC20_BINANCE:
         return this.burnFeeERC$;
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return of(0);
       default:
         return this.burnFeeMain$;
     }
@@ -36,15 +40,18 @@ export class ExampleComponent implements OnInit {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
       case SwapType.ERC20_BINANCE:
+      case SwapType.ERC20_EQTY:
         return 'ERC-20';
       case SwapType.BINANCE_MAIN:
         return 'BEP-2';
       case SwapType.BEP20_MAIN:
+      case SwapType.BEP20_EQTY:
         return 'BEP-20';
       case SwapType.MAIN_ERC20:
       case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
       case SwapType.MAIN_BEP20:
+      case SwapType.MAIN_EQTY:
         return 'MAINNET';
     }
   }
@@ -53,14 +60,17 @@ export class ExampleComponent implements OnInit {
     switch (this.swapType) {
       case SwapType.ERC20_MAIN:
       case SwapType.ERC20_BINANCE:
+      case SwapType.ERC20_EQTY:
         return 'blue';
       case SwapType.BINANCE_MAIN:
       case SwapType.BEP20_MAIN:
+      case SwapType.BEP20_EQTY:
         return 'yellow';
       case SwapType.MAIN_ERC20:
       case SwapType.MAIN_BINANCE:
       case SwapType.MAIN_BINANCEEXCHANGE:
       case SwapType.MAIN_BEP20:
+      case SwapType.MAIN_EQTY:
         return 'purple';
     }
   }
@@ -79,6 +89,10 @@ export class ExampleComponent implements OnInit {
         return 'BEP-20';
       case SwapType.MAIN_ERC20:
         return 'ERC-20';
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return 'EQTY';
     }
   }
 
@@ -95,6 +109,10 @@ export class ExampleComponent implements OnInit {
         return 'yellow';
       case SwapType.MAIN_ERC20:
         return 'blue';
+      case SwapType.MAIN_EQTY:
+      case SwapType.ERC20_EQTY:
+      case SwapType.BEP20_EQTY:
+        return 'cyan';
     }
   }
 

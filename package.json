@@ -4,6 +4,7 @@
   "scripts": {
     "server": "json-server ./mock-data/lto-bridge.json --port 3000",
     "start": "concurrently --kill-others-on-fail \"npm:server\" \"ng serve --configuration=local\" -n \"server|app\" --name-separator \"|\"",
+    "dev": "ng serve --configuration=local",
     "build": "ng build",
     "build:testnet": "ng build \"--configuration=testnet\"",
     "build:mainnet": "ng build \"--configuration=mainnet\"",

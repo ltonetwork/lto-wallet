@@ -5,7 +5,7 @@ import { map, shareReplay, tap } from 'rxjs/operators';
 import { LTO_BRIDGE_HOST } from '@app/tokens';
 import { SwapTokenType } from '@app/bridge/bridge-swap/swap-type';
 
-export type TokenType = 'LTO' | 'LTO20' | 'WAVES' | 'BINANCE' | 'BSC';
+export type TokenType = 'LTO' | 'LTO20' | 'WAVES' | 'BINANCE' | 'BSC' | 'EQTY';
 
 interface BridgeCache {
   deposit: Record<string, string>;

@@ -160,6 +160,17 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
 
   private _subscriptions = new Subscription();
 
+  private _contractAddresses: string[] = [];
+
+  private notBridgeContractValidator: ValidatorFn = (ctrl: AbstractControl) => {
+    const value: string = (ctrl.value || '').toString().trim().toLowerCase();
+    if (!value) return null;
+    if (this._contractAddresses.includes(value)) {
+      return { bridgeContractAddress: true };
+    }
+    return null;
+  };
+
   get cannotSend(): boolean {
     return !this.confirmed || (this.shouldShowCaptcha && !this.captchaResponse);
   }
@@ -192,7 +203,7 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
 
     this.shouldShowCaptcha = !!this._recaptchaSettings.siteKey;
 
-    const addressValidators: ValidatorFn[] = [Validators.required];
+    const addressValidators: ValidatorFn[] = [Validators.required, this.notBridgeContractValidator];
 
     this.bridgeFee$.pipe(take(1)).subscribe(fee => (this.BRIDGE_MINIMAL_FEE = fee));
 
@@ -217,6 +228,19 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
         }
       });
     }
+
+    // Load bridge info to collect contract addresses and update validator
+    this._subscriptions.add(
+      this._bridge.info$.pipe(take(1)).subscribe(info => {
+        const contracts = (info && info.contracts) || {} as Record<string, string | null>;
+        this._contractAddresses = Object.values(contracts)
+          .filter((v): v is string => typeof v === 'string' && !!v && v.toLowerCase() !== 'n/a')
+          .map(v => v.toLowerCase());
+        if (this.withdrawForm) {
+          this.withdrawForm.controls.address.updateValueAndValidity();
+        }
+      })
+    );
 
     this.withdrawForm = new UntypedFormGroup({
       amount: new UntypedFormControl(
@@ -364,6 +388,10 @@ export class WithdrawFormComponent implements OnInit, OnDestroy {
     if (addressCtrl.dirty && addressCtrl.errors) {
       if (addressCtrl.errors.invalidAddress) {
         errors.push('Invalid address');
+      }
+
+      if (addressCtrl.errors.bridgeContractAddress) {
+        errors.push('Do not enter the token contract address. Please provide your wallet address.');
       }
 
       if (addressCtrl.errors.required) {

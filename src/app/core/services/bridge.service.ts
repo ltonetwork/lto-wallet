@@ -29,6 +29,15 @@ interface BurnFees {
   binance: number;
 }
 
+interface BridgeInfo {
+  name: string;
+  version: string;
+  description: string;
+  env: string;
+  accounts?: Record<string, string | null>;
+  contracts?: Record<string, string | null>;
+}
+
 @Injectable({ providedIn: 'root' })
 export class BridgeService {
   readonly STORAGE_KEY = '__bridge__';
@@ -38,6 +47,7 @@ export class BridgeService {
   burnFees$: Observable<BurnFees>;
 
   bridgeStats$: Observable<BridgeStats>;
+  info$: Observable<BridgeInfo>;
   private cache: BridgeCache;
 
   constructor(@Inject(LTO_BRIDGE_HOST) private ltoBridgeHost: string, private http: HttpClient) {
@@ -53,8 +63,11 @@ export class BridgeService {
       binance: Math.round(stats.volume.binance.burn_fee / 100000000)
     })));
 
+    this.info$ = http.get<BridgeInfo>(`${this.ltoBridgeHost}/info`).pipe(shareReplay(1));
+
     // Make it hot
     this.bridgeStats$.subscribe();
+    this.info$.subscribe();
   }
 
   private swapTokenTypeToTokenType(swapTokenType: TokenType | SwapTokenType): TokenType {

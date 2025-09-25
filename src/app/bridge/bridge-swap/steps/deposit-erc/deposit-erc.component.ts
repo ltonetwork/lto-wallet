@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { BridgeService, etheriumAddressValidator, WalletService } from '../../../../core';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { BridgeService, etheriumAddressValidator, WalletService } from '@app/core';
+import { catchError, switchMap, tap, take } from 'rxjs/operators';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { SwapTokenType, SwapType } from '../../swap-type';
 import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
@@ -102,6 +102,17 @@ export class DepositErcComponent implements OnInit {
 
   addressPlaceholder!: string;
 
+  private _contractAddresses: string[] = [];
+
+  private notBridgeContractValidator: ValidatorFn = (ctrl: AbstractControl) => {
+    const value: string = (ctrl.value || '').toString().trim().toLowerCase();
+    if (!value) return null;
+    if (this._contractAddresses.includes(value)) {
+      return { bridgeContractAddress: true };
+    }
+    return null;
+  };
+
   constructor(
     private _bridge: BridgeService,
     private _wallet: WalletService,
@@ -110,7 +121,7 @@ export class DepositErcComponent implements OnInit {
 
   ngOnInit() {
     this.addressPlaceholder = this.swapType === SwapType.ERC20_EQTY || SwapType.BEP20_EQTY ? 'BASE' : this.toTokenType;
-    const addressValidators: ValidatorFn[] = [Validators.required];
+    const addressValidators: ValidatorFn[] = [Validators.required, this.notBridgeContractValidator];
 
     this.shouldShowCaptcha = !!this._recaptchaSettings.siteKey;
 
@@ -138,6 +149,15 @@ export class DepositErcComponent implements OnInit {
 
     this.depositForm = new UntypedFormGroup({
       address: new UntypedFormControl('', addressValidators)
+    });
+
+    // Populate contract addresses for validator
+    this._bridge.info$.pipe(take(1)).subscribe(info => {
+      const contracts = (info && info.contracts) || {} as Record<string, string | null>;
+      this._contractAddresses = Object.values(contracts)
+        .filter((v): v is string => typeof v === 'string' && !!v && v.toLowerCase() !== 'n/a')
+        .map(v => v.toLowerCase());
+      this.depositForm.controls.address.updateValueAndValidity();
     });
 
     // Initialize state based on flow
@@ -206,6 +226,10 @@ export class DepositErcComponent implements OnInit {
     if (addressCtrl.dirty && addressCtrl.errors) {
       if (addressCtrl.errors.invalidAddress) {
         errors.push('Invalid address');
+      }
+
+      if (addressCtrl.errors.bridgeContractAddress) {
+        errors.push('Do not enter the token contract address. Please provide your wallet address.');
       }
 
       if (addressCtrl.errors.required) {

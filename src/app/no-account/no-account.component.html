@@ -3,25 +3,18 @@
     <mat-card-content>
       <div class="message">
         <div class="img"><img src="assets/reqdemo.png" alt="" /></div>
-        <h1>Welcome to LTO Network!</h1>
-        <h2>Let’s start with setting up your wallet...</h2>
-      </div>
-      <div class="buttons">
-        <div class="narrow" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
-          <a fxFlex="1 1 50" fxFlex.xs="none" mat-flat-button color="primary" routerLink="../create-account">Create account</a>
-          <a fxFlex="1 1 50" fxFlex.xs="none" mat-stroked-button color="primary" routerLink="../import-account">Import account</a>
+        <h1>LTO Network is shutting down</h1>
+        <h2>The store continues on Base network as EQTY</h2>
+        <div>
+          <a href="https://blog.ltonetwork.com/a-new-chapter-for-lto-network-transition-to-base-and-a-dao-driven-future/">Read more about the migration to EQTY</a>
         </div>
-        <div class="label">or sign in with</div>
-        <div class="inner" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
-          <button fxFlex="1 1 33" fxFlex.xs="none" mat-button (click)="mobileLogin()">
-            Universal wallet
-          </button>
-          <button fxFlex="1 1 33" fxFlex.xs="none" mat-button (click)="ledgerLogin()">
-            Ledger
-          </button>
-          <button fxFlex="1 1 33" fxFlex.xs="none" mat-button (click)="walletConnectLogin()">
-            WalletConnect
-          </button>
+
+        <div role="alert" aria-live="assertive" style="display:flex; align-items:center; gap:8px; margin-top: 30px; padding:12px; border:1px solid #f44336; background:#ffebee; color:#b71c1c; border-radius:4px; margin-bottom:16px;">
+          <mat-icon color="warn" aria-hidden="true">error</mat-icon>
+          <div>
+            The LTO to EQTY <strong>swap period has ended</strong> on 31 October 23:59.
+            It's no longer possible to swap or trade LTO tokens.
+          </div>
         </div>
       </div>
     </mat-card-content>

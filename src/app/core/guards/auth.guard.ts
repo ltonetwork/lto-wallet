@@ -18,7 +18,7 @@ export class AuthGuard  {
     return combineLatest(this.auth.authenticated$, this.auth.availableAccounts$).pipe(
       tap(([authenticated, accounts]) => {
         if (!authenticated) {
-          const page = accounts.length ? 'signin' : 'start';
+          const page = /*accounts.length ? 'signin' :*/ 'start';
           this.router.navigate(['/', page]);
         }
       }),

@@ -434,12 +434,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:^19.2.6":
-  version: 19.2.7
-  resolution: "@angular/compiler@npm:19.2.7"
+"@angular/compiler@npm:^19.2.18":
+  version: 19.2.18
+  resolution: "@angular/compiler@npm:19.2.18"
   dependencies:
     tslib: ^2.3.0
-  checksum: 23ffdd42cd8e0425fed0bc33d5b7cebfe22134434438fae6a313d0b3995d94baf5e97c7f4569a6122b51ca754bfa2d189560b0746899060a7f7c9bf9ee64e752
+  checksum: 618bb601a156c07db76ef016407231037c14a96fa82ca51ba1324fdeaafaf040a2b9b7925f4e27dab05223ab6daf19f91f2d49478943684ee9bc0841786d4f11
   languageName: node
   linkType: hard
 
@@ -9059,7 +9059,7 @@ __metadata:
     "@angular/cdk": ^19.2.6
     "@angular/cli": ^19.2.6
     "@angular/common": ^19.2.6
-    "@angular/compiler": ^19.2.6
+    "@angular/compiler": ^19.2.18
     "@angular/compiler-cli": ^19.2.6
     "@angular/core": ^19.2.6
     "@angular/flex-layout": ^15.0.0-beta.42
@@ -12412,7 +12412,7 @@ __metadata:
 
 "typescript@patch:typescript@^5.8.3#~builtin<compat/typescript>":
   version: 5.8.3
-  resolution: "typescript@patch:typescript@npm%3A5.8.3#~builtin<compat/typescript>::version=5.8.3&hash=f3b441"
+  resolution: "typescript@patch:typescript@npm%3A5.8.3#~builtin<compat/typescript>::version=5.8.3&hash=b45daf"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver

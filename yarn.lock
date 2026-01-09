@@ -443,15 +443,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/core@npm:^19.2.6":
-  version: 19.2.7
-  resolution: "@angular/core@npm:19.2.7"
+"@angular/core@npm:^19.2.18":
+  version: 19.2.18
+  resolution: "@angular/core@npm:19.2.18"
   dependencies:
     tslib: ^2.3.0
   peerDependencies:
     rxjs: ^6.5.3 || ^7.4.0
     zone.js: ~0.15.0
-  checksum: a8344132d746f82aa5f2eb9246edb88d6a638db9d248322bcc6d4b6eed164f7394ddc425c8ac9aa5e48ede388363b316024695b767de2f13240f6cb743a506c8
+  checksum: 27e5c4647c26f8c6ae6550405a019f89b66fd46bfd4744e6c935f265b0de02dc131380ddd152e48d99577ac19e3f9f6650d783cfc364d72c6ffc37742e34deef
   languageName: node
   linkType: hard
 
@@ -9061,7 +9061,7 @@ __metadata:
     "@angular/common": ^19.2.6
     "@angular/compiler": ^19.2.6
     "@angular/compiler-cli": ^19.2.6
-    "@angular/core": ^19.2.6
+    "@angular/core": ^19.2.18
     "@angular/flex-layout": ^15.0.0-beta.42
     "@angular/forms": ^19.2.6
     "@angular/material": ^19.2.6
@@ -12412,7 +12412,7 @@ __metadata:
 
 "typescript@patch:typescript@^5.8.3#~builtin<compat/typescript>":
   version: 5.8.3
-  resolution: "typescript@patch:typescript@npm%3A5.8.3#~builtin<compat/typescript>::version=5.8.3&hash=f3b441"
+  resolution: "typescript@patch:typescript@npm%3A5.8.3#~builtin<compat/typescript>::version=5.8.3&hash=b45daf"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
